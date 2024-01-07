@@ -21,7 +21,7 @@
                 <div class="login__screen">
                     <div class="login__logo">
                         <a href="./index.jsp">
-                            <img src="https://vinfastauto.com/themes/porto/img/new-home-page/VinFast-logo.svg" alt="logo">
+                            <img src="./assets/img/logo4.png" alt="logo">
                         </a>
                     </div>
 
