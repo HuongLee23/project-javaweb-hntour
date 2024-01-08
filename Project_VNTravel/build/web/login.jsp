@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>TravelVN</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
@@ -21,7 +21,7 @@
                 <div class="login__screen">
                     <div class="login__logo">
                         <a href="./index.jsp">
-                            <img src="./assets/img/logo4.png" alt="logo">
+                            <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>
 
@@ -70,7 +70,7 @@
                                 </a>
                                 <span class="transfer__form-separate">
                                 </span>
-                                <a class="transfer__form-link2" href="home">
+                                <a class="transfer__form-link2" href="index.jsp">
                                     Trở lại
                                 </a>
                             </div>
@@ -97,20 +97,21 @@
                             <span aria-hidden="true">×</span>
                         </button>
 
-                        <img class="login-popup-logo" src="" alt="Vinfast - Logo" loading="lazy">
+                        <img class="login-popup-logo" src="./assets/img/logo.png" alt="TravelVN - Logo" loading="lazy">
                     </div>
                     <div class="modal-body">
                         <h6>Quên mật khẩu?</h6>
                         <form class="reset-password-form" action="sendEmail"  id="auth0ForgotPassword">
                             <div class="reset-password-body">
-                                <p class="reset-password-title">Quý khách vui lòng nhập email để yêu cầu đặt lại mật khẩu. VNTravel sẽ gửi mã xác nhận tới địa chỉ email này.</p>
+                                <p class="reset-password-title">Quý khách vui lòng nhập email để yêu cầu đặt lại mật khẩu. TravelVN sẽ gửi mã xác nhận tới địa chỉ email này.</p>
                                 <div class="form-group required">
-                                    <input id="emailForgotPassword" type="text" required="" class="form-control" name="loginEmail" aria-describedby="emailHelp" data-missing-error="Vui lòng nhập email." data-pattern-mismatch="Vui lòng nhập email hợp lệ." ata-range-error="Vui lòng nhập ít hơn 50 ký tự." pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" placeholder="Nhập email của bạn.">
+                                    <input type="number" hidden value="1" name="loginEmail">
+                                    <input id="emailForgotPassword" type="text" required="" class="form-control" name="sendEmail" aria-describedby="emailHelp" data-missing-error="Vui lòng nhập email." data-pattern-mismatch="Vui lòng nhập email hợp lệ." ata-range-error="Vui lòng nhập ít hơn 50 ký tự." pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" placeholder="Nhập email của bạn.">
                                     <div class="invalid-feedback" id="emailForgotPasswordFeedback"></div>
                                 </div>
                             </div>
                             <div class="send-email-btn">
-                                <button type="submit" class="btn btn-primary" onclick="showForgotPasswordModal()" >Gửi mã xác minh</button>
+                                <button type="submit" class="btn btn-primary" >Gửi mã xác minh</button>
                             </div>
                         </form>
                     </div>
@@ -118,40 +119,6 @@
             </div>
         </div>
         <!---------------------------------------------------------------------->                   
-
-
-        <!--Enter the verification code sent from email-->
-        <c:if test="${sessionScope.toEmail != null}" >
-            <div style="display: block" class="modal" id="authenEmailModal">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <!--                            <button type="button" class="close-modal" onclick="hideForgotPasswordModal()" aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                        </button>-->
-
-                            <img class="login-popup-logo" src="" alt="Vinfast - Logo" loading="lazy">
-                        </div>
-                        <div class="modal-body">
-                            <h6>Nhập mã xác thực</h6>
-                            <form class="reset-password-form" action="sendEmail" method="POST">
-                                <div class="reset-password-body">
-                                    <p class="reset-password-title">Quý khách vui lòng nhập mã xác thực để yêu cầu đặt lại mật khẩu. VNTravel sẽ xác nhận mã đã gửi tới email.</p>
-                                    <div class="form-group required">
-                                        <input id="emailForgotPassword" type="text" required="" class="form-control" name="codeEmail" pattern="[0-9]+" placeholder="Xác thực mã">
-                                        <div class="invalid-feedback" id="emailForgotPasswordFeedback"></div>
-                                    </div>
-                                </div>
-                                <div class="send-email-btn">
-                                    <button type="submit" class="btn btn-primary" >Nhập mã xác minh</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:if>
-        <!----------------------------------------------------------------------> 
 
 
         <script>

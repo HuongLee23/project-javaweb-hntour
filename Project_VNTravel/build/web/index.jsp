@@ -11,11 +11,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>TravelVN</title>
     </head>
     <body>
         <c:set value="${sessionScope.account}" var="a"/>
-        <h1>VNTravel</h1>
+        <h1>TravelVN</h1>
         <c:if test="${sessionScope.account == null}" >
             <h3><a href="./login.jsp">login</a>|<a href="./register.jsp">register</a></h3>
         </c:if>

@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>TravelVN</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
@@ -18,9 +18,9 @@
             <div class="all__screen">
 
                 <div class="login__screen" style="height: 717px">
-                    <div class="login__logo">
+                    <div  class="login__logo">
                         <a href="./index.jsp">
-                            <img src="https://vinfastauto.com/themes/porto/img/new-home-page/VinFast-logo.svg" alt="logo">
+                            <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>
 
@@ -37,7 +37,7 @@
                     <div class="login__body">
                         <form action="changepassword" method="post">
                             <div class="login__form">
-                                <input class="login__input" type="email" pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" name="email" value="${sessionScope.ageEmail}" placeholder=" " required>
+                                <input class="login__input" type="email" pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" name="email" value="${sessionScope.sendEmail}" placeholder=" " required>
                                 <label class="login__label" for="email">Email *</label>
                             </div>
                             <div class="login__form">

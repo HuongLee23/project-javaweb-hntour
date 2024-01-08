@@ -62,29 +62,50 @@ public class SendEmailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String toEmail = request.getParameter("loginEmail");
+        String role_raw = request.getParameter("loginEmail").trim();
+        String sendEmail = request.getParameter("sendEmail").trim();
 
         SendEmail send = new SendEmail();
         Random random = new Random();
         HttpSession session = request.getSession();
 
-        int randomNumber = 100000 + random.nextInt(900000);
-        String toCode = String.valueOf(randomNumber);
+        try {
+            int role = Integer.parseInt(role_raw);
+            int randomNumber = 100000 + random.nextInt(900000);
+            String fromCode = String.valueOf(randomNumber);
+
+            if (sendEmail != null) {
+                send.sendMailForCusBuy(sendEmail, randomNumber);
+            }
+
+            session.setAttribute("sendEmail", sendEmail);
+            session.setAttribute("fromCode", fromCode);
+            session.setAttribute("role", role);
+            String message;
+            if (role == 1) {
+                message = "Quý khách vui lòng nhập mã xác thực để yêu cầu đặt lại mật khẩu. TravelVN sẽ xác nhận mã đã gửi tới email.";
+                request.setAttribute("message", message);
+                request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
+            } else {
+                message = "Quý khách vui lòng nhập mã xác thực để yêu cầu tạo tài khoản. TravelVN sẽ xác nhận mã đã gửi tới email.";
+                request.setAttribute("message", message);
+                request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid value!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
 
 //        Cookie ageEmail = new Cookie("ageEmail", toEmail);
 //        Cookie ageCode = new Cookie("ageCode", toCode);
-        if (toEmail != null) {
-            send.sendMailForCusBuy(toEmail, randomNumber);
-//            ageEmail.setMaxAge(60);
-//            ageCode.setMaxAge(60);
-        }
+//        if (toEmail != null) {
+//            send.sendMailForCusBuy(toEmail, randomNumber);
+////            ageEmail.setMaxAge(60);
+////            ageCode.setMaxAge(60);
+//        }
 //        response.addCookie(ageEmail);
 //        response.addCookie(ageCode);
-
 //        request.setAttribute("ageEmail", ageEmail);
-        session.setAttribute("toEmail", toEmail);
-        session.setAttribute("toCode", toCode);
-        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**
@@ -98,7 +119,7 @@ public class SendEmailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 //        String toEmail = request.getParameter("loginEmail");
 //
 //        SendEmail send = new SendEmail();
@@ -122,22 +143,39 @@ public class SendEmailServlet extends HttpServlet {
 //        session.setAttribute("ageCode", ageCode);
 //        request.getRequestDispatcher("login.jsp").forward(request, response);
 
-        String codeEmail_raw = request.getParameter("codeEmail");
+        String toCode_raw = request.getParameter("toCode").trim();
+
         HttpSession session = request.getSession();
-        String ageCode_raw = (String) session.getAttribute("toCode");
-        String ageEmail = (String) session.getAttribute("toEmail");
+        String fromCode_raw = (String) session.getAttribute("fromCode");
+        String sendEmail = (String) session.getAttribute("sendEmail");
+        int role = (int) session.getAttribute("role");
 
         try {
-            int codeEmail = Integer.parseInt(codeEmail_raw.trim());
-            int ageCode = Integer.parseInt(ageCode_raw.trim());
-            if (codeEmail == ageCode) {
-                session.setAttribute("ageEmail", ageEmail);
-                response.sendRedirect("changepassword.jsp");
+            int toCode = Integer.parseInt(toCode_raw);
+            int fromCode = Integer.parseInt(fromCode_raw.trim());
+            if (toCode == fromCode) {
+                if (role == 1) {
+
+                    // Xác nhận mã thành công để chuyển sang trang thay đổi mật khẩu
+                    request.setAttribute("sendEmail", sendEmail);
+                    request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+                } else {
+
+                    // Xác nhận mã thành công để tạo tài khoản
+                    request.setAttribute("sendEmail", sendEmail);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
             } else {
-                session.setAttribute("ageEmail", ageEmail);
-                response.sendRedirect("login.jsp");
+
+                //Mã không khớp thì gửi lỗi về bắt nhập lại
+                request.setAttribute("error", "Mã xác thực không khớp!");
+                request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
             }
         } catch (NumberFormatException e) {
+
+            //Mã không hợp lệ thì gửi lỗi về bắt nhập lại
+            request.setAttribute("error", "Mã xác thực không hợp lệ!");
+            request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
         }
 
     }

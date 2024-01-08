@@ -18,17 +18,25 @@
 
 .login__logo {
     width: 635px;
-    height: 15px;
+    height: 30px;
     padding: 15px;
     background-color: black;
 }
 
 .login__logo img {
     position: absolute;
-    top: -38px;
-    left: 272px;
-    width: 121px;
-    height: 121px;
+    top: -66px;
+    left: 260px;
+    width: 160px;
+    height: 212px;
+}
+
+.login-popup-logo{
+    position: absolute;
+    top: -68px;
+    left: 100px;
+    width: 200px;
+    height: 280px;
 }
 
 .login__header h1{
@@ -317,6 +325,7 @@
 }
 
 .modal-dialog {
+    height: 300px;
     position: absolute;
     margin: 0;
     left: 50%;
@@ -340,6 +349,10 @@
     justify-content: center;
     align-items: center;
 
+}
+
+.modal-content{
+    margin-top: 55px;
 }
 
 .modal-body h6 {
@@ -378,3 +391,4 @@
 }
 
 /*---------------------------------------------*/
+

@@ -17,17 +17,17 @@
 
 .login__logo {
     width: 635px;
-    height: 15px;
+    height: 30px;
     padding: 15px;
     background-color: black;
 }
 
 .login__logo img {
     position: absolute;
-    top: -38px;
-    left: 272px;
-    width: 121px;
-    height: 121px;
+    top: -66px;
+    left: 260px;
+    width: 160px;
+    height: 212px;
 }
 
 .login__header h1{
