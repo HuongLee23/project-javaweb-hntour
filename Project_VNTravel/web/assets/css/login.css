@@ -127,12 +127,15 @@
 }
 
 .login__remember{
-
+    position: absolute;
+    left: 140px;
 }
 
 
-.login__forgetpass{
-
+.login__forgetpass button{
+    position: absolute;
+    top: 304px;
+    left: 434px;
 }
 
 .login__forgetpass button:hover{
