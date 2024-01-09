@@ -75,7 +75,7 @@
                                     Bằng việc bấm nút Đăng ký bên dưới, 
                                     tôi xác nhận đã đọc, hiểu và đồng ý với
                                     các <a href="https://shop.vinfastauto.com/vn_vi/dieu-khoan-phap-ly.html">Điều kiện và Điều khoản</a>
-                                    của VNTravel.
+                                    của TravelVN.
                                 </p>
                             </div>
 

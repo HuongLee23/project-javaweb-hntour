@@ -37,11 +37,11 @@
                     <div class="login__body">
                         <form action="changepassword" method="post">
                             <div class="login__form">
-                                <input class="login__input" type="email" pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" name="email" value="${sessionScope.sendEmail}" placeholder=" " required>
+                                <input class="login__input" type="email" pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" name="email" value="${requestScope.sendEmail}" placeholder=" " required>
                                 <label class="login__label" for="email">Email *</label>
                             </div>
                             <div class="login__form">
-                                <input id="password1" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="pass" placeholder=" " required>
+                                <input id="password1" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="pass" value="${requestScope.oldPassword}" placeholder=" " required>
                                 <label class="login__label" for="pass">Nhập mật khẩu cũ *</label>
                                 <i id="eye-icon1" onclick="togglePassVisibility1()" class="fa fa-eye"></i>
                             </div>

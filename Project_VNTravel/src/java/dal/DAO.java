@@ -101,4 +101,38 @@ public class DAO extends DBContext {
         return false;
     }
 
+    /*
+        Check account exist by email
+     */
+    public boolean checkAccountExistByEmail(String email) {
+        String sql = "select * from Account where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    //Retrieve old password after authentication is completed
+    public String retrieveOldPasswordByEmail(String email) {
+        String sql = "select [password] from Account where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String oldPassword = rs.getString("password");
+                return oldPassword;
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+
 }

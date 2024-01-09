@@ -15,6 +15,6 @@ USE  VNTravel
 	[cmnd] [varchar](12) NULL,
 	);
 
-	select * from Account
+	select * from Account 
 
-
+	select * from Account where email = 'sonngocle160923@gmail.com'

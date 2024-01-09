@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.DAO;
 import dal.SendEmail;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -68,44 +69,41 @@ public class SendEmailServlet extends HttpServlet {
         SendEmail send = new SendEmail();
         Random random = new Random();
         HttpSession session = request.getSession();
+        DAO d = new DAO();
 
-        try {
-            int role = Integer.parseInt(role_raw);
-            int randomNumber = 100000 + random.nextInt(900000);
-            String fromCode = String.valueOf(randomNumber);
+        boolean checkExistAccount = d.checkAccountExistByEmail(sendEmail);
 
-            if (sendEmail != null) {
-                send.sendMailForCusBuy(sendEmail, randomNumber);
+        if (checkExistAccount) {
+            try {
+                int role = Integer.parseInt(role_raw);
+                int randomNumber = 100000 + random.nextInt(900000);
+                String fromCode = String.valueOf(randomNumber);
+
+                if (sendEmail != null) {
+                    send.sendMailForCusBuy(sendEmail, randomNumber);
+                }
+
+                session.setAttribute("sendEmail", sendEmail);
+                session.setAttribute("fromCode", fromCode);
+                session.setAttribute("role", role);
+                String message;
+                if (role == 1) {
+                    message = "Quý khách vui lòng nhập mã xác thực để yêu cầu đặt lại mật khẩu. TravelVN sẽ xác nhận mã đã gửi tới email.";
+                    request.setAttribute("message", message);
+                    request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
+                } else {
+                    message = "Quý khách vui lòng nhập mã xác thực để yêu cầu tạo tài khoản. TravelVN sẽ xác nhận mã đã gửi tới email.";
+                    request.setAttribute("message", message);
+                    request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
+                }
+            } catch (NumberFormatException e) {
+                request.setAttribute("error", "Mã xác thực không hợp lệ!");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-
-            session.setAttribute("sendEmail", sendEmail);
-            session.setAttribute("fromCode", fromCode);
-            session.setAttribute("role", role);
-            String message;
-            if (role == 1) {
-                message = "Quý khách vui lòng nhập mã xác thực để yêu cầu đặt lại mật khẩu. TravelVN sẽ xác nhận mã đã gửi tới email.";
-                request.setAttribute("message", message);
-                request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
-            } else {
-                message = "Quý khách vui lòng nhập mã xác thực để yêu cầu tạo tài khoản. TravelVN sẽ xác nhận mã đã gửi tới email.";
-                request.setAttribute("message", message);
-                request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
-            }
-        } catch (NumberFormatException e) {
-            request.setAttribute("error", "Invalid value!");
+        } else {
+            request.setAttribute("error", "Tài khoản này chưa được đăng ký!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-
-//        Cookie ageEmail = new Cookie("ageEmail", toEmail);
-//        Cookie ageCode = new Cookie("ageCode", toCode);
-//        if (toEmail != null) {
-//            send.sendMailForCusBuy(toEmail, randomNumber);
-////            ageEmail.setMaxAge(60);
-////            ageCode.setMaxAge(60);
-//        }
-//        response.addCookie(ageEmail);
-//        response.addCookie(ageCode);
-//        request.setAttribute("ageEmail", ageEmail);
     }
 
     /**
@@ -120,35 +118,14 @@ public class SendEmailServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-//        String toEmail = request.getParameter("loginEmail");
-//
-//        SendEmail send = new SendEmail();
-//        Random random = new Random();
-//        HttpSession session = request.getSession();
-//
-//        int randomNumber = 100000 + random.nextInt(900000);
-//        String toCode = String.valueOf(randomNumber);
-//
-//        Cookie ageEmail = new Cookie("ageEmail", toEmail);
-//        Cookie ageCode = new Cookie("ageCode", toCode);
-//        if (toEmail != null) {
-//            send.sendMailForCusBuy(toEmail, randomNumber);
-//            ageEmail.setMaxAge(60);
-//            ageCode.setMaxAge(60);
-//        }
-//        response.addCookie(ageEmail);
-//        response.addCookie(ageCode);
-//
-//        request.setAttribute("ageEmail", ageEmail);
-//        session.setAttribute("ageCode", ageCode);
-//        request.getRequestDispatcher("login.jsp").forward(request, response);
-
         String toCode_raw = request.getParameter("toCode").trim();
 
         HttpSession session = request.getSession();
         String fromCode_raw = (String) session.getAttribute("fromCode");
         String sendEmail = (String) session.getAttribute("sendEmail");
         int role = (int) session.getAttribute("role");
+
+        DAO d = new DAO();
 
         try {
             int toCode = Integer.parseInt(toCode_raw);
@@ -157,6 +134,9 @@ public class SendEmailServlet extends HttpServlet {
                 if (role == 1) {
 
                     // Xác nhận mã thành công để chuyển sang trang thay đổi mật khẩu
+                    String oldPassword = d.retrieveOldPasswordByEmail(sendEmail);
+
+                    request.setAttribute("oldPassword", oldPassword);
                     request.setAttribute("sendEmail", sendEmail);
                     request.getRequestDispatcher("changepassword.jsp").forward(request, response);
                 } else {

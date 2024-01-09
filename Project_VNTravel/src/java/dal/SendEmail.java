@@ -48,14 +48,14 @@ public class SendEmail {
         });
 
         try {
-            String emailContent = "VNTravel\n"
+            String emailContent = "TravelVN\n"
                     + "\n"
                     + "Kính gửi:\n"
                     + "Quý khách\n"
-                    + "VNTravel đã nhận được yêu cầu của Quý khách về việc xác minh tài khoản để đặt lại mật khẩu.\n"
+                    + "TravelVN đã nhận được yêu cầu của Quý khách về việc xác minh tài khoản để đặt lại mật khẩu.\n"
                     + "Để đặt lại mật khẩu. Quý khách vui lòng nhập lại mã xác minh sau:\n"
                     + "\t\t\t\t\t\t" + randomNumber + "\n"
-                    + "VNTravel hân hạnh được phục vụ Quý khách.\n"
+                    + "TravelVN hân hạnh được phục vụ Quý khách.\n"
                     + "Trân trọng!";
 
             Multipart multipart = new MimeMultipart();
@@ -68,7 +68,7 @@ public class SendEmail {
             message.addRecipient(
                     Message.RecipientType.TO,
                     new InternetAddress(email));
-            message.setSubject("VNTravel");
+            message.setSubject("TravelVN");
 //            message.setText(content);
             message.setContent(multipart);
 
