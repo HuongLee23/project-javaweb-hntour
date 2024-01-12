@@ -63,8 +63,11 @@ public class SendEmailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String role_raw = request.getParameter("loginEmail").trim();
-        String sendEmail = request.getParameter("sendEmail").trim();
+        String role_raw = request.getParameter("roleEmail").trim();
+        String sendEmail = request.getParameter("email").trim();
+        String registerUser = request.getParameter("user");
+        String registerPass = request.getParameter("pass");
+        String registerRepass = request.getParameter("repass");
 
         SendEmail send = new SendEmail();
         Random random = new Random();
@@ -73,36 +76,52 @@ public class SendEmailServlet extends HttpServlet {
 
         boolean checkExistAccount = d.checkAccountExistByEmail(sendEmail);
 
-        if (checkExistAccount) {
-            try {
-                int role = Integer.parseInt(role_raw);
-                int randomNumber = 100000 + random.nextInt(900000);
-                String fromCode = String.valueOf(randomNumber);
+        try {
+            int role = Integer.parseInt(role_raw);
+            int randomNumber = 100000 + random.nextInt(900000);
+            String fromCode = String.valueOf(randomNumber);
 
-                if (sendEmail != null) {
-                    send.sendMailForCusBuy(sendEmail, randomNumber);
-                }
+            session.setAttribute("fromCode", fromCode);
+            session.setAttribute("role", role);
 
-                session.setAttribute("sendEmail", sendEmail);
-                session.setAttribute("fromCode", fromCode);
-                session.setAttribute("role", role);
-                String message;
-                if (role == 1) {
+            String message, messageEmail;
+
+            //Xác định role để biết là gửi mã xác thực cho đăng ký hay forget password của login
+            if (role == 1) {
+
+                //Check xem tài khoản đã đăng ký hay chưa để cho phép thay đổi password
+                if (checkExistAccount) {
+                    messageEmail = "TravelVN đã nhận được yêu cầu của Quý khách về việc xác minh mã để đặt lại mật khẩu.";
+                    send.sendMailForCusBuy(sendEmail, randomNumber, messageEmail);
                     message = "Quý khách vui lòng nhập mã xác thực để yêu cầu đặt lại mật khẩu. TravelVN sẽ xác nhận mã đã gửi tới email.";
+                    session.setAttribute("sendEmail", sendEmail);
                     request.setAttribute("message", message);
                     request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
                 } else {
-                    message = "Quý khách vui lòng nhập mã xác thực để yêu cầu tạo tài khoản. TravelVN sẽ xác nhận mã đã gửi tới email.";
+                    request.setAttribute("error", "Tài khoản này chưa được đăng ký!");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                }
+            } else if (role == 2) {
+
+                //Check xem tài khoản đã đăng ký hay chưa để cho phép mở tài khoản
+                if (checkExistAccount) {
+                    request.setAttribute("error", "Tài khoản này đã đăng ký!");
+                    request.getRequestDispatcher("register.jsp").forward(request, response);
+                } else {
+                    messageEmail = "TravelVN đã nhận được yêu cầu của Quý khách về việc xác minh mã để mở tài khoản.";
+                    send.sendMailForCusBuy(sendEmail, randomNumber, messageEmail);
+                    message = "Quý khách vui lòng nhập mã xác thực để yêu cầu mở tài khoản. TravelVN sẽ xác nhận mã đã gửi tới email.";
+
+                    session.setAttribute("sendEmail", sendEmail);
+                    session.setAttribute("registerUser", registerUser);
+                    session.setAttribute("registerPass", registerPass);
+                    session.setAttribute("registerRepass", registerRepass);
+
                     request.setAttribute("message", message);
                     request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
                 }
-            } catch (NumberFormatException e) {
-                request.setAttribute("error", "Mã xác thực không hợp lệ!");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-        } else {
-            request.setAttribute("error", "Tài khoản này chưa được đăng ký!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
         }
     }
 
@@ -142,8 +161,16 @@ public class SendEmailServlet extends HttpServlet {
                 } else {
 
                     // Xác nhận mã thành công để tạo tài khoản
-                    request.setAttribute("sendEmail", sendEmail);
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    String registerEmail = (String) session.getAttribute("sendEmail");
+                    String registerUser = (String) session.getAttribute("registerUser");
+                    String registerPass = (String) session.getAttribute("registerPass");
+                    String registerRepass = (String) session.getAttribute("registerRepass");
+
+                    session.setAttribute("registerEmail", registerEmail);
+                    session.setAttribute("registerUser", registerUser);
+                    session.setAttribute("registerPass", registerPass);
+                    session.setAttribute("registerRepass", registerRepass);
+                    response.sendRedirect("account");
                 }
             } else {
 

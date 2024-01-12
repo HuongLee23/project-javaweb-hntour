@@ -17,4 +17,8 @@ USE  VNTravel
 
 	select * from Account 
 
-	select * from Account where email = 'sonngocle160923@gmail.com'
+
+
+	select [password] from Account where email = 'sonngocle160923@gmail.com'
+
+	DELETE FROM [dbo].[Account] WHERE email = 'sonngocle160923@gmail.com'

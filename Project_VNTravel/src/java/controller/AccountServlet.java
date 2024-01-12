@@ -75,20 +75,27 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pass");
-        String repass = request.getParameter("repass");
-        String rem = request.getParameter("rem");
-
-        int role = 0;
         DAO d = new DAO();
         HttpSession session = request.getSession();
-        if (email != null && user != null && pass != null && repass != null) {
-            if (pass.equals(repass)) {
-                boolean result = d.registerAccount(email, user, pass, role);
+
+        // Thông tin for login
+        String email = request.getParameter("email");
+        String pass = request.getParameter("pass");
+        String rem = request.getParameter("rem");
+
+        // Thông tin for register(lỗi khi tôi đang ký xong khi sửa đường link từ index.jsp ở trang home thành login.jsp thì nó lại chạy về account mà account lại vừa là đăng ký vừa là login lên nó vẫn còn cái session của đăng lên bị lỗi tưởng là đăng ký hai lần)
+        String registerEmail = (String) session.getAttribute("registerEmail");
+        String registerUser = (String) session.getAttribute("registerUser");
+        String registerPass = (String) session.getAttribute("registerPass");
+        String registerRepass = (String) session.getAttribute("registerRepass");
+
+        int role = 0;
+
+        if (registerEmail != null && registerUser != null && registerPass != null && registerRepass != null) {
+            if (registerPass.equals(registerRepass)) {
+                boolean result = d.registerAccount(registerEmail, registerUser, registerPass, role);
                 if (result) {
-                    Account a = d.loginAccount(email, pass);
+                    Account a = d.loginAccount(registerEmail, registerPass);
                     session.setAttribute("account", a);
                     response.sendRedirect("index.jsp");
                 } else {
@@ -122,8 +129,7 @@ public class AccountServlet extends HttpServlet {
                 response.addCookie(crem);
 
 //                response.sendRedirect("home");
-
-                 response.sendRedirect("index.jsp");
+                response.sendRedirect("index.jsp");
             } else {
                 request.setAttribute("error", "Email hoặc mật khẩu không đúng. Vui lòng thử lại.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);

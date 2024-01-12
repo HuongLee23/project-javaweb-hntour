@@ -24,7 +24,7 @@ import javax.mail.internet.MimeMultipart;
  */
 public class SendEmail {
 
-    public boolean sendMailForCusBuy(String email, int randomNumber) {
+    public boolean sendMailForCusBuy(String email, int randomNumber, String messageEmail) {
         final String username = "vntraveltouring@gmail.com";
         final String password = "tsbe wzlc rold wikt";
 
@@ -52,8 +52,8 @@ public class SendEmail {
                     + "\n"
                     + "Kính gửi:\n"
                     + "Quý khách\n"
-                    + "TravelVN đã nhận được yêu cầu của Quý khách về việc xác minh tài khoản để đặt lại mật khẩu.\n"
-                    + "Để đặt lại mật khẩu. Quý khách vui lòng nhập lại mã xác minh sau:\n"
+                    + messageEmail + "\n"
+                    + "Quý khách vui lòng nhập lại mã xác minh sau:\n"
                     + "\t\t\t\t\t\t" + randomNumber + "\n"
                     + "TravelVN hân hạnh được phục vụ Quý khách.\n"
                     + "Trân trọng!";

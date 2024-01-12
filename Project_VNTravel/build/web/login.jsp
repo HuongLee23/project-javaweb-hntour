@@ -105,8 +105,8 @@
                             <div class="reset-password-body">
                                 <p class="reset-password-title">Quý khách vui lòng nhập email để yêu cầu đặt lại mật khẩu. TravelVN sẽ gửi mã xác nhận tới địa chỉ email này.</p>
                                 <div class="form-group required">
-                                    <input type="number" hidden value="1" name="loginEmail">
-                                    <input id="emailForgotPassword" type="text" required="" class="form-control" name="sendEmail" aria-describedby="emailHelp" data-missing-error="Vui lòng nhập email." data-pattern-mismatch="Vui lòng nhập email hợp lệ." ata-range-error="Vui lòng nhập ít hơn 50 ký tự." pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" placeholder="Nhập email của bạn.">
+                                    <input type="number" hidden value="1" name="roleEmail">
+                                    <input id="emailForgotPassword" type="text" required="" class="form-control" name="email" aria-describedby="emailHelp" data-missing-error="Vui lòng nhập email." data-pattern-mismatch="Vui lòng nhập email hợp lệ." ata-range-error="Vui lòng nhập ít hơn 50 ký tự." pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" placeholder="Nhập email của bạn.">
                                     <div class="invalid-feedback" id="emailForgotPasswordFeedback"></div>
                                 </div>
                             </div>

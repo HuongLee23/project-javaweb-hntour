@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="login__body">
-                        <form action="account" method="post">
+                        <form action="sendEmail" method="get">
                             <div class="login__form">
                                 <input class="login__input" type="email" pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" name="email" placeholder=" " required>
                                 <label class="login__label" for="email">Email *</label>
@@ -54,8 +54,12 @@
                                 <input id="password2" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="repass" placeholder=" " required>
                                 <label class="login__label" for="repass">Nhập lại mật khẩu *</label>
                                 <i id="eye-icon2" onclick="togglePassVisibility2()" class="fa fa-eye"></i>
-
                             </div>
+
+                            <div>
+                                <input type="number" hidden value="2" name="roleEmail">
+                            </div>
+
 
                             <div class="login__error">
                                 ${requestScope.error}

@@ -86,7 +86,7 @@ public class ChangePasswordServlet extends HttpServlet {
             DAO d = new DAO();
             boolean result = d.changePassword(email, pass, newpass);
             if (result) {
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("login.jsp");
             } else {
                 request.setAttribute("error", "Email hoặc mật khẩu không hợp lệ. Vui lòng thử lại.");
                 request.getRequestDispatcher("changepassword.jsp").forward(request, response);
