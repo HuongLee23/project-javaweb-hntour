@@ -23,7 +23,7 @@
                             <div class="user_box_register user_box_link"><a href="register.jsp">register</a></div>
                         </c:if>
                         <c:if test="${a != null}">
-                            Hello ${a.username}
+                            <i class="fa-solid fa-user" style="color: #ffffff;"></i>
                         </c:if>
                     </div>
                 </div>
