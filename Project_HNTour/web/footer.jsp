@@ -127,8 +127,8 @@
                             <li class="footer_nav_item"><a href="index.jsp">home</a></li>
                             <li class="footer_nav_item"><a href="aboutUs.jsp">about us</a></li>
                             <li class="footer_nav_item"><a href="offers.jsp">offers</a></li>
-                            <li class="footer_nav_item"><a href="blog.html">news</a></li>
-                            <li class="footer_nav_item"><a href="contact.html">contact</a></li>
+                            <li class="footer_nav_item"><a href="blogs.jsp">blogs</a></li>
+                            <!--<li class="footer_nav_item"><a href="contact.html">contact</a></li>-->
                         </ul>
                     </div>
                 </div>
