@@ -6,6 +6,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Header -->
+<link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+<script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
+
 
 <header class="header">
 
@@ -44,7 +47,7 @@
                         <ul class="main_nav_list">
                             <li class="main_nav_item"><a href="index.jsp">home</a></li>
                             <li class="main_nav_item"><a href="aboutUs.jsp">about us</a></li>
-                            <li class="main_nav_item"><a href="offers.html">offers</a></li>
+                            <li class="main_nav_item"><a href="offers.jsp">offers</a></li>
                             <li class="main_nav_item"><a href="blog.html">news</a></li>
                             <li class="main_nav_item"><a href="contact.html">contact</a></li>
                         </ul>

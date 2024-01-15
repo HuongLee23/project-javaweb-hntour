@@ -126,7 +126,7 @@
                         <ul class="footer_nav_list">
                             <li class="footer_nav_item"><a href="index.jsp">home</a></li>
                             <li class="footer_nav_item"><a href="aboutUs.jsp">about us</a></li>
-                            <li class="footer_nav_item"><a href="offers.html">offers</a></li>
+                            <li class="footer_nav_item"><a href="offers.jsp">offers</a></li>
                             <li class="footer_nav_item"><a href="blog.html">news</a></li>
                             <li class="footer_nav_item"><a href="contact.html">contact</a></li>
                         </ul>

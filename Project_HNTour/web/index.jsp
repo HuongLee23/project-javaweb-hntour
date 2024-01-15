@@ -33,7 +33,7 @@
             <!-- Header -->
             <jsp:include page="header.jsp"></jsp:include>
 
-                <div class="menu trans_500">
+<!--                <div class="menu trans_500">
                     <div class="menu_content d-flex flex-column align-items-center justify-content-center text-center">
                         <div class="menu_close_container"><div class="menu_close"></div></div>
                         <div class="logo menu_logo"><a href="#"><img src="images/logo.png" alt=""></a></div>
@@ -45,7 +45,7 @@
                             <li class="menu_item"><a href="contact.html">contact</a></li>
                         </ul>
                     </div>
-                </div>
+                </div>-->
 
                 <!-- Home -->
 
