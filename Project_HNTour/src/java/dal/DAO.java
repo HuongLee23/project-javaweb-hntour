@@ -51,6 +51,7 @@ public class DAO extends DBContext {
      */
     public Account loginAccount(String email, String password) {
         String sql = "SELECT [id]\n"
+                + "      ,[avatar]\n"
                 + "      ,[email]\n"
                 + "      ,[username]\n"
                 + "      ,[password]\n"
@@ -58,6 +59,7 @@ public class DAO extends DBContext {
                 + "      ,[address]\n"
                 + "      ,[phoneNumber]\n"
                 + "      ,[cmnd]\n"
+                + "      ,[status]\n"
                 + "  FROM [dbo].[Account]\n"
                 + "  Where [email] = ? and [password] = ?";
         try {
@@ -68,10 +70,11 @@ public class DAO extends DBContext {
             if (rs.next()) {
                 Account a = new Account(
                         rs.getInt("id"),
+                        rs.getString("avatar"),
                         rs.getString("email"), rs.getString("username"),
                         rs.getString("password"), rs.getInt("role"),
-                        rs.getString("address"),
-                        rs.getString("phoneNumber"), rs.getString("cmnd")
+                        rs.getString("address"), rs.getString("phoneNumber"),
+                        rs.getString("cmnd"), rs.getBoolean("status")
                 );
                 return a;
             }

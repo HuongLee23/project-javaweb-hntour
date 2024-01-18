@@ -89,7 +89,7 @@ public class AccountServlet extends HttpServlet {
         String registerPass = (String) session.getAttribute("registerPass");
         String registerRepass = (String) session.getAttribute("registerRepass");
 
-        int role = 0;
+        int role = 3;
 
         if (registerEmail != null && registerUser != null && registerPass != null && registerRepass != null) {
             if (registerPass.equals(registerRepass)) {

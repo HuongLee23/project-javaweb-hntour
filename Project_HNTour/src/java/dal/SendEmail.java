@@ -4,8 +4,8 @@
  */
 package dal;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
-import java.util.Random;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -17,6 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 /**
  *
@@ -24,7 +25,7 @@ import javax.mail.internet.MimeMultipart;
  */
 public class SendEmail {
 
-    public boolean sendMailForCusBuy(String email, int randomNumber, String messageEmail) {
+    public boolean sendMailForCusBuy(String email, int randomNumber, String messageEmail) throws UnsupportedEncodingException {
         final String username = "vntraveltouring@gmail.com";
         final String password = "tsbe wzlc rold wikt";
 
@@ -48,14 +49,14 @@ public class SendEmail {
         });
 
         try {
-            String emailContent = "TravelVN\n"
+            String emailContent = "Hà Nội Tour\n"
                     + "\n"
                     + "Kính gửi:\n"
                     + "Quý khách\n"
                     + messageEmail + "\n"
                     + "Quý khách vui lòng nhập lại mã xác minh sau:\n"
                     + "\t\t\t\t\t\t" + randomNumber + "\n"
-                    + "TravelVN hân hạnh được phục vụ Quý khách.\n"
+                    + "Hà Nội Tour hân hạnh được phục vụ Quý khách.\n"
                     + "Trân trọng!";
 
             Multipart multipart = new MimeMultipart();
@@ -68,17 +69,19 @@ public class SendEmail {
             message.addRecipient(
                     Message.RecipientType.TO,
                     new InternetAddress(email));
-            message.setSubject("TravelVN");
-//            message.setText(content);
+
+            // Set the subject with proper encoding using MimeUtility.encodeText
+            message.setSubject(MimeUtility.encodeText("Hà Nội Tour", "UTF-8", "B"));
+
             message.setContent(multipart);
 
             Transport.send(message);
             System.out.println("Done");
             return true;
-        } catch (MessagingException e) {
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            // Log the exception for troubleshooting
         }
-
+        // Log the exception for troubleshooting
         return false;
     }
-
 }
