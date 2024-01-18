@@ -13,13 +13,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
  * @author hello
  */
 @WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
-public class ChangePasswordServlet extends HttpServlet {
+public class changepassword extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -73,26 +75,31 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String pass = request.getParameter("pass");
-        String newpass = request.getParameter("newpass");
+    String email = request.getParameter("email");
+    String pass = request.getParameter("pass");
+    String newpass = request.getParameter("newpass");
+
+    DAO d = new DAO();
+    Account a = d.loginAccount(email,pass);
+
+    if (a == null || !a.getPassword().equals(pass)) {
+        String ms = "Old password is incorrect!";
+        request.setAttribute("error", ms);
+        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+    } else {
         
-        if (newpass.equals(pass)) {
-            request.setAttribute("sendEmail", email);
-            request.setAttribute("oldPassword", pass);
-            request.setAttribute("error", "Trùng mật khẩu cũ. Vui lòng thử lại.");
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-        } else {
-            DAO d = new DAO();
-            boolean result = d.changePassword(email, pass, newpass);
-            if (result) {
-                response.sendRedirect("login.jsp");
-            } else {
-                request.setAttribute("error", "Email hoặc mật khẩu không hợp lệ. Vui lòng thử lại.");
-                request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        a.setPassword(newpass);
+        d.changePassword(email,pass,newpass);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("account", a);
+
+        String ms = "Changed password successfully!";
+        request.setAttribute("error", ms);
+        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
     }
-        }
-    }
+}
+
 
     /**
      * Returns a short description of the servlet.

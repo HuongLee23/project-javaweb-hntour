@@ -35,46 +35,46 @@
                     </div>
 
                     <div class="login__body">
-                        <form action="changepassword" method="post">
-                            <div class="login__form">
-                                <input class="login__input" type="email" pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" name="email" value="${requestScope.sendEmail}" placeholder=" " required>
-                                <label class="login__label" for="email">Email *</label>
-                            </div>
-                            <div class="login__form">
-                                <input id="password1" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="pass" value="${requestScope.oldPassword}" placeholder=" " required>
-                                <label class="login__label" for="pass">Nhập mật khẩu cũ *</label>
-                                <i id="eye-icon1" onclick="togglePassVisibility1()" class="fa fa-eye"></i>
-                            </div>
-                            <div class="login__form">
-                                <input id="password2" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="newpass" placeholder=" " required>
-                                <label class="login__label" for="newpass">Nhập mật khẩu mới *</label>
-                                <i id="eye-icon2" onclick="togglePassVisibility2()" class="fa fa-eye"></i>
-                            </div>
+    <form action="changepassword" method="post">
+        <h3 style="color:red">${requestScope.error}</h3>
+        <div class="login__form">
+            <input class="login__input" type="text" name="email" id="email" readonly value="${sessionScope.account.email}" />
+            <label class="login__label" for="email">Email</label>
+        </div>
+        <div class="login__form">
+            <input id="password1" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="pass" placeholder=" " required>
+            <label class="login__label" for="pass">Nhập mật khẩu cũ *</label>
+            <i id="eye-icon1" onclick="togglePassVisibility1()" class="fa fa-eye"></i>
+        </div>
+        <div class="login__form">
+            <input id="password2" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="newpass" placeholder=" " required>
+            <label class="login__label" for="newpass">Nhập mật khẩu mới *</label>
+            <i id="eye-icon2" onclick="togglePassVisibility2()" class="fa fa-eye"></i>
+        </div>
 
-                            <div class="login__error">
-                                ${requestScope.error}
-                            </div>
+        
 
-                            <div class="request__form">
-                                Mật khẩu bao gồm
-                                <ul>
-                                    <li><i class="fa-solid fa-check" style="color: #c3c6d1;"></i><span>Ít nhất 8 ký tự</span></li>
-                                    <li><i class="fa-solid fa-check" style="color: #c3c6d1;"></i><span>Chữ hoa & chữ thường</span></li>
-                                    <li><i class="fa-solid fa-check" style="color: #c3c6d1;"></i><span>Ít nhất 1 số</span></li>
-                                </ul>
-                            </div>
+        <div class="request__form">
+            Mật khẩu bao gồm
+            <ul>
+                <li><i class="fa-solid fa-check" style="color: #c3c6d1;"></i><span>Ít nhất 8 ký tự</span></li>
+                <li><i class="fa-solid fa-check" style="color: #c3c6d1;"></i><span>Chữ hoa & chữ thường</span></li>
+                <li><i class="fa-solid fa-check" style="color: #c3c6d1;"></i><span>Ít nhất 1 số</span></li>
+            </ul>
+        </div>
 
-                            <div class="button__form">
-                                <input type="submit" value="Đổi mật khẩu">
-                            </div>
+        <div class="button__form">
+            <input type="submit" value="Đổi mật khẩu">
+        </div>
 
-                            <div class="transfer__form">
-                                <a class="transfer__form-link2" href="index.jsp">
-                                    Trở lại
-                                </a>
-                            </div>
-                        </form>
-                    </div>
+        <div class="transfer__form">
+            <a class="transfer__form-link2" href="home.jsp">
+                Trở lại
+            </a>
+        </div>
+    </form>
+</div>
+
 
                     <div class="login__footer">
                     </div>

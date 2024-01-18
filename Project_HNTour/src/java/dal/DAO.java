@@ -82,27 +82,6 @@ public class DAO extends DBContext {
 }
 
     /*
-    Change Password
-     */
-    public boolean changePassword(String email, String pass, String newPass) {
-        String sql = "UPDATE [dbo].[Account]\n"
-                + "   SET [password] = ?\n"
-                + " WHERE [email] = ? and [password] = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, newPass);
-            st.setString(2, email);
-            st.setString(3, pass);
-            int result = st.executeUpdate();
-            return result > 0;
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return false;
-    }
-    
-
-    /*
         Check account exist by email
      */
     public boolean checkAccountExistByEmail(String email) {
@@ -136,6 +115,28 @@ public class DAO extends DBContext {
         return null;
     }
 
+    
+    
+  
+    
+    
+    public boolean changePassword(String email, String pass, String newPass) {
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "   SET [password] = ?\n"
+                + " WHERE [email] = ? and [password] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newPass);
+            st.setString(2, email);
+            st.setString(3, pass);
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
     public boolean updateProfile(
             int id,
             String email, 

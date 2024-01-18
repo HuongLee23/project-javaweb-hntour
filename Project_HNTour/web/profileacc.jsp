@@ -33,7 +33,7 @@
                             <ul class="nav">
                                 <li class="nav-item"><a class="nav-link px-2 active" href="profileaccount"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
                                 <li class="nav-item"><a class="nav-link px-2" href="home.jsp" target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>Home</span></a></li>
-                                <li class="nav-item"><a class="nav-link px-2" href="changepass.jsp" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
+                                <li class="nav-item"><a class="nav-link px-2" href="changepassword" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
                             </ul>
                         </div>
                     </div>
