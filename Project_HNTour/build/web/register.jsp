@@ -102,7 +102,7 @@
                                 </a>
                                 <span class="transfer__form-separate">
                                 </span>
-                                <a class="transfer__form-link2" href="index.jsp">
+                                <a class="transfer__form-link2" href="home.jsp">
                                     Trở lại
                                 </a>
                             </div>

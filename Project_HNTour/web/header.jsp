@@ -19,10 +19,13 @@
                     <div class="user_box ml-auto">
                         <c:set value="${sessionScope.account}" var="a"/>
                         <c:if test="${a == null}">
-                            <div class="user_box_login user_box_link"><a href="login.jsp">login</a></div>
+                            <div class="user_box_login user_box_link"><a href="account">login</a></div>
                             <div class="user_box_register user_box_link"><a href="register.jsp">register</a></div>
                         </c:if>
                         <c:if test="${a != null}">
+                           <div class="user_box_login user_box_link"><a href="profileaccount">Profile</a></div>
+                            <div class="user_box_register user_box_link"><a href="logout">Logout</a></div>
+                    </li>
                             Hello ${a.username}
                         </c:if>
                     </div>
@@ -43,9 +46,8 @@
                     <div class="main_nav_container ml-auto">
                         <ul class="main_nav_list">
                             <li class="main_nav_item"><a href="home.jsp">home</a></li>
-                            <li class="main_nav_item"><a href="tour.jsp">Tour</a></li>
+                            <li class="main_nav_item"><a href="tourlist">Tour</a></li>
                             <li class="main_nav_item"><a href="aboutUs.jsp">about us</a></li>
-                            <li class="main_nav_item"><a href="offers.html">offers</a></li>
                             <li class="main_nav_item"><a href="blog.html">news</a></li>
                             <li class="main_nav_item"><a href="contact.jsp">contact</a></li>
                         </ul>

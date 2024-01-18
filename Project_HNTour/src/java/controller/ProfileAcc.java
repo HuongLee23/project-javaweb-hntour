@@ -4,8 +4,8 @@
  */
 package controller;
 
-import controller.*;
 import dal.DAO;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,13 +13,19 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.sql.Connection;
+import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Account;
 
 /**
  *
- * @author hello
+ * @author Admin
  */
-@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
-public class ChangePasswordServlet extends HttpServlet {
+@WebServlet(name = "ProfileAcc", urlPatterns = {"/profileaccount"})
+public class ProfileAcc extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +44,10 @@ public class ChangePasswordServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangePasswordServlet</title>");
+            out.println("<title>Servlet ProfileAcc</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ChangePasswordServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProfileAcc at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,39 +65,50 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        DAO accountDAO = new DAO();
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        Account acc2 = accountDAO.getAccountDetail(account.getEmail());
+        request.setAttribute("account", acc2);
+        request.getRequestDispatcher("profileacc.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String pass = request.getParameter("pass");
-        String newpass = request.getParameter("newpass");
+        // Retrieve form data
+        String user = request.getParameter("username");
+        String address = request.getParameter("address");
+        String phoneNumber = request.getParameter("phone");
         
-        if (newpass.equals(pass)) {
-            request.setAttribute("sendEmail", email);
-            request.setAttribute("oldPassword", pass);
-            request.setAttribute("error", "Trùng mật khẩu cũ. Vui lòng thử lại.");
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-        } else {
-            DAO d = new DAO();
-            boolean result = d.changePassword(email, pass, newpass);
-            if (result) {
-                response.sendRedirect("login.jsp");
+        String id_raw = request.getParameter("id");
+        String email = request.getParameter("email");
+
+        DAO accountDAO = new DAO();
+        HttpSession session = request.getSession();
+        boolean updateSuccess = false;
+        String message = null;
+        try {
+            int id = Integer.parseInt(id_raw);
+            updateSuccess = accountDAO.updateProfile(id, email, user, address, phoneNumber);
+
+            if (updateSuccess) {
+                message = "Cập nhật hồ sơ thành công.";
             } else {
-                request.setAttribute("error", "Email hoặc mật khẩu không hợp lệ. Vui lòng thử lại.");
-                request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-    }
+                message = "Có lỗi xảy ra. Vui lòng thực hiện lại.";
+            }
+
+        } catch (NumberFormatException e) {
+
         }
+
+        Account account = (Account) session.getAttribute("account");
+        Account acc2 = accountDAO.getAccountDetail(account.getEmail());
+        request.setAttribute("account", acc2);
+
+        // Set the message attribute and forward to the JSP
+        request.setAttribute("ms", message);
+        request.getRequestDispatcher("profileacc.jsp").forward(request, response);
     }
 
     /**

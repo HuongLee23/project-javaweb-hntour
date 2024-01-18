@@ -7,7 +7,10 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Account;
+import model.Tour;
 
 /**
  *
@@ -50,36 +53,33 @@ public class DAO extends DBContext {
         Log in to account
      */
     public Account loginAccount(String email, String password) {
-        String sql = "SELECT [id]\n"
-                + "      ,[email]\n"
-                + "      ,[username]\n"
-                + "      ,[password]\n"
-                + "      ,[role]\n"
-                + "      ,[address]\n"
-                + "      ,[phoneNumber]\n"
-                + "      ,[cmnd]\n"
-                + "  FROM [dbo].[Account]\n"
-                + "  Where [email] = ? and [password] = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, email);
-            st.setString(2, password);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                Account a = new Account(
-                        rs.getInt("id"),
-                        rs.getString("email"), rs.getString("username"),
-                        rs.getString("password"), rs.getInt("role"),
-                        rs.getString("address"),
-                        rs.getString("phoneNumber"), rs.getString("cmnd")
-                );
-                return a;
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
+    String sql = "SELECT TOP (1000) [id], [email], [username], [password], [role], [address], [avatar], [phoneNumber], [status]" +
+                 " FROM [HaNoiTour].[dbo].[Account]" +
+                 " WHERE [email] = ? AND [password] = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, email);
+        st.setString(2, password);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            Account a = new Account(
+                    rs.getInt("id"),
+                    rs.getString("email"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getInt("role"),
+                    rs.getString("address"),
+                    rs.getString("avatar"),
+                    rs.getString("phoneNumber"),
+                    rs.getString("status")
+            );
+            return a;
         }
-        return null;
+    } catch (SQLException e) {
+        System.out.println(e);
     }
+    return null;
+}
 
     /*
     Change Password
@@ -100,6 +100,7 @@ public class DAO extends DBContext {
         }
         return false;
     }
+    
 
     /*
         Check account exist by email
@@ -135,4 +136,119 @@ public class DAO extends DBContext {
         return null;
     }
 
+    public boolean updateProfile(
+            int id,
+            String email, 
+            String username, 
+            String address, 
+            String phoneNumber) {
+        
+        String sql = "UPDATE [dbo].[Account] "
+                + "SET [email] = ?,"
+                + " [username] = ?,"
+                + " [address] = ?, "
+                + "[phoneNumber] = ? "
+                + "WHERE [id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, username);
+            st.setString(3, address);
+            st.setString(4, phoneNumber);
+            
+            st.setInt(5, id);
+
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public Account getAccountDetail(String email) {
+        
+    String sql = "SELECT * FROM Account WHERE email = ?";
+
+    try (PreparedStatement st = connection.prepareStatement(sql)) {
+        st.setString(1, email);
+        try (ResultSet rs = st.executeQuery()) {
+            if (rs.next()) {
+                return new Account(
+                        rs.getInt("id"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("role"),
+                        rs.getString("address"),
+                        rs.getString("avatar"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("status")
+                );
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+    
+    public List<Tour> getAllTour() {
+    List<Tour> list = new ArrayList<>();
+
+    String sql = "SELECT TOP (1000) "
+            + "T.[id], "
+            + "T.[name],"
+            + " T.[imageId],"
+            + " T.[intendedTime], "
+            + "T.[price], " 
+            + "T.[description], "
+            + "T.[categoryId], "
+            + "T.[versionId], "
+            + "T.[ruleId], "
+            + "T.[feedbackID], "
+            + "T.[supplierId], " 
+            +"IA.[imgMain] " +
+            "FROM [HaNoiTour].[dbo].[Tour] T " +
+            "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA"
+            + " ON T.[imageId] = IA.[id]";
+
+    try (PreparedStatement st = connection.prepareStatement(sql);
+         ResultSet rs = st.executeQuery()) {
+
+        while (rs.next()) {
+            Tour tour = new Tour(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getInt("imageId"),
+                    rs.getTime("intendedTime"),
+                    rs.getInt("price"),
+                    rs.getString("description"),
+                    rs.getInt("categoryId"),
+                    rs.getInt("versionId"),
+                    rs.getInt("ruleId"),
+                    rs.getInt("feedbackID"),
+                    rs.getInt("supplierId"),
+                    rs.getString("imgMain")
+            );
+
+            list.add(tour);
+        }
+
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+
+    return list;
+}
+
+    
+    public static void main(String[] args) {
+    DAO dao = new DAO();
+    List<Tour> tourList = dao.getAllTour();
+
+    for (Tour tour : tourList) {
+        System.out.println(tour);
+    }
+}
 }

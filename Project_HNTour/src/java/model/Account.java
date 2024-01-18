@@ -13,22 +13,22 @@ public class Account {
     private int id;
     private String email, username, password;
     private int role;
-    private String address;
-    private String phoneNumber, cmnd;
+    private String address,avatar;
+    private String phoneNumber, status;
 
     public Account() {
     }
 
-    public Account(int id, String email, String username, String password,
-            int role, String address, String phoneNumber, String cmnd) {
+    public Account(int id, String email, String username, String password, int role, String address, String avatar, String phoneNumber, String status) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.password = password;
         this.role = role;
         this.address = address;
+        this.avatar = avatar;
         this.phoneNumber = phoneNumber;
-        this.cmnd = cmnd;
+        this.status = status;
     }
 
     public int getId() {
@@ -79,6 +79,14 @@ public class Account {
         this.address = address;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -87,11 +95,13 @@ public class Account {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getCmnd() {
-        return cmnd;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCmnd(String cmnd) {
-        this.cmnd = cmnd;
+    public void setStatus(String status) {
+        this.status = status;
     }
+
+    
 }

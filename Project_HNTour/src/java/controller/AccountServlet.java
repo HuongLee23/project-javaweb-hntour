@@ -97,7 +97,7 @@ public class AccountServlet extends HttpServlet {
                 if (result) {
                     Account a = d.loginAccount(registerEmail, registerPass);
                     session.setAttribute("account", a);
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("home.jsp");
                 } else {
                     request.setAttribute("error", "Tài khoản đăng ký không hợp lệ. Vui lòng thử lại.");
                     request.getRequestDispatcher("register.jsp").forward(request, response);
@@ -129,7 +129,7 @@ public class AccountServlet extends HttpServlet {
                 response.addCookie(crem);
 
 //                response.sendRedirect("home");
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("home.jsp");
             } else {
                 request.setAttribute("error", "Email hoặc mật khẩu không đúng. Vui lòng thử lại.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);

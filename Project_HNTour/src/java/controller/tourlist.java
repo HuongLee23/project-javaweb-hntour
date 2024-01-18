@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller;
 
-import controller.*;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,44 +13,43 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Tour;
 
 /**
  *
- * @author hello
+ * @author Admin
  */
-@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
-public class ChangePasswordServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+@WebServlet(name="tourlist", urlPatterns={"/tourlist"})
+public class tourlist extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangePasswordServlet</title>");
+            out.println("<title>Servlet tourlist</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ChangePasswordServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet tourlist at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -58,13 +57,17 @@ public class ChangePasswordServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-    }
+    throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        DAO dao = new DAO();
+        List<Tour> tourlist=dao.getAllTour();
+        request.setAttribute("tour", tourlist);
+        request.getRequestDispatcher("tour.jsp").forward(request, response);
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -72,31 +75,12 @@ public class ChangePasswordServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String pass = request.getParameter("pass");
-        String newpass = request.getParameter("newpass");
-        
-        if (newpass.equals(pass)) {
-            request.setAttribute("sendEmail", email);
-            request.setAttribute("oldPassword", pass);
-            request.setAttribute("error", "Trùng mật khẩu cũ. Vui lòng thử lại.");
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-        } else {
-            DAO d = new DAO();
-            boolean result = d.changePassword(email, pass, newpass);
-            if (result) {
-                response.sendRedirect("login.jsp");
-            } else {
-                request.setAttribute("error", "Email hoặc mật khẩu không hợp lệ. Vui lòng thử lại.");
-                request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-    }
-        }
+    throws ServletException, IOException {
+       
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
