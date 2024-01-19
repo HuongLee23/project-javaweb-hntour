@@ -5,7 +5,7 @@
 package controller;
 
 import dal.DAO;
-import email.SendEmail;
+import ulti.SendEmail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -156,7 +156,7 @@ public class SendEmailServlet extends HttpServlet {
 
                     request.setAttribute("oldPassword", oldPassword);
                     request.setAttribute("sendEmail", sendEmail);
-                    request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+                    request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
                 } else {
 
                     // Xác nhận mã thành công để tạo tài khoản

@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="login__body">
-                        <form action="changepassword" method="post">
+                        <form action="forgotpassword" method="post">
                             <div class="login__form">
                                 <input class="login__input" type="email" pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" name="email" value="${requestScope.sendEmail}" placeholder=" " required>
                                 <label class="login__label" for="email">Email *</label>

@@ -18,8 +18,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author hello
  */
-@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
-public class ChangePasswordServlet extends HttpServlet {
+@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/forgotpassword"})
+public class ForgotPasswordServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -59,7 +59,7 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ChangePasswordServlet extends HttpServlet {
             request.setAttribute("sendEmail", email);
             request.setAttribute("oldPassword", pass);
             request.setAttribute("error", "Trùng mật khẩu cũ. Vui lòng thử lại.");
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
         } else {
             DAO d = new DAO();
             boolean result = d.changePassword(email, pass, newpass);
@@ -89,7 +89,7 @@ public class ChangePasswordServlet extends HttpServlet {
                 response.sendRedirect("login.jsp");
             } else {
                 request.setAttribute("error", "Email hoặc mật khẩu không hợp lệ. Vui lòng thử lại.");
-                request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+                request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
             }
         }
     }
