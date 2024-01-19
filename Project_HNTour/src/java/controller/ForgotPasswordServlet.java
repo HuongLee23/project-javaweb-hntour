@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author hello
  */
-@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/forgotpassword"})
+@WebServlet(name = "ForgotPasswordServlet", urlPatterns = {"/forgotpassword"})
 public class ForgotPasswordServlet extends HttpServlet {
 
     /**
