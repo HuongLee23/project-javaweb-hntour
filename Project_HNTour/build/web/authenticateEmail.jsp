@@ -19,7 +19,7 @@
 
                 <div style="height: 420px;" class="login__screen login__authenticate">
                     <div class="login__logo">
-                        <a href="./home.jsp">
+                        <a href="./index.jsp">
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>

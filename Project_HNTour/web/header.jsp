@@ -41,11 +41,11 @@
             <div class="row">
                 <div class="col main_nav_col d-flex flex-row align-items-center justify-content-start">
                     <div class="logo_container">
-                        <div class="logo"><a style="font-family: serif;" href="home.jsp"><img style="margin: -139px 0px 0px -60px; width: 250px;" src="./assets/img/logo.png" alt=""></a></div>
+                        <div class="logo"><a style="font-family: serif;" href="index.jsp"><img style="margin: -139px 0px 0px -60px; width: 250px;" src="./assets/img/logo.png" alt=""></a></div>
                     </div>
                     <div class="main_nav_container ml-auto">
                         <ul class="main_nav_list">
-                            <li class="main_nav_item"><a href="home.jsp">home</a></li>
+                            <li class="main_nav_item"><a href="index.jsp">home</a></li>
                             <li class="main_nav_item"><a href="aboutUs.jsp">about us</a></li>
                             <li class="main_nav_item"><a href="offers.jsp">offers</a></li>
                             <li class="main_nav_item"><a href="blogs.jsp">blogs</a></li>
