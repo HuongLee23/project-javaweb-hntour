@@ -91,7 +91,7 @@ public class DAO extends DBContext {
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return true;
+                 return true;
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -115,9 +115,6 @@ public class DAO extends DBContext {
         return null;
     }
 
-    
-    
-  
     
     
     public boolean changePassword(String email, String pass, String newPass) {
