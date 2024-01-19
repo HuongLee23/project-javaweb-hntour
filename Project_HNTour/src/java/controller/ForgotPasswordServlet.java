@@ -21,11 +21,11 @@ import model.Account;
  * @author hello
  */
 //<<<<<<<< HEAD:Project_HNTour/src/java/controller/changepassword.java
-@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
-public class changepassword extends HttpServlet {
+//@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
+//public class changepassword extends HttpServlet {
 //========
-//@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/forgotpassword"})
-//public class ForgotPasswordServlet extends HttpServlet {
+@WebServlet(name = "ForgotPasswordServlet", urlPatterns = {"/forgotpassword"})
+public class ForgotPasswordServlet extends HttpServlet {
 //>>>>>>>> 26f35089ca04ac2ffd07d30b16125c6d35ef410f:Project_HNTour/src/java/controller/ForgotPasswordServlet.java
 
     /**
@@ -84,7 +84,6 @@ public class changepassword extends HttpServlet {
     String pass = request.getParameter("pass");
     String newpass = request.getParameter("newpass");
 
-//<<<<<<<< HEAD:Project_HNTour/src/java/controller/changepassword.java
     DAO d = new DAO();
     Account a = d.loginAccount(email,pass);
 
@@ -103,23 +102,23 @@ public class changepassword extends HttpServlet {
         String ms = "Changed password successfully!";
         request.setAttribute("error", ms);
         request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-//========
-//        if (newpass.equals(pass)) {
-//            request.setAttribute("sendEmail", email);
-//            request.setAttribute("oldPassword", pass);
-//            request.setAttribute("error", "Trùng mật khẩu cũ. Vui lòng thử lại.");
-//            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
-//        } else {
-//            DAO d = new DAO();
-//            boolean result = d.changePassword(email, pass, newpass);
-//            if (result) {
-//                response.sendRedirect("login.jsp");
-//            } else {
-//                request.setAttribute("error", "Email hoặc mật khẩu không hợp lệ. Vui lòng thử lại.");
-//                request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
-//            }
-//        }
-//>>>>>>>> 26f35089ca04ac2ffd07d30b16125c6d35ef410f:Project_HNTour/src/java/controller/ForgotPasswordServlet.java
+
+        if (newpass.equals(pass)) {
+            request.setAttribute("sendEmail", email);
+            request.setAttribute("oldPassword", pass);
+            request.setAttribute("error", "Trùng mật khẩu cũ. Vui lòng thử lại.");
+            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
+        } else {
+         
+            boolean result = d.changePassword(email, pass, newpass);
+            if (result) {
+                response.sendRedirect("login.jsp");
+            } else {
+                request.setAttribute("error", "Email hoặc mật khẩu không hợp lệ. Vui lòng thử lại.");
+                request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
+            }
+        }
+
     }
 }
 

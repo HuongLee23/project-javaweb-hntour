@@ -5,12 +5,11 @@
 package controller;
 
 import dal.DAO;
-import dal.SendEmail;
+import ulti.SendEmail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -91,9 +90,9 @@ public class SendEmailServlet extends HttpServlet {
 
                 //Check xem tài khoản đã đăng ký hay chưa để cho phép thay đổi password
                 if (checkExistAccount) {
-                    messageEmail = "TravelVN đã nhận được yêu cầu của Quý khách về việc xác minh mã để đặt lại mật khẩu.";
+                    messageEmail = "Hà Nội Tour đã nhận được yêu cầu của Quý khách về việc xác minh mã để đặt lại mật khẩu.";
                     send.sendMailForCusBuy(sendEmail, randomNumber, messageEmail);
-                    message = "Quý khách vui lòng nhập mã xác thực để yêu cầu đặt lại mật khẩu. TravelVN sẽ xác nhận mã đã gửi tới email.";
+                    message = "Quý khách vui lòng nhập mã xác thực để yêu cầu đặt lại mật khẩu. Hà Nội Tour sẽ xác nhận mã đã gửi tới email.";
                     session.setAttribute("sendEmail", sendEmail);
                     request.setAttribute("message", message);
                     request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
@@ -108,9 +107,9 @@ public class SendEmailServlet extends HttpServlet {
                     request.setAttribute("error", "Tài khoản này đã đăng ký!");
                     request.getRequestDispatcher("register.jsp").forward(request, response);
                 } else {
-                    messageEmail = "TravelVN đã nhận được yêu cầu của Quý khách về việc xác minh mã để mở tài khoản.";
+                    messageEmail = "Hà Nội Tour đã nhận được yêu cầu của Quý khách về việc xác minh mã để mở tài khoản.";
                     send.sendMailForCusBuy(sendEmail, randomNumber, messageEmail);
-                    message = "Quý khách vui lòng nhập mã xác thực để yêu cầu mở tài khoản. TravelVN sẽ xác nhận mã đã gửi tới email.";
+                    message = "Quý khách vui lòng nhập mã xác thực để yêu cầu mở tài khoản. Hà Nội Tour sẽ xác nhận mã đã gửi tới email.";
 
                     session.setAttribute("sendEmail", sendEmail);
                     session.setAttribute("registerUser", registerUser);
@@ -157,7 +156,7 @@ public class SendEmailServlet extends HttpServlet {
 
                     request.setAttribute("oldPassword", oldPassword);
                     request.setAttribute("sendEmail", sendEmail);
-                    request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+                    request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
                 } else {
 
                     // Xác nhận mã thành công để tạo tài khoản

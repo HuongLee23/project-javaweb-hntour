@@ -83,13 +83,13 @@ public class AccountServlet extends HttpServlet {
         String pass = request.getParameter("pass");
         String rem = request.getParameter("rem");
 
-        // Thông tin for register(lỗi khi tôi đang ký xong khi sửa đường link từ index.jsp ở trang home thành login.jsp thì nó lại chạy về account mà account lại vừa là đăng ký vừa là login lên nó vẫn còn cái session của đăng lên bị lỗi tưởng là đăng ký hai lần)
+        // Thông tin for register(lỗi khi tôi đang ký xong khi sửa đường link từ home.jsp ở trang home thành login.jsp thì nó lại chạy về account mà account lại vừa là đăng ký vừa là login lên nó vẫn còn cái session của đăng lên bị lỗi tưởng là đăng ký hai lần)
         String registerEmail = (String) session.getAttribute("registerEmail");
         String registerUser = (String) session.getAttribute("registerUser");
         String registerPass = (String) session.getAttribute("registerPass");
         String registerRepass = (String) session.getAttribute("registerRepass");
 
-        int role = 0;
+        int role = 3;
 
         if (registerEmail != null && registerUser != null && registerPass != null && registerRepass != null) {
             if (registerPass.equals(registerRepass)) {

@@ -52,34 +52,40 @@ public class DAO extends DBContext {
     /*
         Log in to account
      */
-    public Account loginAccount(String email, String password) {
-    String sql = "SELECT TOP (1000) [id], [email], [username], [password], [role], [address], [avatar], [phoneNumber], [status]" +
-                 " FROM [HaNoiTour].[dbo].[Account]" +
-                 " WHERE [email] = ? AND [password] = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
+   public Account loginAccount(String email, String password) {
+    String sql = "SELECT [id], [email], [username], [password], [role], [address], [avatar], [phoneNumber], [cmnd], [status] FROM [HaNoiTour].[dbo].[Account] WHERE [email] = ? AND [password] = ?";
+
+    try (PreparedStatement st = connection.prepareStatement(sql)) {
         st.setString(1, email);
         st.setString(2, password);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            Account a = new Account(
-                    rs.getInt("id"),
-                    rs.getString("email"),
-                    rs.getString("username"),
-                    rs.getString("password"),
-                    rs.getInt("role"),
-                    rs.getString("address"),
-                    rs.getString("avatar"),
-                    rs.getString("phoneNumber"),
-                    rs.getString("status")
-            );
-            return a;
+
+        try (ResultSet rs = st.executeQuery()) {
+            if (rs.next()) {
+                Account a = new Account(
+                        rs.getInt("id"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("role"),
+                        rs.getString("address"),
+                        rs.getString("avatar"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("cmnd"),
+                        rs.getBoolean("status")
+                );
+                return a;
+            }
         }
     } catch (SQLException e) {
+        // Log or rethrow the exception
         System.out.println(e);
     }
+
     return null;
 }
+
+    
+    
 
     /*
         Check account exist by email
@@ -174,6 +180,7 @@ public class DAO extends DBContext {
             if (rs.next()) {
                 return new Account(
                         rs.getInt("id"),
+                        
                         rs.getString("email"),
                         rs.getString("username"),
                         rs.getString("password"),
@@ -181,7 +188,8 @@ public class DAO extends DBContext {
                         rs.getString("address"),
                         rs.getString("avatar"),
                         rs.getString("phoneNumber"),
-                        rs.getString("status")
+                        rs.getString("cmnd"),
+                        rs.getBoolean("status")
                 );
             }
         }

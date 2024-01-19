@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TravelVN</title>
+        <title>Hà Nội Tour</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
@@ -19,7 +19,7 @@
 
                 <div class="login__screen">
                     <div class="login__logo">
-                        <a href="./index.jsp">
+                        <a href="./home.jsp">
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>
@@ -79,7 +79,7 @@
                                     Bằng việc bấm nút Đăng ký bên dưới, 
                                     tôi xác nhận đã đọc, hiểu và đồng ý với
                                     các <a href="https://shop.vinfastauto.com/vn_vi/dieu-khoan-phap-ly.html">Điều kiện và Điều khoản</a>
-                                    của TravelVN.
+                                    của Hà Nội Tour.
                                 </p>
                             </div>
 

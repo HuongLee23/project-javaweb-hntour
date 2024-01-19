@@ -5,7 +5,6 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +20,9 @@
         <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
         <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
         <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
         <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+        <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
@@ -30,6 +31,7 @@
 
             <!-- Header -->
             <jsp:include page="header.jsp"></jsp:include>
+
 
                 <div class="menu trans_500">
                     <div class="menu_content d-flex flex-column align-items-center justify-content-center text-center">

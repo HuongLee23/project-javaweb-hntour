@@ -11,15 +11,21 @@ package model;
 public class Account {
 
     private int id;
+    
     private String email, username, password;
     private int role;
-    private String address,avatar;
-    private String phoneNumber, status;
+
+    
+    private String address;
+    private String avatar;
+    private String phoneNumber, cmnd;
+    private boolean status;
+
 
     public Account() {
     }
 
-    public Account(int id, String email, String username, String password, int role, String address, String avatar, String phoneNumber, String status) {
+    public Account(int id, String email, String username, String password, int role, String address, String avatar, String phoneNumber, String cmnd, boolean status) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -28,6 +34,7 @@ public class Account {
         this.address = address;
         this.avatar = avatar;
         this.phoneNumber = phoneNumber;
+        this.cmnd = cmnd;
         this.status = status;
     }
 
@@ -95,13 +102,26 @@ public class Account {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getStatus() {
+    public String getCmnd() {
+        return cmnd;
+    }
+
+    public void setCmnd(String cmnd) {
+        this.cmnd = cmnd;
+    }
+
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
+
+    
+
+
+    
 
     
 }
