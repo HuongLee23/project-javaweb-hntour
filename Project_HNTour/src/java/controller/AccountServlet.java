@@ -83,7 +83,7 @@ public class AccountServlet extends HttpServlet {
         String pass = request.getParameter("pass");
         String rem = request.getParameter("rem");
 
-        // Thông tin for register(lỗi khi tôi đang ký xong khi sửa đường link từ index.jsp ở trang home thành login.jsp thì nó lại chạy về account mà account lại vừa là đăng ký vừa là login lên nó vẫn còn cái session của đăng lên bị lỗi tưởng là đăng ký hai lần)
+        // Thông tin for register(lỗi khi tôi đang ký xong khi sửa đường link từ home.jsp ở trang home thành login.jsp thì nó lại chạy về account mà account lại vừa là đăng ký vừa là login lên nó vẫn còn cái session của đăng lên bị lỗi tưởng là đăng ký hai lần)
         String registerEmail = (String) session.getAttribute("registerEmail");
         String registerUser = (String) session.getAttribute("registerUser");
         String registerPass = (String) session.getAttribute("registerPass");
@@ -97,7 +97,7 @@ public class AccountServlet extends HttpServlet {
                 if (result) {
                     Account a = d.loginAccount(registerEmail, registerPass);
                     session.setAttribute("account", a);
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("home.jsp");
                 } else {
                     request.setAttribute("error", "Tài khoản đăng ký không hợp lệ. Vui lòng thử lại.");
                     request.getRequestDispatcher("register.jsp").forward(request, response);
@@ -129,7 +129,7 @@ public class AccountServlet extends HttpServlet {
                 response.addCookie(crem);
 
 //                response.sendRedirect("home");
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("home.jsp");
             } else {
                 request.setAttribute("error", "Email hoặc mật khẩu không đúng. Vui lòng thử lại.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
