@@ -19,7 +19,7 @@
 
                 <div class="login__screen">
                     <div class="login__logo">
-                        <a href="./index.jsp">
+                        <a href="./home.jsp">
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>
@@ -102,7 +102,7 @@
                                 </a>
                                 <span class="transfer__form-separate">
                                 </span>
-                                <a class="transfer__form-link2" href="index.jsp">
+                                <a class="transfer__form-link2" href="home.jsp">
                                     Trở lại
                                 </a>
                             </div>
