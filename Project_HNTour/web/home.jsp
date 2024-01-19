@@ -5,7 +5,6 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +31,21 @@
 
             <!-- Header -->
             <jsp:include page="header.jsp"></jsp:include>
+
+
+                <div class="menu trans_500">
+                    <div class="menu_content d-flex flex-column align-items-center justify-content-center text-center">
+                        <div class="menu_close_container"><div class="menu_close"></div></div>
+                        <div class="logo menu_logo"><a href="#"><img src="images/logo.png" alt=""></a></div>
+                        <ul>
+                            <li class="menu_item"><a href="home.jsp">home</a></li>
+                            <li class="menu_item"><a href="about.html">about us</a></li>
+                            <li class="menu_item"><a href="tour.jsp">Tour</a></li>
+                            <li class="menu_item"><a href="blog.html">news</a></li>
+                            <li class="menu_item"><a href="contact.html">contact</a></li>
+                        </ul>
+                    </div>
+                </div>
 
                 <!-- Home -->
 
@@ -369,7 +383,7 @@
                                     <div class="intro_item_background" style="background-image:url(images/intro_1.jpg)"></div>
                                     <div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
                                         <div class="intro_date">May 25th - June 01st</div>
-                                        <div class="button intro_button"><div class="button_bcg"></div><a href="#">see more<span></span><span></span><span></span></a></div>
+                                        <div class="button intro_button"><div class="button_bcg"></div><a href="tourdetail.jsp">see more<span></span><span></span><span></span></a></div>
                                         <div class="intro_center text-center">
                                             <h1>Mauritius</h1>
                                             <div class="intro_price">From $1450</div>

@@ -6,7 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Hà Nội Tour</title>
+        <title>TravelVN</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
@@ -17,9 +17,9 @@
         <div class="add">
             <div class="all__screen">
 
-                <div class="login__screen" style="height: 672px">
+                <div class="login__screen" style="height: 717px">
                     <div  class="login__logo">
-                        <a href="./home.jsp">
+                        <a href="./index.jsp">
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>
@@ -35,7 +35,6 @@
                     </div>
 
                     <div class="login__body">
-<!--<<<<<<< HEAD:Project_HNTour/build/web/changepassword.jsp-->
     <form action="changepassword" method="post">
         <h3 style="color:red">${requestScope.error}</h3>
         <div class="login__form">
@@ -52,23 +51,6 @@
             <label class="login__label" for="newpass">Nhập mật khẩu mới *</label>
             <i id="eye-icon2" onclick="togglePassVisibility2()" class="fa fa-eye"></i>
         </div>
-
-                        <form action="forgotpassword" method="post">
-                            <div class="login__form">
-                                <input class="login__input" type="email" pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" name="email" value="${requestScope.sendEmail}" placeholder=" " required>
-                                <label class="login__label" for="email">Email *</label>
-                            </div>
-                            <input type="hidden" name="pass" value="${requestScope.oldPassword}">
-                            <!--                            <div class="login__form">
-                                                            <input id="password1" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="pass"  placeholder=" " required>
-                                                            <label class="login__label" for="pass">Nhập mật khẩu cũ *</label>
-                                                            <i id="eye-icon1" onclick="togglePassVisibility1()" class="fa fa-eye"></i>
-                                                        </div>-->
-                            <div class="login__form">
-                                <input id="password2" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="newpass" placeholder=" " required>
-                                <label class="login__label" for="newpass">Nhập mật khẩu mới *</label>
-                                <i id="eye-icon2" onclick="togglePassVisibility2()" class="fa fa-eye"></i>
-                            </div>
 
         
 
@@ -93,14 +75,6 @@
     </form>
 </div>
 
-
-                            <div class="transfer__form">
-                                <a class="transfer__form-link2" href="home.jsp">
-                                    Trở lại
-                                </a>
-                            </div>
-                        </form>
-                    </div>
 
                     <div class="login__footer">
                     </div>

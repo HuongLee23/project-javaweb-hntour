@@ -19,7 +19,11 @@
 
                 <div class="login__screen">
                     <div class="login__logo">
+<!--<<<<<<< HEAD-->
+                        <a href="home.jsp">
+<!--=======
                         <a href="./home.jsp">
+>>>>>>> 26f35089ca04ac2ffd07d30b16125c6d35ef410f-->
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>
