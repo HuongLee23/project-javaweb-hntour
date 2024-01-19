@@ -17,7 +17,7 @@
         <div class="add">
             <div class="all__screen">
 
-                <div class="login__screen" style="height: 717px">
+                <div class="login__screen" style="height: 672px">
                     <div  class="login__logo">
                         <a href="./index.jsp">
                             <img src="./assets/img/logo.png" alt="logo">
