@@ -90,7 +90,7 @@ public class ForgotPasswordServlet extends HttpServlet {
     if (a == null || !a.getPassword().equals(pass)) {
         String ms = "Old password is incorrect!";
         request.setAttribute("error", ms);
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
     } else {
         
         a.setPassword(newpass);
@@ -101,7 +101,7 @@ public class ForgotPasswordServlet extends HttpServlet {
 
         String ms = "Changed password successfully!";
         request.setAttribute("error", ms);
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
 
         if (newpass.equals(pass)) {
             request.setAttribute("sendEmail", email);

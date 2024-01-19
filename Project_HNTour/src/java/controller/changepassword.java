@@ -66,7 +66,7 @@ public class changepassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
+        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
     }
 
     /**

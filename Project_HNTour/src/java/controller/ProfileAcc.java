@@ -70,7 +70,7 @@ public class ProfileAcc extends HttpServlet {
         Account account = (Account) session.getAttribute("account");
         Account acc2 = accountDAO.getAccountDetail(account.getEmail());
         request.setAttribute("account", acc2);
-        request.getRequestDispatcher("profileacc.jsp").forward(request, response);
+        request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class ProfileAcc extends HttpServlet {
 
         // Set the message attribute and forward to the JSP
         request.setAttribute("ms", message);
-        request.getRequestDispatcher("profileacc.jsp").forward(request, response);
+        request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
     }
 
     /**
