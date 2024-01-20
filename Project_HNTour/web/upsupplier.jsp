@@ -127,80 +127,80 @@
                                                                         <input name="address" class="form-control" type="text" >
                                                                     </div>
                                                                 </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="form-group">
+                                                                            <label>Bussiness Code</label>
+                                                                            <input name="code" class="form-control" type="text" >
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="row">
-                                                                <div class="col">
-                                                                    <div class="form-group">
-                                                                        <label>Bussiness Code</label>
-                                                                        <input name="code" class="form-control" type="text" >
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label>Certificate</label>
+                                                                                <input name="cer" class="form-control" type="text" >
+                                                                            </div>
+                                                                        </div>
+
+
+
+
+
+
                                                                     </div>
                                                                 </div>
-                                                                    <div class="row">
-                                                                <div class="col">
-                                                                    <div class="form-group">
-                                                                        <label>Certificate</label>
-                                                                        <input name="cer" class="form-control" type="text" >
-                                                                    </div>
-                                                                </div>
-
-
-
-
-
 
                                                             </div>
-                                                        </div>
+                                                            <div class="row">
+                                                                <div class="col d-flex justify-content-end">
+                                                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                                                </div>
+                                                            </div>
+                                                            </form>
 
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col d-flex justify-content-end">
-                                                            <button class="btn btn-primary" type="submit">Submit</button>
                                                         </div>
                                                     </div>
-                                                </form>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="col-12 col-md-3 mb-3">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <div class="px-xl-3">
-                                        <button class="btn btn-block btn-secondary">
-                                            <i class="fa fa-sign-out"></i>
-                                            <span>Logout</span>
+                                <div class="col-12 col-md-3 mb-3">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="px-xl-3">
+                                                <button class="btn btn-block btn-secondary">
+                                                    <i class="fa fa-sign-out"></i>
+                                                    <span>Logout</span>
 
-                                        </button>
+                                                </button>
 
+                                            </div>
+
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="px-xl-3">
+                                                <button class="btn btn-block btn-primary" onclick="redirectToOtherPage()">
+                                                    <i class="fa fa-sign-out"></i>
+                                                    <span>Supplier</span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            function redirectToOtherPage() {
+                                                window.location.href = "upsupplier.jsp";
+                                            }
+                                        </script>
                                     </div>
 
                                 </div>
-                                <div class="card-body">
-                                    <div class="px-xl-3">
-                                        <button class="btn btn-block btn-primary" onclick="redirectToOtherPage()">
-                                            <i class="fa fa-sign-out"></i>
-                                            <span>Supplier</span>
-                                        </button>
-                                    </div>
-                                </div>
 
-                                <script>
-                                    function redirectToOtherPage() {
-                                        window.location.href = "upsupplier.jsp";
-                                    }
-                                </script>
+
                             </div>
 
                         </div>
-
-
                     </div>
-
-                </div>
-            </div>
-        </div>  
-    </body>
-</html>
+                </div>  
+                </body>
+                </html>

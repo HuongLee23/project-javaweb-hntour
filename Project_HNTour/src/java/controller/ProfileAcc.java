@@ -5,7 +5,6 @@
 package controller;
 
 import dal.DAO;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,10 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.sql.Connection;
-import java.sql.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Account;
 
 /**
@@ -80,7 +75,7 @@ public class ProfileAcc extends HttpServlet {
         String user = request.getParameter("username");
         String address = request.getParameter("address");
         String phoneNumber = request.getParameter("phone");
-        
+
         String id_raw = request.getParameter("id");
         String email = request.getParameter("email");
 
