@@ -52,40 +52,36 @@ public class DAO extends DBContext {
     /*
         Log in to account
      */
-   public Account loginAccount(String email, String password) {
-    String sql = "SELECT [id], [email], [username], [password], [role], [address], [avatar], [phoneNumber], [cmnd], [status] FROM [HaNoiTour].[dbo].[Account] WHERE [email] = ? AND [password] = ?";
+    public Account loginAccount(String email, String password) {
+        String sql = "SELECT [id], [email], [username], [password], [role], [address], [avatar], [phoneNumber], [status] FROM [HaNoiTour].[dbo].[Account] WHERE [email] = ? AND [password] = ?";
 
-    try (PreparedStatement st = connection.prepareStatement(sql)) {
-        st.setString(1, email);
-        st.setString(2, password);
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, email);
+            st.setString(2, password);
 
-        try (ResultSet rs = st.executeQuery()) {
-            if (rs.next()) {
-                Account a = new Account(
-                        rs.getInt("id"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getInt("role"),
-                        rs.getString("address"),
-                        rs.getString("avatar"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("cmnd"),
-                        rs.getBoolean("status")
-                );
-                return a;
+            try ( ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    Account a = new Account(
+                            rs.getInt("id"),
+                            rs.getString("email"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getInt("role"),
+                            rs.getString("address"),
+                            rs.getString("avatar"),
+                            rs.getString("phoneNumber"),
+                            rs.getBoolean("status")
+                    );
+                    return a;
+                }
             }
+        } catch (SQLException e) {
+            // Log or rethrow the exception
+            System.out.println(e);
         }
-    } catch (SQLException e) {
-        // Log or rethrow the exception
-        System.out.println(e);
+
+        return null;
     }
-
-    return null;
-}
-
-    
-    
 
     /*
         Check account exist by email
@@ -97,7 +93,7 @@ public class DAO extends DBContext {
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                 return true;
+                return true;
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -121,8 +117,6 @@ public class DAO extends DBContext {
         return null;
     }
 
-    
-    
     public boolean changePassword(String email, String pass, String newPass) {
         String sql = "UPDATE [dbo].[Account]\n"
                 + "   SET [password] = ?\n"
@@ -139,18 +133,20 @@ public class DAO extends DBContext {
         }
         return false;
     }
-    
+
     public boolean updateProfile(
             int id,
-            String email, 
-            String username, 
-            String address, 
+            String email,
+            String username,
+            String address,
+            String profileImage,
             String phoneNumber) {
-        
+
         String sql = "UPDATE [dbo].[Account] "
                 + "SET [email] = ?,"
                 + " [username] = ?,"
                 + " [address] = ?, "
+                + " [avatar] = ?, "
                 + "[phoneNumber] = ? "
                 + "WHERE [id] = ?";
         try {
@@ -158,9 +154,10 @@ public class DAO extends DBContext {
             st.setString(1, email);
             st.setString(2, username);
             st.setString(3, address);
-            st.setString(4, phoneNumber);
-            
-            st.setInt(5, id);
+            st.setString(4, profileImage);
+            st.setString(5, phoneNumber);
+
+            st.setInt(6, id);
 
             int result = st.executeUpdate();
             return result > 0;
@@ -171,90 +168,79 @@ public class DAO extends DBContext {
     }
 
     public Account getAccountDetail(String email) {
-        
-    String sql = "SELECT * FROM Account WHERE email = ?";
 
-    try (PreparedStatement st = connection.prepareStatement(sql)) {
-        st.setString(1, email);
-        try (ResultSet rs = st.executeQuery()) {
-            if (rs.next()) {
-                return new Account(
-                        rs.getInt("id"),
-                        
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getInt("role"),
-                        rs.getString("address"),
-                        rs.getString("avatar"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("cmnd"),
-                        rs.getBoolean("status")
-                );
+        String sql = "SELECT * FROM Account WHERE email = ?";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, email);
+            try ( ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    return new Account(
+                            rs.getInt("id"),
+                            rs.getString("email"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getInt("role"),
+                            rs.getString("address"),
+                            rs.getString("avatar"),
+                            rs.getString("phoneNumber"),
+                            rs.getBoolean("status")
+                    );
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return null;
     }
-    return null;
-}
-    
+
     public List<Tour> getAllTour() {
-    List<Tour> list = new ArrayList<>();
+        List<Tour> list = new ArrayList<>();
 
-    String sql = "SELECT TOP (1000) "
-            + "T.[id], "
-            + "T.[name],"
-            + " T.[imageId],"
-            + " T.[intendedTime], "
-            + "T.[price], " 
-            + "T.[description], "
-            + "T.[categoryId], "
-            + "T.[versionId], "
-            + "T.[ruleId], "
-            + "T.[feedbackID], "
-            + "T.[supplierId], " 
-            +"IA.[imgMain] " +
-            "FROM [HaNoiTour].[dbo].[Tour] T " +
-            "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA"
-            + " ON T.[imageId] = IA.[id]";
+        String sql = "SELECT TOP (1000) "
+                + "T.[id], "
+                + "T.[name],"
+                + " T.[imageId],"
+                + " T.[intendedTime], "
+                + "T.[price], "
+                + "T.[description], "
+                + "T.[categoryId], "
+                + "T.[version], "
+                + "T.[rule], "
+                + "T.[feedbackID], "
+                + "T.[supplierId], "
+                + "T.[status], "
+                + "IA.[imgMain] "
+                + "FROM [HaNoiTour].[dbo].[Tour] T "
+                + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA"
+                + " ON T.[imageId] = IA.[id]";
 
-    try (PreparedStatement st = connection.prepareStatement(sql);
-         ResultSet rs = st.executeQuery()) {
+        try ( PreparedStatement st = connection.prepareStatement(sql);  ResultSet rs = st.executeQuery()) {
 
-        while (rs.next()) {
-            Tour tour = new Tour(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getInt("imageId"),
-                    rs.getTime("intendedTime"),
-                    rs.getInt("price"),
-                    rs.getString("description"),
-                    rs.getInt("categoryId"),
-                    rs.getInt("versionId"),
-                    rs.getInt("ruleId"),
-                    rs.getInt("feedbackID"),
-                    rs.getInt("supplierId"),
-                    rs.getString("imgMain")
-            );
+            while (rs.next()) {
+                Tour tour = new Tour(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("imageId"),
+                        rs.getTime("intendedTime"),
+                        rs.getString("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryId"),
+                        rs.getInt("version"),
+                        rs.getString("rule"),
+                        rs.getInt("feedbackID"),
+                        rs.getInt("supplierId"),
+                        rs.getBoolean("status"),
+                        rs.getString("imgMain")
+                );
 
-            list.add(tour);
+                list.add(tour);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
         }
 
-    } catch (SQLException e) {
-        System.out.println(e);
+        return list;
     }
-
-    return list;
-}
-
-    
-    public static void main(String[] args) {
-    DAO dao = new DAO();
-    List<Tour> tourList = dao.getAllTour();
-
-    for (Tour tour : tourList) {
-        System.out.println(tour);
-    }
-}
 }

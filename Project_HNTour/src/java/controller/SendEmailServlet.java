@@ -62,8 +62,8 @@ public class SendEmailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String role_raw = request.getParameter("roleEmail").trim();
-        String sendEmail = request.getParameter("email").trim();
+        String role_raw = request.getParameter("roleEmail");
+        String sendEmail = request.getParameter("email");
         String registerUser = request.getParameter("user");
         String registerPass = request.getParameter("pass");
         String registerRepass = request.getParameter("repass");
