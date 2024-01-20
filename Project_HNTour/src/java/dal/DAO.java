@@ -53,7 +53,7 @@ public class DAO extends DBContext {
         Log in to account
      */
     public Account loginAccount(String email, String password) {
-        String sql = "SELECT [id], [email], [username], [password], [role], [address], [avatar], [phoneNumber], [cmnd], [status] FROM [HaNoiTour].[dbo].[Account] WHERE [email] = ? AND [password] = ?";
+        String sql = "SELECT [id], [email], [username], [password], [role], [address], [avatar], [phoneNumber], [status] FROM [HaNoiTour].[dbo].[Account] WHERE [email] = ? AND [password] = ?";
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, email);
@@ -70,7 +70,6 @@ public class DAO extends DBContext {
                             rs.getString("address"),
                             rs.getString("avatar"),
                             rs.getString("phoneNumber"),
-                            rs.getString("cmnd"),
                             rs.getBoolean("status")
                     );
                     return a;
@@ -140,12 +139,14 @@ public class DAO extends DBContext {
             String email,
             String username,
             String address,
+            String profileImage,
             String phoneNumber) {
 
         String sql = "UPDATE [dbo].[Account] "
                 + "SET [email] = ?,"
                 + " [username] = ?,"
                 + " [address] = ?, "
+                + " [avatar] = ?, "
                 + "[phoneNumber] = ? "
                 + "WHERE [id] = ?";
         try {
@@ -153,9 +154,10 @@ public class DAO extends DBContext {
             st.setString(1, email);
             st.setString(2, username);
             st.setString(3, address);
-            st.setString(4, phoneNumber);
+            st.setString(4, profileImage);
+            st.setString(5, phoneNumber);
 
-            st.setInt(5, id);
+            st.setInt(6, id);
 
             int result = st.executeUpdate();
             return result > 0;
@@ -182,7 +184,6 @@ public class DAO extends DBContext {
                             rs.getString("address"),
                             rs.getString("avatar"),
                             rs.getString("phoneNumber"),
-                            rs.getString("cmnd"),
                             rs.getBoolean("status")
                     );
                 }
@@ -204,10 +205,11 @@ public class DAO extends DBContext {
                 + "T.[price], "
                 + "T.[description], "
                 + "T.[categoryId], "
-                + "T.[versionId], "
-                + "T.[ruleId], "
+                + "T.[version], "
+                + "T.[rule], "
                 + "T.[feedbackID], "
                 + "T.[supplierId], "
+                + "T.[status], "
                 + "IA.[imgMain] "
                 + "FROM [HaNoiTour].[dbo].[Tour] T "
                 + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA"
@@ -221,13 +223,14 @@ public class DAO extends DBContext {
                         rs.getString("name"),
                         rs.getInt("imageId"),
                         rs.getTime("intendedTime"),
-                        rs.getInt("price"),
+                        rs.getString("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
-                        rs.getInt("versionId"),
-                        rs.getInt("ruleId"),
+                        rs.getInt("version"),
+                        rs.getString("rule"),
                         rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
+                        rs.getBoolean("status"),
                         rs.getString("imgMain")
                 );
 
@@ -239,14 +242,5 @@ public class DAO extends DBContext {
         }
 
         return list;
-    }
-
-    public static void main(String[] args) {
-        DAO dao = new DAO();
-        List<Tour> tourList = dao.getAllTour();
-
-        for (Tour tour : tourList) {
-            System.out.println(tour);
-        }
     }
 }

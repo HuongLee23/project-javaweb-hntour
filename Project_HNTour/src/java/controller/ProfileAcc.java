@@ -72,6 +72,8 @@ public class ProfileAcc extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Retrieve form data
+
+        String profileImage = request.getParameter("profileImage");
         String user = request.getParameter("username");
         String address = request.getParameter("address");
         String phoneNumber = request.getParameter("phone");
@@ -85,7 +87,7 @@ public class ProfileAcc extends HttpServlet {
         String message = null;
         try {
             int id = Integer.parseInt(id_raw);
-            updateSuccess = accountDAO.updateProfile(id, email, user, address, phoneNumber);
+            updateSuccess = accountDAO.updateProfile(id, email, user, address, profileImage, phoneNumber);
 
             if (updateSuccess) {
                 message = "Cập nhật hồ sơ thành công.";

@@ -28,9 +28,6 @@
                         <c:if test="${a != null}">
                             <a href="profileaccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
                             </li>
-                            <!--=======
-                                                        <a href="profileAccount.jsp"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
-                            >>>>>>> 26f35089ca04ac2ffd07d30b16125c6d35ef410f-->
                         </c:if>
                     </div>
                 </div>

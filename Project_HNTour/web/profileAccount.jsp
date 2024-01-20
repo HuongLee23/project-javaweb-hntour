@@ -32,8 +32,8 @@
                         <div class="e-navlist e-navlist--active-bg">
                             <ul class="nav">
                                 <li class="nav-item"><a class="nav-link px-2 active" href="profileaccount"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-                                <li class="nav-item"><a class="nav-link px-2" href="home.jsp" target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>Home</span></a></li>
-                                <li class="nav-item"><a class="nav-link px-2" href="changepassword" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
+                                <li class="nav-item"><a class="nav-link px-2" href="home.jsp" ><i class="fa fa-fw fa-th mr-1"></i><span>Home</span></a></li>
+                                <li class="nav-item"><a class="nav-link px-2" href="changepassword"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -48,37 +48,19 @@
                                         <div class="row">
                                             <div class="profile__right-pic" id="imageForm">
                                                 <form action="profileaccount" method="post" enctype="multipart/form-data">
-                                                    <input type="file" id="imageInput" accept=".jpeg, .jpg, .png" name="profileImage" style="display: none;">
-                                                    <img id="selectedImage" src="https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain" alt="">
+                                                    <c:if test="${a.avatar != null}">
+                                                        <img id="selectedImage" src="${a.avatar}" alt="">
+                                                    </c:if>
+                                                    <c:if test="${a.avatar == null}">
+                                                        <img id="selectedImage" src="https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain" alt="">
+                                                    </c:if>
                                                     <div class="text-center text-sm-left mb-2 mb-sm-0">
                                                         <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">${a.username}</h4>
                                                         <p class="mb-0">${a.email}</p>
 
                                                     </div>
                                                     <button <button class="btn btn-primary" type="button" onclick="document.getElementById('imageInput').click();" >Cập Nhật Ảnh</button>
-                                                    <script type="text/javascript">
-                                                        // Lắng nghe sự kiện khi người dùng chọn tệp ảnh
-                                                        document.getElementById('imageInput').addEventListener('change', function () {
-                                                            const selectedImage = document.getElementById('selectedImage');
-                                                            const ngoaiFormImage = document.getElementById('ngoaiFormImage');
-                                                            const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
 
-                                                            const fileInput = this;
-
-                                                            if (fileInput.files && fileInput.files[0]) {
-                                                                const reader = new FileReader();
-
-                                                                reader.onload = function (e) {
-                                                                    selectedImage.src = e.target.result;
-                                                                    ngoaiFormImage.src = e.target.result; // Cập nhật thẻ img ngoài form
-                                                                    ngoaiFormImage2.src = e.target.result; // Cập nhật thẻ img ngoài form
-
-                                                                };
-
-                                                                reader.readAsDataURL(fileInput.files[0]);
-                                                            }
-                                                        });
-                                                    </script>
                                                 </form>
                                             </div>
                                         </div>
@@ -93,6 +75,7 @@
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="row">
+                                                                <input type="file" id="imageInput" accept=".jpeg, .jpg, .png" name="profileImage" style="display: none;" onchange="handleImageChange(this);">
 
                                                                 <input type="hidden" name="id" value="${a.id}">
 
@@ -127,12 +110,6 @@
                                                                         <input name="phone" class="form-control" type="number" value="${a.phoneNumber}">
                                                                     </div>
                                                                 </div>
-
-
-
-
-
-
                                                             </div>
                                                         </div>
 
@@ -172,21 +149,36 @@
                                         </button>
                                     </div>
                                 </div>
-
-                                <script>
-                                    function redirectToOtherPage() {
-                                        window.location.href = "upsupplier.jsp";
-                                    }
-                                </script>
                             </div>
-
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
+
+            <script>
+                function handleImageChange(input) {
+                    const selectedImage = document.getElementById('selectedImage');
+                    const ngoaiFormImage = document.getElementById('ngoaiFormImage');
+                    const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
+
+                    if (input.files && input.files[0]) {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            selectedImage.src = e.target.result;
+                            ngoaiFormImage.src = e.target.result;
+                            ngoaiFormImage2.src = e.target.result;
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+
+                function redirectToOtherPage() {
+                    window.location.href = "upsupplier.jsp";
+                }
+            </script>
         </div>  
     </body>
 </html>
