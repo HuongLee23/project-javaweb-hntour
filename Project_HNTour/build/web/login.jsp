@@ -6,12 +6,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TravelVN</title>
+        <title>Hà Nội Tour</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="./assets/css/login.css">
-        <!--<link rel="stylesheet" href="./assets/css/base.css">-->
     </head>
 
     <body>
@@ -103,7 +102,7 @@
                         <h6>Quên mật khẩu?</h6>
                         <form class="reset-password-form" action="sendEmail"  id="auth0ForgotPassword">
                             <div class="reset-password-body">
-                                <p class="reset-password-title">Quý khách vui lòng nhập email để yêu cầu đặt lại mật khẩu. TravelVN sẽ gửi mã xác nhận tới địa chỉ email này.</p>
+                                <p class="reset-password-title">Quý khách vui lòng nhập email để yêu cầu đặt lại mật khẩu. Hà Nội Tour sẽ gửi mã xác nhận tới địa chỉ email này.</p>
                                 <div class="form-group required">
                                     <input type="number" hidden value="1" name="roleEmail">
                                     <input id="emailForgotPassword" type="text" required="" class="form-control" name="email" aria-describedby="emailHelp" data-missing-error="Vui lòng nhập email." data-pattern-mismatch="Vui lòng nhập email hợp lệ." ata-range-error="Vui lòng nhập ít hơn 50 ký tự." pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" placeholder="Nhập email của bạn.">

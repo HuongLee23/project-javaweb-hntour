@@ -5,7 +5,6 @@
 package controller;
 
 import dal.DAO;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,10 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.sql.Connection;
-import java.sql.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Account;
 
 /**
@@ -70,17 +65,19 @@ public class ProfileAcc extends HttpServlet {
         Account account = (Account) session.getAttribute("account");
         Account acc2 = accountDAO.getAccountDetail(account.getEmail());
         request.setAttribute("account", acc2);
-        request.getRequestDispatcher("profileacc.jsp").forward(request, response);
+        request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Retrieve form data
+
+        String profileImage = request.getParameter("profileImage");
         String user = request.getParameter("username");
         String address = request.getParameter("address");
         String phoneNumber = request.getParameter("phone");
-        
+
         String id_raw = request.getParameter("id");
         String email = request.getParameter("email");
 
@@ -90,7 +87,7 @@ public class ProfileAcc extends HttpServlet {
         String message = null;
         try {
             int id = Integer.parseInt(id_raw);
-            updateSuccess = accountDAO.updateProfile(id, email, user, address, phoneNumber);
+            updateSuccess = accountDAO.updateProfile(id, email, user, address, profileImage, phoneNumber);
 
             if (updateSuccess) {
                 message = "Cập nhật hồ sơ thành công.";
@@ -108,7 +105,7 @@ public class ProfileAcc extends HttpServlet {
 
         // Set the message attribute and forward to the JSP
         request.setAttribute("ms", message);
-        request.getRequestDispatcher("profileacc.jsp").forward(request, response);
+        request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
     }
 
     /**

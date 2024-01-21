@@ -20,8 +20,13 @@ import model.Account;
  *
  * @author hello
  */
+//<<<<<<<< HEAD:Project_HNTour/src/java/controller/changepassword.java
 @WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
 public class changepassword extends HttpServlet {
+//========
+//@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/forgotpassword"})
+//public class ForgotPasswordServlet extends HttpServlet {
+//>>>>>>>> 26f35089ca04ac2ffd07d30b16125c6d35ef410f:Project_HNTour/src/java/controller/ForgotPasswordServlet.java
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -75,31 +80,30 @@ public class changepassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    String email = request.getParameter("email");
-    String pass = request.getParameter("pass");
-    String newpass = request.getParameter("newpass");
+        String email = request.getParameter("email");
+        String pass = request.getParameter("pass");
+        String newpass = request.getParameter("newpass");
 
-    DAO d = new DAO();
-    Account a = d.loginAccount(email,pass);
+        DAO d = new DAO();
+        Account a = d.loginAccount(email, pass);
 
-    if (a == null || !a.getPassword().equals(pass)) {
-        String ms = "Old password is incorrect!";
-        request.setAttribute("error", ms);
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-    } else {
-        
-        a.setPassword(newpass);
-        d.changePassword(email,pass,newpass);
+        if (a == null || !a.getPassword().equals(pass)) {
+            String ms = "Old password is incorrect!";
+            request.setAttribute("error", ms);
+            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        } else {
 
-        HttpSession session = request.getSession();
-        session.setAttribute("account", a);
+            a.setPassword(newpass);
+            d.changePassword(email, pass, newpass);
 
-        String ms = "Changed password successfully!";
-        request.setAttribute("error", ms);
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+            HttpSession session = request.getSession();
+            session.setAttribute("account", a);
+
+            String ms = "Changed password successfully!";
+            request.setAttribute("error", ms);
+            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        }
     }
-}
-
 
     /**
      * Returns a short description of the servlet.

@@ -32,8 +32,8 @@
                         <div class="e-navlist e-navlist--active-bg">
                             <ul class="nav">
                                 <li class="nav-item"><a class="nav-link px-2 active" href="profileaccount"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-                                <li class="nav-item"><a class="nav-link px-2" href="home.jsp" target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>Home</span></a></li>
-                                <li class="nav-item"><a class="nav-link px-2" href="changepass.jsp" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
+                                <li class="nav-item"><a class="nav-link px-2" href="home.jsp"><i class="fa fa-fw fa-th mr-1"></i><span>Home</span></a></li>
+                                <li class="nav-item"><a class="nav-link px-2" href="changepassword.jsp"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -56,29 +56,7 @@
 
                                                     </div>
                                                     <button <button class="btn btn-primary" type="button" onclick="document.getElementById('imageInput').click();" >Cập Nhật Ảnh</button>
-                                                    <script type="text/javascript">
-                                                        // Lắng nghe sự kiện khi người dùng chọn tệp ảnh
-                                                        document.getElementById('imageInput').addEventListener('change', function () {
-                                                            const selectedImage = document.getElementById('selectedImage');
-                                                            const ngoaiFormImage = document.getElementById('ngoaiFormImage');
-                                                            const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
 
-                                                            const fileInput = this;
-
-                                                            if (fileInput.files && fileInput.files[0]) {
-                                                                const reader = new FileReader();
-
-                                                                reader.onload = function (e) {
-                                                                    selectedImage.src = e.target.result;
-                                                                    ngoaiFormImage.src = e.target.result; // Cập nhật thẻ img ngoài form
-                                                                    ngoaiFormImage2.src = e.target.result; // Cập nhật thẻ img ngoài form
-
-                                                                };
-
-                                                                reader.readAsDataURL(fileInput.files[0]);
-                                                            }
-                                                        });
-                                                    </script>
                                                 </form>
                                             </div>
                                         </div>
@@ -127,80 +105,72 @@
                                                                         <input name="address" class="form-control" type="text" >
                                                                     </div>
                                                                 </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="form-group">
+                                                                            <label>Bussiness Code</label>
+                                                                            <input name="code" class="form-control" type="text" >
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="row">
-                                                                <div class="col">
-                                                                    <div class="form-group">
-                                                                        <label>Bussiness Code</label>
-                                                                        <input name="code" class="form-control" type="text" >
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label>Certificate</label>
+                                                                                <input name="cer" class="form-control" style="width: 90%;" type="text" >
+                                                                            </div>
+                                                                        </div>
+
                                                                     </div>
                                                                 </div>
-                                                                    <div class="row">
-                                                                <div class="col">
-                                                                    <div class="form-group">
-                                                                        <label>Certificate</label>
-                                                                        <input name="cer" class="form-control" type="text" >
-                                                                    </div>
-                                                                </div>
-
-
-
-
-
 
                                                             </div>
-                                                        </div>
+                                                            <div class="row">
+                                                                <div class="col d-flex justify-content-end">
+                                                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                                                </div>
+                                                            </div>
+                                                            </form>
 
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col d-flex justify-content-end">
-                                                            <button class="btn btn-primary" type="submit">Submit</button>
                                                         </div>
                                                     </div>
-                                                </form>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
-
-                        <div class="col-12 col-md-3 mb-3">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <div class="px-xl-3">
-                                        <button class="btn btn-block btn-secondary">
-                                            <i class="fa fa-sign-out"></i>
-                                            <span>Logout</span>
-
-                                        </button>
-
-                                    </div>
-
-                                </div>
-                                <div class="card-body">
-                                    <div class="px-xl-3">
-                                        <button class="btn btn-block btn-primary" onclick="redirectToOtherPage()">
-                                            <i class="fa fa-sign-out"></i>
-                                            <span>Supplier</span>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <script>
-                                    function redirectToOtherPage() {
-                                        window.location.href = "upsupplier.jsp";
-                                    }
-                                </script>
-                            </div>
-
-                        </div>
-
-
                     </div>
-
                 </div>
             </div>
+
+            <script>
+                // Lắng nghe sự kiện khi người dùng chọn tệp ảnh
+                document.getElementById('imageInput').addEventListener('change', function () {
+                    const selectedImage = document.getElementById('selectedImage');
+                    const ngoaiFormImage = document.getElementById('ngoaiFormImage');
+                    const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
+
+                    const fileInput = this;
+
+                    if (fileInput.files && fileInput.files[0]) {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            selectedImage.src = e.target.result;
+                            ngoaiFormImage.src = e.target.result; // Cập nhật thẻ img ngoài form
+                            ngoaiFormImage2.src = e.target.result; // Cập nhật thẻ img ngoài form
+
+                        };
+
+                        reader.readAsDataURL(fileInput.files[0]);
+                    }
+                });
+
+                function redirectToOtherPage() {
+                    window.location.href = "upsupplier.jsp";
+                }
+            </script>
         </div>  
     </body>
 </html>

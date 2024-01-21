@@ -13,13 +13,15 @@ public class Account {
     private int id;
     private String email, username, password;
     private int role;
-    private String address,avatar;
-    private String phoneNumber, status;
+    private String address;
+    private String avatar;
+    private String phoneNumber;
+    private boolean status;
 
     public Account() {
     }
 
-    public Account(int id, String email, String username, String password, int role, String address, String avatar, String phoneNumber, String status) {
+    public Account(int id, String email, String username, String password, int role, String address, String avatar, String phoneNumber, boolean status) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -35,73 +37,74 @@ public class Account {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public int getRole() {
         return role;
     }
 
-    public void setRole(int role) {
-        this.role = role;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
     
+
 }
