@@ -79,7 +79,6 @@ public class DAO extends DBContext {
             // Log or rethrow the exception
             System.out.println(e);
         }
-
         return null;
     }
 
