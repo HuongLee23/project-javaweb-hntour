@@ -74,12 +74,12 @@ public class SortByNameServlet extends HttpServlet {
                 list = d.getTourBySortName(typeSort);
             }
             
-            request.setAttribute("prod", list);
+            request.setAttribute("tour", list);
             
            
-            request.getRequestDispatcher("sorttour.jsp").forward(request, response);
+            request.getRequestDispatcher("tour.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("sorttour.jsp").forward(request, response);
+            request.getRequestDispatcher("tour.jsp").forward(request, response);
         }
     } 
 

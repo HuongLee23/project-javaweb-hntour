@@ -74,12 +74,12 @@ public class SortByPriceServlet extends HttpServlet {
                 list = d.getTourBySortPrice(typeSort);
             }
             
-            request.setAttribute("prod", list);
+            request.setAttribute("tour", list);
             
            
-            request.getRequestDispatcher("sorttour.jsp").forward(request, response);
+            request.getRequestDispatcher("tour.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("sorttour.jsp").forward(request, response);
+            request.getRequestDispatcher("tour.jsp").forward(request, response);
         }
     } 
 
