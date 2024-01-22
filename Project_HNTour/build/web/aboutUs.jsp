@@ -30,20 +30,6 @@
             <jsp:include page="header.jsp"></jsp:include>
 
 
-                <div class="menu trans_500">
-                    <div class="menu_content d-flex flex-column align-items-center justify-content-center text-center">
-                        <div class="menu_close_container"><div class="menu_close"></div></div>
-                        <div class="logo menu_logo"><a href="#"><img src="images/logo.png" alt=""></a></div>
-                        <ul>
-                            <li class="menu_item"><a href="index.html">home</a></li>
-                            <li class="menu_item"><a href="#">about us</a></li>
-                            <li class="menu_item"><a href="offers.html">offers</a></li>
-                            <li class="menu_item"><a href="blog.html">news</a></li>
-                            <li class="menu_item"><a href="contact.html">contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-
                 <!-- Home -->
 
                 <div class="home">
@@ -285,6 +271,7 @@
 
                 <!-- Footer -->
             <jsp:include page="footer.jsp"></jsp:include>
+            
         </div>
 
         <script src="js/jquery-3.2.1.min.js"></script>

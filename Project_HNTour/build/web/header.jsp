@@ -26,8 +26,16 @@
                             <div class="user_box_register user_box_link"><a href="register.jsp">register</a></div>
                         </c:if>
                         <c:if test="${a != null}">
-                            <a href="profileaccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
-                            </li>
+                            <c:if test="${a.role == 1}">
+                                <a href="admin/manageraccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
+                                </c:if>
+                                <c:if test="${a.role == 2}">
+                                <a href="profileaccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
+                                </c:if>
+                                <c:if test="${a.role == 3}">
+                                <a href="profileaccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
+                                </c:if>
+                            <!--</li>-->
                         </c:if>
                     </div>
                 </div>
@@ -47,17 +55,11 @@
                     <div class="main_nav_container ml-auto">
                         <ul class="main_nav_list">
                             <li class="main_nav_item"><a href="home.jsp">home</a></li>
-                            <!--<<<<<<< HEAD-->
                             <li class="main_nav_item"><a href="tourlist">Tour</a></li>
                             <li class="main_nav_item"><a href="aboutUs.jsp">about us</a></li>
-                            <li class="main_nav_item"><a href="blog.html">news</a></li>
+                            <li class="main_nav_item"><a href="blogs.jsp">news</a></li>
                             <li class="main_nav_item"><a href="contact.jsp">contact</a></li>
-                            <!--=======
-                                                        <li class="main_nav_item"><a href="aboutUs.jsp">about us</a></li>
-                                                        <li class="main_nav_item"><a href="offers.jsp">offers</a></li>
-                                                        <li class="main_nav_item"><a href="blogs.jsp">blogs</a></li>
-                                                        <li class="main_nav_item"><a href="contact.html">contact</a></li>
-                            >>>>>>> 26f35089ca04ac2ffd07d30b16125c6d35ef410f-->
+
                         </ul>
                     </div>
                     <div class="content_search ml-lg-0 ml-auto">
