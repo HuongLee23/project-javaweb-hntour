@@ -16,25 +16,14 @@
         <link rel="stylesheet" type="text/css" href="./styles/offers_styles.css">
         <link rel="stylesheet" type="text/css" href="./styles/offers_responsive.css">
         <link rel="stylesheet" href="./assets/css/tour.css"/>
-      
+
     </head>
     <body>
         <div class="super_container">
+            <!-- Header -->
             <jsp:include page="header.jsp"></jsp:include>
 
-                <div class="menu trans_500">
-                    <div class="menu_content d-flex flex-column align-items-center justify-content-center text-center">
-                        <div class="menu_close_container"><div class="menu_close"></div></div>
-                        <div class="logo menu_logo"><a href="#"><img src="images/logo.png" alt></a></div>
-                        <ul>
-                            <li class="menu_item"><a href="index.html">home</a></li>
-                            <li class="menu_item"><a href="about.html">about us</a></li>
-                            <li class="menu_item"><a href="#">offers</a></li>
-                            <li class="menu_item"><a href="blog.html">news</a></li>
-                            <li class="menu_item"><a href="contact.html">contact</a></li>
-                        </ul>
-                    </div>
-                </div>
+
 
                 <div class="home">
                     <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/about_background.jpg"></div>
@@ -346,57 +335,57 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-1 temp_col">
-                                
+
                             </div>
                             <div class="col-lg-11">
-                              <div class="offers_sorting_container">
+                                <div class="offers_sorting_container">
                                     <ul class="">
-                                <li class="offers_sorting">
-                                 
-                                    <select name="sortBy" class="sort_btn">
-                                        <option id="" >Price</option>
-                                        <option value="ascending">Ascending</option>
-                                        <option value="descending">Descending</option>
-                                    </select>
-                                    <script>
-                                        document.querySelector('select[name="sortBy"]').addEventListener('change', function () {
-                                            var selectedValue = this.value;
-                                            // Perform any additional logic if needed
-                                            window.location.href = "sortprice?sortBy=" + selectedValue;
-                                        });
-                                    </script>
-                                </li>
-                                <li class="offers_sorting">
-                                 
-                                    <select name="sortByName" class="sort_btn">
-                                        <option id="" >Name</option>
-                                        <option value="ascending_name">Ascending</option>
-                                        <option value="descending_name">Descending</option>
-                                    </select>
-                                    <script>
-                                        document.querySelector('select[name="sortByName"]').addEventListener('change', function () {
-                                            var selectedValue = this.value;
-                                            // Perform any additional logic if needed
-                                            window.location.href = "sortname?sortByName=" + selectedValue;
-                                        });
-                                    </script>
-                                </li>
-                                <li class="offers_sorting">
-                                 
-                                    <select name="sortByRating" class="sort_btn">
-                                        <option id="" >Star</option>
-                                        <option value="ascending_rating">Ascending</option>
-                                        <option value="descending_rating">Descending</option>
-                                    </select>
-                                    <script>
-                                        document.querySelector('select[name="sortByRating"]').addEventListener('change', function () {
-                                            var selectedValue = this.value;
-                                            // Perform any additional logic if needed
-                                            window.location.href = "sortrating?sortByRating=" + selectedValue;
-                                        });
-                                    </script>
-                                </li>
-                               </ul>
+                                        <li class="offers_sorting">
+
+                                            <select name="sortBy" class="sort_btn">
+                                                <option id="" >Price</option>
+                                                <option value="ascending">Ascending</option>
+                                                <option value="descending">Descending</option>
+                                            </select>
+                                            <script>
+                                                document.querySelector('select[name="sortBy"]').addEventListener('change', function () {
+                                                    var selectedValue = this.value;
+                                                    // Perform any additional logic if needed
+                                                    window.location.href = "sortprice?sortBy=" + selectedValue;
+                                                });
+                                            </script>
+                                        </li>
+                                        <li class="offers_sorting">
+
+                                            <select name="sortByName" class="sort_btn">
+                                                <option id="" >Name</option>
+                                                <option value="ascending_name">Ascending</option>
+                                                <option value="descending_name">Descending</option>
+                                            </select>
+                                            <script>
+                                                document.querySelector('select[name="sortByName"]').addEventListener('change', function () {
+                                                    var selectedValue = this.value;
+                                                    // Perform any additional logic if needed
+                                                    window.location.href = "sortname?sortByName=" + selectedValue;
+                                                });
+                                            </script>
+                                        </li>
+                                        <li class="offers_sorting">
+
+                                            <select name="sortByRating" class="sort_btn">
+                                                <option id="" >Star</option>
+                                                <option value="ascending_rating">Ascending</option>
+                                                <option value="descending_rating">Descending</option>
+                                            </select>
+                                            <script>
+                                                document.querySelector('select[name="sortByRating"]').addEventListener('change', function () {
+                                                    var selectedValue = this.value;
+                                                    // Perform any additional logic if needed
+                                                    window.location.href = "sortrating?sortByRating=" + selectedValue;
+                                                });
+                                            </script>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
 
