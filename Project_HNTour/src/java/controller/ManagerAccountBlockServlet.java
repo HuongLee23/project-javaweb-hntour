@@ -4,29 +4,19 @@
  */
 package controller;
 
-import controller.*;
-import dal.DAO;
-import java.io.IOException;
-import java.io.PrintWriter;
+import dal.ManagerAccountDBContext;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.Account;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  *
- * @author hello
+ * @author Admin
  */
-//<<<<<<<< HEAD:Project_HNTour/src/java/controller/changepassword.java
-//@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
-//public class changepassword extends HttpServlet {
-//========
-@WebServlet(name = "ForgotPasswordServlet", urlPatterns = {"/forgotpassword"})
-public class ForgotPasswordServlet extends HttpServlet {
-//>>>>>>>> 26f35089ca04ac2ffd07d30b16125c6d35ef410f:Project_HNTour/src/java/controller/ForgotPasswordServlet.java
+public class ManagerAccountBlockServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +35,10 @@ public class ForgotPasswordServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangePasswordServlet</title>");
+            out.println("<title>Servlet ManagerAccountEditServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ChangePasswordServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ManagerAccountEditServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,7 +56,10 @@ public class ForgotPasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
+        ManagerAccountDBContext mnAccount = new ManagerAccountDBContext();
+        int id = Integer.parseInt(request.getParameter("id"));
+        mnAccount.banAccount(id);
+        response.sendRedirect("manageraccount");
     }
 
     /**
@@ -80,23 +73,7 @@ public class ForgotPasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String pass = request.getParameter("pass");
-        String newpass = request.getParameter("newpass");
-
-        if (newpass.equals(pass)) {
-            request.setAttribute("error", "Trùng mật khẩu cũ. Vui lòng thử lại.");
-            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
-        } else {
-            DAO d = new DAO();
-            boolean result = d.changePassword(email, pass, newpass);
-            if (result) {
-                response.sendRedirect("login.jsp");
-            } else {
-                request.setAttribute("error", "Email hoặc mật khẩu không hợp lệ. Vui lòng thử lại.");
-                request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
-            }
-        }
+        processRequest(request, response);
     }
 
     /**

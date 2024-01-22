@@ -147,4 +147,9 @@ public class Tour {
         this.imgMain = imgMain;
     }
 
+    @Override
+    public String toString() {
+        return "Tour{" + "id=" + id + ", name=" + name + ", imageId=" + imageId + ", intendedTime=" + intendedTime + ", price=" + price + ", description=" + description + ", categoryId=" + categoryId + ", version=" + version + ", rule=" + rule + ", feedbackId=" + feedbackId + ", supplierId=" + supplierId + ", status=" + status + ", imgMain=" + imgMain + '}';
+    }
+
 }
