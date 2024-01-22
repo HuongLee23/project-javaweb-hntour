@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <!DOCTYPE html>
@@ -401,12 +401,12 @@
                                             <i></i>
                                             <i></i>
                                         </div>
-                                        <div class="hotel_location">345 677 Gran Via Street, no 34, Madrid, Spain</div>
+                                        <div class="hotel_location"></div>
                                     </div>
                                     <div class="hotel_title_button ml-lg-auto text-lg-right">
                                         <div class="button book_button trans_200"><a href="#">book<span></span><span></span><span></span></a></div>
                                         <div class="hotel_map_link_container">
-                                            <div class="hotel_map_link">See Location on Map</div>
+                                            <div class="hotel_map_link"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -418,10 +418,12 @@
                                     <div class="hotel_review_container d-flex flex-column align-items-center justify-content-center">
                                         <div class="hotel_review">
                                             <div class="hotel_review_content">
-                                                <div class="hotel_review_title">very good</div>
-                                                <div class="hotel_review_subtitle">100 reviews</div>
+                                                <div class="hotel_review_title"></div>
+                                                <div class="hotel_review_subtitle"></div>
                                             </div>
-                                            <div class="hotel_review_rating text-center">8.1</div>
+                                            <c:forEach items="${requestScope.feedback}" var="b"> 
+                                                <div class="hotel_review_rating text-center">${b.rating}</div>
+                                            </c:forEach>
                                         </div>
                                     </div>
                                 </div>
@@ -538,7 +540,7 @@
                                 <!-- Hotel Info Text -->
 
                                 <div class="hotel_info_text">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis vulputate eros, iaculis consequat nisl. Nunc et suscipit urna. Integer elementum orci eu vehicula pretium. Donec bibendum tristique condimentum. Aenean in lacus ligula. Phasellus euismod gravida eros. Aenean nec ipsum aliquet, pharetra magna id, interdum sapien. Etiam id lorem eu nisl pellentesque semper. Nullam tincidunt metus placerat, suscipit leo ut, tempus nulla. Fusce at eleifend tellus. Ut eleifend dui nunc, non fermentum quam placerat non. Etiam venenatis nibh augue, sed eleifend justo tristique eu</p>
+                                    <p>${detail.description}</p>
                                 </div>
 
                                 <!-- Hotel Info Tags -->
@@ -569,7 +571,7 @@
                                             <div class="col-lg-7">
                                                 <div class="room_content">
                                                     <div class="room_title">${o.name}</div>
-                                                    <div class="room_price">${o.price}VND</div>
+                                                    <div class="room_price"><fmt:formatNumber value="${o.price}" pattern="###,###"/>VNÐ</div>
                                                     <div class="room_text">Time: ${o.intendedTime}</div>
 
                                                 </div>
@@ -601,18 +603,19 @@
                                                         <img src="" alt="Image by Andrew Robles">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-11">
-                                                    <div class="review_content">
-                                                        <div class="review_title_container">
-                                                            <div class="review_title">"Nice staff and great location"</div>
-                                                            <div class="review_rating">${b.rating}</div>
-                                                        </div>
-                                                        <div class="review_text">
-                                                            <p>${b.comment}</p>
-                                                        </div>
-                                                        <div class="review_name">${b.accName}</div>
-                                                        <div class="review_date">12 November 2017</div>
+
+                                            </div>
+                                            <div class="col-lg-11">
+                                                <div class="review_content">
+                                                    <div class="review_title_container">
+                                                        <div class="review_title"></div>
+                                                        <div class="review_rating">${b.rating}</div>
                                                     </div>
+                                                    <div class="review_text">
+                                                        <p>${b.comment}</p>
+                                                    </div>
+                                                    <div class="review_name">${b.accName}</div>
+                                                    <div class="review_date"></div>
                                                 </div>
                                             </div>
                                         </div>
