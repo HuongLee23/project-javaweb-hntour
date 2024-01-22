@@ -62,12 +62,10 @@ public class SearchByNameServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
-        List<Category> listCategory = dao.getListCategory();
         String text = request.getParameter("txt");
         List<Tour> listTourSearchByName = dao.searchByName(text);
         System.out.println(text);
 
-        request.setAttribute("listCategory", listCategory);
         request.setAttribute("tour", listTourSearchByName);
         request.getRequestDispatcher("tour.jsp").forward(request, response);
     }

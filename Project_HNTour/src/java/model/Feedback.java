@@ -17,11 +17,12 @@ public class Feedback {
     private String image;
     private String comment;
     private float rating;
+    private String username;
 
     public Feedback() {
     }
 
-    public Feedback(int id, int accId, int tourId, int versionId, String image, String comment, float rating) {
+    public Feedback(int id, int accId, int tourId, int versionId, String image, String comment, float rating, String username) {
         this.id = id;
         this.accId = accId;
         this.tourId = tourId;
@@ -29,6 +30,7 @@ public class Feedback {
         this.image = image;
         this.comment = comment;
         this.rating = rating;
+        this.username = username;
     }
 
     public int getId() {
@@ -85,6 +87,14 @@ public class Feedback {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }

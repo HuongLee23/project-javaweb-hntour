@@ -68,13 +68,13 @@ public class HomeServlet extends HttpServlet {
         List<Tour> listTop3Tour = dao.listTop3Tour();
         List<Tour> listNew4Tour = dao.listNew4Tour();
         List<Feedback> listFeedbackTour = dao.listFeedbackTour();
-        List<Account> listAccount = dao.listAccount();
-
+        List<Tour> listTrendTour = dao.listTrendTour();
+        
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("listTop3Tour", listTop3Tour);
         request.setAttribute("listNew4Tour", listNew4Tour);
         request.setAttribute("listFeedbackTour", listFeedbackTour);
-        request.setAttribute("listAccount", listAccount);
+        request.setAttribute("listTrendTour", listTrendTour);
         request.getRequestDispatcher("home.jsp").forward(request, response);
 
     }

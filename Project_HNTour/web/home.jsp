@@ -502,28 +502,24 @@
 
                             <div class="test_slider_container">
                                 <div class="owl-carousel owl-theme test_slider">
-                                    <c:forEach items="listFeedbackTour" var="c">
-                                        <c:forEach items="listAccount" var="o">
-                                            <c:if test="c.accId == o.id">
-                                                <!-- Testimonial Item -->
-                                                <div class="owl-item">
-                                                    <div class="test_item">
-                                                        <div class="test_image"><img src="${c.image}" alt="https://unsplash.com/@anniegray"></div>
-                                                        <div class="test_content_container">
-                                                            <div class="test_content">
-                                                                <div class="test_item_info">
-                                                                    <div class="test_name">carla smith</div>
-                                                                    <div class="test_date">May 24, 2017</div>
-                                                                </div>
-                                                                <div class="test_quote_title">" Best holliday ever "</div>
-                                                                <p class="test_quote_text">Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec.</p>
-                                                            </div>
-                                                        </div>
+                                    <%--<c:forEach items="listFeedbackTour" var="c">--%>
+                                    <!-- Testimonial Item -->
+                                    <div class="owl-item">
+                                        <div class="test_item">
+                                            <div class="test_image"><img src="${c.image}" alt="https://unsplash.com/@anniegray"></div>
+                                            <div class="test_content_container">
+                                                <div class="test_content">
+                                                    <div class="test_item_info">
+                                                        <div class="test_name">carla smith</div>
+                                                        <div class="test_date">May 24, 2017</div>
                                                     </div>
+                                                    <div class="test_quote_title">" Best holliday ever "</div>
+                                                    <p class="test_quote_text">Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec.</p>
                                                 </div>
-                                            </c:if>
-                                        </c:forEach>
-                                    </c:forEach>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%--</c:forEach>--%>
 
 
                                     <!-- Testimonial Item -->
@@ -670,102 +666,103 @@
                         </div>
                     </div>
                     <div class="row trending_container">
-
-                        <!-- Trending Item -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="trending_item clearfix">
-                                <div class="trending_image"><img src="images/trend_1.png" alt="https://unsplash.com/@fransaraco"></div>
-                                <div class="trending_content">
-                                    <div class="trending_title"><a href="#">grand hotel</a></div>
-                                    <div class="trending_price">From $182</div>
-                                    <div class="trending_location">madrid, spain</div>
+                        <%--<c:forEach items="listTrendTour" var="c">--%>
+                            <!-- Trending Item -->
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="trending_item clearfix">
+                                    <div class="trending_image"><img src="images/trend_1.png" alt="https://unsplash.com/@fransaraco"></div>
+                                    <div class="trending_content">
+                                        <div class="trending_title"><a href="#">${c.getName()}</a></div>
+                                        <div class="trending_price">From $182</div>
+                                        <div class="trending_location">madrid, spain</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <%--</c:forEach>--%>
 
-                        <!-- Trending Item -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="trending_item clearfix">
-                                <div class="trending_image"><img src="images/trend_2.png" alt="https://unsplash.com/@grovemade"></div>
-                                <div class="trending_content">
-                                    <div class="trending_title"><a href="#">mars hotel</a></div>
-                                    <div class="trending_price">From $182</div>
-                                    <div class="trending_location">madrid, spain</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Trending Item -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="trending_item clearfix">
-                                <div class="trending_image"><img src="images/trend_3.png" alt="https://unsplash.com/@jbriscoe"></div>
-                                <div class="trending_content">
-                                    <div class="trending_title"><a href="#">queen hotel</a></div>
-                                    <div class="trending_price">From $182</div>
-                                    <div class="trending_location">madrid, spain</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Trending Item -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="trending_item clearfix">
-                                <div class="trending_image"><img src="images/trend_4.png" alt="https://unsplash.com/@oowgnuj"></div>
-                                <div class="trending_content">
-                                    <div class="trending_title"><a href="#">mars hotel</a></div>
-                                    <div class="trending_price">From $182</div>
-                                    <div class="trending_location">madrid, spain</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Trending Item -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="trending_item clearfix">
-                                <div class="trending_image"><img src="images/trend_5.png" alt="https://unsplash.com/@mindaugas"></div>
-                                <div class="trending_content">
-                                    <div class="trending_title"><a href="#">grand hotel</a></div>
-                                    <div class="trending_price">From $182</div>
-                                    <div class="trending_location">madrid, spain</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Trending Item -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="trending_item clearfix">
-                                <div class="trending_image"><img src="images/trend_6.png" alt="https://unsplash.com/@itsnwa"></div>
-                                <div class="trending_content">
-                                    <div class="trending_title"><a href="#">mars hotel</a></div>
-                                    <div class="trending_price">From $182</div>
-                                    <div class="trending_location">madrid, spain</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Trending Item -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="trending_item clearfix">
-                                <div class="trending_image"><img src="images/trend_7.png" alt="https://unsplash.com/@rktkn"></div>
-                                <div class="trending_content">
-                                    <div class="trending_title"><a href="#">queen hotel</a></div>
-                                    <div class="trending_price">From $182</div>
-                                    <div class="trending_location">madrid, spain</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Trending Item -->
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="trending_item clearfix">
-                                <div class="trending_image"><img src="images/trend_8.png" alt="https://unsplash.com/@thoughtcatalog"></div>
-                                <div class="trending_content">
-                                    <div class="trending_title"><a href="#">mars hotel</a></div>
-                                    <div class="trending_price">From $182</div>
-                                    <div class="trending_location">madrid, spain</div>
-                                </div>
-                            </div>
-                        </div>
+                        <!--                         Trending Item 
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div class="trending_item clearfix">
+                                                        <div class="trending_image"><img src="images/trend_2.png" alt="https://unsplash.com/@grovemade"></div>
+                                                        <div class="trending_content">
+                                                            <div class="trending_title"><a href="#">mars hotel</a></div>
+                                                            <div class="trending_price">From $182</div>
+                                                            <div class="trending_location">madrid, spain</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        
+                                                 Trending Item 
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div class="trending_item clearfix">
+                                                        <div class="trending_image"><img src="images/trend_3.png" alt="https://unsplash.com/@jbriscoe"></div>
+                                                        <div class="trending_content">
+                                                            <div class="trending_title"><a href="#">queen hotel</a></div>
+                                                            <div class="trending_price">From $182</div>
+                                                            <div class="trending_location">madrid, spain</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        
+                                                 Trending Item 
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div class="trending_item clearfix">
+                                                        <div class="trending_image"><img src="images/trend_4.png" alt="https://unsplash.com/@oowgnuj"></div>
+                                                        <div class="trending_content">
+                                                            <div class="trending_title"><a href="#">mars hotel</a></div>
+                                                            <div class="trending_price">From $182</div>
+                                                            <div class="trending_location">madrid, spain</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        
+                                                 Trending Item 
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div class="trending_item clearfix">
+                                                        <div class="trending_image"><img src="images/trend_5.png" alt="https://unsplash.com/@mindaugas"></div>
+                                                        <div class="trending_content">
+                                                            <div class="trending_title"><a href="#">grand hotel</a></div>
+                                                            <div class="trending_price">From $182</div>
+                                                            <div class="trending_location">madrid, spain</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        
+                                                 Trending Item 
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div class="trending_item clearfix">
+                                                        <div class="trending_image"><img src="images/trend_6.png" alt="https://unsplash.com/@itsnwa"></div>
+                                                        <div class="trending_content">
+                                                            <div class="trending_title"><a href="#">mars hotel</a></div>
+                                                            <div class="trending_price">From $182</div>
+                                                            <div class="trending_location">madrid, spain</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        
+                                                 Trending Item 
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div class="trending_item clearfix">
+                                                        <div class="trending_image"><img src="images/trend_7.png" alt="https://unsplash.com/@rktkn"></div>
+                                                        <div class="trending_content">
+                                                            <div class="trending_title"><a href="#">queen hotel</a></div>
+                                                            <div class="trending_price">From $182</div>
+                                                            <div class="trending_location">madrid, spain</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        
+                                                 Trending Item 
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div class="trending_item clearfix">
+                                                        <div class="trending_image"><img src="images/trend_8.png" alt="https://unsplash.com/@thoughtcatalog"></div>
+                                                        <div class="trending_content">
+                                                            <div class="trending_title"><a href="#">mars hotel</a></div>
+                                                            <div class="trending_price">From $182</div>
+                                                            <div class="trending_location">madrid, spain</div>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
 
                     </div>
                 </div>

@@ -89,7 +89,7 @@
                                                         <option>03</option>
                                                     </select>
                                                 </div>
-<!--                                                <div class="extras">
+                                                <div class="extras">
                                                     <ul class="search_extras clearfix">
                                                         <li class="search_extras_item">
                                                             <div class="clearfix">
@@ -140,7 +140,7 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                </div>-->
+                                                </div>
                                                 <div class="more_options">
                                                     <div class="more_options_trigger">
                                                         <a href="#">load more options</a>
@@ -156,12 +156,6 @@
                                                             <div class="clearfix">
                                                                 <input type="checkbox" id="more_options_2" class="search_extras_cb">
                                                                 <label for="more_options_2">Price Between 500 and 1000</label>
-                                                            </div>
-                                                        </li>
-                                                        <li class="more_options_item">
-                                                            <div class="clearfix">
-                                                                <input type="checkbox" id="more_options_2" class="search_extras_cb">
-                                                                <label for="more_options_2">Price Above 1000</label>
                                                             </div>
                                                         </li>
                                                     </ul>
