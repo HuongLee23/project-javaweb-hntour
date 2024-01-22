@@ -18,3 +18,7 @@
 .sort_btn:hover {
     background-color: #f5f5f5; /* Adjust hover background-color as needed */
 }
+.search_tab:hover{
+    background-color: #FFFFFF;
+    color: #fa9e1b;
+}

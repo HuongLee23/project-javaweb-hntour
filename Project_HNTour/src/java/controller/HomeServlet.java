@@ -64,15 +64,21 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
-        List<Category> listCategory = dao.getListCategory();
-        List<Tour> listTop3Tour = dao.listTop3Tour();
-        List<Tour> listNew4Tour = dao.listNew4Tour();
-        List<Tour> listTrendTour = dao.listTrendTour();
-        request.setAttribute("listCategory", listCategory);
-        request.setAttribute("listTop3Tour", listTop3Tour);
-        request.setAttribute("listNew4Tour", listNew4Tour);
-        request.setAttribute("listTrendTour", listTrendTour);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        try {
+            List<Category> listCategory = dao.getListCategory();
+            List<Tour> listTop3Tour = dao.listTop3Tour();
+            List<Tour> listNew4Tour = dao.listNew4Tour();
+            List<Tour> listTrendTour = dao.listTrendTour();
+            request.setAttribute("listCategory", listCategory);
+            request.setAttribute("listTop3Tour", listTop3Tour);
+            request.setAttribute("listNew4Tour", listNew4Tour);
+            request.setAttribute("listTrendTour", listTrendTour);
+            request.getRequestDispatcher("/home.jsp").forward(request, response);
+        } catch (ServletException | IOException e) { // Ghi log ngoại lệ để sửa lỗi
+            // Ghi log ngoại lệ để sửa lỗi
+            request.setAttribute("error", "Đã xảy ra lỗi: " + e.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
+        }
 
     }
 

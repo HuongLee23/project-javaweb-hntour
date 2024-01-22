@@ -65,6 +65,8 @@ public class SearchByNameServlet extends HttpServlet {
         String text = request.getParameter("txt");
         List<Tour> listTourSearchByName = dao.searchByName(text);
         System.out.println(text);
+        List<Category> listCategory = dao.getListCategory();
+        request.setAttribute("listCategory", listCategory);
         request.setAttribute("tour", listTourSearchByName);
         request.getRequestDispatcher("tour.jsp").forward(request, response);
     }

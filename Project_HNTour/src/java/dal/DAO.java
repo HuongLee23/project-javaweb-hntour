@@ -882,14 +882,66 @@ public class DAO extends DBContext {
         return list;
     }
 
-    public static void main(String[] args) {
-        DAO dao = new DAO();
-        List<Tour> tourList = dao.listTop3Tour();
-
-        for (Tour tour : tourList) {
-            System.out.println(tour.getPrice());
-
+    public List<Tour> searchByCategory(String categoryId) {
+        List<Tour> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000) T.[id],"
+                + " T.[name], "
+                + "T.[imageId],"
+                + " T.[intendedTime], "
+                + "T.[price], "
+                + "T.[description],"
+                + " T.[categoryId], "
+                + "T.[version],"
+                + " T.[rule],"
+                + " T.[feedbackID], "
+                + "T.[supplierId], "
+                + "T.[status], "
+                + "IA.[imgMain] "
+                + "FROM [HaNoiTour].[dbo].[Tour] T "
+                + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA ON T.[imageId] = IA.[id] "
+                + "WHERE T.[categoryId] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, categoryId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Tour tour = new Tour(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("imageId"),
+                        rs.getTime("intendedTime"),
+                        rs.getString("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryId"),
+                        rs.getInt("version"),
+                        rs.getString("rule"),
+                        rs.getInt("feedbackID"),
+                        rs.getInt("supplierId"),
+                        rs.getBoolean("status"),
+                        rs.getString("imgMain")
+                );
+                list.add(tour);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return list;
+    }
+
+    public static void main(String[] args) {
+    DAO dao = new DAO();
+    
+    try {
+        List<Tour> tourList = dao.searchByCategory("1");
+        for (Tour tour : tourList) {
+            System.out.println(tour.getId());
+            System.out.println(tour.getName());
+        }
+    } catch (Exception e) {
+        // Log or handle the exception
+        e.printStackTrace();
+    }
+}
 
 //        if (!tourList.isEmpty()) {
 //            for (Tour tour : tourList) {
@@ -898,6 +950,4 @@ public class DAO extends DBContext {
 //        } else {
 //            System.out.println("No tours found.");
 //        }
-    }
-
 }

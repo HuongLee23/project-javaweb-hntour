@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.Category;
 import model.Feedback;
 import model.ImageAlbum;
 import model.Tour;
@@ -75,6 +76,8 @@ public class TourDetailServlet extends HttpServlet {
         request.setAttribute("relate", tour_relate);
         
         List<Feedback> list_Feedback= dao.getFeedbackDetailTour(id);
+        List<Category> listCategory = dao.getListCategory();
+        request.setAttribute("listCategory", listCategory);
         request.setAttribute("feedback", list_Feedback);
         request.getRequestDispatcher("tourdetail.jsp").forward(request, response);
     } 
