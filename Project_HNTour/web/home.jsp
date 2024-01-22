@@ -666,19 +666,18 @@
                         </div>
                     </div>
                     <div class="row trending_container">
-                        <%--<c:forEach items="listTrendTour" var="c">--%>
+                        <c:forEach items="${listTrendTour}" var="c">
                             <!-- Trending Item -->
                             <div class="col-lg-3 col-sm-6">
                                 <div class="trending_item clearfix">
                                     <div class="trending_image"><img src="images/trend_1.png" alt="https://unsplash.com/@fransaraco"></div>
                                     <div class="trending_content">
-                                        <div class="trending_title"><a href="#">${c.getName()}</a></div>
-                                        <div class="trending_price">From $182</div>
-                                        <div class="trending_location">madrid, spain</div>
+                                        <div class="trending_title""><a href="#">${c.getName()}</a></div>
+                                        <div class="trending_price"><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</div>
                                     </div>
                                 </div>
                             </div>
-                        <%--</c:forEach>--%>
+                        </c:forEach>
 
                         <!--                         Trending Item 
                                                 <div class="col-lg-3 col-sm-6">
