@@ -53,7 +53,15 @@ public class DAO extends DBContext {
         Log in to account
      */
     public Account loginAccount(String email, String password) {
-        String sql = "SELECT [id], [email], [username], [password], [role], [address], [avatar], [phoneNumber], [status] FROM [HaNoiTour].[dbo].[Account] WHERE [email] = ? AND [password] = ?";
+        String sql = "SELECT [id],"
+                + " [email],"
+                + " [username], "
+                + "[password], "
+                + "[role],"
+                + " [address],"
+                + " [avatar], "
+                + "[phoneNumber], "
+                + "[status] FROM [HaNoiTour].[dbo].[Account] WHERE [email] = ? AND [password] = ?";
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, email);
@@ -171,7 +179,8 @@ public class DAO extends DBContext {
 
         String sql = "SELECT * FROM Account WHERE email = ?";
 
-        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+        try  {
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);
             try ( ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
@@ -215,8 +224,10 @@ public class DAO extends DBContext {
                 + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA"
                 + " ON T.[imageId] = IA.[id]";
 
-        try ( PreparedStatement st = connection.prepareStatement(sql);  ResultSet rs = st.executeQuery()) {
-
+        try  {
+            
+            PreparedStatement st=connection.prepareStatement(sql);
+            ResultSet rs=st.executeQuery();
             while (rs.next()) {
                 Tour tour = new Tour(
                         rs.getInt("id"),
