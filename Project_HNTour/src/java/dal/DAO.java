@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
+import model.Category;
+import model.Feedback;
+import model.ImageAlbum;
 import model.Tour;
 
 /**
@@ -242,4 +245,339 @@ public class DAO extends DBContext {
 
         return list;
     }
+
+// getdetailtour
+    public Tour getDetail(int id) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Tour tour = null; // Declare a Tour variable to store the result
+
+        String sql = "SELECT TOP (1000) \n"
+                + "                T.[id], \n"
+                + "               T.[name],\n"
+                + "               T.[imageId],\n"
+                + "           T.[intendedTime], \n"
+                + "                T.[price], \n"
+                + "                T.[description], \n"
+                + "                T.[categoryId], \n"
+                + "                T.[version], \n"
+                + "                T.[rule], \n"
+                + "                T.[feedbackID], \n"
+                + "               T.[supplierId], \n"
+                + "                T.[status], \n"
+                + "                IA.[imgMain] \n"
+                + "                FROM [HaNoiTour].[dbo].[Tour] T \n"
+                + "                JOIN [HaNoiTour].[dbo].[ImageAlbum] IA\n"
+                + "                 ON T.[imageId] = IA.[id]\n"
+                + "				 where T.[id]=?;";
+
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                // Create a new Tour object with the retrieved values
+                tour = new Tour(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("imageId"),
+                        rs.getTime("intendedTime"), // Use getTimestamp if intendedTime is not TIME type
+                        rs.getString("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryId"),
+                        rs.getInt("version"), // corrected column name
+                        rs.getString("rule"),
+                        rs.getInt("feedbackID"),
+                        rs.getInt("supplierId"),
+                        rs.getBoolean("status"),
+                        rs.getString("imgMain")
+                // Add missing commas and complete the constructor parameters as needed
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return tour;
+    }
+
+    public ImageAlbum getDetailImage(int id) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ImageAlbum imagealbum = null;
+        String sql = "SELECT TOP (1000) Y.[id]\n"
+                + "       ,Y.[imgMain]\n"
+                + "      ,Y.[img1]\n"
+                + "      ,Y.[img2]\n"
+                + "      ,Y.[img3]\n"
+                + "      ,Y.[img4]\n"
+                + "  FROM [HaNoiTour].[dbo].[ImageAlbum] Y\n"
+                + "  JOIN [HaNoiTour].[dbo].[Tour] T \n"
+                + "  ON  Y.[id] = T.[imageId] WHERE T.[id]=?;";
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+
+                imagealbum = new ImageAlbum(
+                        rs.getInt("id"),
+                        rs.getString("imgMain"),
+                        rs.getString("img1"),
+                        rs.getString("img2"),
+                        rs.getString("img3"),
+                        rs.getString("img4")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return imagealbum;
+    }
+
+    public List<Tour> getRelateTour(int cid, int tid) {
+        List<Tour> list = new ArrayList<>();
+
+        String sql = "SELECT TOP (2) \n"
+                + "                T.[id],\n"
+                + "             T.[name],\n"
+                + "               T.[imageId],\n"
+                + "                 T.[intendedTime], \n"
+                + "               T.[price], \n"
+                + "                T.[description], \n"
+                + "                T.[categoryId], \n"
+                + "                T.[version], \n"
+                + "                T.[rule], \n"
+                + "                T.[feedbackID], \n"
+                + "                T.[supplierId], \n"
+                + "                T.[status], \n"
+                + "                IA.[imgMain] \n"
+                + "                FROM [HaNoiTour].[dbo].[Tour] T \n"
+                + "                JOIN [HaNoiTour].[dbo].[ImageAlbum] IA\n"
+                + "                 ON T.[imageId] = IA.[id]\n"
+                + "   where T.[categoryId] = ? and T.[id]  not in (?)\n"
+                + "                order by newid()";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, cid);
+            st.setInt(2, tid);
+
+            try ( ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    Tour tour = new Tour(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getInt("imageId"),
+                            rs.getTime("intendedTime"),
+                            rs.getString("price"),
+                            rs.getString("description"),
+                            rs.getInt("categoryId"),
+                            rs.getInt("version"),
+                            rs.getString("rule"),
+                            rs.getInt("feedbackID"),
+                            rs.getInt("supplierId"),
+                            rs.getBoolean("status"),
+                            rs.getString("imgMain")
+                    );
+                    list.add(tour);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public List<Feedback> getFeedbackDetailTour(int tourId) {
+        List<Feedback> list = new ArrayList<>();
+
+        String sql = "SELECT F.[id], F.[accId], A.[username] AS [accountUsername], "
+                + "F.[tourId], F.[versionId], F.[comment], F.[rating] "
+                + "FROM [HaNoiTour].[dbo].[Feedback] F "
+                + "JOIN [HaNoiTour].[dbo].[Tour] T ON F.[tourId] = T.[id] "
+                + "JOIN [HaNoiTour].[dbo].[Account] A ON F.[accId] = A.[id] "
+                + "WHERE T.[id] = ?;";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, tourId);
+
+            try ( ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    Feedback feedback = new Feedback();
+                    feedback.setId(rs.getInt("id"));
+                    feedback.setAccId(rs.getInt("accId"));
+                    feedback.setAccName(rs.getString("accountUsername"));
+                    feedback.setTourId(rs.getInt("tourId"));
+                    feedback.setVersionId(rs.getInt("versionId"));
+                    feedback.setComment(rs.getString("comment"));
+                    feedback.setRating(rs.getInt("rating"));
+                    list.add(feedback);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public List<Tour> getTourBySortPrice(String typeSort) {
+        List<Tour> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000) "
+                + "T.[id], "
+                + "T.[name], "
+                + "T.[imageId], "
+                + "T.[intendedTime], "
+                + "T.[price], "
+                + "T.[description], "
+                + "T.[categoryId], "
+                + "T.[version], "
+                + "T.[rule], "
+                + "T.[feedbackID], "
+                + "T.[supplierId], "
+                + "T.[status], "
+                + "IA.[imgMain] "
+                + "FROM [HaNoiTour].[dbo].[Tour] T "
+                + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA "
+                + "ON T.[imageId] = IA.[id] ORDER BY T.[price]";
+        if (typeSort.equals("asc")) {
+            sql += " ASC";
+        } else if (typeSort.equals("desc")) {
+            sql += " DESC";
+        }
+        try {
+            PreparedStatement st;
+            st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Tour tour = new Tour(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("imageId"),
+                        rs.getTime("intendedTime"),
+                        rs.getString("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryId"),
+                        rs.getInt("version"),
+                        rs.getString("rule"),
+                        rs.getInt("feedbackID"),
+                        rs.getInt("supplierId"),
+                        rs.getBoolean("status"),
+                        rs.getString("imgMain")
+                );
+
+                list.add(tour);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Tour> getTourBySortName(String typeSort) {
+        List<Tour> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000) "
+                + "T.[id],T.[name], T.[imageId], "
+                + "T.[intendedTime], T.[price], T.[description], "
+                + "T.[categoryId], T.[version],T.[rule], "
+                + "T.[feedbackID], T.[supplierId], T.[status], "
+                + "IA.[imgMain] "
+                + "FROM [HaNoiTour].[dbo].[Tour] T "
+                + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA "
+                + "ON T.[imageId] = IA.[id] ORDER BY T.[name]";
+        if (typeSort.equals("asc")) {
+            sql += " ASC";
+        } else if (typeSort.equals("desc")) {
+            sql += " DESC";
+        }
+        try {
+            PreparedStatement st;
+            st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Tour tour = new Tour(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("imageId"),
+                        rs.getTime("intendedTime"),
+                        rs.getString("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryId"),
+                        rs.getInt("version"),
+                        rs.getString("rule"),
+                        rs.getInt("feedbackID"),
+                        rs.getInt("supplierId"),
+                        rs.getBoolean("status"),
+                        rs.getString("imgMain")
+                );
+
+                list.add(tour);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<Tour> getTourBySortRating(String typeSort) {
+        List<Tour> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000) T.[id] ,T.[name],T.[imageId]\n"
+                + "     ,T.[intendedTime] ,T.[price],T.[description]\n"
+                + "      ,T.[categoryId],T.[version],T.[rule]\n"
+                + "      ,T.[feedbackID],T.[supplierId],T.[status],\n"
+                + "	  IA.[imgMain]\n"
+                + "  FROM [HaNoiTour].[dbo].[Tour] T\n"
+                + "  JOIN [HaNoiTour].[dbo].[ImageAlbum] IA ON T.[imageId] = IA.[id]\n"
+                + "  JOIN [HaNoiTour].[dbo].[Feedback] F ON T.[feedbackID] = F.[id]\n"
+                + "  ORDER BY F.[rating] ;";
+        if (typeSort.equals("asc")) {
+            sql += " ASC";
+        } else if (typeSort.equals("desc")) {
+            sql += " DESC";
+        }
+        try {
+            PreparedStatement st;
+            st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Tour tour = new Tour(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("imageId"),
+                        rs.getTime("intendedTime"),
+                        rs.getString("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryId"),
+                        rs.getInt("version"),
+                        rs.getString("rule"),
+                        rs.getInt("feedbackID"),
+                        rs.getInt("supplierId"),
+                        rs.getBoolean("status"),
+                        rs.getString("imgMain")
+                );
+
+                list.add(tour);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        DAO dao = new DAO();
+        List<Tour> tourList = dao.getTourBySortRating("DESC");
+
+        if (!tourList.isEmpty()) {
+            for (Tour tour : tourList) {
+                System.out.println(tour);
+            }
+        } else {
+            System.out.println("No tours found.");
+        }
+    }
+
 }

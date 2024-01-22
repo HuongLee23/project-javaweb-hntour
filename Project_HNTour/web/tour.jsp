@@ -13,8 +13,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
         <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="styles/offers_styles.css">
-        <link rel="stylesheet" type="text/css" href="styles/offers_responsive.css">
+        <link rel="stylesheet" type="text/css" href="./styles/offers_styles.css">
+        <link rel="stylesheet" type="text/css" href="./styles/offers_responsive.css">
+        <link rel="stylesheet" href="./assets/css/tour.css"/>
+      
     </head>
     <body>
         <div class="super_container">
@@ -343,57 +345,58 @@
 
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-1 temp_col"></div>
+                            <div class="col-lg-1 temp_col">
+                                
+                            </div>
                             <div class="col-lg-11">
-
-                                <div class="offers_sorting_container">
-                                    <ul class="offers_sorting">
-                                        <li>
-                                            <span class="sorting_text">price</span>
-                                            <i class="fa fa-chevron-down"></i>
-                                            <ul>
-                                                <li class="sort_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;original-order&quot; }" data-parent=".price_sorting"><span>show all</span></li>
-                                                <li class="sort_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;price&quot; }" data-parent=".price_sorting"><span>ascending</span></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <span class="sorting_text">location</span>
-                                            <i class="fa fa-chevron-down"></i>
-                                            <ul>
-                                                <li class="sort_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;original-order&quot; }"><span>default</span></li>
-                                                <li class="sort_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;name&quot; }"><span>alphabetical</span></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <span class="sorting_text">stars</span>
-                                            <i class="fa fa-chevron-down"></i>
-                                            <ul>
-                                                <li class="filter_btn" data-filter="*"><span>show all</span></li>
-                                                <li class="sort_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;stars&quot; }"><span>ascending</span></li>
-                                                <li class="filter_btn" data-filter=".rating_3"><span>3</span></li>
-                                                <li class="filter_btn" data-filter=".rating_4"><span>4</span></li>
-                                                <li class="filter_btn" data-filter=".rating_5"><span>5</span></li>
-                                            </ul>
-                                        </li>
-                                        <li class="distance_item">
-                                            <span class="sorting_text">distance from center</span>
-                                            <i class="fa fa-chevron-down"></i>
-                                            <ul>
-                                                <li class="num_sorting_btn"><span>distance</span></li>
-                                                <li class="num_sorting_btn"><span>distance</span></li>
-                                                <li class="num_sorting_btn"><span>distance</span></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <span class="sorting_text">reviews</span>
-                                            <i class="fa fa-chevron-down"></i>
-                                            <ul>
-                                                <li class="num_sorting_btn"><span>review</span></li>
-                                                <li class="num_sorting_btn"><span>review</span></li>
-                                                <li class="num_sorting_btn"><span>review</span></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                              <div class="offers_sorting_container">
+                                    <ul class="">
+                                <li class="offers_sorting">
+                                 
+                                    <select name="sortBy" class="sort_btn">
+                                        <option id="" >Price</option>
+                                        <option value="ascending">Ascending</option>
+                                        <option value="descending">Descending</option>
+                                    </select>
+                                    <script>
+                                        document.querySelector('select[name="sortBy"]').addEventListener('change', function () {
+                                            var selectedValue = this.value;
+                                            // Perform any additional logic if needed
+                                            window.location.href = "sortprice?sortBy=" + selectedValue;
+                                        });
+                                    </script>
+                                </li>
+                                <li class="offers_sorting">
+                                 
+                                    <select name="sortByName" class="sort_btn">
+                                        <option id="" >Name</option>
+                                        <option value="ascending_name">Ascending</option>
+                                        <option value="descending_name">Descending</option>
+                                    </select>
+                                    <script>
+                                        document.querySelector('select[name="sortByName"]').addEventListener('change', function () {
+                                            var selectedValue = this.value;
+                                            // Perform any additional logic if needed
+                                            window.location.href = "sortname?sortByName=" + selectedValue;
+                                        });
+                                    </script>
+                                </li>
+                                <li class="offers_sorting">
+                                 
+                                    <select name="sortByRating" class="sort_btn">
+                                        <option id="" >Star</option>
+                                        <option value="ascending_rating">Ascending</option>
+                                        <option value="descending_rating">Descending</option>
+                                    </select>
+                                    <script>
+                                        document.querySelector('select[name="sortByRating"]').addEventListener('change', function () {
+                                            var selectedValue = this.value;
+                                            // Perform any additional logic if needed
+                                            window.location.href = "sortrating?sortByRating=" + selectedValue;
+                                        });
+                                    </script>
+                                </li>
+                               </ul>
                                 </div>
                             </div>
 
@@ -402,7 +405,7 @@
                                 <div class="offers_grid">
                                 <c:forEach items="${requestScope.tour}" var="c">  
 
-                                    <div class="offers_item rating_4">
+                                    <div class="offers_item rating_4" >
                                         <div class="row">
                                             <div class="col-lg-1 temp_col"></div>
                                             <div class="col-lg-3 col-1680-4">
@@ -418,7 +421,7 @@
                                                     <div class="offers_price">${c.name}<span>About ${c.intendedTime}</span></div>
                                                     <p class="offers_text">${c.description}</p>
                                                     <div class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>
-                                                    <div class="button book_button"><a href="tourdetail.jsp">Detail<span></span><span></span><span></span></a></div>
+                                                    <div class="button book_button"><a href="detail?tid=${c.id}">Detail<span></span><span></span><span></span></a></div>
                                                     <div class="offer_reviews">
                                                     </div>
                                                 </div>
