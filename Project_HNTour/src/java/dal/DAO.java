@@ -414,7 +414,6 @@ public class DAO extends DBContext {
 //        }
 //        return list;
 //    }
-
     public List<Category> getListCategory() {
         List<Category> list = new ArrayList<>();
         String sql = "Select * from Category";
@@ -547,7 +546,7 @@ public class DAO extends DBContext {
         }
         return list;
     }
-    
+
     public List<Tour> listTrendTour() {
         List<Tour> list = new ArrayList<>();
         String sql = "SELECT top(8) T.[id]\n"
@@ -590,6 +589,47 @@ public class DAO extends DBContext {
         return list;
     }
 
+    public List<Tour> searchByCategory(int cid) {
+        List<Tour> list = new ArrayList<>();
+        String sql = "SELECT T.[id]\n"
+                + "      ,T.[name]\n"
+                + "      ,T.[imageId]\n"
+                + "      ,T.[intendedTime]\n"
+                + "      ,T.[price]\n"
+                + "      ,T.[description]\n"
+                + "      ,T.[categoryId]\n"
+                + "      ,T.[version]\n"
+                + "      ,T.[rule]\n"
+                + "      ,T.[feedbackID]\n"
+                + "      ,T.[supplierId]\n"
+                + "      ,T.[status]\n"
+                + "	 ,IA.imgMain\n"
+                + "     FROM [dbo].[Tour] T JOIN [dbo].[ImageAlbum] IA"
+                + "     ON T.imageId = IA.id"
+                + "     WHERE T.[category] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, cid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Tour(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("imageId"),
+                        rs.getTime("intendedTime"),
+                        rs.getString("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryId"),
+                        rs.getInt("version"),
+                        rs.getString("rule"),
+                        rs.getInt("feedbackID"),
+                        rs.getInt("supplierId"),
+                        rs.getBoolean("status"),
+                        rs.getString("imgMain")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
-    
 }
