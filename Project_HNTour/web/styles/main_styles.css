@@ -1247,9 +1247,9 @@ section
 {
 
 }
-.intro_center h1
+.intro_center h2
 {
-	font-size: 59px;
+	font-size: 50px;
 	font-weight: 700;
 	color: #FFFFFF;
 	letter-spacing: -0.05em;
@@ -1467,7 +1467,7 @@ section
 .offers_price
 {
 	display: inline-block;
-	font-size: 36px;
+	font-size: 27px;
 	font-weight: 700;
 	color: #eda84a;
 	line-height: 25px;
@@ -1490,7 +1490,7 @@ section
 }
 .offers_text
 {
-	font-size: 14px;
+	font-size: 22px;
 	font-weight: 400;
 	color: #929191;
 	margin-top: 16px;

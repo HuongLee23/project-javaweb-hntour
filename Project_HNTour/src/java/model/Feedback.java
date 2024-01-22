@@ -9,6 +9,7 @@ package model;
  * @author admin
  */
 public class Feedback {
+
     private int id;
     private int accId;
     private int tourId;
@@ -16,7 +17,7 @@ public class Feedback {
     private String comment;
     private int rating;
     private String accName;
-    
+
     public Feedback() {
     }
 
@@ -90,8 +91,5 @@ public class Feedback {
     public String toString() {
         return "Feedback{" + "id=" + id + ", accId=" + accId + ", tourId=" + tourId + ", versionId=" + versionId + ", comment=" + comment + ", rating=" + rating + ", accName=" + accName + '}';
     }
-  
-    
- 
-    
+
 }

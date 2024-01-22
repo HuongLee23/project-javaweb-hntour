@@ -13,15 +13,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.Account;
 import model.Category;
+import model.Feedback;
 import model.Tour;
 
 /**
  *
- * @author Admin
+ * @author Asus
  */
-@WebServlet(name = "tourlist", urlPatterns = {"/tourlist"})
-public class tourlist extends HttpServlet {
+@WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
+public class HomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +42,10 @@ public class tourlist extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet tourlist</title>");
+            out.println("<title>Servlet HomeServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet tourlist at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,14 +63,17 @@ public class tourlist extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         DAO dao = new DAO();
         List<Category> listCategory = dao.getListCategory();
-        List<Tour> tourlist = dao.getAllTour();
-        request.setAttribute("tour", tourlist);
+        List<Tour> listTop3Tour = dao.listTop3Tour();
+        List<Tour> listNew4Tour = dao.listNew4Tour();
+        List<Tour> listTrendTour = dao.listTrendTour();
         request.setAttribute("listCategory", listCategory);
-        request.getRequestDispatcher("tour.jsp").forward(request, response);
+        request.setAttribute("listTop3Tour", listTop3Tour);
+        request.setAttribute("listNew4Tour", listNew4Tour);
+        request.setAttribute("listTrendTour", listTrendTour);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
+
     }
 
     /**
@@ -82,7 +87,7 @@ public class tourlist extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**

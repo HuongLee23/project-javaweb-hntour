@@ -18,10 +18,10 @@ import model.Tour;
 
 /**
  *
- * @author Admin
+ * @author Asus
  */
-@WebServlet(name = "tourlist", urlPatterns = {"/tourlist"})
-public class tourlist extends HttpServlet {
+@WebServlet(name = "SearchByNameServlet", urlPatterns = {"/searchname"})
+public class SearchByNameServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +40,10 @@ public class tourlist extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet tourlist</title>");
+            out.println("<title>Servlet SearchByNameServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet tourlist at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SearchByNameServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,13 +61,11 @@ public class tourlist extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         DAO dao = new DAO();
-        List<Category> listCategory = dao.getListCategory();
-        List<Tour> tourlist = dao.getAllTour();
-        request.setAttribute("tour", tourlist);
-        request.setAttribute("listCategory", listCategory);
+        String text = request.getParameter("txt");
+        List<Tour> listTourSearchByName = dao.searchByName(text);
+        System.out.println(text);
+        request.setAttribute("tour", listTourSearchByName);
         request.getRequestDispatcher("tour.jsp").forward(request, response);
     }
 
@@ -82,7 +80,7 @@ public class tourlist extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**
