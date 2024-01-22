@@ -89,7 +89,7 @@
                                                         <option>03</option>
                                                     </select>
                                                 </div>
-                                                <div class="extras">
+<!--                                                <div class="extras">
                                                     <ul class="search_extras clearfix">
                                                         <li class="search_extras_item">
                                                             <div class="clearfix">
@@ -140,7 +140,7 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                </div>
+                                                </div>-->
                                                 <div class="more_options">
                                                     <div class="more_options_trigger">
                                                         <a href="#">load more options</a>
@@ -149,13 +149,19 @@
                                                         <li class="more_options_item">
                                                             <div class="clearfix">
                                                                 <input type="checkbox" id="more_options_1" class="search_extras_cb">
-                                                                <label for="more_options_1">Pet Friendly</label>
+                                                                <label for="more_options_1">Price Under 500</label>
                                                             </div>
                                                         </li>
                                                         <li class="more_options_item">
                                                             <div class="clearfix">
                                                                 <input type="checkbox" id="more_options_2" class="search_extras_cb">
-                                                                <label for="more_options_2">Car Parking</label>
+                                                                <label for="more_options_2">Price Between 500 and 1000</label>
+                                                            </div>
+                                                        </li>
+                                                        <li class="more_options_item">
+                                                            <div class="clearfix">
+                                                                <input type="checkbox" id="more_options_2" class="search_extras_cb">
+                                                                <label for="more_options_2">Price Above 1000</label>
                                                             </div>
                                                         </li>
                                                     </ul>
@@ -342,7 +348,9 @@
                                             </div>
                                             <div class="col-lg-8">
                                                 <div class="offers_content">
-                                                    <div class="offers_price">${c.name}<span>About ${c.intendedTime}</span></div>
+                                                    <div class="offers_price" style="font-size: 25px">${c.name}
+                                                        <div><span>About ${c.intendedTime}</span></div>
+                                                    </div>
                                                     <p class="offers_text">${c.description}</p>
                                                     <div class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>
                                                     <div class="button book_button"><a href="tourdetail.jsp">Detail<span></span><span></span><span></span></a></div>

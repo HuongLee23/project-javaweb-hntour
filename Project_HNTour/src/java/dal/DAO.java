@@ -283,7 +283,8 @@ public class DAO extends DBContext {
                         rs.getBoolean("status"),
                         rs.getString("imgMain")));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return list;
     }
@@ -324,8 +325,8 @@ public class DAO extends DBContext {
                         rs.getBoolean("status"),
                         rs.getString("imgMain")));
             }
-        } catch (Exception e) {
-            System.out.println("searchPriceUnder500" + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return list;
     }
@@ -366,8 +367,8 @@ public class DAO extends DBContext {
                         rs.getBoolean("status"),
                         rs.getString("imgMain")));
             }
-        } catch (Exception e) {
-            System.out.println("searchPrice500To1000" + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return list;
     }
@@ -408,8 +409,8 @@ public class DAO extends DBContext {
                         rs.getBoolean("status"),
                         rs.getString("imgMain")));
             }
-        } catch (Exception e) {
-            System.out.println("searchPriceAbove1000" + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return list;
     }
@@ -423,7 +424,8 @@ public class DAO extends DBContext {
             while (rs.next()) {
                 list.add(new Category(rs.getInt(1), rs.getString(2), rs.getString(3)));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return list;
 
@@ -467,18 +469,11 @@ public class DAO extends DBContext {
                         rs.getBoolean("status"),
                         rs.getString("imgMain")));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return list;
     }
-//    public static void main(String[] args) {
-//        DAO d = new DAO();
-//        List<Tour> list = d.listNew4Tour();
-//        for (Tour tour : list) {
-//            System.out.println(tour.getName());
-//        }
-//        
-//    }
 
     public List<Tour> listNew4Tour() {
         List<Tour> list = new ArrayList<>();
@@ -516,8 +511,8 @@ public class DAO extends DBContext {
                         rs.getBoolean("status"),
                         rs.getString("imgMain")));
             }
-        } catch (Exception e) {
-            System.out.println("listNew4Tour" + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return list;
     }
@@ -544,11 +539,11 @@ public class DAO extends DBContext {
                         rs.getString("comment"),
                         rs.getFloat("rating")));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return list;
     }
-    
 
     public List<Account> listAccount() {
         List<Account> list = new ArrayList<>();
@@ -576,7 +571,8 @@ public class DAO extends DBContext {
                         rs.getString("phoneNumber"),
                         rs.getBoolean("status")));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return list;
     }

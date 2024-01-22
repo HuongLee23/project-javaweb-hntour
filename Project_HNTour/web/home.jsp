@@ -129,12 +129,11 @@
                                 <div class="search_tabs_container">
                                     <div class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
                                     <c:forEach items="${listCategory}" var="c">
-
                                         <div class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start">
                                             <c:if test="${c.id == 1}"><div class="icon-history"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-landmark"></i></div></c:if>
-                                            <c:if test="${c.id == 2}"><div class="icon-history"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-flag"></i></div></c:if>
+                                            <c:if test="${c.id == 2}"><div class="icon-culture"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-flag"></i></div></c:if>
                                             <c:if test="${c.id == 3}"><div class="icon-food"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-utensils"></i></div></c:if>
-                                            <c:if test="${c.id == 4}"><div class="icon-history"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-tower-observation"></i></div></c:if>
+                                            <c:if test="${c.id == 4}"><div class="icon-vacation"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-tower-observation"></i></div></c:if>
                                             <span>${c.getName()}</span>
                                         </div>
                                     </c:forEach>
@@ -317,7 +316,7 @@
                                         <div class="button intro_button"><div class="button_bcg"></div><a href="tourdetail.jsp">see more<span></span><span></span><span></span></a></div>
                                         <div class="intro_center text-center">
                                             <h2 style="color: white">${c.name}</h2>
-                                            <div class="intro_price">${c.price} VNÐ</div>
+                                            <div class="intro_price" style="font-size: 25px "><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</div>
                                             <div class="rating rating_4 ">
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
@@ -468,13 +467,11 @@
                                                     <i></i>
                                                     <i></i>
                                                 </div>
-                                                <p class="offers_text">${c.price} VNÐ</p>
+                                                <p class="offers_text" style="color: #ff6600"><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</p>
                                                 <div class="offers_icons">
                                                     <ul class="offers_icons_list">
                                                         <li class="offers_icons_item"><img src="images/post.png" alt=""></li>
                                                         <li class="offers_icons_item"><img src="images/compass.png" alt=""></li>
-                                                        <li class="offers_icons_item"><img src="images/bicycle.png" alt=""></li>
-                                                        <li class="offers_icons_item"><img src="images/sailboat.png" alt=""></li>
                                                     </ul>
                                                 </div>
                                                 <div class="offers_link"><a href="offers.html">read more</a></div>
@@ -511,8 +508,7 @@
                                                 <!-- Testimonial Item -->
                                                 <div class="owl-item">
                                                     <div class="test_item">
-                                                        <div class="test_image"><img src="images/test_1.jpg" alt="https://unsplash.com/@anniegray"></div>
-                                                        <div class="test_icon"><img src="images/backpack.png" alt=""></div>
+                                                        <div class="test_image"><img src="${c.image}" alt="https://unsplash.com/@anniegray"></div>
                                                         <div class="test_content_container">
                                                             <div class="test_content">
                                                                 <div class="test_item_info">
