@@ -490,11 +490,11 @@
 
                             <div class="test_slider_container">
                                 <div class="owl-carousel owl-theme test_slider">
-                                    <%--<c:forEach items="listFeedbackTour" var="c">--%>
-                                    <!-- Testimonial Item -->
+<!--                                    
+                                     Testimonial Item 
                                     <div class="owl-item">
                                         <div class="test_item">
-                                            <div class="test_image"><img src="${c.image}" alt="https://unsplash.com/@anniegray"></div>
+                                            <div class="test_image"><img src="" alt="https://unsplash.com/@anniegray"></div>
                                             <div class="test_content_container">
                                                 <div class="test_content">
                                                     <div class="test_item_info">
@@ -507,8 +507,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <%--</c:forEach>--%>
-
+-->
 
                                     <!-- Testimonial Item -->
                                     <div class="owl-item">
