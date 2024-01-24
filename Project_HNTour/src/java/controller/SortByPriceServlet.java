@@ -62,21 +62,15 @@ public class SortByPriceServlet extends HttpServlet {
         if (sort != null) {
             DAO d = new DAO();
             List<Tour> list = null;
-      
             String typeSort;
             if (sort.equals("ascending")) {
-               
                 typeSort = "asc";
                 list = d.getTourBySortPrice(typeSort);
             }else if(sort.equals("descending")){
-            
                 typeSort = "desc";
                 list = d.getTourBySortPrice(typeSort);
             }
-            
             request.setAttribute("tour", list);
-            
-           
             request.getRequestDispatcher("tour.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("tour.jsp").forward(request, response);

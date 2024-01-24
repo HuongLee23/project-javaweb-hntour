@@ -501,7 +501,7 @@
                                     <div class="hotel_title_button ml-lg-auto text-lg-right">
                                         <div class="button book_button trans_200"><a href="#">book<span></span><span></span><span></span></a></div>
                                         <div class="hotel_map_link_container">
-                                            <div class="hotel_map_link"></div>
+                                            <div class="hotel_map_link">See Location on Map</div>
                                         </div>
                                     </div>
                                 </div>
@@ -513,10 +513,10 @@
                                     <div class="hotel_review_container d-flex flex-column align-items-center justify-content-center">
                                         <div class="hotel_review">
                                             <div class="hotel_review_content">
-                                                <div class="hotel_review_title"></div>
-                                                <div class="hotel_review_subtitle"></div>
+                                                <div class="hotel_review_title">very good</div>
+                                                <div class="hotel_review_subtitle">1 reviews</div>
                                             </div>
-                                               <c:forEach items="${requestScope.feedback}" var="b"> 
+                                          <c:forEach items="${requestScope.feedback}" var="b"> 
                                             <div class="hotel_review_rating text-center">${b.rating}</div>
                                          </c:forEach>
                                         </div>
@@ -637,7 +637,7 @@
                                 <div class="hotel_info_text">
                                     <p>${detail.description}</p>
                                 </div>
-                                    
+
                                 <!-- Hotel Info Tags -->
 
                                 <div class="hotel_info_tags">
@@ -674,6 +674,8 @@
                                         <div class="col-lg-3 text-lg-right">
                                             <div class="room_button">
                                                 <div class="button book_button trans_200"><a href="#">book<span></span><span></span><span></span></a></div>
+                                                <div class="button book_button"><a href="detail?tid=${o.id}">Detail<span></span><span></span><span></span></a></div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -708,7 +710,7 @@
                                                         <p>${b.comment}</p>
                                                     </div>
                                                     <div class="review_name">${b.accName}</div>
-                                                    <div class="review_date"></div>
+                                                    <div class="review_date">12 November 2017</div>
                                                 </div>
                                             </div>
                                         </div>

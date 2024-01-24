@@ -210,12 +210,11 @@ public class DAO extends DBContext {
                 + "T.[categoryId], "
                 + "T.[version], "
                 + "T.[rule], "
-                + "T.[feedbackID], "
                 + "T.[supplierId], "
                 + "T.[status], "
                 + "IA.[imgMain] "
-                + "FROM [HaNoiTour].[dbo].[Tour] T "
-                + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA"
+                + "FROM [Tour] T "
+                + "JOIN [ImageAlbum] IA"
                 + " ON T.[imageId] = IA.[id]";
 
         try ( PreparedStatement st = connection.prepareStatement(sql);  ResultSet rs = st.executeQuery()) {
@@ -231,7 +230,6 @@ public class DAO extends DBContext {
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
                         rs.getBoolean("status"),
                         rs.getString("imgMain")
@@ -263,12 +261,11 @@ public class DAO extends DBContext {
                 + "                T.[categoryId], \n"
                 + "                T.[version], \n"
                 + "                T.[rule], \n"
-                + "                T.[feedbackID], \n"
                 + "               T.[supplierId], \n"
                 + "                T.[status], \n"
                 + "                IA.[imgMain] \n"
-                + "                FROM [HaNoiTour].[dbo].[Tour] T \n"
-                + "                JOIN [HaNoiTour].[dbo].[ImageAlbum] IA\n"
+                + "                FROM [Tour] T \n"
+                + "                JOIN [ImageAlbum] IA\n"
                 + "                 ON T.[imageId] = IA.[id]\n"
                 + "				 where T.[id]=?;";
 
@@ -289,7 +286,6 @@ public class DAO extends DBContext {
                         rs.getInt("categoryId"),
                         rs.getInt("version"), // corrected column name
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
                         rs.getBoolean("status"),
                         rs.getString("imgMain")
@@ -313,8 +309,8 @@ public class DAO extends DBContext {
                 + "      ,Y.[img2]\n"
                 + "      ,Y.[img3]\n"
                 + "      ,Y.[img4]\n"
-                + "  FROM [HaNoiTour].[dbo].[ImageAlbum] Y\n"
-                + "  JOIN [HaNoiTour].[dbo].[Tour] T \n"
+                + "  FROM [ImageAlbum] Y\n"
+                + "  JOIN [Tour] T \n"
                 + "  ON  Y.[id] = T.[imageId] WHERE T.[id]=?;";
         try {
             ps = connection.prepareStatement(sql);
@@ -351,12 +347,11 @@ public class DAO extends DBContext {
                 + "                T.[categoryId], \n"
                 + "                T.[version], \n"
                 + "                T.[rule], \n"
-                + "                T.[feedbackID], \n"
                 + "                T.[supplierId], \n"
                 + "                T.[status], \n"
                 + "                IA.[imgMain] \n"
-                + "                FROM [HaNoiTour].[dbo].[Tour] T \n"
-                + "                JOIN [HaNoiTour].[dbo].[ImageAlbum] IA\n"
+                + "                FROM [Tour] T \n"
+                + "                JOIN [ImageAlbum] IA\n"
                 + "                 ON T.[imageId] = IA.[id]\n"
                 + "   where T.[categoryId] = ? and T.[id]  not in (?)\n"
                 + "                order by newid()";
@@ -377,7 +372,6 @@ public class DAO extends DBContext {
                             rs.getInt("categoryId"),
                             rs.getInt("version"),
                             rs.getString("rule"),
-                            rs.getInt("feedbackID"),
                             rs.getInt("supplierId"),
                             rs.getBoolean("status"),
                             rs.getString("imgMain")
@@ -397,9 +391,9 @@ public class DAO extends DBContext {
 
         String sql = "SELECT F.[id], F.[accId], A.[username] AS [accountUsername], "
                 + "F.[tourId], F.[versionId], F.[comment], F.[rating] "
-                + "FROM [HaNoiTour].[dbo].[Feedback] F "
-                + "JOIN [HaNoiTour].[dbo].[Tour] T ON F.[tourId] = T.[id] "
-                + "JOIN [HaNoiTour].[dbo].[Account] A ON F.[accId] = A.[id] "
+                + "FROM [Feedback] F "
+                + "JOIN [Tour] T ON F.[tourId] = T.[id] "
+                + "JOIN [Account] A ON F.[accId] = A.[id] "
                 + "WHERE T.[id] = ?;";
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
@@ -437,12 +431,11 @@ public class DAO extends DBContext {
                 + "T.[categoryId], "
                 + "T.[version], "
                 + "T.[rule], "
-                + "T.[feedbackID], "
                 + "T.[supplierId], "
                 + "T.[status], "
                 + "IA.[imgMain] "
-                + "FROM [HaNoiTour].[dbo].[Tour] T "
-                + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA "
+                + "FROM [Tour] T "
+                + "JOIN [ImageAlbum] IA "
                 + "ON T.[imageId] = IA.[id] ORDER BY T.[price]";
         if (typeSort.equals("asc")) {
             sql += " ASC";
@@ -464,7 +457,6 @@ public class DAO extends DBContext {
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
                         rs.getBoolean("status"),
                         rs.getString("imgMain")
@@ -484,10 +476,10 @@ public class DAO extends DBContext {
                 + "T.[id],T.[name], T.[imageId], "
                 + "T.[intendedTime], T.[price], T.[description], "
                 + "T.[categoryId], T.[version],T.[rule], "
-                + "T.[feedbackID], T.[supplierId], T.[status], "
+                + " T.[supplierId], T.[status], "
                 + "IA.[imgMain] "
-                + "FROM [HaNoiTour].[dbo].[Tour] T "
-                + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA "
+                + "FROM [Tour] T "
+                + "JOIN [ImageAlbum] IA "
                 + "ON T.[imageId] = IA.[id] ORDER BY T.[name]";
         if (typeSort.equals("asc")) {
             sql += " ASC";
@@ -509,7 +501,7 @@ public class DAO extends DBContext {
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
+                        
                         rs.getInt("supplierId"),
                         rs.getBoolean("status"),
                         rs.getString("imgMain")
@@ -528,11 +520,11 @@ public class DAO extends DBContext {
         String sql = "SELECT TOP (1000) T.[id] ,T.[name],T.[imageId]\n"
                 + "     ,T.[intendedTime] ,T.[price],T.[description]\n"
                 + "      ,T.[categoryId],T.[version],T.[rule]\n"
-                + "      ,T.[feedbackID],T.[supplierId],T.[status],\n"
+                + "      ,T.[supplierId],T.[status],\n"
                 + "	  IA.[imgMain]\n"
-                + "  FROM [HaNoiTour].[dbo].[Tour] T\n"
-                + "  JOIN [HaNoiTour].[dbo].[ImageAlbum] IA ON T.[imageId] = IA.[id]\n"
-                + "  JOIN [HaNoiTour].[dbo].[Feedback] F ON T.[feedbackID] = F.[id]\n"
+                + "  FROM [Tour] T\n"
+                + "  JOIN [ImageAlbum] IA ON T.[imageId] = IA.[id]\n"
+                + "  JOIN [Feedback] F ON T.[id] = F.[tourId]\n"
                 + "  ORDER BY F.[rating] ;";
         if (typeSort.equals("asc")) {
             sql += " ASC";
@@ -554,7 +546,7 @@ public class DAO extends DBContext {
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
+                    
                         rs.getInt("supplierId"),
                         rs.getBoolean("status"),
                         rs.getString("imgMain")
