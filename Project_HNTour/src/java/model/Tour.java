@@ -5,6 +5,7 @@
 package model;
 
 import java.sql.Time;
+import java.util.List;
 
 /**
  *
@@ -14,33 +15,33 @@ public class Tour {
 
     private int id;
     private String name;
-    private int imageId;
+    private String imageMain;
+    private List<String> imageAlbum;
     private Time intendedTime;
     private String price;
     private String description;
     private int categoryId, version;
     private String rule;
-    private int feedbackId, supplierId;
+    private int supplierId;
     private boolean status;
-    private String imgMain;
+ 
 
     public Tour() {
     }
 
-    public Tour(int id, String name, int imageId, Time intendedTime, String price, String description, int categoryId, int version, String rule, int feedbackId, int supplierId, boolean status, String imgMain) {
+    public Tour(int id, String name, String imageMain, List<String> imageAlbum, Time intendedTime, String price, String description, int categoryId, int version, String rule, int supplierId, boolean status) {
         this.id = id;
         this.name = name;
-        this.imageId = imageId;
+        this.imageMain = imageMain;
+        this.imageAlbum = imageAlbum;
         this.intendedTime = intendedTime;
         this.price = price;
         this.description = description;
         this.categoryId = categoryId;
         this.version = version;
         this.rule = rule;
-        this.feedbackId = feedbackId;
         this.supplierId = supplierId;
         this.status = status;
-        this.imgMain = imgMain;
     }
 
     public int getId() {
@@ -51,8 +52,12 @@ public class Tour {
         return name;
     }
 
-    public int getImageId() {
-        return imageId;
+    public String getImageMain() {
+        return imageMain;
+    }
+
+    public List<String> getImageAlbum() {
+        return imageAlbum;
     }
 
     public Time getIntendedTime() {
@@ -79,20 +84,12 @@ public class Tour {
         return rule;
     }
 
-    public int getFeedbackId() {
-        return feedbackId;
-    }
-
     public int getSupplierId() {
         return supplierId;
     }
 
     public boolean isStatus() {
         return status;
-    }
-
-    public String getImgMain() {
-        return imgMain;
     }
 
     public void setId(int id) {
@@ -103,8 +100,12 @@ public class Tour {
         this.name = name;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setImageMain(String imageMain) {
+        this.imageMain = imageMain;
+    }
+
+    public void setImageAlbum(List<String> imageAlbum) {
+        this.imageAlbum = imageAlbum;
     }
 
     public void setIntendedTime(Time intendedTime) {
@@ -131,10 +132,6 @@ public class Tour {
         this.rule = rule;
     }
 
-    public void setFeedbackId(int feedbackId) {
-        this.feedbackId = feedbackId;
-    }
-
     public void setSupplierId(int supplierId) {
         this.supplierId = supplierId;
     }
@@ -142,14 +139,6 @@ public class Tour {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
-    public void setImgMain(String imgMain) {
-        this.imgMain = imgMain;
-    }
-
-    @Override
-    public String toString() {
-        return "Tour{" + "id=" + id + ", name=" + name + ", imageId=" + imageId + ", intendedTime=" + intendedTime + ", price=" + price + ", description=" + description + ", categoryId=" + categoryId + ", version=" + version + ", rule=" + rule + ", feedbackId=" + feedbackId + ", supplierId=" + supplierId + ", status=" + status + ", imgMain=" + imgMain + '}';
-    }
+    
 
 }

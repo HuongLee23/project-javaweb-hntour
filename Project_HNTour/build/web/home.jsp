@@ -299,7 +299,7 @@
                             <div class="col-lg-4 intro_col">
                                 <div class="intro_item">
                                     <div class="intro_item_overlay"></div>
-                                    <div class="intro_item_background" style="background-image:url(${c.getImgMain()})"></div>
+                                    <div class="intro_item_background" style="background-image:url(${c.imageMain})"></div>
                                     <div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
                                         <div class="button intro_button"><div class="button_bcg"></div><a href="tourdetail.jsp">see more<span></span><span></span><span></span></a></div>
                                         <div class="intro_center text-center">
@@ -442,7 +442,7 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="offers_image_container">
-                                                <div class="offers_image_background" style="background-image:url(${c.getImgMain()})"></div>
+                                                <div class="offers_image_background" style="background-image:url(${c.imageMain})"></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -657,7 +657,7 @@
                             <!-- Trending Item -->
                             <div class="col-lg-3 col-sm-6">
                                 <div class="trending_item clearfix">
-                                    <div class="trending_image"><img src="${c.getImgMain()}" alt=""></div>
+                                    <div class="trending_image"><img src="${c.imageMain}" alt=""></div>
                                     <div class="trending_content">
                                         <div class="trending_title""><a href="#">${c.getName()}</a></div>
                                         <div class="trending_price"><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</div>

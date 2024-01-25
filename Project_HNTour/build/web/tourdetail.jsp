@@ -193,7 +193,7 @@
                                 <!-- Listing Image -->
 
                                 <div class="hotel_image">
-                                    <img src="${detail.imgMain}" alt="">
+                                    <img src="${detail.imageMain}" alt="">
                                     <div class="hotel_review_container d-flex flex-column align-items-center justify-content-center">
                                         <div class="hotel_review">
                                             <div class="hotel_review_content">
@@ -212,69 +212,16 @@
                                 <div class="hotel_gallery">
                                     <div class="hotel_slider_container">
                                         <div class="owl-carousel owl-theme hotel_slider">
-
                                             <!-- Hotel Gallery Slider Item -->
-                                            <div class="owl-item">
-                                                <a class="colorbox cboxElement" href="${image.img1}">
-                                                    <img  src="${image.img1}" alt="https://unsplash.com/@jbriscoe">
-                                                </a>
-                                            </div>
-
+                                            <c:set value="${requestScope.detail}" var="d"/>
+                                            <c:forEach items="${d.imageAlbum}" var="image">
+                                                <div class="owl-item">
+                                                    <a  class="colorbox cboxElement" href="${image}">
+                                                        <img src="${image}" alt="https://unsplash.com/@jbriscoe">
+                                                    </a>
+                                                </div>
+                                            </c:forEach>
                                             <!-- Hotel Gallery Slider Item -->
-                                            <div class="owl-item">
-                                                <a class="colorbox cboxElement" href="${image.img2}">
-                                                    <img  src="${image.img2}" alt="https://unsplash.com/@grovemade">
-                                                </a>
-                                            </div>
-
-                                            <!-- Hotel Gallery Slider Item -->
-                                            <div class="owl-item">
-                                                <a class="colorbox cboxElement" href="${image.img3}">
-                                                    <img  src="${image.img3}" alt="https://unsplash.com/@fransaraco">
-                                                </a>
-                                            </div>
-
-                                            <!-- Hotel Gallery Slider Item -->
-                                            <div class="owl-item">
-                                                <a class="colorbox cboxElement" href="${image.img4}">
-                                                    <img  src="${image.img4}" alt="https://unsplash.com/@workweek">
-                                                </a>
-                                            </div>
-
-                                            <!-- Hotel Gallery Slider Item -->
-                                            <div class="owl-item">
-                                                <a class="colorbox cboxElement" href="${image.img1}">
-                                                    <img  src="${image.img1}" alt="https://unsplash.com/@workweek">
-                                                </a>
-                                            </div>
-
-                                            <!-- Hotel Gallery Slider Item -->
-                                            <div class="owl-item">
-                                                <a class="colorbox cboxElement" href="${image.img3}">
-                                                    <img  src="${image.img3}" alt="https://unsplash.com/@avidenov">
-                                                </a>
-                                            </div>
-
-                                            <!-- Hotel Gallery Slider Item -->
-                                            <div class="owl-item">
-                                                <a class="colorbox cboxElement" href="${image.img1}">
-                                                    <img  src="${image.img1}" alt="https://unsplash.com/@pietruszka">
-                                                </a>
-                                            </div>
-
-                                            <!-- Hotel Gallery Slider Item -->
-                                            <div class="owl-item">
-                                                <a class="colorbox cboxElement" href="${image.img2}">
-                                                    <img src="${image.img2}" alt="https://unsplash.com/@rktkn">
-                                                </a>
-                                            </div>
-
-                                            <!-- Hotel Gallery Slider Item -->
-                                            <div class="owl-item">
-                                                <a class="colorbox cboxElement" href="${image.img4}">
-                                                    <img  src="${image.img4}" alt="https://unsplash.com/@mindaugas">
-                                                </a>
-                                            </div>
                                         </div>
 
                                         <!-- Hotel Slider Nav - Prev -->
@@ -345,7 +292,7 @@
                                         <!-- Room -->
                                         <div class="row">
                                             <div class="col-lg-2">
-                                                <div class="room_image"><img src="${o.imgMain}" alt="https://unsplash.com/@grovemade"></div>
+                                                <div class="room_image"><img src="${o.imageMain}" alt="https://unsplash.com/@grovemade"></div>
                                             </div>
                                             <div class="col-lg-7">
                                                 <div class="room_content">
