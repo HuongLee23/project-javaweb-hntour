@@ -56,7 +56,16 @@ public class DAO extends DBContext {
         Log in to account
      */
     public Account loginAccount(String email, String password) {
-        String sql = "SELECT [id], [email], [username], [password], [role], [address], [avatar], [phoneNumber], [status] FROM [HaNoiTour].[dbo].[Account] WHERE [email] = ? AND [password] = ?";
+        String sql = "SELECT [id],"
+                + " [email],"
+                + " [username],"
+                + " [password], "
+                + "[role], "
+                + "[address], "
+                + "[avatar], "
+                + "[phoneNumber], "
+                + "[status] FROM [HaNoiTour].[dbo].[Account] "
+                + "WHERE [email] = ? AND [password] = ?";
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, email);
@@ -141,7 +150,7 @@ public class DAO extends DBContext {
             String email,
             String username,
             String address,
-            String profileImage,
+            String avatar,
             String phoneNumber) {
 
         String sql = "UPDATE [dbo].[Account] "
@@ -156,9 +165,8 @@ public class DAO extends DBContext {
             st.setString(1, email);
             st.setString(2, username);
             st.setString(3, address);
-            st.setString(4, profileImage);
+            st.setString(4, avatar);
             st.setString(5, phoneNumber);
-
             st.setInt(6, id);
 
             int result = st.executeUpdate();

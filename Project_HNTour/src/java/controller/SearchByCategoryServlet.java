@@ -61,23 +61,11 @@ public class SearchByCategoryServlet extends HttpServlet {
     throws ServletException, IOException {
     DAO dao = new DAO();
     String cid = request.getParameter("cid");
-    
-    // Validate and parse the category ID
-    
-        List<Tour> category = dao.searchByCategory(cid);
-        
-        List<Category> listCategory = dao.getListCategory();
-        
-
-       
+        List<Tour> category = dao.searchByCategory(cid); 
+        List<Category> listCategory = dao.getListCategory();   
         request.setAttribute("listCategory", listCategory);
-        request.setAttribute("tour", category); 
-        
-
-        
+        request.setAttribute("tour", category);   
         request.getRequestDispatcher("tour.jsp").forward(request, response);
-
-   
 }
 
     /** 

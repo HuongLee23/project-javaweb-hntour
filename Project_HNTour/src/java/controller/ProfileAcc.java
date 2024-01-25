@@ -71,16 +71,13 @@ public class ProfileAcc extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Retrieve form data
-
+       
         String profileImage = request.getParameter("profileImage");
         String user = request.getParameter("username");
         String address = request.getParameter("address");
         String phoneNumber = request.getParameter("phone");
-
         String id_raw = request.getParameter("id");
         String email = request.getParameter("email");
-
         DAO accountDAO = new DAO();
         HttpSession session = request.getSession();
         boolean updateSuccess = false;
@@ -98,12 +95,9 @@ public class ProfileAcc extends HttpServlet {
         } catch (NumberFormatException e) {
 
         }
-
         Account account = (Account) session.getAttribute("account");
         Account acc2 = accountDAO.getAccountDetail(account.getEmail());
         request.setAttribute("account", acc2);
-
-        // Set the message attribute and forward to the JSP
         request.setAttribute("ms", message);
         request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
     }
