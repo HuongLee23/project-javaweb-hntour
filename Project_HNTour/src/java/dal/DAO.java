@@ -927,7 +927,7 @@ public class DAO extends DBContext {
         DAO d = new DAO();
         List<Tour> list = d.getAllTour();
         for (Tour tour : list) {
-            System.out.println(tour.getImageMain());
+            System.out.println(tour.getImageAlbum());
         }
     }
 

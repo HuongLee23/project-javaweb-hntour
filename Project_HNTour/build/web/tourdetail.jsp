@@ -33,6 +33,9 @@
         <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
         <link rel="stylesheet" type="text/css" href="styles/single_listing_styles.css">
         <link rel="stylesheet" type="text/css" href="styles/single_listing_responsive.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+
+
 
     </style>
 </head>
@@ -94,6 +97,7 @@
                                 <!-- Search Panel -->
 
                                 <div class="search_panel active">
+
                                     <form action="searchname" id="search_form_1" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
                                         <div class="search_item">
                                             <div>destination</div>
@@ -150,6 +154,7 @@
                                         </div>
                                         <button class="button search_button">search<span></span><span></span><span></span></button>
                                     </form>
+
                                 </div>
 
                             </div>
@@ -296,7 +301,7 @@
                                             </div>
                                             <div class="col-lg-7">
                                                 <div class="room_content">
-                                                    <div class="room_title">${o.name}</div>
+                                                    <div class="room_title"><a href="detail?tid=${o.id}">${o.name}</a></div>
                                                     <div class="room_price"><fmt:formatNumber value="${o.price}" pattern="###,###"/>VNÐ</div>
                                                     <div class="room_text">Time: ${o.intendedTime}</div>
 

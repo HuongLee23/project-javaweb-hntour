@@ -18,3 +18,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background-color: #FFFFFF;
     color: #fa9e1b;
 }
+
+.room_title a{
+    color:#fa9e1b;
+}
+
+.room_title a:hover{
+    color:#007bff;
+}
