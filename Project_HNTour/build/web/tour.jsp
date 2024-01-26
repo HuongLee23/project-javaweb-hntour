@@ -1,7 +1,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,7 @@
         <link rel="stylesheet" type="text/css" href="./styles/offers_styles.css">
         <link rel="stylesheet" type="text/css" href="./styles/offers_responsive.css">
         <link rel="stylesheet" href="./assets/css/tour.css"/>
-        <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
+
     </head>
     <body>
         <div class="super_container">
@@ -41,23 +41,22 @@
                                 <div class="row fill_height no-margin">
                                     <div class="col fill_height no-padding">
 
-                                       <div class="search_tabs_container">
-    <div class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-        <c:forEach items="${listCategory}" var="c">
-           <a class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start" href="searchcategory?cid=${c.id}">
-                <div class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start">
+                                        <div class="search_tabs_container">
+                                            <div class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+                                            <c:forEach items="${listCategory}" var="c">
+                                                <a class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start" href="searchcategory?cid=${c.id}">
+                                                    <!--<div class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start">-->
                                                     <c:if test="${c.id == 1}"><div class="icon-history"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-landmark"></i></div></c:if>
                                                     <c:if test="${c.id == 2}"><div class="icon-culture"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-flag"></i></div></c:if>
                                                     <c:if test="${c.id == 3}"><div class="icon-food"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-utensils"></i></div></c:if>
                                                     <c:if test="${c.id == 4}"><div class="icon-vacation"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-tower-observation"></i></div></c:if>
                                                     <span>${c.getName()}</span>
-
-                </div>
-            </a>
-        </c:forEach>
-    </div>
-</div>
-
+                                                    <!--</div>-->
+                                                </a>
+                                            </c:forEach>    
+                                        </div>
+                                    </div>
+                                <!-- Search Panel -->
 
                                     <div class="search_panel active">
                                         <form action="searchname" id="search_form_1" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
@@ -118,107 +117,6 @@
                                         </form>
                                     </div>
 
-                                    <div class="search_panel">
-                                        <form action="#" id="search_form_2" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-                                            <div class="search_item">
-                                                <div>destination</div>
-                                                <input type="text" class="destination search_input" required="required">
-                                            </div>
-                                            <div class="search_item">
-                                                <div>check in</div>
-                                                <input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
-                                            </div>
-                                            <div class="search_item">
-                                                <div>check out</div>
-                                                <input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
-                                            </div>
-                                            <div class="search_item">
-                                                <div>adults</div>
-                                                <select name="adults" id="adults_2" class="dropdown_item_select search_input">
-                                                    <option>01</option>
-                                                    <option>02</option>
-                                                    <option>03</option>
-                                                </select>
-                                            </div>
-                                            <div class="search_item">
-                                                <div>children</div>
-                                                <select name="children" id="children_2" class="dropdown_item_select search_input">
-                                                    <option>0</option>
-                                                    <option>02</option>
-                                                    <option>03</option>
-                                                </select>
-                                            </div>
-                                            <button class="button search_button">search<span></span><span></span><span></span></button>
-                                        </form>
-                                    </div>
-
-                                    <div class="search_panel">
-                                        <form action="#" id="search_form_3" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-                                            <div class="search_item">
-                                                <div>destination</div>
-                                                <input type="text" class="destination search_input" required="required">
-                                            </div>
-                                            <div class="search_item">
-                                                <div>check in</div>
-                                                <input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
-                                            </div>
-                                            <div class="search_item">
-                                                <div>check out</div>
-                                                <input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
-                                            </div>
-                                            <div class="search_item">
-                                                <div>adults</div>
-                                                <select name="adults" id="adults_3" class="dropdown_item_select search_input">
-                                                    <option>01</option>
-                                                    <option>02</option>
-                                                    <option>03</option>
-                                                </select>
-                                            </div>
-                                            <div class="search_item">
-                                                <div>children</div>
-                                                <select name="children" id="children_3" class="dropdown_item_select search_input">
-                                                    <option>0</option>
-                                                    <option>02</option>
-                                                    <option>03</option>
-                                                </select>
-                                            </div>
-                                            <button class="button search_button">search<span></span><span></span><span></span></button>
-                                        </form>
-                                    </div>
-
-                                    <div class="search_panel">
-                                        <form action="#" id="search_form_4" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-                                            <div class="search_item">
-                                                <div>destination</div>
-                                                <input type="text" class="destination search_input" required="required">
-                                            </div>
-                                            <div class="search_item">
-                                                <div>check in</div>
-                                                <input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
-                                            </div>
-                                            <div class="search_item">
-                                                <div>check out</div>
-                                                <input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
-                                            </div>
-                                            <div class="search_item">
-                                                <div>adults</div>
-                                                <select name="adults" id="adults_4" class="dropdown_item_select search_input">
-                                                    <option>01</option>
-                                                    <option>02</option>
-                                                    <option>03</option>
-                                                </select>
-                                            </div>
-                                            <div class="search_item">
-                                                <div>children</div>
-                                                <select name="children" id="children_4" class="dropdown_item_select search_input">
-                                                    <option>0</option>
-                                                    <option>02</option>
-                                                    <option>03</option>
-                                                </select>
-                                            </div>
-                                            <button class="button search_button">search<span></span><span></span><span></span></button>
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -296,7 +194,7 @@
                                         <div class="col-lg-1 temp_col"></div>
                                         <div class="col-lg-3 col-1680-4">
                                             <div class="offers_image_container">
-                                                <img class="card-img-top" src="${c.imgMain}">
+                                                <img style="    width: 358px; height: 250px;" class="card-img-top" src="${c.imageMain}">
                                                 <div class="offer_name"><span  style="color: white; font-size: 18px; margin-left: 35px"><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</span></div>
                                             </div>
                                         </div>
@@ -305,7 +203,16 @@
                                                 <div class="offers_price" style="font-size: 25px">${c.name}
                                                     <div><span>About ${c.intendedTime}</span></div>
                                                 </div>
-                                                <p class="offers_text">${c.description}</p>
+                                                <p class="offers_text">
+                                <c:choose>
+                                    <c:when test="${fn:length(c.description) > 200}">
+                                        ${fn:substring(c.description, 0, 200)}...
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${c.description}
+                                    </c:otherwise>
+                                </c:choose>
+                            </p>
                                                 <div class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>
                                                 <div class="button book_button"><a href="detail?tid=${c.id}">Detail<span></span><span></span><span></span></a></div>
                                                 <div class="offer_reviews">
@@ -319,21 +226,15 @@
                     </div>
                 </div>
             </div>
+            <jsp:include page="footer.jsp"></jsp:include>
         </div>
-
-        <jsp:include page="footer.jsp"></jsp:include>
-    </div>
-</div>
-</div>
-</div>
-
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="styles/bootstrap4/popper.js"></script>
-<script src="styles/bootstrap4/bootstrap.min.js"></script>
-<script src="plugins/Isotope/isotope.pkgd.min.js"></script>
-<script src="plugins/easing/easing.js"></script>
-<script src="plugins/parallax-js-master/parallax.min.js"></script>
-<script src="js/offers_custom.js"></script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"845750592bc9408f","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
-</body>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="styles/bootstrap4/popper.js"></script>
+        <script src="styles/bootstrap4/bootstrap.min.js"></script>
+        <script src="plugins/Isotope/isotope.pkgd.min.js"></script>
+        <script src="plugins/easing/easing.js"></script>
+        <script src="plugins/parallax-js-master/parallax.min.js"></script>
+        <script src="js/offers_custom.js"></script>
+        <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"845750592bc9408f","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
+    </body>
 </html>

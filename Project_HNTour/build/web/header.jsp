@@ -54,12 +54,7 @@
                     </div>
                     <div class="main_nav_container ml-auto">
                         <ul class="main_nav_list">
-<!--<<<<<<< HEAD
-                            <li class="main_nav_item"><a href="home.jsp">home</a></li>
-=======-->
                             <li class="main_nav_item"><a href="home">home</a></li>
-                            <!--<<<<<<< HEAD-->
-                            
                             <li class="main_nav_item"><a href="tourlist">Tour</a></li>
                             <li class="main_nav_item"><a href="aboutUs.jsp">about us</a></li>
                             <li class="main_nav_item"><a href="blogs.jsp">news</a></li>

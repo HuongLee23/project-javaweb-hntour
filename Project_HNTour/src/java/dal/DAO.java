@@ -1,13 +1,16 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dal;
 
+import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import model.Account;
 import model.Category;
@@ -56,16 +59,7 @@ public class DAO extends DBContext {
         Log in to account
      */
     public Account loginAccount(String email, String password) {
-        String sql = "SELECT [id],"
-                + " [email],"
-                + " [username],"
-                + " [password], "
-                + "[role], "
-                + "[address], "
-                + "[avatar], "
-                + "[phoneNumber], "
-                + "[status] FROM [HaNoiTour].[dbo].[Account] "
-                + "WHERE [email] = ? AND [password] = ?";
+        String sql = "SELECT [id], [email], [username], [password], [role], [address], [avatar], [phoneNumber], [status] FROM [HaNoiTour].[dbo].[Account] WHERE [email] = ? AND [password] = ?";
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, email);
@@ -167,6 +161,7 @@ public class DAO extends DBContext {
             st.setString(3, address);
             st.setString(4, avatar);
             st.setString(5, phoneNumber);
+
             st.setInt(6, id);
 
             int result = st.executeUpdate();
@@ -210,38 +205,41 @@ public class DAO extends DBContext {
         String sql = "SELECT TOP (1000) "
                 + "T.[id], "
                 + "T.[name],"
-                + " T.[imageId],"
+                + " T.[imageMain],"
+                + " T.[imageAlbum],"
                 + " T.[intendedTime], "
                 + "T.[price], "
                 + "T.[description], "
                 + "T.[categoryId], "
                 + "T.[version], "
                 + "T.[rule], "
-                + "T.[feedbackID], "
                 + "T.[supplierId], "
-                + "T.[status], "
-                + "IA.[imgMain] "
-                + "FROM [HaNoiTour].[dbo].[Tour] T "
-                + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA"
-                + " ON T.[imageId] = IA.[id]";
+                + "T.[status] "
+                + "FROM [HaNoiTour].[dbo].[Tour] T ";
 
-        try ( PreparedStatement st = connection.prepareStatement(sql);  ResultSet rs = st.executeQuery()) {
-
+        try  {
+             PreparedStatement st = connection.prepareStatement(sql);
+             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+
+                String imageAlbumString = rs.getString("imageAlbum");
+
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
                 Tour tour = new Tour(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("imageId"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
                         rs.getTime("intendedTime"),
                         rs.getString("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
-                        rs.getBoolean("status"),
-                        rs.getString("imgMain")
+                        rs.getBoolean("status")
                 );
 
                 list.add(tour);
@@ -260,92 +258,91 @@ public class DAO extends DBContext {
         ResultSet rs = null;
         Tour tour = null; // Declare a Tour variable to store the result
 
-        String sql = "SELECT TOP (1000) \n"
-                + "                T.[id], \n"
-                + "               T.[name],\n"
-                + "               T.[imageId],\n"
-                + "           T.[intendedTime], \n"
-                + "                T.[price], \n"
-                + "                T.[description], \n"
-                + "                T.[categoryId], \n"
-                + "                T.[version], \n"
-                + "                T.[rule], \n"
-                + "                T.[feedbackID], \n"
-                + "               T.[supplierId], \n"
-                + "                T.[status], \n"
-                + "                IA.[imgMain] \n"
-                + "                FROM [HaNoiTour].[dbo].[Tour] T \n"
-                + "                JOIN [HaNoiTour].[dbo].[ImageAlbum] IA\n"
-                + "                 ON T.[imageId] = IA.[id]\n"
-                + "				 where T.[id]=?;";
-
+        String sql = "SELECT TOP (1000) "
+                + "T.[id], "
+                + "T.[name],"
+                + " T.[imageMain],"
+                + " T.[imageAlbum],"
+                + " T.[intendedTime], "
+                + "T.[price], "
+                + "T.[description], "
+                + "T.[categoryId], "
+                + "T.[version], "
+                + "T.[rule], "
+                + "T.[supplierId], "
+                + "T.[status] "
+                + "FROM [HaNoiTour].[dbo].[Tour] T where T.[id]= ?";
         try {
             ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
 
             rs = ps.executeQuery();
             if (rs.next()) {
+
+                String imageAlbumString = rs.getString("imageAlbum");
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
                 // Create a new Tour object with the retrieved values
                 tour = new Tour(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("imageId"),
-                        rs.getTime("intendedTime"), // Use getTimestamp if intendedTime is not TIME type
-                        rs.getString("price"),
-                        rs.getString("description"),
-                        rs.getInt("categoryId"),
-                        rs.getInt("version"), // corrected column name
-                        rs.getString("rule"),
-                        rs.getInt("feedbackID"),
-                        rs.getInt("supplierId"),
-                        rs.getBoolean("status"),
-                        rs.getString("imgMain")
-                // Add missing commas and complete the constructor parameters as needed
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return tour;
-    }
-
-    public List<Tour> searchByName(String txtSearch) {
-        List<Tour> list = new ArrayList<>();
-        String sql = "SELECT T.[id]\n"
-                + "      ,T.[name]\n"
-                + "      ,T.[imageId]\n"
-                + "      ,T.[intendedTime]\n"
-                + "      ,T.[price]\n"
-                + "      ,T.[description]\n"
-                + "      ,T.[categoryId]\n"
-                + "      ,T.[version]\n"
-                + "      ,T.[rule]\n"
-                + "      ,T.[feedbackID]\n"
-                + "      ,T.[supplierId]\n"
-                + "      ,T.[status]\n"
-                + "	 ,IA.imgMain\n"
-                + "     FROM [dbo].[Tour] T JOIN [dbo].[ImageAlbum] IA "
-                + "     ON T.imageId = IA.id\n"
-                + "     WHERE T.[name] like ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, "%" + txtSearch + "%");
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new Tour(rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("imageId"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
                         rs.getTime("intendedTime"),
                         rs.getString("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
-                        rs.getBoolean("status"),
-                        rs.getString("imgMain")
+                        rs.getBoolean("status")
+                );
+            }
+        } catch (SQLException e) {
+        }
+        return tour;
+    }
+
+    public List<Tour> searchByName(String txtSearch) {
+        List<Tour> list = new ArrayList<>();
+        String sql = "SELECT "
+                + "T.[id], "
+                + "T.[name],"
+                + " T.[imageMain],"
+                + " T.[imageAlbum],"
+                + " T.[intendedTime], "
+                + "T.[price], "
+                + "T.[description], "
+                + "T.[categoryId], "
+                + "T.[version], "
+                + "T.[rule], "
+                + "T.[supplierId], "
+                + "T.[status] "
+                + "     FROM [dbo].[Tour] T"
+                + "     WHERE T.[name] like ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%" + txtSearch + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String imageAlbumString = rs.getString("imageAlbum");
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
+                list.add(new Tour(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
+                        rs.getTime("intendedTime"),
+                        rs.getString("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryId"),
+                        rs.getInt("version"),
+                        rs.getString("rule"),
+                        rs.getInt("supplierId"),
+                        rs.getBoolean("status")
                 // Add missing commas and complete the constructor parameters as needed
                 ));
             }
@@ -356,61 +353,23 @@ public class DAO extends DBContext {
         return list;
     }
 
-    public ImageAlbum getDetailImage(int id) {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        ImageAlbum imagealbum = null;
-        String sql = "SELECT TOP (1000) Y.[id]\n"
-                + "       ,Y.[imgMain]\n"
-                + "      ,Y.[img1]\n"
-                + "      ,Y.[img2]\n"
-                + "      ,Y.[img3]\n"
-                + "      ,Y.[img4]\n"
-                + "  FROM [HaNoiTour].[dbo].[ImageAlbum] Y\n"
-                + "  JOIN [HaNoiTour].[dbo].[Tour] T \n"
-                + "  ON  Y.[id] = T.[imageId] WHERE T.[id]=?;";
-        try {
-            ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-
-            rs = ps.executeQuery();
-            if (rs.next()) {
-
-                imagealbum = new ImageAlbum(
-                        rs.getInt("id"),
-                        rs.getString("imgMain"),
-                        rs.getString("img1"),
-                        rs.getString("img2"),
-                        rs.getString("img3"),
-                        rs.getString("img4")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return imagealbum;
-    }
-
     public List<Tour> getRelateTour(int cid, int tid) {
         List<Tour> list = new ArrayList<>();
 
         String sql = "SELECT TOP (2) \n"
-                + "                T.[id],\n"
-                + "             T.[name],\n"
-                + "               T.[imageId],\n"
-                + "                 T.[intendedTime], \n"
-                + "               T.[price], \n"
-                + "                T.[description], \n"
-                + "                T.[categoryId], \n"
-                + "                T.[version], \n"
-                + "                T.[rule], \n"
-                + "                T.[feedbackID], \n"
-                + "                T.[supplierId], \n"
-                + "                T.[status], \n"
-                + "                IA.[imgMain] \n"
+                + "T.[id], "
+                + "T.[name],"
+                + " T.[imageMain],"
+                + " T.[imageAlbum],"
+                + " T.[intendedTime], "
+                + "T.[price], "
+                + "T.[description], "
+                + "T.[categoryId], "
+                + "T.[version], "
+                + "T.[rule], "
+                + "T.[supplierId], "
+                + "T.[status] "
                 + "                FROM [HaNoiTour].[dbo].[Tour] T \n"
-                + "                JOIN [HaNoiTour].[dbo].[ImageAlbum] IA\n"
-                + "                 ON T.[imageId] = IA.[id]\n"
                 + "   where T.[categoryId] = ? and T.[id]  not in (?)\n"
                 + "                order by newid()";
 
@@ -420,20 +379,23 @@ public class DAO extends DBContext {
 
             try ( ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
+                    String imageAlbumString = rs.getString("imageAlbum");
+                    // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                    List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
                     Tour tour = new Tour(
                             rs.getInt("id"),
                             rs.getString("name"),
-                            rs.getInt("imageId"),
+                            rs.getString("imageMain"),
+                            imageAlbumList,
                             rs.getTime("intendedTime"),
                             rs.getString("price"),
                             rs.getString("description"),
                             rs.getInt("categoryId"),
                             rs.getInt("version"),
                             rs.getString("rule"),
-                            rs.getInt("feedbackID"),
                             rs.getInt("supplierId"),
-                            rs.getBoolean("status"),
-                            rs.getString("imgMain")
+                            rs.getBoolean("status")
                     );
                     list.add(tour);
                 }
@@ -482,20 +444,18 @@ public class DAO extends DBContext {
         List<Tour> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) "
                 + "T.[id], "
-                + "T.[name], "
-                + "T.[imageId], "
-                + "T.[intendedTime], "
+                + "T.[name],"
+                + " T.[imageMain],"
+                + " T.[imageAlbum],"
+                + " T.[intendedTime], "
                 + "T.[price], "
                 + "T.[description], "
                 + "T.[categoryId], "
                 + "T.[version], "
                 + "T.[rule], "
-                + "T.[feedbackID], "
                 + "T.[supplierId], "
-                + "T.[status], "
-                + "IA.[imgMain] "
+                + "T.[status] "
                 + "FROM [HaNoiTour].[dbo].[Tour] T "
-                + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA "
                 + "ON T.[imageId] = IA.[id] ORDER BY T.[price]";
         if (typeSort.equals("asc")) {
             sql += " ASC";
@@ -507,20 +467,23 @@ public class DAO extends DBContext {
             st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                String imageAlbumString = rs.getString("imageAlbum");
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
                 Tour tour = new Tour(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("imageId"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
                         rs.getTime("intendedTime"),
                         rs.getString("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
-                        rs.getBoolean("status"),
-                        rs.getString("imgMain")
+                        rs.getBoolean("status")
                 );
 
                 list.add(tour);
@@ -674,41 +637,43 @@ public class DAO extends DBContext {
 
     public List<Tour> listTop3Tour() {
         List<Tour> list = new ArrayList<>();
-        String sql = "SELECT top(3) T.[id]\n"
-                + "      ,T.[name]\n"
-                + "      ,T.[imageId]\n"
-                + "      ,T.[intendedTime]\n"
-                + "      ,T.[price]\n"
-                + "      ,T.[description]\n"
-                + "      ,T.[categoryId]\n"
-                + "      ,T.[version]\n"
-                + "      ,T.[rule]\n"
-                + "      ,T.[feedbackID]\n"
-                + "      ,T.[supplierId]\n"
-                + "      ,T.[status]\n"
-                + "	 ,IA.imgMain\n"
-                + "     FROM [dbo].[Tour] T JOIN [dbo].[ImageAlbum] IA "
-                + "     ON T.imageId = IA.id\n"
+        String sql = "SELECT top(3)"
+                + "T.[id], "
+                + "T.[name],"
+                + " T.[imageMain],"
+                + " T.[imageAlbum],"
+                + " T.[intendedTime], "
+                + "T.[price], "
+                + "T.[description], "
+                + "T.[categoryId], "
+                + "T.[version], "
+                + "T.[rule], "
+                + "T.[supplierId], "
+                + "T.[status] "
+                + "     FROM [dbo].[Tour] T "
                 + "     JOIN [dbo].[Feedback] F"
-                + "     ON T.feedbackID = F.id"
+                + "     ON T.id = F.tourId"
                 + "     ORDER BY F.[rating] DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                String imageAlbumString = rs.getString("imageAlbum");
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
                 list.add(new Tour(rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("imageId"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
                         rs.getTime("intendedTime"),
                         rs.getString("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
-                        rs.getBoolean("status"),
-                        rs.getString("imgMain")));
+                        rs.getBoolean("status")));
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -718,39 +683,41 @@ public class DAO extends DBContext {
 
     public List<Tour> listNew4Tour() {
         List<Tour> list = new ArrayList<>();
-        String sql = "SELECT top(4) T.[id]\n"
-                + "      ,T.[name]\n"
-                + "      ,T.[imageId]\n"
-                + "      ,T.[intendedTime]\n"
-                + "      ,T.[price]\n"
-                + "      ,T.[description]\n"
-                + "      ,T.[categoryId]\n"
-                + "      ,T.[version]\n"
-                + "      ,T.[rule]\n"
-                + "      ,T.[feedbackID]\n"
-                + "      ,T.[supplierId]\n"
-                + "      ,T.[status]\n"
-                + "	 ,IA.imgMain\n"
-                + "     FROM [dbo].[Tour] T JOIN [dbo].[ImageAlbum] IA"
-                + "     ON T.imageId = IA.id"
+        String sql = "SELECT top(4) "
+                + "T.[id], "
+                + "T.[name],"
+                + " T.[imageMain],"
+                + " T.[imageAlbum],"
+                + " T.[intendedTime], "
+                + "T.[price], "
+                + "T.[description], "
+                + "T.[categoryId], "
+                + "T.[version], "
+                + "T.[rule], "
+                + "T.[supplierId], "
+                + "T.[status] "
+                + "     FROM [dbo].[Tour] T "
                 + "     ORDER BY T.id DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                String imageAlbumString = rs.getString("imageAlbum");
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
                 list.add(new Tour(rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("imageId"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
                         rs.getTime("intendedTime"),
                         rs.getString("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
-                        rs.getBoolean("status"),
-                        rs.getString("imgMain")));
+                        rs.getBoolean("status")));
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -760,39 +727,41 @@ public class DAO extends DBContext {
 
     public List<Tour> listTrendTour() {
         List<Tour> list = new ArrayList<>();
-        String sql = "SELECT top(8) T.[id]\n"
-                + "      ,T.[name]\n"
-                + "      ,T.[imageId]\n"
-                + "      ,T.[intendedTime]\n"
-                + "      ,T.[price]\n"
-                + "      ,T.[description]\n"
-                + "      ,T.[categoryId]\n"
-                + "      ,T.[version]\n"
-                + "      ,T.[rule]\n"
-                + "      ,T.[feedbackID]\n"
-                + "      ,T.[supplierId]\n"
-                + "      ,T.[status]\n"
-                + "	 ,IA.imgMain\n"
-                + "     FROM [dbo].[Tour] T JOIN [dbo].[ImageAlbum] IA"
-                + "     ON T.imageId = IA.id"
+        String sql = "SELECT top(8) "
+                + "T.[id], "
+                + "T.[name],"
+                + " T.[imageMain],"
+                + " T.[imageAlbum],"
+                + " T.[intendedTime], "
+                + "T.[price], "
+                + "T.[description], "
+                + "T.[categoryId], "
+                + "T.[version], "
+                + "T.[rule], "
+                + "T.[supplierId], "
+                + "T.[status]"
+                + "     FROM [dbo].[Tour] T"
                 + "     ORDER BY T.price ASC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                String imageAlbumString = rs.getString("imageAlbum");
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
                 list.add(new Tour(rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("imageId"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
                         rs.getTime("intendedTime"),
                         rs.getString("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
-                        rs.getBoolean("status"),
-                        rs.getString("imgMain")));
+                        rs.getBoolean("status")));
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -803,14 +772,19 @@ public class DAO extends DBContext {
     public List<Tour> getTourBySortName(String typeSort) {
         List<Tour> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) "
-                + "T.[id],T.[name], T.[imageId], "
-                + "T.[intendedTime], T.[price], T.[description], "
-                + "T.[categoryId], T.[version],T.[rule], "
-                + "T.[feedbackID], T.[supplierId], T.[status], "
-                + "IA.[imgMain] "
-                + "FROM [HaNoiTour].[dbo].[Tour] T "
-                + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA "
-                + "ON T.[imageId] = IA.[id] ORDER BY T.[name]";
+                + "T.[id], "
+                + "T.[name],"
+                + " T.[imageMain],"
+                + " T.[imageAlbum],"
+                + " T.[intendedTime], "
+                + "T.[price], "
+                + "T.[description], "
+                + "T.[categoryId], "
+                + "T.[version], "
+                + "T.[rule], "
+                + "T.[supplierId], "
+                + "T.[status]"
+                + "FROM [HaNoiTour].[dbo].[Tour] T ORDER BY T.[name]";
         if (typeSort.equals("asc")) {
             sql += " ASC";
         } else if (typeSort.equals("desc")) {
@@ -821,20 +795,23 @@ public class DAO extends DBContext {
             st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                String imageAlbumString = rs.getString("imageAlbum");
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
                 Tour tour = new Tour(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("imageId"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
                         rs.getTime("intendedTime"),
                         rs.getString("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
-                        rs.getBoolean("status"),
-                        rs.getString("imgMain")
+                        rs.getBoolean("status")
                 );
 
                 list.add(tour);
@@ -847,13 +824,20 @@ public class DAO extends DBContext {
 
     public List<Tour> getTourBySortRating(String typeSort) {
         List<Tour> list = new ArrayList<>();
-        String sql = "SELECT TOP (1000) T.[id] ,T.[name],T.[imageId]\n"
-                + "     ,T.[intendedTime] ,T.[price],T.[description]\n"
-                + "      ,T.[categoryId],T.[version],T.[rule]\n"
-                + "      ,T.[feedbackID],T.[supplierId],T.[status],\n"
-                + "	  IA.[imgMain]\n"
+        String sql = "SELECT TOP (1000) "
+                + "T.[id], "
+                + "T.[name],"
+                + " T.[imageMain],"
+                + " T.[imageAlbum],"
+                + " T.[intendedTime], "
+                + "T.[price], "
+                + "T.[description], "
+                + "T.[categoryId], "
+                + "T.[version], "
+                + "T.[rule], "
+                + "T.[supplierId], "
+                + "T.[status]"
                 + "  FROM [HaNoiTour].[dbo].[Tour] T\n"
-                + "  JOIN [HaNoiTour].[dbo].[ImageAlbum] IA ON T.[imageId] = IA.[id]\n"
                 + "  JOIN [HaNoiTour].[dbo].[Feedback] F ON T.[feedbackID] = F.[id]\n"
                 + "  ORDER BY F.[rating] ;";
         if (typeSort.equals("asc")) {
@@ -866,20 +850,23 @@ public class DAO extends DBContext {
             st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                String imageAlbumString = rs.getString("imageAlbum");
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
                 Tour tour = new Tour(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("imageId"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
                         rs.getTime("intendedTime"),
                         rs.getString("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
-                        rs.getBoolean("status"),
-                        rs.getString("imgMain")
+                        rs.getBoolean("status")
                 );
 
                 list.add(tour);
@@ -892,41 +879,43 @@ public class DAO extends DBContext {
 
     public List<Tour> searchByCategory(String categoryId) {
         List<Tour> list = new ArrayList<>();
-        String sql = "SELECT TOP (1000) T.[id],"
-                + " T.[name], "
-                + "T.[imageId],"
+        String sql = "SELECT TOP (1000) "
+                + "T.[id], "
+                + "T.[name],"
+                + " T.[imageMain],"
+                + " T.[imageAlbum],"
                 + " T.[intendedTime], "
                 + "T.[price], "
-                + "T.[description],"
-                + " T.[categoryId], "
-                + "T.[version],"
-                + " T.[rule],"
-                + " T.[feedbackID], "
+                + "T.[description], "
+                + "T.[categoryId], "
+                + "T.[version], "
+                + "T.[rule], "
                 + "T.[supplierId], "
-                + "T.[status], "
-                + "IA.[imgMain] "
+                + "T.[status]"
                 + "FROM [HaNoiTour].[dbo].[Tour] T "
-                + "JOIN [HaNoiTour].[dbo].[ImageAlbum] IA ON T.[imageId] = IA.[id] "
                 + "WHERE T.[categoryId] = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, categoryId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                String imageAlbumString = rs.getString("imageAlbum");
+                
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
                 Tour tour = new Tour(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("imageId"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
                         rs.getTime("intendedTime"),
                         rs.getString("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
                         rs.getString("rule"),
-                        rs.getInt("feedbackID"),
                         rs.getInt("supplierId"),
-                        rs.getBoolean("status"),
-                        rs.getString("imgMain")
+                        rs.getBoolean("status")
                 );
                 list.add(tour);
             }
@@ -937,19 +926,12 @@ public class DAO extends DBContext {
     }
 
     public static void main(String[] args) {
-    DAO dao = new DAO();
-    
-    try {
-        List<Tour> tourList = dao.searchByCategory("1");
-        for (Tour tour : tourList) {
-            System.out.println(tour.getId());
-            System.out.println(tour.getName());
+        DAO d = new DAO();
+        List<Tour> list = d.getAllTour();
+        for (Tour tour : list) {
+            System.out.println(tour.getImageAlbum());
         }
-    } catch (Exception e) {
-        // Log or handle the exception
-        e.printStackTrace();
     }
-}
 
 //        if (!tourList.isEmpty()) {
 //            for (Tour tour : tourList) {
@@ -959,3 +941,4 @@ public class DAO extends DBContext {
 //            System.out.println("No tours found.");
 //        }
 }
+

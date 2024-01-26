@@ -110,25 +110,30 @@ public class AccountServlet extends HttpServlet {
         } else if (email != null && pass != null) {
             Account a = d.loginAccount(email, pass);
             if (a != null) {
-                session.setAttribute("account", a);
+                if (a.isStatus()) {
+                    session.setAttribute("account", a);
 
-                Cookie cemail = new Cookie("cemail", email);
-                Cookie cpass = new Cookie("cpass", pass);
-                Cookie crem = new Cookie("crem", rem);
-                if (rem != null) {
-                    cemail.setMaxAge(60 * 60 * 24 * 30);
-                    cpass.setMaxAge(60 * 60 * 24 * 30);
-                    crem.setMaxAge(60 * 60 * 24 * 30);
+                    Cookie cemail = new Cookie("cemail", email);
+                    Cookie cpass = new Cookie("cpass", pass);
+                    Cookie crem = new Cookie("crem", rem);
+                    if (rem != null) {
+                        cemail.setMaxAge(60 * 60 * 24 * 30);
+                        cpass.setMaxAge(60 * 60 * 24 * 30);
+                        crem.setMaxAge(60 * 60 * 24 * 30);
+                    } else {
+                        cemail.setMaxAge(0);
+                        cpass.setMaxAge(0);
+                        crem.setMaxAge(0);
+                    }
+                    response.addCookie(cemail);
+                    response.addCookie(cpass);
+                    response.addCookie(crem);
+
+                    response.sendRedirect("home");
                 } else {
-                    cemail.setMaxAge(0);
-                    cpass.setMaxAge(0);
-                    crem.setMaxAge(0);
+                    request.setAttribute("error", "Tài khoản của bạn đã bị khóa! Vui lòng đăng nhập tài khoản khác.");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
-                response.addCookie(cemail);
-                response.addCookie(cpass);
-                response.addCookie(crem);
-
-                response.sendRedirect("home");
 //                response.sendRedirect("home.jsp");
             } else {
                 request.setAttribute("error", "Email hoặc mật khẩu không đúng. Vui lòng thử lại.");

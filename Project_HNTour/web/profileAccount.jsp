@@ -64,26 +64,26 @@
                                                 </form>
                                             </div>
                                         </div>
-                                                        <script>
-                                                            function handleImageChange(input) {
-                    const selectedImage = document.getElementById('selectedImage');
-                    const ngoaiFormImage = document.getElementById('ngoaiFormImage');
-                    const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
+                                        <script>
+                                            function handleImageChange(input) {
+                                            const selectedImage = document.getElementById('selectedImage');
+                                            const ngoaiFormImage = document.getElementById('ngoaiFormImage');
+                                            const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
 
-                    if (input.files && input.files[0]) {
-                        const reader = new FileReader();
+                                            if (input.files && input.files[0]) {
+                                            const reader = new FileReader();
 
-                        reader.onload = function (e) {
-                            selectedImage.src = e.target.result;
-                            ngoaiFormImage.src = e.target.result;
-                            ngoaiFormImage2.src = e.target.result;
-                        };
+                                            reader.onload = function (e) {
+                                            selectedImage.src = e.target.result;
+                                            ngoaiFormImage.src = e.target.result;
+                                            ngoaiFormImage2.src = e.target.result;
+                                             };
 
-                        reader.readAsDataURL(input.files[0]);
-                    }
-                }
-                                                        </script>
-                                                        
+                                            reader.readAsDataURL(input.files[0]);
+                                             }
+                                       }
+                                        </script>
+
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
                                             <h3 style="color:red">${requestScope.ms}</h3>
@@ -91,12 +91,12 @@
                                         <div class="tab-content pt-3">
                                             <div class="tab-pane active">
 
-                                                <form class="form" action="profileaccount" method="post">
+                                                <form class="form" action="profileaccount" method="post" enctype="multipart/form-data">
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="row">
                                                                 <input type="file" id="imageInput" accept=".jpeg, .jpg, .png" name="profileImage" style="display: none;" onchange="handleImageChange(this);">
-                                                             <img id="selectedImage" src="${a.avatar}" alt="">
+                                                                <img id="selectedImage" src="${a.avatar}" alt="">
                                                                 <input type="hidden" name="id" value="${a.id}">
 
                                                                 <div class="col">
