@@ -106,7 +106,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col">
-                                                                    <div class="form-group">
+                                                                    <div class="form-group"> 
                                                                         <label>User Name</label>
                                                                         <input name="username" class="form-control" type="text" value="${a.username}">
                                                                     </div>
