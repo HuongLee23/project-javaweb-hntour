@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -143,7 +144,7 @@ public class DAO extends DBContext {
             String email,
             String username,
             String address,
-            String profileImage,
+            String avatar,
             String phoneNumber) {
 
         String sql = "UPDATE [dbo].[Account] "
@@ -158,7 +159,7 @@ public class DAO extends DBContext {
             st.setString(1, email);
             st.setString(2, username);
             st.setString(3, address);
-            st.setString(4, profileImage);
+            st.setString(4, avatar);
             st.setString(5, phoneNumber);
 
             st.setInt(6, id);
@@ -216,8 +217,9 @@ public class DAO extends DBContext {
                 + "T.[status] "
                 + "FROM [HaNoiTour].[dbo].[Tour] T ";
 
-        try ( PreparedStatement st = connection.prepareStatement(sql);  ResultSet rs = st.executeQuery()) {
-
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
 
                 String imageAlbumString = rs.getString("imageAlbum");
@@ -454,7 +456,7 @@ public class DAO extends DBContext {
                 + "T.[supplierId], "
                 + "T.[status] "
                 + "FROM [HaNoiTour].[dbo].[Tour] T "
-                + "ON T.[imageId] = IA.[id] ORDER BY T.[price]";
+                + "ORDER BY T.[price]";
         if (typeSort.equals("asc")) {
             sql += " ASC";
         } else if (typeSort.equals("desc")) {
@@ -822,22 +824,21 @@ public class DAO extends DBContext {
 
     public List<Tour> getTourBySortRating(String typeSort) {
         List<Tour> list = new ArrayList<>();
-        String sql = "SELECT TOP (1000) "
-                + "T.[id], "
-                + "T.[name],"
-                + " T.[imageMain],"
-                + " T.[imageAlbum],"
-                + " T.[intendedTime], "
-                + "T.[price], "
-                + "T.[description], "
-                + "T.[categoryId], "
-                + "T.[version], "
-                + "T.[rule], "
-                + "T.[supplierId], "
-                + "T.[status]"
-                + "  FROM [HaNoiTour].[dbo].[Tour] T\n"
-                + "  JOIN [HaNoiTour].[dbo].[Feedback] F ON T.[feedbackID] = F.[id]\n"
-                + "  ORDER BY F.[rating] ;";
+        String sql = "SELECT TOP (1000) T.[id],T.[name], \n"
+                + "				T.[imageMain], \n"
+                + "				T.[imageAlbum], \n"
+                + "				T.[intendedTime], \n"
+                + "				T.[price], \n"
+                + "                T.[description], \n"
+                + "                T.[categoryId], \n"
+                + "                T.[version], \n"
+                + "                T.[rule], \n"
+                + "                T.[supplierId], \n"
+                + "                T.[status],\n"
+                + "				F.rating\n"
+                + "                 FROM [HaNoiTour].[dbo].[Tour] T  JOIN [HaNoiTour].[dbo].[Feedback] F \n"
+                + "				 ON T.[id] = F.[id]\n"
+                + "                 ORDER BY F.[rating]";
         if (typeSort.equals("asc")) {
             sql += " ASC";
         } else if (typeSort.equals("desc")) {
@@ -898,7 +899,7 @@ public class DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 String imageAlbumString = rs.getString("imageAlbum");
-                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+
                 List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
 
                 Tour tour = new Tour(
@@ -925,9 +926,9 @@ public class DAO extends DBContext {
 
     public static void main(String[] args) {
         DAO d = new DAO();
-        List<Tour> list = d.getAllTour();
+        List<Tour> list = d.getTourBySortPrice("ASC");
         for (Tour tour : list) {
-            System.out.println(tour.getImageAlbum());
+            System.out.println(tour.getName());
         }
     }
 

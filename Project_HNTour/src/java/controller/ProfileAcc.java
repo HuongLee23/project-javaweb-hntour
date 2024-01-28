@@ -8,17 +8,24 @@ import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import javax.mail.Part;
 import model.Account;
 
 /**
  *
  * @author Admin
  */
+@MultipartConfig
 @WebServlet(name = "ProfileAcc", urlPatterns = {"/profileaccount"})
 public class ProfileAcc extends HttpServlet {
 
@@ -70,44 +77,52 @@ public class ProfileAcc extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Retrieve form data
+        throws ServletException, IOException, SecurityException {
+    try {
+//        Part part = (Part) request.getPart("profileImage");
+//        String realPath = request.getServletContext().getRealPath("/images");
+//
+//        // Create the directory if it doesn't exist
+//        if (!Files.exists(Paths.get(realPath))) {
+//            Files.createDirectory(Paths.get(realPath));
+//        }
+//
+//        // Save the file to the specified location
+//        String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+//        Files.copy(part.getInputStream(), Paths.get(realPath, filename), StandardCopyOption.REPLACE_EXISTING);
+//
+//        String profileImage = "images/" + filename; // Adjust the path as needed
 
+        // Retrieve other form parameters
         String profileImage = request.getParameter("profileImage");
-        String user = request.getParameter("username");
+        String username = request.getParameter("username");
         String address = request.getParameter("address");
         String phoneNumber = request.getParameter("phone");
-
-        String id_raw = request.getParameter("id");
+        int userId = Integer.parseInt(request.getParameter("id"));
         String email = request.getParameter("email");
 
         DAO accountDAO = new DAO();
         HttpSession session = request.getSession();
-        boolean updateSuccess = false;
-        String message = null;
-        try {
-            int id = Integer.parseInt(id_raw);
-            updateSuccess = accountDAO.updateProfile(id, email, user, address, profileImage, phoneNumber);
+        boolean updateSuccess = accountDAO.updateProfile(userId, email, username, address, profileImage, phoneNumber);
 
-            if (updateSuccess) {
-                message = "Cập nhật hồ sơ thành công.";
-            } else {
-                message = "Có lỗi xảy ra. Vui lòng thực hiện lại.";
-            }
+        String message = (updateSuccess) ? "Cập nhật hồ sơ thành công." : "Có lỗi xảy ra. Vui lòng thực hiện lại.";
 
-        } catch (NumberFormatException e) {
-
-        }
-
+        // Update session attribute and forward the request
         Account account = (Account) session.getAttribute("account");
         Account acc2 = accountDAO.getAccountDetail(account.getEmail());
         request.setAttribute("account", acc2);
-
-        // Set the message attribute and forward to the JSP
         request.setAttribute("ms", message);
         request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
-    }
 
+    } catch (Exception e) {
+        // Handle or log the exception
+        e.printStackTrace(); // Log the exception, or use a logging framework
+        response.sendRedirect("error.jsp"); // Redirect to an error page
+    }
+}
+
+    
+    
     /**
      * Returns a short description of the servlet.
      *
