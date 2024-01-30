@@ -33,30 +33,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /* Header notification */
 .header__notify {
     position: absolute;
-    top: 118%;
+    top: 80%;
     width: 404px;
-    right: -20px;
+    right: -26px;
     background-color: #fff;
     border: 1px solid #D3D3D3;
     transform-origin: calc(100% - 20px) top;
     will-change: opacity, transform;
     animation: headerNotifyGrow ease-in 0.2s;
     max-height: 350px;
-    overflow-y: auto;
     display: none;
 }
 
 .header__notify::before {
     content: "";
-    top: -24px;
+    top: -25px;
     right: 10px;
     border-width: 18px 24px;
     border-style: solid;
     max-height: 300px;
-    overflow-y: auto;
-    z-index: 1;
     border-color: transparent transparent white transparent;
     position: absolute;
+}
+
+.header__notify-wrapper {
+    overflow-y: auto;
+    max-height: 300px;
 }
 
 .header__notify::after {
@@ -66,9 +68,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     width: 140px;
     height: 16px;
     max-height: 300px;
-    overflow-y: auto;
     display: block;
-    z-index: 1;
     position: absolute;
 }
 
@@ -86,11 +86,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .header__notify-header {
     height: 40px;
-    background-color: #fff;
+    background: linear-gradient(to right, #fa9e1b, #8d4fff);
 }
 
 .header__notify-header h3 {
-    color: #999;
+    color: white;
     line-height: 40px;
     margin: 0 0 0 12px;
     font-weight: 400;
@@ -133,6 +133,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .header__notify-info {
     margin-right: 12px;
+    padding-left: 12px;
 }
 
 .header__notify-name {
@@ -182,14 +183,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     display: block;
 }
 
-
-/*.header__notify::before,
-.header__notify::after {
-    z-index: 1;
-    max-width: 140px;
-    max-height: 16px;
-    animation: none;
-}*/
-
-
+.shopee-cart-number-badge{
+    position: relative;
+    border-radius: 2.75rem;
+    min-width: 0.6875rem;
+    line-height: 1.1em;
+    padding: 0 0.3125rem;
+    text-align: center;
+    height: 1.2rem;
+    border: 0.125rem solid var(--brand-primary-color,#ee4d2d);
+    color: var(--brand-primary-color,#ee4d2d);
+    background-color: #fff;
+    left: 0.875rem;
+    top: -2.2rem;
+    margin-right: 0.125rem;
+}
 
