@@ -62,8 +62,122 @@
 
                         </ul>
                     </div>
+
+                    <!--Add to Cart Tour -->
+                    
                     <div class="content_search ml-lg-0 ml-auto">
-                        <i class="cart fa-solid fa-cart-shopping"></i>
+                        <li class="header__navbar-item header__navbar-item--show-notify">
+                            <a class="header__navbar-item-link" href="">
+                                <i class=" fa-solid fa-cart-shopping"></i>
+                                0
+                            </a>
+
+                            <!-- Notification -->
+                            <div class="header__notify">
+                                <header class="header__notify-header">
+                                    <h3>Tour mới thêm</h3>
+                                </header>
+                                <ul class="header__notify-list">
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                        <a href="" class="header__notify-link">
+                                            <img src="https://down-vn.img.susercontent.com/file/c97f8833be429ba3132daed3b905da69"
+                                                 alt="Laptop Lenovo Legion 5 " class="header__notify-img">
+                                            <div class="header__notify-info">
+                                                <span class="header__notify-name">Laptop Lenovo Legion 5</span>
+                                                <span class="header__notify-description">Laptop Lenovo Legion 5 15ITH6
+                                                    82JK0037VN i7-11800H|8GB|512GB|RTX 3050 4GB|15.6 FHD</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                        <a href="" class="header__notify-link">
+                                            <img src="https://down-vn.img.susercontent.com/file/c97f8833be429ba3132daed3b905da69"
+                                                 alt="Laptop Lenovo Legion 5 " class="header__notify-img">
+                                            <div class="header__notify-info">
+                                                <span class="header__notify-name">Laptop Lenovo Legion 5</span>
+                                                <span class="header__notify-description">Laptop Lenovo Legion 5 15ITH6
+                                                    82JK0037VN i7-11800H|8GB|512GB|RTX 3050 4GB|15.6 FHD</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                        <a href="" class="header__notify-link">
+                                            <img src="https://down-vn.img.susercontent.com/file/c97f8833be429ba3132daed3b905da69"
+                                                 alt="Laptop Lenovo Legion 5 " class="header__notify-img">
+                                            <div class="header__notify-info">
+                                                <span class="header__notify-name">Laptop Lenovo Legion 5</span>
+                                                <span class="header__notify-description">Laptop Lenovo Legion 5 15ITH6
+                                                    82JK0037VN i7-11800H|8GB|512GB|RTX 3050 4GB|15.6 FHD</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                        <a href="" class="header__notify-link">
+                                            <img src="https://down-vn.img.susercontent.com/file/c97f8833be429ba3132daed3b905da69"
+                                                 alt="Laptop Lenovo Legion 5 " class="header__notify-img">
+                                            <div class="header__notify-info">
+                                                <span class="header__notify-name">Laptop Lenovo Legion 5</span>
+                                                <span class="header__notify-description">Laptop Lenovo Legion 5 15ITH6
+                                                    82JK0037VN i7-11800H|8GB|512GB|RTX 3050 4GB|15.6 FHD</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                        <a href="" class="header__notify-link">
+                                            <img src="https://down-vn.img.susercontent.com/file/c97f8833be429ba3132daed3b905da69"
+                                                 alt="Laptop Lenovo Legion 5 " class="header__notify-img">
+                                            <div class="header__notify-info">
+                                                <span class="header__notify-name">Laptop Lenovo Legion 5</span>
+                                                <span class="header__notify-description">Laptop Lenovo Legion 5 15ITH6
+                                                    82JK0037VN i7-11800H|8GB|512GB|RTX 3050 4GB|15.6 FHD</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                        <a href="" class="header__notify-link">
+                                            <img src="https://down-vn.img.susercontent.com/file/c97f8833be429ba3132daed3b905da69"
+                                                 alt="Laptop Lenovo Legion 5 " class="header__notify-img">
+                                            <div class="header__notify-info">
+                                                <span class="header__notify-name">Laptop Lenovo Legion 5</span>
+                                                <span class="header__notify-description">Laptop Lenovo Legion 5 15ITH6
+                                                    82JK0037VN i7-11800H|8GB|512GB|RTX 3050 4GB|15.6 FHD</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                        <a href="" class="header__notify-link">
+                                            <img src="https://down-vn.img.susercontent.com/file/c97f8833be429ba3132daed3b905da69"
+                                                 alt="Laptop Lenovo Legion 5 " class="header__notify-img">
+                                            <div class="header__notify-info">
+                                                <span class="header__notify-name">Laptop Lenovo Legion 5</span>
+                                                <span class="header__notify-description">Laptop Lenovo Legion 5 15ITH6
+                                                    82JK0037VN i7-11800H|8GB|512GB|RTX 3050 4GB|15.6 FHD</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="header__notify-item header__notify-item--viewed">
+                                        <a href="" class="header__notify-link">
+                                            <img src="https://down-vn.img.susercontent.com/file/c97f8833be429ba3132daed3b905da69"
+                                                 alt="Laptop Lenovo Legion 5 " class="header__notify-img">
+                                            <div class="header__notify-info">
+                                                <span class="header__notify-name">Laptop Lenovo Legion 5</span>
+                                                <span class="header__notify-description">Laptop Lenovo Legion 5 15ITH6
+                                                    82JK0037VN i7-11800H|8GB|512GB|RTX 3050 4GB|15.6 FHD</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <footer class="header__notify-footer">
+                                    <a href="" class="header__notify-footer-btn">
+                                        Xem tất cả
+                                    </a>
+                                </footer>
+                            </div>
+
+                        </li>
+
+
+
 
                         <!--                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      width="17px" height="17px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
