@@ -140,5 +140,4 @@ public class Tour {
         this.status = status;
     }
     
-
 }
