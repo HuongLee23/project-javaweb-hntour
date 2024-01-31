@@ -22,7 +22,7 @@
                     <div class="user_box ml-auto">
                         <c:set value="${sessionScope.account}" var="a"/>
                         <c:if test="${a == null}">
-                            <div class="user_box_login user_box_link"><a href="account">login</a></div>
+                            <div class="user_box_login user_box_link"><a href="login.jsp">login</a></div>
                             <div class="user_box_register user_box_link"><a href="register.jsp">register</a></div>
                         </c:if>
                         <c:if test="${a != null}">

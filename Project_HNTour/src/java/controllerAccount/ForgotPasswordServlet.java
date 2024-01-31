@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controllerAccount;
 
+import controller.*;
 import controller.*;
 import dal.DAO;
 import java.io.IOException;
@@ -20,13 +21,8 @@ import model.Account;
  *
  * @author hello
  */
-//<<<<<<<< HEAD:Project_HNTour/src/java/controller/changepassword.java
-@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
-public class changepassword extends HttpServlet {
-//========
-//@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/forgotpassword"})
-//public class ForgotPasswordServlet extends HttpServlet {
-//>>>>>>>> 26f35089ca04ac2ffd07d30b16125c6d35ef410f:Project_HNTour/src/java/controller/ForgotPasswordServlet.java
+@WebServlet(name = "ForgotPasswordServlet", urlPatterns = {"/forgotpassword"})
+public class ForgotPasswordServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -66,7 +62,7 @@ public class changepassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
     }
 
     /**
@@ -84,24 +80,18 @@ public class changepassword extends HttpServlet {
         String pass = request.getParameter("pass");
         String newpass = request.getParameter("newpass");
 
-        DAO d = new DAO();
-        Account a = d.loginAccount(email, pass);
-
-        if (a == null || !a.getPassword().equals(pass)) {
-            String ms = "Old password is incorrect!";
-            request.setAttribute("error", ms);
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        if (newpass.equals(pass)) {
+            request.setAttribute("error", "Trùng mật khẩu cũ. Vui lòng thử lại.");
+            request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
         } else {
-
-            a.setPassword(newpass);
-            d.changePassword(email, pass, newpass);
-
-            HttpSession session = request.getSession();
-            session.setAttribute("account", a);
-
-            String ms = "Changed password successfully!";
-            request.setAttribute("error", ms);
-            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+            DAO d = new DAO();
+            boolean result = d.changePassword(email, pass, newpass);
+            if (result) {
+                response.sendRedirect("login.jsp");
+            } else {
+                request.setAttribute("error", "Email hoặc mật khẩu không hợp lệ. Vui lòng thử lại.");
+                request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
+            }
         }
     }
 
