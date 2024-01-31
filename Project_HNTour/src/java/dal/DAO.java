@@ -456,7 +456,7 @@ public class DAO extends DBContext {
                 + "T.[supplierId], "
                 + "T.[status] "
                 + "FROM [HaNoiTour].[dbo].[Tour] T "
-                + "ON T.[imageId] = IA.[id] ORDER BY T.[price]";
+                + " ORDER BY T.[price]";
         if (typeSort.equals("asc")) {
             sql += " ASC";
         } else if (typeSort.equals("desc")) {
@@ -925,12 +925,70 @@ public class DAO extends DBContext {
         return list;
     }
 
+   public Category getCategoryById(int categoryId) {
+    Category category = null;
+    String sql = "SELECT * FROM Category join  WHERE id = ?";
+    
+    try (PreparedStatement st = connection.prepareStatement(sql)) {
+        st.setInt(1, categoryId);
+        ResultSet rs = st.executeQuery();
+
+        if (rs.next()) {
+            category = new Category(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("description")
+            );
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return category;
+}
+    
+   
+   public List<Tour> getTourBySupplier(int supplierId) {
+    List<Tour> list = new ArrayList<>();
+    String sql = "SELECT Tour.name, Tour.imageMain, Tour.intendedTime, "
+            + "Tour.price, Tour.[description], Category.[name] AS CategoryName, "
+            + "Tour.[rule], Tour.version "
+            + "FROM Tour "
+            + "JOIN Category ON Tour.categoryId = Category.id "
+            + "WHERE Tour.supplierId = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, supplierId);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            Tour tour = new Tour();
+            tour.setName(rs.getString("name"));
+            tour.setImageMain(rs.getString("imageMain"));
+            tour.setIntendedTime(rs.getTime("intendedTime"));
+            tour.setPrice(rs.getString("price"));
+            tour.setDescription(rs.getString("description"));
+            
+            Category category = new Category();
+            category.setName(rs.getString("CategoryName"));
+           tour.setCategoryId(category.getId()); 
+            
+            tour.setRule(rs.getString("rule"));
+tour.setVersion(rs.getInt("version"));
+            list.add(tour);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+}
+
+
+   
+   
     public static void main(String[] args) {
         DAO d = new DAO();
-        List<Tour> list = d.getAllTour();
-        for (Tour tour : list) {
-            System.out.println(tour.getImageAlbum());
-        }
+        List<Tour> tour=d.getTourBySupplier(5);
+        System.out.println(tour);
     }
 
 //        if (!tourList.isEmpty()) {
