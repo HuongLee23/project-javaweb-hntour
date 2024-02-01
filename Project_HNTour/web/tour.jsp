@@ -194,8 +194,11 @@
                                         <div class="col-lg-1 temp_col"></div>
                                         <div class="col-lg-3 col-1680-4">
                                             <div class="offers_image_container">
-                                                <img style="    width: 358px; height: 250px;" class="card-img-top" src="${c.imageMain}">
-                                                <div class="offer_name"><span  style="color: white; font-size: 18px; margin-left: 35px"><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</span></div>
+                                                <a class="add_to_card" href="#">
+                                                    <i class="icon_card fa-solid fa-cart-plus" style="color: #e2492b" ></i>
+                                                </a>
+                                                <img  class="card-img-top" src="${c.imageMain}">
+                                                <div class="offer_name"><span ><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</span></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-8">

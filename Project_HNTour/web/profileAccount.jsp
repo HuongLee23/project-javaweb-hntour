@@ -59,7 +59,7 @@
                                                         <p class="mb-0">${a.email}</p>
 
                                                     </div>
-                                                    <button <button class="btn btn-primary" type="button" onclick="document.getElementById('imageInput').click();" >Cập Nhật Ảnh</button>
+                                                    <button class="btn btn-primary" type="button" onclick="document.getElementById('imageInput').click();" >Cập Nhật Ảnh</button>
 
                                                 </form>
                                             </div>
