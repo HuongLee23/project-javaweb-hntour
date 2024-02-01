@@ -4,6 +4,7 @@
     Author     : hello
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Header -->
 <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
@@ -69,8 +70,10 @@
                         <li class="header__navbar-item header__navbar-item--show-notify">
                             <a class="header__navbar-item-link" href="checkout.jsp">
                                 <i class=" fa-solid fa-cart-shopping"></i>
-                                <div class="shopee-cart-number-badge" aria-hidden="true">0</div>
-                                
+                                <c:if test="${sessionScope.sizeCart != null}">
+                                    <div class="shopee-cart-number-badge" aria-hidden="true">${sessionScope.sizeCart}</div>
+                                </c:if>
+
                             </a>
 
                             <!-- Notification -->
@@ -80,20 +83,22 @@
                                         <h3>Tour mới thêm</h3>
                                     </header>
                                     <ul class="header__notify-list">
-                                        <li class="header__notify-item header__notify-item--viewed">
-                                            <a href="" class="header__notify-link">
-                                                <img src="https://down-vn.img.susercontent.com/file/c97f8833be429ba3132daed3b905da69"
-                                                     alt="Laptop Lenovo Legion 5 " class="header__notify-img">
-                                                <div class="header__notify-info">
-                                                    <span class="header__notify-name">Laptop Lenovo Legion 5</span>
-                                                    <span class="header__notify-description">Laptop Lenovo Legion 5 15ITH6
-                                                        82JK0037VN i7-11800H|8GB|512GB|RTX 3050 4GB|15.6 FHD</span>
-                                                </div>
-                                            </a>
-                                        </li>
+                                        <c:forEach items="${sessionScope.listItem}" var="item">
+                                            <li class="header__notify-item header__notify-item--viewed">
+                                                <a href="detail?tid=${item.tour.id}" class="header__notify-link">
+                                                    <img src="${item.tour.imageMain}"
+                                                         alt="${item.tour.name}" class="header__notify-img">
+                                                    <div class="header__notify-info">
+                                                        <span class="header__notify-name">${item.tour.name}</span>
+                                                        <span class="header__notify-description"><fmt:formatNumber value="${item.tour.price}" pattern="###,###"/>VNÐ</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+
+                                        </c:forEach>
                                     </ul>
                                     <footer class="header__notify-footer">
-                                        <a href="" class="header__notify-footer-btn">
+                                        <a href="showcart" class="header__notify-footer-btn">
                                             Xem tất cả
                                         </a>
                                     </footer>

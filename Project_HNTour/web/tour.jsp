@@ -194,7 +194,7 @@
                                         <div class="col-lg-1 temp_col"></div>
                                         <div class="col-lg-3 col-1680-4">
                                             <div class="offers_image_container">
-                                                <a class="add_to_card" href="#">
+                                                <a class="add_to_card" href="additem?transmission=tourlist&id=${c.id}&num=1">
                                                     <i class="icon_card fa-solid fa-cart-plus" style="color: #e2492b" ></i>
                                                 </a>
                                                 <img  class="card-img-top" src="${c.imageMain}">
