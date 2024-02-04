@@ -76,34 +76,45 @@
 
                             </a>
 
-                            <!-- Notification -->
-                            <div class="header__notify">
-                                <div class="header__notify-wrapper">
-                                    <header class="header__notify-header">
-                                        <h3>Tour mới thêm</h3>
-                                    </header>
-                                    <ul class="header__notify-list">
-                                        <c:forEach items="${sessionScope.listItem}" var="item">
-                                            <li class="header__notify-item header__notify-item--viewed">
-                                                <a href="detail?tid=${item.tour.id}" class="header__notify-link">
-                                                    <img src="${item.tour.imageMain}"
-                                                         alt="${item.tour.name}" class="header__notify-img">
-                                                    <div class="header__notify-info">
-                                                        <span class="header__notify-name">${item.tour.name}</span>
-                                                        <span class="header__notify-description" style="color: #ee4d2d;"><fmt:formatNumber value="${item.tour.price}" pattern="###,###"/>VNÐ</span>
-                                                    </div>
-                                                </a>
-                                            </li>
+                            <!-- Notification that the cart contains products -->
+                            <c:if test="${sessionScope.sizeCart != 0}">
+                                <div class="header__notify">
+                                    <div class="header__notify-wrapper">
+                                        <header class="header__notify-header">
+                                            <h3>Tour mới thêm</h3>
+                                        </header>
+                                        <ul class="header__notify-list">
+                                            <c:forEach items="${sessionScope.listItem}" var="item">
+                                                <li class="header__notify-item header__notify-item--viewed">
+                                                    <a href="detail?tid=${item.tour.id}" class="header__notify-link">
+                                                        <img src="${item.tour.imageMain}"
+                                                             alt="${item.tour.name}" class="header__notify-img">
+                                                        <div class="header__notify-info">
+                                                            <span class="header__notify-name">${item.tour.name}</span>
+                                                            <span class="header__notify-description" style="color: #ee4d2d;"><fmt:formatNumber value="${item.tour.price}" pattern="###,###"/>VNÐ</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
 
-                                        </c:forEach>
-                                    </ul>
-                                    <footer class="header__notify-footer">
-                                        <a href="showcart" class="header__notify-footer-btn">
-                                            Xem tất cả
-                                        </a>
-                                    </footer>
+                                            </c:forEach>
+                                        </ul>
+                                        <footer class="header__notify-footer">
+                                            <a href="showcart" class="header__notify-footer-btn">
+                                                Xem tất cả
+                                            </a>
+                                        </footer>
+                                    </div>
                                 </div>
-                            </div>
+                            </c:if>
+
+                            <!--Notification that the shopping cart is empty-->
+                            <c:if test="${sessionScope.sizeCart == 0}">
+                                <div style="text-align: center;top: 30px;width: 350px;height: 150px;" class="header__notify">
+                                    <img style="width: 150px;height: 100px;" src="./assets/img/emptyCart.png" alt="Empty cart"/>
+                                </div>
+                            </c:if>
+
+
                         </li>
 
 
