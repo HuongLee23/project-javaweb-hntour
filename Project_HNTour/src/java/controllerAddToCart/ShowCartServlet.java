@@ -23,8 +23,8 @@ import model.Tour;
  *
  * @author hello
  */
-@WebServlet(name = "AddItemServlet", urlPatterns = {"/additem"})
-public class AddItemServlet extends HttpServlet {
+@WebServlet(name = "ShowCartServlet", urlPatterns = {"/showcart"})
+public class ShowCartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +43,10 @@ public class AddItemServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddItemServlet</title>");
+            out.println("<title>Servlet ShowCartServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddItemServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ShowCartServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,7 +67,6 @@ public class AddItemServlet extends HttpServlet {
         DAO dao = new DAO();
         HttpSession session = request.getSession();
 
-        //Lấy một mảng Cookies để lấy đúng đối tượng có tên là cart
         List<Tour> list = dao.getAllTour();
         Cookie[] arr = request.getCookies();
         String txt = "";
@@ -75,43 +74,13 @@ public class AddItemServlet extends HttpServlet {
             for (Cookie o : arr) {
                 if (o.getName().equals("cart")) {
                     txt += o.getValue();
-                    o.setMaxAge(0);
-                    response.addCookie(o);
                 }
             }
         }
-
-        //Lấy id và num củ tour để add vào Cookies
-        String num = request.getParameter("num");
-        String id = request.getParameter("id");
-        String transmission = request.getParameter("transmission");
-
-        if (txt.isEmpty()) {
-            txt = id + ":" + num;
-        } else {
-            txt = txt + "/" + id + ":" + num;
-        }
-
-        Cookie c = new Cookie("cart", txt);
-        c.setMaxAge(60 * 60 * 24 * 7);
-        response.addCookie(c);
-
         Cart cart = new Cart(txt, list);
-        List<Item> listItem = cart.getItems();
-        int size;
-        if (listItem != null) {
-            size = listItem.size();
-        } else {
-            size = 0;
-        }
+        request.setAttribute("cart", cart);
+        request.getRequestDispatcher("showcart.jsp").forward(request, response);
 
-        session.setAttribute("sizeCart", size);
-        session.setAttribute("listItem", listItem);
-        if (transmission.equals("tourlist")) {
-            request.getRequestDispatcher("tourlist").forward(request, response);
-        } else if (transmission.equals("tourdetail")) {
-            request.getRequestDispatcher("detail").forward(request, response);
-        }
     }
 
     /**

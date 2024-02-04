@@ -11,12 +11,12 @@ package model;
 public class Item {
     private Tour tour;
     private int quantity;
-    private String price;
+    private double price;
 
     public Item() {
     }
 
-    public Item(Tour tour, int quantity, String price) {
+    public Item(Tour tour, int quantity, double price) {
         this.tour = tour;
         this.quantity = quantity;
         this.price = price;
@@ -26,24 +26,25 @@ public class Item {
         return tour;
     }
 
-    public void setTour(Tour tour) {
-        this.tour = tour;
-    }
-
     public int getQuantity() {
         return quantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setTour(Tour tour) {
+        this.tour = tour;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
-    
+
+   
 }

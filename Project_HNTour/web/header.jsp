@@ -68,9 +68,9 @@
 
                     <div class="content_search ml-lg-0 ml-auto">
                         <li class="header__navbar-item header__navbar-item--show-notify">
-                            <a class="header__navbar-item-link" href="checkout.jsp">
+                            <a class="header__navbar-item-link" href="showcart">
                                 <i class=" fa-solid fa-cart-shopping"></i>
-                                <c:if test="${sessionScope.sizeCart != null}">
+                                <c:if test="${sessionScope.sizeCart != 0}">
                                     <div class="shopee-cart-number-badge" aria-hidden="true">${sessionScope.sizeCart}</div>
                                 </c:if>
 
@@ -90,7 +90,7 @@
                                                          alt="${item.tour.name}" class="header__notify-img">
                                                     <div class="header__notify-info">
                                                         <span class="header__notify-name">${item.tour.name}</span>
-                                                        <span class="header__notify-description"><fmt:formatNumber value="${item.tour.price}" pattern="###,###"/>VNÐ</span>
+                                                        <span class="header__notify-description" style="color: #ee4d2d;"><fmt:formatNumber value="${item.tour.price}" pattern="###,###"/>VNÐ</span>
                                                     </div>
                                                 </a>
                                             </li>
