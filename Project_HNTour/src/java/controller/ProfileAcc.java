@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import javax.mail.Part;
+//import javax.mail.Part;
 import model.Account;
 
 /**
@@ -67,19 +67,76 @@ public class ProfileAcc extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAO accountDAO = new DAO();
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-        Account acc2 = accountDAO.getAccountDetail(account.getEmail());
-        request.setAttribute("account", acc2);
-        request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
+        try {
+            DAO accountDAO = new DAO();
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("account");
+
+            // Update profile information in the session
+            Account updatedAccount = accountDAO.getAccountDetail(account.getEmail());
+
+            // Update session attribute with the latest data from the database
+            account.setUsername(updatedAccount.getUsername());
+            account.setAddress(updatedAccount.getAddress());
+            account.setAvatar(updatedAccount.getAvatar());
+            account.setPhoneNumber(updatedAccount.getPhoneNumber());
+
+            // Forward the request to the profileAccount.jsp page
+            request.setAttribute("account", account);
+            request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            // Handle or log the exception
+            e.printStackTrace(); // Log the exception, or use a logging framework
+            response.sendRedirect("error.jsp"); // Redirect to an error page
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException, SecurityException {
-    try {
-//        Part part = (Part) request.getPart("profileImage");
+            throws ServletException, IOException, SecurityException {
+        try {
+            // Your file upload code goes here (if needed)
+
+            // Retrieve form parameters
+            String profileImage = request.getParameter("profileImage");
+            String username = request.getParameter("username");
+            String address = request.getParameter("address");
+            String phoneNumber = request.getParameter("phone");
+            int userId = Integer.parseInt(request.getParameter("id"));
+            String email = request.getParameter("email");
+
+            DAO accountDAO = new DAO();
+            HttpSession session = request.getSession();
+
+            // Update profile in the database
+            boolean updateSuccess = accountDAO.updateProfile(userId, email, username, address, profileImage, phoneNumber);
+
+            if (updateSuccess) {
+                // Update session attribute directly without querying the database again
+                Account account = (Account) session.getAttribute("account");
+                account.setUsername(username);
+                account.setAddress(address);
+                account.setAvatar(profileImage);
+                account.setPhoneNumber(phoneNumber);
+
+                // Forward the request with updated session attribute
+                request.setAttribute("ms", "Cập nhật hồ sơ thành công.");
+                request.setAttribute("account", account); // Add updated account to request attribute
+            } else {
+                request.setAttribute("ms", "Có lỗi xảy ra. Vui lòng thực hiện lại.");
+            }
+
+            request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            // Handle or log the exception
+            e.printStackTrace(); // Log the exception, or use a logging framework
+            response.sendRedirect("error.jsp"); // Redirect to an error page
+        }
+    }
+
+    //        Part part = (Part) request.getPart("profileImage");
 //        String realPath = request.getServletContext().getRealPath("/images");
 //
 //        // Create the directory if it doesn't exist
@@ -92,37 +149,6 @@ public class ProfileAcc extends HttpServlet {
 //        Files.copy(part.getInputStream(), Paths.get(realPath, filename), StandardCopyOption.REPLACE_EXISTING);
 //
 //        String profileImage = "images/" + filename; // Adjust the path as needed
-
-        // Retrieve other form parameters
-        String profileImage = request.getParameter("profileImage");
-        String username = request.getParameter("username");
-        String address = request.getParameter("address");
-        String phoneNumber = request.getParameter("phone");
-        int userId = Integer.parseInt(request.getParameter("id"));
-        String email = request.getParameter("email");
-
-        DAO accountDAO = new DAO();
-        HttpSession session = request.getSession();
-        boolean updateSuccess = accountDAO.updateProfile(userId, email, username, address, profileImage, phoneNumber);
-
-        String message = (updateSuccess) ? "Cập nhật hồ sơ thành công." : "Có lỗi xảy ra. Vui lòng thực hiện lại.";
-
-        // Update session attribute and forward the request
-        Account account = (Account) session.getAttribute("account");
-        Account acc2 = accountDAO.getAccountDetail(account.getEmail());
-        request.setAttribute("account", acc2);
-        request.setAttribute("ms", message);
-        request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
-
-    } catch (Exception e) {
-        // Handle or log the exception
-        e.printStackTrace(); // Log the exception, or use a logging framework
-        response.sendRedirect("error.jsp"); // Redirect to an error page
-    }
-}
-
-    
-    
     /**
      * Returns a short description of the servlet.
      *

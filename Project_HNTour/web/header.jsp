@@ -30,7 +30,7 @@
                                 <a href="admin/manageraccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
                                 </c:if>
                                 <c:if test="${a.role == 2}">
-                                <a href="profileaccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
+                                <a href="profilesupplier"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
                                 </c:if>
                                 <c:if test="${a.role == 3}">
                                 <a href="profileaccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>

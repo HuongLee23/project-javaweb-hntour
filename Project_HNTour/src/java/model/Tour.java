@@ -139,6 +139,11 @@ public class Tour {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Tour{" + "id=" + id + ", name=" + name + ", imageMain=" + imageMain + ", imageAlbum=" + imageAlbum + ", intendedTime=" + intendedTime + ", price=" + price + ", description=" + description + ", categoryId=" + categoryId + ", version=" + version + ", rule=" + rule + ", supplierId=" + supplierId + ", status=" + status + '}';
+    }
     
 
 }
