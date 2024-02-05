@@ -194,7 +194,7 @@
                                         <div class="col-lg-1 temp_col"></div>
                                         <div class="col-lg-3 col-1680-4">
                                             <div class="offers_image_container">
-                                                <a class="add_to_card" href="additem?transmission=tourlist&id=${c.id}&num=1">
+                                                <a class="add_to_card" href="additem?id=${c.id}&num=1">
                                                     <i class="icon_card fa-solid fa-cart-plus" style="color: #e2492b" ></i>
                                                 </a>
                                                 <img  class="card-img-top" src="${c.imageMain}">
@@ -216,8 +216,8 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </p>
-                                                <div class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>
-                                                <div class="button book_button"><a href="detail?tid=${c.id}">Detail<span></span><span></span><span></span></a></div>
+                                                <div style="background-color: #ee4d2d;" class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>
+                                                <div class="button book_button"><a href="detail?tid=${c.id}">Detail</a></div>
                                                 <div class="offer_reviews">
                                                 </div>
                                             </div>

@@ -252,5 +252,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /*-----------------------------*/
 
 
-/* ----------- Show cart -------------*/
+/* ----------- Show Detail -------------*/
+.book_button_buy{
+    background: #ee4d2d;
+}
+
+.book_button_add_cart{
+    background-color: #ffeee8;
+    border: 2px solid #ee4d2d;
+}
+
+.book_button_add_cart a{
+    line-height: 49px;
+    color: #ee4d2d;
+}
+
 /*-----------------------------*/

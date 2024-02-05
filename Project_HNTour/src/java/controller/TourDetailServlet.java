@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Category;
 import model.Feedback;
@@ -64,23 +65,35 @@ public class TourDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
+        HttpSession session = request.getSession();
+
         String id_raw = request.getParameter("tid");
-        int id = Integer.parseInt(id_raw);
-        Tour p = dao.getDetail(id);
-        request.setAttribute("detail", p);
+        if (id_raw == null) {
+            id_raw = (String) session.getAttribute("tid");
+        }
+        try {
+            int id = Integer.parseInt(id_raw);
+            Tour p = dao.getDetail(id);
+            request.setAttribute("detail", p);
+            
 //         String id_img=request.getParameter("tid");
 //         int id_i=Integer.parseInt(id_img);
 //         ImageAlbum i=dao.getDetailImage(id_i);
 //         request.setAttribute("image", i);
-        String id_relate = request.getParameter("tid");
-        int id_rel = Integer.parseInt(id_relate);
-        List<Tour> tour_relate = dao.getRelateTour(p.getCategoryId(), id_rel);
-        request.setAttribute("relate", tour_relate);
+//            String id_relate = request.getParameter("tid");
+//            int id_rel = Integer.parseInt(id_relate);
 
-        List<Feedback> list_Feedback = dao.getFeedbackDetailTour(id);
-        List<Category> listCategory = dao.getListCategory();
-        request.setAttribute("listCategory", listCategory);
-        request.setAttribute("feedback", list_Feedback);
+            List<Tour> tour_relate = dao.getRelateTour(p.getCategoryId(), id);
+            request.setAttribute("relate", tour_relate);
+
+            List<Feedback> list_Feedback = dao.getFeedbackDetailTour(id);
+            List<Category> listCategory = dao.getListCategory();
+            request.setAttribute("listCategory", listCategory);
+            request.setAttribute("feedback", list_Feedback);
+
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
         request.getRequestDispatcher("tourdetail.jsp").forward(request, response);
     }
 

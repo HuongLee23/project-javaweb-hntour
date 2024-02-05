@@ -75,8 +75,8 @@ public class AddItemServlet extends HttpServlet {
             for (Cookie o : arr) {
                 if (o.getName().equals("cart")) {
                     txt += o.getValue();
-                    o.setMaxAge(0);
-                    response.addCookie(o);
+//                    o.setMaxAge(0);
+//                    response.addCookie(o);
                 }
             }
         }
@@ -84,7 +84,7 @@ public class AddItemServlet extends HttpServlet {
         //Lấy id và num củ tour để add vào Cookies
         String num = request.getParameter("num");
         String id = request.getParameter("id");
-        String transmission = request.getParameter("transmission");
+//        String transmission = request.getParameter("transmission");
 
         if (txt.isEmpty()) {
             txt = id + ":" + num;
@@ -107,11 +107,13 @@ public class AddItemServlet extends HttpServlet {
 
         session.setAttribute("sizeCart", size);
         session.setAttribute("listItem", listItem);
-        if (transmission.equals("tourlist")) {
-            request.getRequestDispatcher("tourlist").forward(request, response);
-        } else if (transmission.equals("tourdetail")) {
-            request.getRequestDispatcher("detail").forward(request, response);
-        }
+        request.getRequestDispatcher("tourlist").forward(request, response);
+//        if (transmission.equals("tourlist")) {
+//        } else if (transmission.equals("tourdetail")) {
+//            session.setAttribute("tid", id);
+//            response.sendRedirect("detail");
+////            request.getRequestDispatcher("detail").forward(request, response);
+//        }
     }
 
     /**
@@ -125,7 +127,50 @@ public class AddItemServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        DAO dao = new DAO();
+        HttpSession session = request.getSession();
+
+        //Lấy một mảng Cookies để lấy đúng đối tượng có tên là cart
+        List<Tour> list = dao.getAllTour();
+        Cookie[] arr = request.getCookies();
+        String txt = "";
+        if (arr != null) {
+            for (Cookie o : arr) {
+                if (o.getName().equals("cart")) {
+                    txt += o.getValue();
+                }
+            }
+        }
+
+        //Lấy id và num củ tour để add vào Cookies
+        String num = request.getParameter("num");
+        String id = request.getParameter("id");
+//        String transmission = request.getParameter("transmission");
+
+        if (txt.isEmpty()) {
+            txt = id + ":" + num;
+        } else {
+            txt = txt + "/" + id + ":" + num;
+        }
+
+        Cookie c = new Cookie("cart", txt);
+        c.setMaxAge(60 * 60 * 24 * 7);
+        response.addCookie(c);
+
+        Cart cart = new Cart(txt, list);
+        List<Item> listItem = cart.getItems();
+        int size;
+        if (listItem != null) {
+            size = listItem.size();
+        } else {
+            size = 0;
+        }
+
+        session.setAttribute("sizeCart", size);
+        session.setAttribute("listItem", listItem);
+        session.setAttribute("tid", id);
+        response.sendRedirect("detail");
+//        request.getRequestDispatcher("detail").forward(request, response);
     }
 
     /**

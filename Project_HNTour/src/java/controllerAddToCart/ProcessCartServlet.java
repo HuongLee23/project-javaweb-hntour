@@ -75,8 +75,8 @@ public class ProcessCartServlet extends HttpServlet {
             for (Cookie o : arr) {
                 if (o.getName().equals("cart")) {
                     txt += o.getValue();
-                    o.setMaxAge(0);
-                    response.addCookie(o);
+//                    o.setMaxAge(0);
+//                    response.addCookie(o);
                 }
             }
         }
@@ -127,9 +127,11 @@ public class ProcessCartServlet extends HttpServlet {
                 txt += "/" + items.get(i).getTour().getId() + ":" + items.get(i).getQuantity();
             }
         }
+        
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(60 * 60 * 24 * 7);
         response.addCookie(c);
+        
         session.setAttribute("sizeCart", size);
         session.setAttribute("listItem", items);
         request.setAttribute("cart", cart);

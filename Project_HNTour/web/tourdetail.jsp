@@ -187,12 +187,15 @@
                                         </div>
                                         <div class="hotel_location"></div>
                                     </div>
-                                    <div class="hotel_title_button ml-lg-auto text-lg-right">
-                                        <div class="button book_button trans_200"><a href="#">book<span></span><span></span><span></span></a></div>
-                                        <div class="hotel_map_link_container">
-                                            <div class="hotel_map_link"></div>
-                                        </div>
+                                    <div style="display: flex;" class="hotel_title_button ml-lg-auto text-lg-right">
+                                        <div class="button book_button trans_200 book_button_buy"><a href="#">Mua ngay<span></span><span></span><span></span></a></div>
+                                        <form id="myForm" action="additem" method="post">
+                                            <div class="button book_button trans_200 book_button_add_cart" onclick="submitForm()"><a href="#">Thêm vào giỏ hàng</a></div>
+                                            <input type="hidden" name="id" value="${detail.id}">
+                                            <input type="hidden" name="num" value="1">
+                                        </form>
                                     </div>
+
                                 </div>
 
                                 <!-- Listing Image -->
@@ -380,6 +383,12 @@
         <jsp:include page="footer.jsp"></jsp:include>
 
     </div>
+
+    <script>
+        function submitForm() {
+            document.getElementById("myForm").submit();
+        }
+    </script>
 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="styles/bootstrap4/popper.js"></script>
