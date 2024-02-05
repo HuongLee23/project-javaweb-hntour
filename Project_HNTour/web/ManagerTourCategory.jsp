@@ -94,7 +94,7 @@
             </td>
             
            
-    <td>${c.categoryId}</td>
+    <td>${c.category.name}</td>
 
       
       

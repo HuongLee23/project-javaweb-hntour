@@ -13,9 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Account;
 import model.Category;
 import model.Tour;
 
@@ -23,8 +21,8 @@ import model.Tour;
  *
  * @author Admin
  */
-@WebServlet(name="ManagerTourList", urlPatterns={"/managertourlist"})
-public class ManagerTourList extends HttpServlet {
+@WebServlet(name="LoadTour", urlPatterns={"/loadtour"})
+public class LoadTour extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,10 +39,10 @@ public class ManagerTourList extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManagerTourList</title>");  
+            out.println("<title>Servlet LoadTour</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManagerTourList at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet LoadTour at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,27 +59,19 @@ public class ManagerTourList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        Account account =  (Account) session.getAttribute("account");
-        DAO dao = new DAO();
-        try {
-            
-//            Category listCategory = dao.getCategoryById(cid);
-            //List<Tour> tourList = dao.getAllTour();
-            List<Tour> tourList = dao.getTourBySupllierID(account.getId());
-            for (Tour tour : tourList) {
-            List<Category> categoryList = dao.getListCategory();
-                
-            }
-            
-//            getCategoryById
-            request.setAttribute("tour", tourList);
-//            request.setAttribute("category", listCategory);
-        } catch (NumberFormatException e) {
-        }
-        request.getRequestDispatcher("ManagerTour.jsp").forward(request, response);
+         
+       DAO dao=new DAO();
+     String id=request.getParameter("tid");
+     int idi=Integer.parseInt(id);
+       
+        
+     Tour p=dao.getTourByID(idi);
+     request.setAttribute("tour", p);
+
+         List<Category> listC=dao.getListCategory();
+        request.setAttribute("listC", listC);
+
+        request.getRequestDispatcher("EditTour.jsp").forward(request, response);
     } 
 
     /** 
@@ -94,7 +84,7 @@ public class ManagerTourList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        processRequest(request, response);
     }
 
     /** 

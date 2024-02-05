@@ -96,10 +96,10 @@
                                 <td>${c.version}</td>
                                 
                                 <td>
-                                    <a href="loadProduct?pid=${c.id}" class="edit" data-toggle="modal">
+                                    <a href="loadtour?tid=${c.id}" class="edit" data-toggle="modal">
                                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                     </a>
-                                    <a href="delete?pid=${c.id}" class="delete" data-toggle="modal">
+                                    <a href="delete?tid=${c.id}" class="delete" data-toggle="modal">
                                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                                     </a>
                                 </td>
