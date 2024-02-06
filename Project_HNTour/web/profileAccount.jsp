@@ -28,15 +28,23 @@
         <div class="container">
             <div class="row flex-lg-nowrap">
                 <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+                    
                     <div class="card p-3">
-                        <div class="e-navlist e-navlist--active-bg">
-                            <ul class="nav">
-                                <li class="nav-item"><a class="nav-link px-2 active" href="profileaccount"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-                                <li class="nav-item"><a class="nav-link px-2" href="home.jsp" ><i class="fa fa-fw fa-th mr-1"></i><span>Home</span></a></li>
-                                <li class="nav-item"><a class="nav-link px-2" href="changepassword"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
+    <div class="e-navlist e-navlist--active-bg">
+        <c:choose>
+            <c:when test="${a.role == 2}">
+                <jsp:include page="role2.jsp" />
+            </c:when>
+            <c:when test="${a.role == 3}">
+                <jsp:include page="role3.jsp" />
+            </c:when>
+            <c:otherwise>
+              
+                <jsp:include page="rolekhac.jsp" />
+            </c:otherwise>
+        </c:choose>
+    </div>
+</div>
                 </div>
 
                 <div class="col">
@@ -64,6 +72,26 @@
                                                 </form>
                                             </div>
                                         </div>
+                                        <script>
+                                            function handleImageChange(input) {
+                                            const selectedImage = document.getElementById('selectedImage');
+                                            const ngoaiFormImage = document.getElementById('ngoaiFormImage');
+                                            const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
+
+                                            if (input.files && input.files[0]) {
+                                            const reader = new FileReader();
+
+                                            reader.onload = function (e) {
+                                            selectedImage.src = e.target.result;
+                                            ngoaiFormImage.src = e.target.result;
+                                            ngoaiFormImage2.src = e.target.result;
+                                             };
+
+                                            reader.readAsDataURL(input.files[0]);
+                                             }
+                                       }
+                                        </script>
+
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
                                             <h3 style="color:red">${requestScope.ms}</h3>
@@ -71,12 +99,12 @@
                                         <div class="tab-content pt-3">
                                             <div class="tab-pane active">
 
-                                                <form class="form" action="profileaccount" method="post">
+                                                <form class="form" action="profileaccount" method="post" enctype="multipart/form-data">
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="row">
                                                                 <input type="file" id="imageInput" accept=".jpeg, .jpg, .png" name="profileImage" style="display: none;" onchange="handleImageChange(this);">
-
+                                                                <img id="selectedImage" src="${a.avatar}" alt="">
                                                                 <input type="hidden" name="id" value="${a.id}">
 
                                                                 <div class="col">
@@ -86,7 +114,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col">
-                                                                    <div class="form-group">
+                                                                    <div class="form-group"> 
                                                                         <label>User Name</label>
                                                                         <input name="username" class="form-control" type="text" value="${a.username}">
                                                                     </div>
@@ -156,23 +184,7 @@
             </div>
 
             <script>
-                function handleImageChange(input) {
-                    const selectedImage = document.getElementById('selectedImage');
-                    const ngoaiFormImage = document.getElementById('ngoaiFormImage');
-                    const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
-
-                    if (input.files && input.files[0]) {
-                        const reader = new FileReader();
-
-                        reader.onload = function (e) {
-                            selectedImage.src = e.target.result;
-                            ngoaiFormImage.src = e.target.result;
-                            ngoaiFormImage2.src = e.target.result;
-                        };
-
-                        reader.readAsDataURL(input.files[0]);
-                    }
-                }
+                
 
 
                 function redirectToOtherPage() {
