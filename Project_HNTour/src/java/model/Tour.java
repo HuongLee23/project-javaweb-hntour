@@ -24,7 +24,6 @@ public class Tour {
     private String rule;
     private int supplierId;
     private boolean status;
- 
 
     public Tour() {
     }
@@ -140,6 +139,9 @@ public class Tour {
         this.status = status;
     }
 
-   
+    @Override
+    public String toString() {
+        return "Tour{" + "id=" + id + ", name=" + name + ", imageMain=" + imageMain + ", imageAlbum=" + imageAlbum + ", intendedTime=" + intendedTime + ", price=" + price + ", description=" + description + ", categoryId=" + categoryId + ", version=" + version + ", rule=" + rule + ", supplierId=" + supplierId + ", status=" + status + '}';
+    }
 
 }

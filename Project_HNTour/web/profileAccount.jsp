@@ -28,13 +28,21 @@
         <div class="container">
             <div class="row flex-lg-nowrap">
                 <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+
                     <div class="card p-3">
                         <div class="e-navlist e-navlist--active-bg">
-                            <ul class="nav">
-                                <li class="nav-item"><a class="nav-link px-2 active" href="profileaccount"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-                                <li class="nav-item"><a class="nav-link px-2" href="home.jsp" ><i class="fa fa-fw fa-th mr-1"></i><span>Home</span></a></li>
-                                <li class="nav-item"><a class="nav-link px-2" href="changepassword"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
-                            </ul>
+                            <c:choose>
+                                <c:when test="${a.role == 2}">
+                                    <jsp:include page="role2.jsp" />
+                                </c:when>
+                                <c:when test="${a.role == 3}">
+                                    <jsp:include page="role3.jsp" />
+                                </c:when>
+                                <c:otherwise>
+
+                                    <jsp:include page="rolekhac.jsp" />
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -66,22 +74,22 @@
                                         </div>
                                         <script>
                                             function handleImageChange(input) {
-                                            const selectedImage = document.getElementById('selectedImage');
-                                            const ngoaiFormImage = document.getElementById('ngoaiFormImage');
-                                            const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
+                                                const selectedImage = document.getElementById('selectedImage');
+                                                const ngoaiFormImage = document.getElementById('ngoaiFormImage');
+                                                const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
 
-                                            if (input.files && input.files[0]) {
-                                            const reader = new FileReader();
+                                                if (input.files && input.files[0]) {
+                                                    const reader = new FileReader();
 
-                                            reader.onload = function (e) {
-                                            selectedImage.src = e.target.result;
-                                            ngoaiFormImage.src = e.target.result;
-                                            ngoaiFormImage2.src = e.target.result;
-                                             };
+                                                    reader.onload = function (e) {
+                                                        selectedImage.src = e.target.result;
+                                                        ngoaiFormImage.src = e.target.result;
+                                                        ngoaiFormImage2.src = e.target.result;
+                                                    };
 
-                                            reader.readAsDataURL(input.files[0]);
-                                             }
-                                       }
+                                                    reader.readAsDataURL(input.files[0]);
+                                                }
+                                            }
                                         </script>
 
                                         <ul class="nav nav-tabs">
@@ -176,7 +184,7 @@
             </div>
 
             <script>
-                
+
 
 
                 function redirectToOtherPage() {
