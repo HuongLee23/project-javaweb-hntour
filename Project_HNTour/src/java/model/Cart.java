@@ -89,6 +89,7 @@ public class Cart {
             System.out.println(e);
         }
     }
+
 //    public Cart(String txt, List<Tour> list) {
 //        items = new ArrayList<>();
 //        int id, quantity;
@@ -123,5 +124,4 @@ public class Cart {
 //            System.out.println(e);
 //        }
 //    }
-
 }

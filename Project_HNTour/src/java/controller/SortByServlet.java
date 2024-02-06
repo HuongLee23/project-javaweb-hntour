@@ -19,8 +19,8 @@ import model.Tour;
  *
  * @author admin
  */
-@WebServlet(name = "SortByPriceServlet", urlPatterns = {"/sortprice"})
-public class SortByPriceServlet extends HttpServlet {
+@WebServlet(name = "SortByServlet", urlPatterns = {"/sort"})
+public class SortByServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +39,10 @@ public class SortByPriceServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SortServlet</title>");
+            out.println("<title>Servlet SortByNameServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SortServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SortByNameServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,20 +61,37 @@ public class SortByPriceServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String sort = request.getParameter("sortBy");
+
         if (sort != null) {
             DAO d = new DAO();
             List<Tour> list = null;
-
+            String type;
             String typeSort;
-            if (sort.equals("ascending")) {
-                typeSort = "asc";
-                list = d.getTourBySortPrice(typeSort);
-            } else if (sort.equals("descending")) {
 
-                typeSort = "desc";
-                list = d.getTourBySortPrice(typeSort);
+            if (sort.equals("ascPrice")) {
+                typeSort = "ASC";
+                type = "price";
+                list = d.getTourBySort(typeSort, type);
+            } else if (sort.equals("descPrice")) {
+                typeSort = "DESC";
+                type = "price";
+                list = d.getTourBySort(typeSort, type);
+            } else if (sort.equals("ascName")) {
+                typeSort = "ASC";
+                type = "name";
+                list = d.getTourBySort(typeSort, type);
+            } else if (sort.equals("descName")) {
+                typeSort = "DESC";
+                type = "name";
+                list = d.getTourBySort(typeSort, type);
+            } else if (sort.equals("descRating")) {
+                typeSort = "DESC";
+                type = "rating";
+                list = d.getTourBySort(typeSort, type);
             }
+
             request.setAttribute("tour", list);
+
             request.getRequestDispatcher("tour.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("tour.jsp").forward(request, response);

@@ -14,9 +14,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Account;
 import model.Category;
 import model.Feedback;
 import model.ImageAlbum;
+import model.Schedules;
 import model.Tour;
 
 /**
@@ -75,21 +77,24 @@ public class TourDetailServlet extends HttpServlet {
             int id = Integer.parseInt(id_raw);
             Tour p = dao.getDetail(id);
             request.setAttribute("detail", p);
-            
+
 //         String id_img=request.getParameter("tid");
 //         int id_i=Integer.parseInt(id_img);
 //         ImageAlbum i=dao.getDetailImage(id_i);
 //         request.setAttribute("image", i);
 //            String id_relate = request.getParameter("tid");
 //            int id_rel = Integer.parseInt(id_relate);
-
             List<Tour> tour_relate = dao.getRelateTour(p.getCategoryId(), id);
-            request.setAttribute("relate", tour_relate);
-
             List<Feedback> list_Feedback = dao.getFeedbackDetailTour(id);
             List<Category> listCategory = dao.getListCategory();
+            List<Schedules> list_Schedules = dao.getSchedukesById(id);
+            Account account = (Account) session.getAttribute("account");
+
+            request.setAttribute("relate", tour_relate);
             request.setAttribute("listCategory", listCategory);
             request.setAttribute("feedback", list_Feedback);
+            request.setAttribute("account", account);
+            request.setAttribute("schedules", list_Schedules);
 
         } catch (NumberFormatException e) {
             System.out.println(e);
