@@ -9,11 +9,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Cart;
 import model.Category;
+import model.Item;
 import model.Tour;
 
 /**
@@ -62,11 +66,36 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
+        HttpSession session = request.getSession();
+
+        List<Tour> list = dao.getAllTour();
+        Cookie[] arr = request.getCookies();
+        String txt = "";
+        if (arr != null) {
+            for (Cookie o : arr) {
+                if (o.getName().equals("cart")) {
+                    txt += o.getValue();
+                }
+            }
+        }
+        Cart cart = new Cart(txt, list);
+        List<Item> listItem = cart.getItems();
+        int size;
+        if (listItem != null) {
+            size = listItem.size();
+        } else {
+            size = 0;
+        }
+
         try {
             List<Category> listCategory = dao.getListCategory();
             List<Tour> listTop3Tour = dao.listTop3Tour();
             List<Tour> listNew4Tour = dao.listNew4Tour();
             List<Tour> listTrendTour = dao.listTrendTour();
+
+            session.setAttribute("sizeCart", size);
+            session.setAttribute("listItem", listItem);
+
             request.setAttribute("listCategory", listCategory);
             request.setAttribute("listTop3Tour", listTop3Tour);
             request.setAttribute("listNew4Tour", listNew4Tour);

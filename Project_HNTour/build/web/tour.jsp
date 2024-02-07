@@ -113,7 +113,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <button class="button search_button">search<span></span><span></span><span></span></button>
+                                            <button class="button search_button">tìm kiếm<span></span><span></span><span></span></button>
                                         </form>
                                     </div>
 
@@ -132,51 +132,27 @@
                             <div class="offers_sorting_container">
                                 <ul class="">
                                     <li class="offers_sorting">
-
+                                        Sắp xếp theo
                                         <select name="sortBy" class="sort_btn">
-                                            <option id="" >Price</option>
-                                            <option value="ascending">Ascending</option>
-                                            <option value="descending">Descending</option>
+                                            <option id="" >VN Travel Giới Thiệu</option>
+                                            <option value="ascPrice">Giá (Thấp đến cao)</option>
+                                            <option value="descPrice">Giá (Cao đến thấp)</option>
+                                            <option value="descRating">Đánh giá cao nhất</option>
+                                            <option value="ascName">Tên (A-Z)</option>
+                                            <option value="descName">Tên (Z-A)</option>
+                                            <option value="">Bán chạy nhất</option>
+
                                         </select>
                                         <script>
                                             document.querySelector('select[name="sortBy"]').addEventListener('change', function () {
                                                 var selectedValue = this.value;
                                                 // Perform any additional logic if needed
-                                                window.location.href = "sortprice?sortBy=" + selectedValue;
+                                                window.location.href = "sort?sortBy=" + selectedValue;
                                             });
                                         </script>
                                     </li>
-                                    <li class="offers_sorting">
 
-                                        <select name="sortByName" class="sort_btn">
-                                            <option id="" >Name</option>
-                                            <option value="ascending_name">Ascending</option>
-                                            <option value="descending_name">Descending</option>
-                                        </select>
-                                        <script>
-                                            document.querySelector('select[name="sortByName"]').addEventListener('change', function () {
-                                                var selectedValue = this.value;
-                                                // Perform any additional logic if needed
-                                                window.location.href = "sortname?sortByName=" + selectedValue;
-                                            });
-                                        </script>
-                                    </li>
-                                    <li class="offers_sorting">
-
-                                        <select name="sortByRating" class="sort_btn">
-                                            <option id="" >Star</option>
-                                            <option value="ascending_rating">Ascending</option>
-                                            <option value="descending_rating">Descending</option>
-                                        </select>
-                                        <script>
-                                            document.querySelector('select[name="sortByRating"]').addEventListener('change', function () {
-                                                var selectedValue = this.value;
-                                                // Perform any additional logic if needed
-                                                window.location.href = "sortrating?sortByRating=" + selectedValue;
-                                            });
-                                        </script>
-                                    </li>
-                                </ul>
+                                </ul> 
                             </div>
                         </div>
                     </div>
@@ -194,14 +170,17 @@
                                         <div class="col-lg-1 temp_col"></div>
                                         <div class="col-lg-3 col-1680-4">
                                             <div class="offers_image_container">
-                                                <img style="    width: 358px; height: 250px;" class="card-img-top" src="${c.imageMain}">
-                                                <div class="offer_name"><span  style="color: white; font-size: 18px; margin-left: 35px"><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</span></div>
+                                                <a class="add_to_card" href="additem?id=${c.id}&num=1">
+                                                    <i class="icon_card fa-solid fa-cart-plus" style="color: #e2492b" ></i>
+                                                </a>
+                                                <img  class="card-img-top" src="${c.imageMain}">
+                                                <div class="offer_name"><span ><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</span></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="offers_content">
                                                 <div class="offers_price" style="font-size: 25px">${c.name}
-                                                    <div><span>About ${c.intendedTime}</span></div>
+                                                    <div><span>Thời gian dự kiến hết: ${c.intendedTime}</span></div>
                                                 </div>
                                                 <p class="offers_text">
                                                     <c:choose>
@@ -213,8 +192,9 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </p>
-                                                <div class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>
-                                                <div class="button book_button"><a href="detail?tid=${c.id}">Detail<span></span><span></span><span></span></a></div>
+                                                <div style="background-color: #ee4d2d;" class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>
+                                                <div class="button book_button"><a href="detail?tid=${c.id}">Xem chi tiết</a></div>
+
                                                 <div class="offer_reviews">
                                                 </div>
                                             </div>

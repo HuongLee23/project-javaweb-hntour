@@ -18,9 +18,9 @@
         <div class="add">
             <div class="all__screen">
 
-                <div class="login__screen" style="height: 717px">
+                <div class="login__screen" style="height: 774px;">
                     <div  class="login__logo">
-                        <a href="./index.jsp">
+                        <a href="home">
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>
@@ -51,6 +51,12 @@
                                 <input id="password2" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="newpass" placeholder=" " required>
                                 <label class="login__label" for="newpass">Nhập mật khẩu mới *</label>
                                 <i id="eye-icon2" onclick="togglePassVisibility2()" class="fa fa-eye"></i>
+                            </div>
+
+                            <div class="login__form">
+                                <input id="password3" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="newpass2" placeholder=" " required>
+                                <label class="login__label" for="newpass">Nhập lại mật khẩu mới *</label>
+                                <i id="eye-icon3" onclick="togglePassVisibility3()" class="fa fa-eye"></i>
                             </div>
 
 
@@ -112,6 +118,21 @@
                     password2.type = "password";
                     eyeIcon2.classList.remove("fa-eye-slash");
                     eyeIcon2.classList.add("fa-eye");
+                }
+
+            }
+
+            function togglePassVisibility3() {
+                var password1 = document.getElementById("password3");
+                var eyeIcon1 = document.getElementById("eye-icon3");
+                if (password1.type === "password") {
+                    password1.type = "text";
+                    eyeIcon1.classList.remove("fa-eye");
+                    eyeIcon1.classList.add("fa-eye-slash");
+                } else {
+                    password1.type = "password";
+                    eyeIcon1.classList.remove("fa-eye-slash");
+                    eyeIcon1.classList.add("fa-eye");
                 }
 
             }

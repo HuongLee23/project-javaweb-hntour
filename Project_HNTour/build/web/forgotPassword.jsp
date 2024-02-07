@@ -20,7 +20,7 @@
 
                 <div class="login__screen" style="height: 672px">
                     <div  class="login__logo">
-                        <a href="./index.jsp">
+                        <a href="home">
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>
@@ -48,7 +48,6 @@
                                 <label class="login__label" for="newpass">Nhập mật khẩu mới *</label>
                                 <i id="eye-icon2" onclick="togglePassVisibility2()" class="fa fa-eye"></i>
                             </div>
-
                             <div class="request__form">
                                 Mật khẩu bao gồm
                                 <ul>
@@ -110,6 +109,8 @@
 
             }
 
+
         </script> 
     </body>
+
 </html>

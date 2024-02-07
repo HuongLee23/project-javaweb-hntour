@@ -20,7 +20,7 @@
 
                 <div style="height: 420px;" class="login__screen login__authenticate">
                     <div class="login__logo">
-                        <a href="./home.jsp">
+                        <a href="home">
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>
@@ -75,8 +75,6 @@
                 <img src="./assets/img/background-demo1.png" alt="login">
             </div>
         </div>
-
-
         <script>
         </script>               
 

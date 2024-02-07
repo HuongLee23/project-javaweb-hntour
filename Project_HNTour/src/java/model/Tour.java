@@ -18,18 +18,17 @@ public class Tour {
     private String imageMain;
     private List<String> imageAlbum;
     private Time intendedTime;
-    private String price;
+    private double price;
     private String description;
     private int categoryId, version;
     private String rule;
     private int supplierId;
     private boolean status;
- 
 
     public Tour() {
     }
 
-    public Tour(int id, String name, String imageMain, List<String> imageAlbum, Time intendedTime, String price, String description, int categoryId, int version, String rule, int supplierId, boolean status) {
+    public Tour(int id, String name, String imageMain, List<String> imageAlbum, Time intendedTime, double price, String description, int categoryId, int version, String rule, int supplierId, boolean status) {
         this.id = id;
         this.name = name;
         this.imageMain = imageMain;
@@ -64,7 +63,7 @@ public class Tour {
         return intendedTime;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -112,7 +111,7 @@ public class Tour {
         this.intendedTime = intendedTime;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -139,5 +138,10 @@ public class Tour {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Tour{" + "id=" + id + ", name=" + name + ", imageMain=" + imageMain + ", imageAlbum=" + imageAlbum + ", intendedTime=" + intendedTime + ", price=" + price + ", description=" + description + ", categoryId=" + categoryId + ", version=" + version + ", rule=" + rule + ", supplierId=" + supplierId + ", status=" + status + '}';
+    }
+
 }

@@ -4,6 +4,7 @@
     Author     : hello
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Header -->
 <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
@@ -22,8 +23,8 @@
                     <div class="user_box ml-auto">
                         <c:set value="${sessionScope.account}" var="a"/>
                         <c:if test="${a == null}">
-                            <div class="user_box_login user_box_link"><a href="login.jsp">login</a></div>
-                            <div class="user_box_register user_box_link"><a href="register.jsp">register</a></div>
+                            <div class="user_box_login user_box_link"><a href="login.jsp">Đăng nhập</a></div>
+                            <div class="user_box_register user_box_link"><a href="register.jsp">Đăng ký</a></div>
                         </c:if>
                         <c:if test="${a != null}">
                             <c:if test="${a.role == 1}">
@@ -67,38 +68,53 @@
 
                     <div class="content_search ml-lg-0 ml-auto">
                         <li class="header__navbar-item header__navbar-item--show-notify">
-                            <a class="header__navbar-item-link" href="checkout.jsp">
+                            <a class="header__navbar-item-link" href="showcart">
                                 <i class=" fa-solid fa-cart-shopping"></i>
-                                <div class="shopee-cart-number-badge" aria-hidden="true">0</div>
-                                
+                                <c:if test="${sessionScope.sizeCart != 0}">
+                                    <div class="shopee-cart-number-badge" aria-hidden="true">${sessionScope.sizeCart}</div>
+                                </c:if>
+
                             </a>
 
-                            <!-- Notification -->
-                            <div class="header__notify">
-                                <div class="header__notify-wrapper">
-                                    <header class="header__notify-header">
-                                        <h3>Tour mới thêm</h3>
-                                    </header>
-                                    <ul class="header__notify-list">
-                                        <li class="header__notify-item header__notify-item--viewed">
-                                            <a href="" class="header__notify-link">
-                                                <img src="https://down-vn.img.susercontent.com/file/c97f8833be429ba3132daed3b905da69"
-                                                     alt="Laptop Lenovo Legion 5 " class="header__notify-img">
-                                                <div class="header__notify-info">
-                                                    <span class="header__notify-name">Laptop Lenovo Legion 5</span>
-                                                    <span class="header__notify-description">Laptop Lenovo Legion 5 15ITH6
-                                                        82JK0037VN i7-11800H|8GB|512GB|RTX 3050 4GB|15.6 FHD</span>
-                                                </div>
+                            <!-- Notification that the cart contains products -->
+                            <c:if test="${sessionScope.sizeCart != 0}">
+                                <div class="header__notify">
+                                    <div class="header__notify-wrapper">
+                                        <header class="header__notify-header">
+                                            <h3>Tour mới thêm</h3>
+                                        </header>
+                                        <ul class="header__notify-list">
+                                            <c:forEach items="${sessionScope.listItem}" var="item">
+                                                <li class="header__notify-item header__notify-item--viewed">
+                                                    <a href="detail?tid=${item.tour.id}" class="header__notify-link">
+                                                        <img src="${item.tour.imageMain}"
+                                                             alt="${item.tour.name}" class="header__notify-img">
+                                                        <div class="header__notify-info">
+                                                            <span class="header__notify-name">${item.tour.name}</span>
+                                                            <span class="header__notify-description" style="color: #ee4d2d;"><fmt:formatNumber value="${item.tour.price}" pattern="###,###"/>VNÐ</span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+
+                                            </c:forEach>
+                                        </ul>
+                                        <footer class="header__notify-footer">
+                                            <a href="showcart" class="header__notify-footer-btn">
+                                                Xem tất cả
                                             </a>
-                                        </li>
-                                    </ul>
-                                    <footer class="header__notify-footer">
-                                        <a href="" class="header__notify-footer-btn">
-                                            Xem tất cả
-                                        </a>
-                                    </footer>
+                                        </footer>
+                                    </div>
                                 </div>
-                            </div>
+                            </c:if>
+
+                            <!--Notification that the shopping cart is empty-->
+                            <c:if test="${sessionScope.sizeCart == 0}">
+                                <div style="text-align: center;top: 30px;width: 350px;height: 150px;" class="header__notify">
+                                    <img style="width: 150px;height: 100px;" src="./assets/img/emptyCart.png" alt="Empty cart"/>
+                                </div>
+                            </c:if>
+
+
                         </li>
 
 
@@ -131,9 +147,9 @@
                                             <input type="search" class="search_content_input bez_1">
                                         </form>-->
 
-                    <div class="hamburger">
+<!--                    <div class="hamburger">
                         <i class="fa fa-bars trans_200"></i>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>	
