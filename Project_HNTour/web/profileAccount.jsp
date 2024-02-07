@@ -6,8 +6,9 @@
 
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
 
@@ -28,23 +29,23 @@
         <div class="container">
             <div class="row flex-lg-nowrap">
                 <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-                    
+
                     <div class="card p-3">
-    <div class="e-navlist e-navlist--active-bg">
-        <c:choose>
-            <c:when test="${a.role == 2}">
-                <jsp:include page="role2.jsp" />
-            </c:when>
-            <c:when test="${a.role == 3}">
-                <jsp:include page="role3.jsp" />
-            </c:when>
-            <c:otherwise>
-              
-                <jsp:include page="rolekhac.jsp" />
-            </c:otherwise>
-        </c:choose>
-    </div>
-</div>
+                        <div class="e-navlist e-navlist--active-bg">
+                            <c:choose>
+                                <c:when test="${a.role == 2}">
+                                    <jsp:include page="role2.jsp" />
+                                </c:when>
+                                <c:when test="${a.role == 3}">
+                                    <jsp:include page="role3.jsp" />
+                                </c:when>
+                                <c:otherwise>
+
+                                    <jsp:include page="rolekhac.jsp" />
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col">
@@ -66,30 +67,30 @@
                                                         <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">${a.username}</h4>
                                                         <p class="mb-0">${a.email}</p>
 
-                                                    </div>
+                                            </div>
                                                     <button <button class="btn btn-primary" type="button" onclick="document.getElementById('imageInput').click();" >Cập Nhật Ảnh</button>
 
                                                 </form>
-                                            </div>
+                                        </div>
                                         </div>
                                         <script>
                                             function handleImageChange(input) {
-                                            const selectedImage = document.getElementById('selectedImage');
+                                                const selectedImage = document.getElementById('selectedImage');
                                             const ngoaiFormImage = document.getElementById('ngoaiFormImage');
                                             const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
 
-                                            if (input.files && input.files[0]) {
-                                            const reader = new FileReader();
+                                                if (input.files && input.files[0]) {
+                                                    const reader = new FileReader();
 
-                                            reader.onload = function (e) {
-                                            selectedImage.src = e.target.result;
+                                                    reader.onload = function (e) {
+                                                        selectedImage.src = e.target.result;
                                             ngoaiFormImage.src = e.target.result;
                                             ngoaiFormImage2.src = e.target.result;
-                                             };
+                                                    };
 
-                                            reader.readAsDataURL(input.files[0]);
-                                             }
-                                       }
+                                                    reader.readAsDataURL(input.files[0]);
+                                                }
+                                            }
                                         </script>
 
                                         <ul class="nav nav-tabs">
@@ -103,8 +104,8 @@
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="row">
-                                                                <input type="file" id="imageInput" accept=".jpeg, .jpg, .png" name="profileImage" style="display: none;" onchange="handleImageChange(this);">
-                                                                <img id="selectedImage" src="${a.avatar}" alt="">
+                                                                <input type="file" id="imageInput" accept=".jpeg, .jpg, .png" name="fileName" style="display: none;" onchange="handleImageChange(this);">
+                    
                                                                 <input type="hidden" name="id" value="${a.id}">
 
                                                                 <div class="col">
@@ -184,7 +185,7 @@
             </div>
 
             <script>
-                
+
 
 
                 function redirectToOtherPage() {
