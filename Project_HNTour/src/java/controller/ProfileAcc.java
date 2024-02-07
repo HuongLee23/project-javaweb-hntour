@@ -100,6 +100,7 @@ private static final long serialVersionUID = 205242440643911308L;
     }
 }
 
+   @Override
    protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException, SecurityException {
     try {
@@ -118,13 +119,12 @@ private static final long serialVersionUID = 205242440643911308L;
         String fileName = null;
         // Get the part associated with the file input field
         Part filePart = request.getPart("fileName");
-        fileName = getFileName(filePart);
 
         // Check if a file is selected
         if (filePart != null && filePart.getSize() > 0) {
             // Write the uploaded file to the server
             try (InputStream input = filePart.getInputStream();
-                 OutputStream output = new FileOutputStream(uploadFilePath + File.separator + fileName)) {
+                 OutputStream output = new FileOutputStream(uploadFilePath + File.separator + getFileName(filePart))) {
 
                 byte[] buffer = new byte[4096];
                 int bytesRead;
@@ -132,7 +132,7 @@ private static final long serialVersionUID = 205242440643911308L;
                     output.write(buffer, 0, bytesRead);
                 }
 
-                fileName = "avatar/" + fileName;
+                fileName = "avatar/" + getFileName(filePart);
             }
         }
 
@@ -146,15 +146,19 @@ private static final long serialVersionUID = 205242440643911308L;
         DAO accountDAO = new DAO();
         HttpSession session = request.getSession();
 
+        // Retrieve existing avatar filename from the session
+        String existingAvatar = ((Account) session.getAttribute("account")).getAvatar();
+
         // Update profile in the database
-        boolean updateSuccess = accountDAO.updateProfile(userId, email, username, address, fileName, phoneNumber);
+        boolean updateSuccess = accountDAO.updateProfile(userId, email, username, address,
+                (fileName != null) ? fileName : existingAvatar, phoneNumber);
 
         if (updateSuccess) {
             // Update session attribute directly without querying the database again
             Account account = (Account) session.getAttribute("account");
             account.setUsername(username);
             account.setAddress(address);
-            account.setAvatar(fileName);
+            account.setAvatar((fileName != null) ? fileName : existingAvatar);
             account.setPhoneNumber(phoneNumber);
 
             // Forward the request with updated session attribute
@@ -171,6 +175,7 @@ private static final long serialVersionUID = 205242440643911308L;
         response.sendRedirect("error.jsp?message=" + e.getMessage()); // Redirect to error.jsp with a message parameter
     }
 }
+
 
     
 private String getFileName(jakarta.servlet.http.Part part) {
