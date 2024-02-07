@@ -349,8 +349,8 @@
 
                                 </div>
                             </c:forEach>
-                            <!-- Reviews -->
 
+                            <!-- Reviews -->
                             <div class="reviews">
                                 <div class="reviews_title">Đánh giá</div>
                                 <div class="reviews_container">
@@ -361,114 +361,117 @@
                                                 <div class="col-lg-1">
                                                     <div class="review_image">
                                                         <c:if test="${b.avatarAc != null}">
-                                                            <img src="${b.avatarAc}" alt="Image by Andrew Robles">
+                                                            <img src="${b.avatarAc}" alt="">
                                                         </c:if>
                                                         <c:if test="${b.avatarAc == null}">
                                                             <img  src="https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain" alt="">
                                                         </c:if>
                                                     </div>
-                                                    <div class="review_name">${b.accName}</div>
                                                 </div>
-
-                                            </div>
-                                            <div class="col-lg-11">
-                                                <div class="review_content">
-                                                    <div class="review_title_container">
-                                                        <div class="review_title"></div>
-                                                        <div class="review_rating">${b.rating}</div>
+                                                <div class="col-lg-11">
+                                                    <div class="review_content">
+                                                        <div class="review_title_container">
+                                                            <div class="review_title">${b.accName}</div>
+                                                            <div class="review_rating">${b.rating}</div>
+                                                        </div>
+                                                        <div class="review_text">
+                                                            <p>${b.comment}</p>
+                                                        </div>
+                                                        <!--<div class="review_name">Christinne Smith</div>-->
+                                                        <div class="review_date">12 November 2017</div>
                                                     </div>
-                                                    <div class="review_text">
-                                                        <p>${b.comment}</p>
-                                                    </div>
-
-
                                                 </div>
                                             </div>
                                         </div>
                                     </c:forEach>
                                 </div>
                             </div>
-                            <br/>
-                            <!-- Comment Form -->
-                            <c:if  test="${sessionScope.account  != null}"> 
-                                <div class="comment_form">
-                                    <form action="addfeeback" method="post">
-                                        <!-- Input for Comment -->
-                                        <div class="form-group">
-                                            <label for="comment">Your Comment:</label>
-                                            <textarea class="form-control" id="comment" name="comment" rows="3" ></textarea>
-                                        </div>
-                                        <!-- Input for Rating (Assuming a 5-star system) -->
-                                        <div class="form-group">
-                                            <label for="rating">Your Rating:</label>
-                                            <select class="form-control" id="rating" name="rating">
-                                                <option value="1">1 star</option>
-                                                <option value="2">2 stars</option>
-                                                <option value="3">3 stars</option>
-                                                <option value="4">4 stars</option>
-                                                <option value="5">5 stars</option>
-                                            </select>
-                                        </div>
+                        </div>
 
-                                        <!-- Submit Button -->
-                                        <button type="submit" style="background: #fa9e1b; border:0px; float: right " class="btn btn-primary">Submit Comment</button>
-                                    </form>
-                                </div>
-                            </c:if>
-                            <!-- Location on Map -->
 
-                            <div class="location_on_map">
-                                <div class="location_on_map_title">location on map</div>
 
-                                <!-- Google Map -->
 
-                                <div class="travelix_map">
-                                    <div id="google_map" class="google_map">
-                                        <div class="map_container">
-                                            <div id="map"></div>
-                                        </div>
+
+                        <!-- Comment Form -->
+                        <c:if  test="${sessionScope.account  != null}"> 
+                            <div class="comment_form">
+                                <form action="addfeeback" method="post">
+                                    <!-- Input for Comment -->
+                                    <div class="form-group">
+                                        <label for="comment">Your Comment:</label>
+                                        <textarea class="form-control" id="comment" name="comment" rows="3" ></textarea>
+                                    </div>
+                                    <!-- Input for Rating (Assuming a 5-star system) -->
+                                    <div class="form-group">
+                                        <label for="rating">Your Rating:</label>
+                                        <select class="form-control" id="rating" name="rating">
+                                            <option value="1">1 star</option>
+                                            <option value="2">2 stars</option>
+                                            <option value="3">3 stars</option>
+                                            <option value="4">4 stars</option>
+                                            <option value="5">5 stars</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <button type="submit" style="background: #fa9e1b; border:0px; float: right " class="btn btn-primary">Submit Comment</button>
+                                </form>
+                            </div>
+                        </c:if>
+                        <!-- Location on Map -->
+
+                        <div class="location_on_map">
+                            <div class="location_on_map_title">location on map</div>
+
+                            <!-- Google Map -->
+
+                            <div class="travelix_map">
+                                <div id="google_map" class="google_map">
+                                    <div class="map_container">
+                                        <div id="map"></div>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
                     </div>
                 </div>
-            </div>		
-        </div>
-        <!-- Footer -->
-
-        <jsp:include page="footer.jsp"></jsp:include>
-
+            </div>
+        </div>		
     </div>
+    <!-- Footer -->
 
-    <script>
-        function submitForm() {
-            document.getElementById("myForm").submit();
-        }
-    </script>
+    <jsp:include page="footer.jsp"></jsp:include>
 
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="styles/bootstrap4/popper.js"></script>
-    <script src="styles/bootstrap4/bootstrap.min.js"></script>
-    <script src="plugins/greensock/TweenMax.min.js"></script>
-    <script src="plugins/greensock/TimelineMax.min.js"></script>
-    <script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-    <script src="plugins/greensock/animation.gsap.min.js"></script>
-    <script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-    <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="plugins/easing/easing.js"></script>
-    <script src="plugins/parallax-js-master/parallax.min.js"></script>
-    <script src="js/about_custom.js"></script>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="styles/bootstrap4/popper.js"></script>
-    <script src="styles/bootstrap4/bootstrap.min.js"></script>
-    <script src="plugins/easing/easing.js"></script>
-    <script src="plugins/parallax-js-master/parallax.min.js"></script>
-    <script src="plugins/colorbox/jquery.colorbox-min.js"></script>
-    <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
-    <script src="js/single_listing_custom.js"></script>
+</div>
+
+<script>
+    function submitForm() {
+        document.getElementById("myForm").submit();
+    }
+</script>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="styles/bootstrap4/popper.js"></script>
+<script src="styles/bootstrap4/bootstrap.min.js"></script>
+<script src="plugins/greensock/TweenMax.min.js"></script>
+<script src="plugins/greensock/TimelineMax.min.js"></script>
+<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="plugins/greensock/animation.gsap.min.js"></script>
+<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="plugins/easing/easing.js"></script>
+<script src="plugins/parallax-js-master/parallax.min.js"></script>
+<script src="js/about_custom.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="styles/bootstrap4/popper.js"></script>
+<script src="styles/bootstrap4/bootstrap.min.js"></script>
+<script src="plugins/easing/easing.js"></script>
+<script src="plugins/parallax-js-master/parallax.min.js"></script>
+<script src="plugins/colorbox/jquery.colorbox-min.js"></script>
+<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+<script src="js/single_listing_custom.js"></script>
 </body>
 
 </html>
