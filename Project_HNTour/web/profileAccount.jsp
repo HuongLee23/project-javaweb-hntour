@@ -6,8 +6,9 @@
 
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
         <meta name="description" content="Ha Noi Tour">
@@ -75,6 +76,7 @@
                                         <script>
                                             function handleImageChange(input) {
                                                 const selectedImage = document.getElementById('selectedImage');
+
                                                 const ngoaiFormImage = document.getElementById('ngoaiFormImage');
                                                 const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
 
@@ -83,6 +85,7 @@
 
                                                     reader.onload = function (e) {
                                                         selectedImage.src = e.target.result;
+
                                                         ngoaiFormImage.src = e.target.result;
                                                         ngoaiFormImage2.src = e.target.result;
                                                     };
@@ -103,8 +106,8 @@
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="row">
-                                                                <input type="file" id="imageInput" accept=".jpeg, .jpg, .png" name="profileImage" style="display: none;" onchange="handleImageChange(this);">
-                                                                <img id="selectedImage" src="${a.avatar}" alt="">
+                                                                <input type="file" id="imageInput" accept=".jpeg, .jpg, .png" name="fileName" style="display: none;" onchange="handleImageChange(this);">
+
                                                                 <input type="hidden" name="id" value="${a.id}">
 
                                                                 <div class="col">
