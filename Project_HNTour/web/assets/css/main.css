@@ -267,4 +267,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     color: #ee4d2d;
 }
 
+.room_button{
+    justify-content: space-evenly;
+    display: flex;
+}
+
+.book_button_book_another{
+    background: #ee4d2d;
+}
+
+.book_button_detail_another{
+
+}
+
 /*-----------------------------*/
+
+

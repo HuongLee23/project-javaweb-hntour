@@ -20,7 +20,7 @@
 
                 <div class="login__screen">
                     <div class="login__logo">
-                        <a href="./home.jsp">
+                        <a href="home">
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>

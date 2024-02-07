@@ -152,7 +152,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <button class="button search_button">search<span></span><span></span><span></span></button>
+                                        <button class="button search_button">tìm kiếm<span></span><span></span><span></span></button>
                                     </form>
 
                                 </div>
@@ -282,14 +282,14 @@
 
                                 <!-- Schedules Section -->
                                 <div class="schedules">
-                                    <h2>Schedules</h2>
+                                    <h2>Lich trình chuyến đi</h2>
                                     <table class="table"> 
 
                                         <thead>
                                             <tr>
-                                                <th>Location</th>
-                                                <th>Date</th>
-                                                <th>Description</th>
+                                                <th>Địa điểm</th>
+                                                <th>Thời gian</th>
+                                                <th>Mô tả</th>
 
                                             </tr>
                                         </thead>
@@ -326,19 +326,18 @@
                                             <div class="col-lg-2">
                                                 <div class="room_image"><img src="${o.imageMain}" alt="https://unsplash.com/@grovemade"></div>
                                             </div>
-                                            <div class="col-lg-7">
+                                            <div class="col-lg-6">
                                                 <div class="room_content">
                                                     <div class="room_title"><a href="detail?tid=${o.id}">${o.name}</a></div>
                                                     <div class="room_price"><fmt:formatNumber value="${o.price}" pattern="###,###"/>VNÐ</div>
-                                                    <div class="room_text">Time: ${o.intendedTime}</div>
+                                                    <div class="room_text">Thời gian dự kiến: ${o.intendedTime}</div>
 
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3 text-lg-right">
+                                            <div class="col-lg-4 text-lg-right">
                                                 <div class="room_button">
-                                                    <div class="button book_button trans_200"><a href="#">book<span></span><span></span><span></span></a></div>
-                                                    <div class="button book_button"><a href="detail?tid=${o.id}">Detail<span></span><span></span><span></span></a></div>
-
+                                                    <div class="button book_button_book_another book_button trans_200"><a href="#">Mua ngay</a></div>
+                                                    <div class="button book_button_detail_another book_button"><a href="detail?tid=${o.id}">Xem chi tiết</a></div>
                                                 </div>
 
                                             </div>
@@ -353,7 +352,7 @@
                             <!-- Reviews -->
 
                             <div class="reviews">
-                                <div class="reviews_title">reviews</div>
+                                <div class="reviews_title">Đánh giá</div>
                                 <div class="reviews_container">
                                     <c:forEach items="${requestScope.feedback}" var="b"> 
                                         <!-- Review -->

@@ -113,7 +113,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <button class="button search_button">search<span></span><span></span><span></span></button>
+                                            <button class="button search_button">tìm kiếm<span></span><span></span><span></span></button>
                                         </form>
                                     </div>
 
@@ -180,7 +180,7 @@
                                         <div class="col-lg-8">
                                             <div class="offers_content">
                                                 <div class="offers_price" style="font-size: 25px">${c.name}
-                                                    <div><span>About ${c.intendedTime}</span></div>
+                                                    <div><span>Thời gian dự kiến hết: ${c.intendedTime}</span></div>
                                                 </div>
                                                 <p class="offers_text">
                                                     <c:choose>
@@ -193,7 +193,7 @@
                                                     </c:choose>
                                                 </p>
                                                 <div style="background-color: #ee4d2d;" class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>
-                                                <div class="button book_button"><a href="detail?tid=${c.id}">Detail</a></div>
+                                                <div class="button book_button"><a href="detail?tid=${c.id}">Xem chi tiết</a></div>
 
                                                 <div class="offer_reviews">
                                                 </div>

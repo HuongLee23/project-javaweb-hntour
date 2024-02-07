@@ -66,7 +66,7 @@
                                                         <c:forEach items="${o.items}" var="i" varStatus="loop">
                                                             <tr>
                                                                 <th scope="row" class="border-bottom-0">
-                                                                    <div class="d-flex align-items-center">
+                                                                    <div style="justify-content: space-evenly" class="d-flex align-items-center">
                                                                         <img src="${i.tour.imageMain}" class="img-fluid rounded-3"
                                                                              style="width: 120px;" alt="${i.tour.name}">
                                                                         <div class="flex-column ms-4">

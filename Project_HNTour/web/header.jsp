@@ -23,8 +23,8 @@
                     <div class="user_box ml-auto">
                         <c:set value="${sessionScope.account}" var="a"/>
                         <c:if test="${a == null}">
-                            <div class="user_box_login user_box_link"><a href="login.jsp">login</a></div>
-                            <div class="user_box_register user_box_link"><a href="register.jsp">register</a></div>
+                            <div class="user_box_login user_box_link"><a href="login.jsp">Đăng nhập</a></div>
+                            <div class="user_box_register user_box_link"><a href="register.jsp">Đăng ký</a></div>
                         </c:if>
                         <c:if test="${a != null}">
                             <c:if test="${a.role == 1}">
@@ -147,9 +147,9 @@
                                             <input type="search" class="search_content_input bez_1">
                                         </form>-->
 
-                    <div class="hamburger">
+<!--                    <div class="hamburger">
                         <i class="fa fa-bars trans_200"></i>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>	
