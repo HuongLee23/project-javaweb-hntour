@@ -16,6 +16,9 @@
         <link rel="stylesheet" type="text/css" href="./styles/offers_styles.css">
         <link rel="stylesheet" type="text/css" href="./styles/offers_responsive.css">
         <link rel="stylesheet" href="./assets/css/tour.css"/>
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">-->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     </head>
     <body>
@@ -62,7 +65,7 @@
                                         <form action="searchname" id="search_form_1" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
                                             <div class="search_item">
                                                 <div>destination</div>
-                                                <input type="text" name="txt" class="destination search_input" required="required">
+                                                <input oninput="searchByAll(this)" type="text" name="txt" class="destination search_input" required="required">
                                             </div>
                                             <div class="search_item">
                                                 <div>check in</div>
@@ -162,9 +165,10 @@
                     <!-- start -->  
 
 
-                    <div class="col-lg-12">
+                    <div id="offers_tour" class="col-lg-12">
                         <div class="offers_grid">
                             <c:forEach items="${requestScope.tour}" var="c">  
+
                                 <div class="offers_item rating_4">
                                     <div class="row">
                                         <div class="col-lg-1 temp_col"></div>
@@ -201,13 +205,87 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </c:forEach>
                         </div>
                     </div>
+
                 </div>
             </div>
             <jsp:include page="footer.jsp"></jsp:include>
         </div>
+
+
+        <script>
+            function searchByAll(param) {
+                var searchAll = param.value;
+                $.ajax({
+                    url: "/VNTravel/searchajax",
+                    type: "get",
+                    data: {
+                        txt: searchAll
+                    },
+                    success: function (data) {
+                        var row = document.getElementById("offers_tour");
+                        row.innerHTML = data;
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("An error occurred:", error);
+                    }
+                }); // Add closing bracket here
+            }
+
+
+//            function searchByAll(param) {
+//                var searchAll = param.value;
+//                $.ajax({
+//                    url: "/VNTravel/searchajax",
+//                    type: "get",
+//                    data: {
+//                        search: searchAll
+//                    },
+//                    success: function (data) {
+//                        // Xóa các dòng hiện tại trong offers_tour
+//                        $('#offers_tour').empty();
+//
+//                        // Thêm dữ liệu mới vào offers_tour
+//                        $.each(data, function (index, tour) {
+//                            var offerItem = '<div class="offers_item rating_4">' +
+//                                    '<div class="row">' +
+//                                    '<div class="col-lg-1 temp_col"></div>' +
+//                                    '<div class="col-lg-3 col-1680-4">' +
+//                                    '<div class="offers_image_container">' +
+//                                    '<a class="add_to_card" href="additem?id=' + tour.id + '&num=1">' +
+//                                    '<i class="icon_card fa-solid fa-cart-plus" style="color: #e2492b"></i>' +
+//                                    '</a>' +
+//                                    '<img class="card-img-top" src="' + tour.imageMain + '">' +
+//                                    '<div class="offer_name"><span>' + tour.price + ' VNĐ</span></div>' +
+//                                    '</div>' +
+//                                    '</div>' +
+//                                    '<div class="col-lg-8">' +
+//                                    '<div class="offers_content">' +
+//                                    '<div class="offers_price" style="font-size: 25px">' + tour.name +
+//                                    '<div><span>Thời gian dự kiến hết: ' + tour.intendedTime + '</span></div>' +
+//                                    '</div>' +
+//                                    '<p class="offers_text">' + (tour.description.length > 200 ? tour.description.substring(0, 200) + '...' : tour.description) + '</p>' +
+//                                    '<div style="background-color: #ee4d2d;" class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>' +
+//                                    '<div class="button book_button"><a href="detail?tid=' + tour.id + '">Xem chi tiết</a></div>' +
+//                                    '</div>' +
+//                                    '</div>' +
+//                                    '</div>' +
+//                                    '</div>';
+//
+//                            $('#offers_tour').append(offerItem);
+//                        });
+//                    },
+//                    error: function (xhr, status, error) {
+//                        console.log("An error occurred:", error);
+//                    }
+//                });
+//            }
+
+        </script>
+
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="styles/bootstrap4/popper.js"></script>
         <script src="styles/bootstrap4/bootstrap.min.js"></script>
