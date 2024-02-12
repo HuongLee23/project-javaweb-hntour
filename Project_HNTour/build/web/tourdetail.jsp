@@ -282,7 +282,7 @@
 
                                 <!-- Schedules Section -->
                                 <div class="schedules">
-                                    <h2>Lich trình chuyến đi</h2>
+                                    <h2>Lịch trình chuyến đi</h2>
                                     <table class="table"> 
 
                                         <thead>
