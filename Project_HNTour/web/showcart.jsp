@@ -33,10 +33,10 @@
 
                 <div class="home">
                     <div class="home_image home_background parallax-window" data-parallax="scroll" data-image-src="">                    
-                        <img src="./assets/img/checkout.png" alt="alt"/>
+                        <img style="height: 500px;" src="./assets/img/cart.png" alt="alt"/>
                     </div>
                     <div class="home_content">
-                        <div class="home_title">The payment</div>
+<!--                        <div class="home_title">The payment</div>-->
                     </div>
                 </div>
             <c:if test="${sessionScope.sizeCart != 0}">

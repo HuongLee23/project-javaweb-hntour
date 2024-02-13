@@ -196,7 +196,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </p>
-                                                <div style="background-color: #ee4d2d;" class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>
+                                                <div style="background-color: #ee4d2d;" class="button book_button"><a href="#">Mua ngay<span></span><span></span><span></span></a></div>
                                                 <div class="button book_button"><a href="detail?tid=${c.id}">Xem chi tiết</a></div>
 
                                                 <div class="offer_reviews">
