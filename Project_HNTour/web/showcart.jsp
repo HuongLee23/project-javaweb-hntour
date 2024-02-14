@@ -36,7 +36,7 @@
                         <img style="height: 500px;" src="./assets/img/cart.png" alt="alt"/>
                     </div>
                     <div class="home_content">
-<!--                        <div class="home_title">The payment</div>-->
+                        <!--                        <div class="home_title">The payment</div>-->
                     </div>
                 </div>
             <c:if test="${sessionScope.sizeCart != 0}">
@@ -80,24 +80,24 @@
                                                                 </td>
                                                                 <td class="align-middle border-bottom-0">
                                                                     <div class="d-flex flex-row">
-                                                                        <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                                            <a href="processcart?num=-1&id=${i.tour.id}">
+                                                                        <a href="processcart?num=-1&id=${i.tour.id}">
+                                                                            <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                                                                 <i class="fas fa-minus"></i>
-                                                                            </a>
-                                                                        </button>
+                                                                            </button>
+                                                                        </a>
 
                                                                         <input id="form1" min="0" name="quantity" value="${i.quantity}" type="number"
                                                                                class="form-control form-control-sm" style="width: 50px;" />
 
-                                                                        <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                                            <a href="processcart?num=1&id=${i.tour.id}">
+                                                                        <a href="processcart?num=1&id=${i.tour.id}">
+                                                                            <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                                                                                 <i class="fas fa-plus"></i>
-                                                                            </a>
-                                                                        </button>
+                                                                            </button>
+                                                                        </a>
                                                                     </div>
                                                                 </td>
                                                                 <td class="align-middle border-bottom-0">
-                                                                    <p class="mb-0" style="font-weight: 500;"><fmt:formatNumber value="${i.price * i.quantity}" pattern="###,###"/> VNÐ</p>
+                                                                    <p class="mb-0" style="font-weight: 500;"><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</p>
                                                                 </td>
                                                                 <td class="align-middle border-bottom-0" style="text-align: center;">
                                                                     <form id="myForm${loop.index}" action="processcart" method="post">

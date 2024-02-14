@@ -75,8 +75,6 @@ public class AddItemServlet extends HttpServlet {
             for (Cookie o : arr) {
                 if (o.getName().equals("cart")) {
                     txt += o.getValue();
-//                    o.setMaxAge(0);
-//                    response.addCookie(o);
                 }
             }
         }
@@ -84,7 +82,6 @@ public class AddItemServlet extends HttpServlet {
         //Lấy id và num củ tour để add vào Cookies
         String num = request.getParameter("num");
         String id = request.getParameter("id");
-//        String transmission = request.getParameter("transmission");
 
         if (txt.isEmpty()) {
             txt = id + ":" + num;
@@ -108,12 +105,7 @@ public class AddItemServlet extends HttpServlet {
         session.setAttribute("sizeCart", size);
         session.setAttribute("listItem", listItem);
         request.getRequestDispatcher("tourlist").forward(request, response);
-//        if (transmission.equals("tourlist")) {
-//        } else if (transmission.equals("tourdetail")) {
-//            session.setAttribute("tid", id);
-//            response.sendRedirect("detail");
-////            request.getRequestDispatcher("detail").forward(request, response);
-//        }
+
     }
 
     /**
@@ -145,7 +137,6 @@ public class AddItemServlet extends HttpServlet {
         //Lấy id và num củ tour để add vào Cookies
         String num = request.getParameter("num");
         String id = request.getParameter("id");
-//        String transmission = request.getParameter("transmission");
 
         if (txt.isEmpty()) {
             txt = id + ":" + num;

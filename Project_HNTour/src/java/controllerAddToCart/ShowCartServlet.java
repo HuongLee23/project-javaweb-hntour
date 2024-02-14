@@ -65,7 +65,6 @@ public class ShowCartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
-//        HttpSession session = request.getSession();
 
         List<Tour> list = dao.getAllTour();
         Cookie[] arr = request.getCookies();

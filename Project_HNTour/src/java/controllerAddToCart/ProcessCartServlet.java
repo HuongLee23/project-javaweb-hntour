@@ -75,8 +75,6 @@ public class ProcessCartServlet extends HttpServlet {
             for (Cookie o : arr) {
                 if (o.getName().equals("cart")) {
                     txt += o.getValue();
-//                    o.setMaxAge(0);
-//                    response.addCookie(o);
                 }
             }
         }
@@ -89,25 +87,31 @@ public class ProcessCartServlet extends HttpServlet {
         try {
             id = Integer.parseInt(id_raw);
             num = Integer.parseInt(num_raw);
-            List<Tour> l = dao.getAllTour();
+//            List<Tour> l = dao.getAllTour();
 
-            Tour t = null;
-            for (Tour tour : l) {
-                if (tour.getId() == id) {
-                    t = tour;
-                    break;
-                }
-            }
+//            Tour t = null;
+//            for (Tour tour : list) {
+//                if (tour.getId() == id) {
+//                    t = tour;
+//                    break;
+//                }
+//            }
+            
             if (num == -1 && (cart.getQuantityById(id) >= 1)) {
                 Item i = cart.getItemById(id);
                 i.setQuantity(i.getQuantity() - 1);
+                i.setPrice(i.getQuantity() * i.getTour().getPrice());
                 if (i.getQuantity() == 0) {
                     cart.removeItem(id);
                 }
             } else if (num == 1) {
-                double price = t.getPrice();
-                Item i = new Item(t, num, price);
-                cart.addItem(i);
+                Item i = cart.getItemById(id);
+                i.setQuantity(i.getQuantity() + 1);
+                i.setPrice(i.getQuantity() * i.getTour().getPrice());
+                
+//                double price = t.getPrice();
+//                Item i = new Item(t, num, price);
+//                cart.addItem(i);
             }
 
         } catch (NumberFormatException e) {
@@ -127,11 +131,11 @@ public class ProcessCartServlet extends HttpServlet {
                 txt += "/" + items.get(i).getTour().getId() + ":" + items.get(i).getQuantity();
             }
         }
-        
+
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(60 * 60 * 24 * 7);
         response.addCookie(c);
-        
+
         session.setAttribute("sizeCart", size);
         session.setAttribute("listItem", items);
         request.setAttribute("cart", cart);
@@ -172,15 +176,14 @@ public class ProcessCartServlet extends HttpServlet {
         String[] ids = txt.split("/");
         String out = "";
 
-        for (int i = 0; i < ids.length; i++) {
-            String[] s = ids[i].split(":");
+        for (String id1 : ids) {
+            String[] s = id1.split(":");
             if (!s[0].equals(id)) {
                 if (out.isEmpty()) {
-                    out = ids[i];
+                    out = id1;
                 } else {
-                    out += "/" + ids[i];
+                    out += "/" + id1;
                 }
-
             }
         }
 
