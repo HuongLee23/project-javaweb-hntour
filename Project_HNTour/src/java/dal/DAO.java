@@ -5,7 +5,7 @@
  */
 package dal;
 
-import java.sql.Array;
+//import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +16,7 @@ import java.util.List;
 import model.Account;
 import model.Category;
 import model.Feedback;
-import model.ImageAlbum;
+//import model.ImageAlbum;
 import model.Schedules;
 import model.Tour;
 
@@ -142,38 +142,38 @@ public class DAO extends DBContext {
     }
 
     public boolean updateProfile(
-        int id,
-        String email,
-        String username,
-        String address,
-        String avatar,
-        String phoneNumber) {
+            int id,
+            String email,
+            String username,
+            String address,
+            String avatar,
+            String phoneNumber) {
 
-    String sql = "UPDATE [dbo].[Account] "
-            + "SET [email] = ?,"
-            + " [username] = ?,"
-            + " [address] = ?, "
-            + " [avatar] = ?, "
-            + "[phoneNumber] = ? "
-            + "WHERE [id] = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, email);
-        st.setString(2, username);
-        st.setString(3, address);
-        st.setString(4, avatar);
-        st.setString(5, phoneNumber);
+        String sql = "UPDATE [dbo].[Account] "
+                + "SET [email] = ?,"
+                + " [username] = ?,"
+                + " [address] = ?, "
+                + " [avatar] = ?, "
+                + "[phoneNumber] = ? "
+                + "WHERE [id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, username);
+            st.setString(3, address);
+            st.setString(4, avatar);
+            st.setString(5, phoneNumber);
 
-        // Corrected order of parameters
-        st.setInt(6, id);
+            // Corrected order of parameters
+            st.setInt(6, id);
 
-        int result = st.executeUpdate();
-        return result > 0;
-    } catch (SQLException e) {
-        System.out.println(e);
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
     }
-    return false;
-}
 
     public Account getAccountDetail(String email) {
 
