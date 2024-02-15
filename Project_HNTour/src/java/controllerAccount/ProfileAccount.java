@@ -4,7 +4,6 @@
  */
 package controllerAccount;
 
-import controller.*;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,20 +14,30 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import javax.mail.Part;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import model.Account;
 
 /**
  *
  * @author Admin
  */
-@MultipartConfig
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 10 MB 
+        maxFileSize = 1024 * 1024 * 50, // 50 MB
+        maxRequestSize = 1024 * 1024 * 100)   	// 100 MB
 @WebServlet(name = "ProfileAcc", urlPatterns = {"/profileaccount"})
 public class ProfileAccount extends HttpServlet {
+
+    private static final long serialVersionUID = 205242440643911308L;
+
+    /**
+     * Directory where uploaded files will be saved, its relative to the web
+     * application directory.
+     */
+    private static final String UPLOAD_DIR = "avatar";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -68,62 +77,120 @@ public class ProfileAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAO accountDAO = new DAO();
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-        Account acc2 = accountDAO.getAccountDetail(account.getEmail());
-        request.setAttribute("account", acc2);
-        request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
+        try {
+            DAO accountDAO = new DAO();
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("account");
+
+            // Update profile information in the session
+            Account updatedAccount = accountDAO.getAccountDetail(account.getEmail());
+
+            // Update session attribute with the latest data from the database
+            account.setUsername(updatedAccount.getUsername());
+            account.setAddress(updatedAccount.getAddress());
+            account.setAvatar(updatedAccount.getAvatar());
+            account.setPhoneNumber(updatedAccount.getPhoneNumber());
+
+            // Forward the request to the profileAccount.jsp page
+            request.setAttribute("account", account);
+            request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            // Handle or log the exception
+            e.printStackTrace(); // Log the exception, or use a logging framework
+            response.sendRedirect("error.jsp"); // Redirect to an error page
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException, SecurityException {
-    try {
-//        Part part = (Part) request.getPart("profileImage");
-//        String realPath = request.getServletContext().getRealPath("/images");
-//
-//        // Create the directory if it doesn't exist
-//        if (!Files.exists(Paths.get(realPath))) {
-//            Files.createDirectory(Paths.get(realPath));
-//        }
-//
-//        // Save the file to the specified location
-//        String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-//        Files.copy(part.getInputStream(), Paths.get(realPath, filename), StandardCopyOption.REPLACE_EXISTING);
-//
-//        String profileImage = "images/" + filename; // Adjust the path as needed
+            throws ServletException, IOException, SecurityException {
+        try {
+            // Your file upload code goes here (if needed)
+            // gets absolute path of the web application
+            String applicationPath = request.getServletContext().getRealPath("");
+            // constructs path of the directory to save uploaded file
+            String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
 
-        // Retrieve other form parameters
-        String profileImage = request.getParameter("profileImage");
-        String username = request.getParameter("username");
-        String address = request.getParameter("address");
-        String phoneNumber = request.getParameter("phone");
-        int userId = Integer.parseInt(request.getParameter("id"));
-        String email = request.getParameter("email");
+            // creates the save directory if it does not exist
+            File fileSaveDir = new File(uploadFilePath);
+            if (!fileSaveDir.exists()) {
+                fileSaveDir.mkdirs();
+            }
 
-        DAO accountDAO = new DAO();
-        HttpSession session = request.getSession();
-        boolean updateSuccess = accountDAO.updateProfile(userId, email, username, address, profileImage, phoneNumber);
+            String fileName = null;
+            // Get the part associated with the file input field
+            Part filePart = request.getPart("fileName");
 
-        String message = (updateSuccess) ? "Cập nhật hồ sơ thành công." : "Có lỗi xảy ra. Vui lòng thực hiện lại.";
+            // Check if a file is selected
+            if (filePart != null && filePart.getSize() > 0) {
+                // Write the uploaded file to the server
+                try ( InputStream input = filePart.getInputStream();  OutputStream output = new FileOutputStream(uploadFilePath + File.separator + getFileName(filePart))) {
 
-        // Update session attribute and forward the request
-        Account account = (Account) session.getAttribute("account");
-        Account acc2 = accountDAO.getAccountDetail(account.getEmail());
-        request.setAttribute("account", acc2);
-        request.setAttribute("ms", message);
-        request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = input.read(buffer)) != -1) {
+                        output.write(buffer, 0, bytesRead);
+                    }
 
-    } catch (Exception e) {
-        // Handle or log the exception
-        e.printStackTrace(); // Log the exception, or use a logging framework
-        response.sendRedirect("error.jsp"); // Redirect to an error page
+                    fileName = "avatar/" + getFileName(filePart);
+                }
+            }
+
+            // Retrieve form parameters
+            String username = request.getParameter("username");
+            String address = request.getParameter("address");
+            String phoneNumber = request.getParameter("phone");
+            int userId = Integer.parseInt(request.getParameter("id"));
+            String email = request.getParameter("email");
+
+            DAO accountDAO = new DAO();
+            HttpSession session = request.getSession();
+
+            // Retrieve existing avatar filename from the session
+            String existingAvatar = ((Account) session.getAttribute("account")).getAvatar();
+
+            // Update profile in the database
+            boolean updateSuccess = accountDAO.updateProfile(userId, email, username, address,
+                    (fileName != null) ? fileName : existingAvatar, phoneNumber);
+
+            if (updateSuccess) {
+                // Update session attribute directly without querying the database again
+                Account account = (Account) session.getAttribute("account");
+                account.setUsername(username);
+                account.setAddress(address);
+                account.setAvatar((fileName != null) ? fileName : existingAvatar);
+                account.setPhoneNumber(phoneNumber);
+
+                // Forward the request with updated session attribute
+                request.setAttribute("ms", "Cập nhật hồ sơ thành công.");
+                request.setAttribute("account", account); // Add updated account to request attribute
+            } else {
+                request.setAttribute("ms", "Có lỗi xảy ra. Vui lòng thực hiện lại.");
+            }
+
+            request.getRequestDispatcher("profileAccount.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the exception stack trace
+            response.sendRedirect("error.jsp?message=" + e.getMessage()); // Redirect to error.jsp with a message parameter
+        }
     }
-}
 
-    
-    
+    private String getFileName(jakarta.servlet.http.Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] tokens = contentDisp.split(";");
+
+        for (String token : tokens) {
+            if (token.trim().startsWith("filename")) {
+                // Extract the file name from the "filename" parameter
+                return token.substring(token.indexOf("=") + 2, token.length() - 1)
+                        .replace("\\", "/");  // Handle Windows file path separator
+            }
+        }
+        return "";
+    }
+
     /**
      * Returns a short description of the servlet.
      *

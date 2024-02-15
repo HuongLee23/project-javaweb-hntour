@@ -5,7 +5,6 @@
 package controllerAccount;
 
 import controller.*;
-import controller.*;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -82,26 +81,34 @@ public class ChangePassword extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
-        String pass = request.getParameter("pass");
-        String newpass = request.getParameter("newpass");
+        String oldPass = request.getParameter("pass");
+        String newPass = request.getParameter("newpass");
+        String newPass2 = request.getParameter("newpass2");
 
         DAO d = new DAO();
-        Account a = d.loginAccount(email, pass);
+        Account a = d.loginAccount(email, oldPass);
 
-        if (a == null || !a.getPassword().equals(pass)) {
-            String ms = "Old password is incorrect!";
-            request.setAttribute("error", ms);
+        if (a == null || !a.getPassword().equals(oldPass)) {
+            String errorMessage = "Mật khẩu cũ không đúng!";
+            request.setAttribute("error", errorMessage);
+            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        } else if (!newPass.equals(newPass2)) {
+            String errorMessage = "Mật khẩu mới không khớp!";
+            request.setAttribute("error", errorMessage);
             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         } else {
+            // Update the password in the database
+            d.changePassword(email, oldPass, newPass);
 
-            a.setPassword(newpass);
-            d.changePassword(email, pass, newpass);
+            // Update the password in the account object
+            a.setPassword(newPass);
 
+            // Update the session with the modified account
             HttpSession session = request.getSession();
             session.setAttribute("account", a);
 
-            String ms = "Changed password successfully!";
-            request.setAttribute("error", ms);
+            String successMessage = "Thay đổi mật khẩu thành công!";
+            request.setAttribute("error", successMessage);
             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         }
     }
