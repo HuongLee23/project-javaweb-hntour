@@ -10,15 +10,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import model.Account;
+import model.Cart;
 import model.Category;
 import model.Feedback;
+import model.Item;
 //import model.ImageAlbum;
 import model.Schedules;
 import model.Tour;
+import model.Voucher;
 
 /**
  *
@@ -1197,6 +1201,48 @@ public class DAO extends DBContext {
             st.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+// Chưa hoàn thiện xong phần checkout
+    public void addOrder(Account a, Cart cart, Voucher v) {
+        LocalDate curDate = LocalDate.now();
+        String date = curDate.toString();
+        try {
+            String sql = "Insert into [Order] values(?, ? ,?)";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, a.getId());
+            st.setDouble(2, cart.getTotalMoney());
+            st.setInt(3, v.getId());
+            st.executeUpdate();
+
+            String sql1 = "SELECT top(1) [id]\n"
+                    + "      ,[accId]\n"
+                    + "      ,[totalPrice]\n"
+                    + "      ,[voucherId]\n"
+                    + "  FROM [dbo].[Order] where accId = ? \n"
+                    + "  order by id desc";
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            st1.setInt(1, a.getId());
+            ResultSet rs = st1.executeQuery();
+
+            if (rs.next()) {
+                int oid = rs.getInt("id");
+                for (Item i : cart.getItems()) {
+                    String sql2 = "insert into [OrderDetail] values (?, ?, ? , ?, ?, ?)";
+                    PreparedStatement st2 = connection.prepareStatement(sql2);
+                    st2.setInt(1, oid);
+                    st2.setInt(2, i.getTour().getId());
+                    st2.setString(3, date);
+                    st2.setInt(4, i.getQuantity());
+                    st2.setDouble(5, i.getPrice());
+                    st2.setInt(6, v.getId());
+                    st2.executeUpdate();
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
     }
 

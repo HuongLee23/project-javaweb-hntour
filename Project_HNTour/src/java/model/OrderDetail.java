@@ -13,13 +13,13 @@ public class OrderDetail {
     private int orderId, tourId;
     private String date;
     private int quantity;
-    private String price;
+    private double price;
     private int versionId;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int orderId, int tourId, String date, int quantity, String price, int versionId) {
+    public OrderDetail(int orderId, int tourId, String date, int quantity, double price, int versionId) {
         this.orderId = orderId;
         this.tourId = tourId;
         this.date = date;
@@ -32,49 +32,50 @@ public class OrderDetail {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
     public int getTourId() {
         return tourId;
-    }
-
-    public void setTourId(int tourId) {
-        this.tourId = tourId;
     }
 
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getPrice() {
+    public double getPrice() {
         return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public int getVersionId() {
         return versionId;
     }
 
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setTourId(int tourId) {
+        this.tourId = tourId;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public void setVersionId(int versionId) {
         this.versionId = versionId;
     }
+
     
     
 }
