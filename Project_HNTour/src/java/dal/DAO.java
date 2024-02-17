@@ -17,6 +17,7 @@ import model.Account;
 import model.Category;
 import model.Feedback;
 import model.ImageAlbum;
+import model.Schedules;
 import model.Tour;
 
 /**
@@ -219,9 +220,9 @@ public class DAO extends DBContext {
                 + "T.[status] "
                 + "FROM [HaNoiTour].[dbo].[Tour] T ";
 
-        try  {
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
 
                 String imageAlbumString = rs.getString("imageAlbum");
@@ -274,6 +275,7 @@ public class DAO extends DBContext {
                 + "T.[supplierId], "
                 + "T.[status] "
                 + "FROM [HaNoiTour].[dbo].[Tour] T where T.[id]= ?";
+
         try {
             ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -323,6 +325,7 @@ public class DAO extends DBContext {
                 + "T.[status] "
                 + "     FROM [dbo].[Tour] T"
                 + "     WHERE T.[name] like ?";
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, "%" + txtSearch + "%");
@@ -412,12 +415,12 @@ public class DAO extends DBContext {
     public List<Feedback> getFeedbackDetailTour(int tourId) {
         List<Feedback> list = new ArrayList<>();
 
-        String sql = "SELECT F.[id], F.[accId], A.[username] AS [accountUsername], "
-                + "F.[tourId], F.[versionId], F.[comment], F.[rating] "
-                + "FROM [HaNoiTour].[dbo].[Feedback] F "
-                + "JOIN [HaNoiTour].[dbo].[Tour] T ON F.[tourId] = T.[id] "
-                + "JOIN [HaNoiTour].[dbo].[Account] A ON F.[accId] = A.[id] "
-                + "WHERE T.[id] = ?;";
+        String sql = "  SELECT F.[id], F.[accId], A.[username] AS [accountUsername], \n"
+                + "            F.[tourId], F.[versionId], F.[comment], F.[rating] , A.[avatar] as [avatarAc]\n"
+                + "              FROM [Feedback] F \n"
+                + "              JOIN [Tour] T ON F.[tourId] = T.[id] \n"
+                + "               JOIN [Account] A ON F.[accId] = A.[id] \n"
+                + "               WHERE T.[id] = ?;";
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, tourId);
@@ -432,6 +435,7 @@ public class DAO extends DBContext {
                     feedback.setVersionId(rs.getInt("versionId"));
                     feedback.setComment(rs.getString("comment"));
                     feedback.setRating(rs.getInt("rating"));
+                    feedback.setAvatarAc(rs.getString("avatarAc"));
                     list.add(feedback);
                 }
             }
@@ -442,59 +446,7 @@ public class DAO extends DBContext {
         return list;
     }
 
-    public List<Tour> getTourBySortPrice(String typeSort) {
-        List<Tour> list = new ArrayList<>();
-        String sql = "SELECT TOP (1000) "
-                + "T.[id], "
-                + "T.[name],"
-                + " T.[imageMain],"
-                + " T.[imageAlbum],"
-                + " T.[intendedTime], "
-                + "T.[price], "
-                + "T.[description], "
-                + "T.[categoryId], "
-                + "T.[version], "
-                + "T.[rule], "
-                + "T.[supplierId], "
-                + "T.[status] "
-                + "FROM [HaNoiTour].[dbo].[Tour] T "
-                + " ORDER BY T.[price]";
-        if (typeSort.equals("asc")) {
-            sql += " ASC";
-        } else if (typeSort.equals("desc")) {
-            sql += " DESC";
-        }
-        try {
-            PreparedStatement st;
-            st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                String imageAlbumString = rs.getString("imageAlbum");
-                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
-                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
-
-                Tour tour = new Tour(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("imageMain"),
-                        imageAlbumList,
-                        rs.getTime("intendedTime"),
-                        rs.getString("price"),
-                        rs.getString("description"),
-                        rs.getInt("categoryId"),
-                        rs.getInt("version"),
-                        rs.getString("rule"),
-                        rs.getInt("supplierId"),
-                        rs.getBoolean("status")
-                );
-
-                list.add(tour);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return list;
-    }
+   
 //    public List<Tour> searchPriceUnder500() {
 //        List<Tour> list = new ArrayList<>();
 //        String sql = "SELECT T.[id]\n"
@@ -771,113 +723,88 @@ public class DAO extends DBContext {
         return list;
     }
 
-    public List<Tour> getTourBySortName(String typeSort) {
-        List<Tour> list = new ArrayList<>();
-        String sql = "SELECT TOP (1000) "
-                + "T.[id], "
-                + "T.[name],"
-                + " T.[imageMain],"
-                + " T.[imageAlbum],"
-                + " T.[intendedTime], "
-                + "T.[price], "
-                + "T.[description], "
-                + "T.[categoryId], "
-                + "T.[version], "
-                + "T.[rule], "
-                + "T.[supplierId], "
-                + "T.[status]"
-                + "FROM [HaNoiTour].[dbo].[Tour] T ORDER BY T.[name]";
-        if (typeSort.equals("asc")) {
-            sql += " ASC";
-        } else if (typeSort.equals("desc")) {
-            sql += " DESC";
-        }
-        try {
-            PreparedStatement st;
-            st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                String imageAlbumString = rs.getString("imageAlbum");
-                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
-                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+  public List<Tour> getTourBySort(String typeSort, String type) {
+    List<Tour> list = new ArrayList<>();
+    String sql = "SELECT TOP (1000) "
+            + "T.[id], "
+            + "T.[name],"
+            + "T.[imageMain],"
+            + "T.[imageAlbum],"
+            + "T.[intendedTime], "
+            + "T.[price], "
+            + "T.[description], "
+            + "T.[categoryId], "
+            + "T.[version], "
+            + "T.[rule], "
+            + "T.[supplierId], "
+            + "T.[status]"
+            + " FROM [Tour] T ";
 
-                Tour tour = new Tour(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("imageMain"),
-                        imageAlbumList,
-                        rs.getTime("intendedTime"),
-                        rs.getString("price"),
-                        rs.getString("description"),
-                        rs.getInt("categoryId"),
-                        rs.getInt("version"),
-                        rs.getString("rule"),
-                        rs.getInt("supplierId"),
-                        rs.getBoolean("status")
-                );
-
-                list.add(tour);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return list;
+    if (type.equals("name")) {
+        sql += "ORDER BY T.[name]";
+    } else if (type.equals("price")) {
+        sql += "ORDER BY T.[price]";
+    } else if (type.equals("rating")) {
+        sql += "JOIN [Feedback] F ON T.[id] = F.[tourId] ORDER BY F.[rating]";
     }
 
-    public List<Tour> getTourBySortRating(String typeSort) {
-        List<Tour> list = new ArrayList<>();
-        String sql = "SELECT TOP (1000) "
-                + "T.[id], "
-                + "T.[name],"
-                + " T.[imageMain],"
-                + " T.[imageAlbum],"
-                + " T.[intendedTime], "
-                + "T.[price], "
-                + "T.[description], "
-                + "T.[categoryId], "
-                + "T.[version], "
-                + "T.[rule], "
-                + "T.[supplierId], "
-                + "T.[status]"
-                + "  FROM [HaNoiTour].[dbo].[Tour] T\n"
-                + "  JOIN [HaNoiTour].[dbo].[Feedback] F ON T.[feedbackID] = F.[id]\n"
-                + "  ORDER BY F.[rating] ;";
-        if (typeSort.equals("asc")) {
-            sql += " ASC";
-        } else if (typeSort.equals("desc")) {
-            sql += " DESC";
-        }
-        try {
-            PreparedStatement st;
-            st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                String imageAlbumString = rs.getString("imageAlbum");
-                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
-                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
-
-                Tour tour = new Tour(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("imageMain"),
-                        imageAlbumList,
-                        rs.getTime("intendedTime"),
-                        rs.getString("price"),
-                        rs.getString("description"),
-                        rs.getInt("categoryId"),
-                        rs.getInt("version"),
-                        rs.getString("rule"),
-                        rs.getInt("supplierId"),
-                        rs.getBoolean("status")
-                );
-
-                list.add(tour);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return list;
+    if (typeSort.equals("ASC")) {
+        sql += " ASC";
+    } else if (typeSort.equals("DESC")) {
+        sql += " DESC";
     }
+
+    PreparedStatement st = null;
+    ResultSet rs = null;
+
+    try {
+        st = connection.prepareStatement(sql);
+        rs = st.executeQuery();
+        while (rs.next()) {
+            String imageAlbumString = rs.getString("imageAlbum");
+            List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
+            Tour tour = new Tour(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("imageMain"),
+                    imageAlbumList,
+                    rs.getTime("intendedTime"),
+                    rs.getString("price"),
+                    rs.getString("description"),
+                    rs.getInt("categoryId"),
+                    rs.getInt("version"),
+                    rs.getString("rule"),
+                    rs.getInt("supplierId"),
+                    rs.getBoolean("status")
+            );
+
+            list.add(tour);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // Print stack trace for debugging
+    } finally {
+        // Close the ResultSet, PreparedStatement, and Connection
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (st != null) {
+            try {
+                st.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    return list;
+}
+
+
+  
 
     public List<Tour> searchByCategory(String categoryId) {
         List<Tour> list = new ArrayList<>();
@@ -902,7 +829,7 @@ public class DAO extends DBContext {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 String imageAlbumString = rs.getString("imageAlbum");
-                
+
                 List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
 
                 Tour tour = new Tour(
@@ -927,32 +854,29 @@ public class DAO extends DBContext {
         return list;
     }
 
-   public Category getCategoryById(int categoryId) {
-    Category category = null;
-    String sql = "SELECT * FROM Category join  WHERE id = ?";
-    
-    try (PreparedStatement st = connection.prepareStatement(sql)) {
-        st.setInt(1, categoryId);
-        ResultSet rs = st.executeQuery();
+    public Category getCategoryById(int categoryId) {
+        Category category = null;
+        String sql = "SELECT * FROM Category join  WHERE id = ?";
 
-        if (rs.next()) {
-            category = new Category(
-                rs.getInt("id"),
-                rs.getString("name"),
-                rs.getString("description")
-            );
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, categoryId);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                category = new Category(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("description")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        return category;
     }
 
-    return category;
-}
-    
-   
-   
-
-public List<Tour> getTourBySupllierID(int supplierId) {
+    public List<Tour> getTourBySupllierID(int supplierId) {
         List<Tour> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) "
                 + "T.[id], "
@@ -975,7 +899,7 @@ public List<Tour> getTourBySupllierID(int supplierId) {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 String imageAlbumString = rs.getString("imageAlbum");
-                
+
                 List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
 
                 Tour tour = new Tour(
@@ -999,17 +923,18 @@ public List<Tour> getTourBySupllierID(int supplierId) {
         }
         return list;
     }
-   
-public Tour getTourByID(int id) {
-        String sql = "select * from Tour\n" +
-"                where id = ?";
+
+    
+    public Tour getTourByID(int id) {
+        String sql = "select * from Tour\n"
+                + "                where id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
-         ResultSet rs = st.executeQuery();
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                 String imageAlbumString = rs.getString("imageAlbum");
-                
+                String imageAlbumString = rs.getString("imageAlbum");
+
                 List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
                 return new Tour(
                         rs.getInt("id"),
@@ -1031,33 +956,174 @@ public Tour getTourByID(int id) {
         return null;
     }
 
-public void editTour(int id, String name, String imageMain, List<String> imageAlbum, Time intendedTime, String price,
-        String description, int categoryId, String rule) {
-    String sql = "UPDATE [dbo].[Tour]\n" +
-            "   SET [name] = ?,\n" +
-            "      [imageMain] = ?,\n" +
-            "      [imageAlbum] = ?,\n" +
-            "      [intendedTime] = ?,\n" +
-            "      [price] = ?,\n" +
-            "      [description] = ?,\n" +
-            "      [categoryId] = ?,\n" +
-            "      [rule] = ?\n" +
-            " WHERE id=?";
+    //son
+    public void editTour(int id, String name, String imageMain, List<String> imageAlbum, Time intendedTime, String price,
+            String description, int categoryId, String rule) {
+        String sql = "UPDATE [dbo].[Tour]\n"
+                + "   SET [name] = ?,\n"
+                + "      [imageMain] = ?,\n"
+                + "      [imageAlbum] = ?,\n"
+                + "      [intendedTime] = ?,\n"
+                + "      [price] = ?,\n"
+                + "      [description] = ?,\n"
+                + "      [categoryId] = ?,\n"
+                + "      [rule] = ?\n"
+                + " WHERE id=?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            // Assuming imageAlbum is a List of Strings
+            String imageAlbumString = String.join("/splitAlbum/", imageAlbum);
+            st.setString(1, name);
+            st.setString(2, imageMain);
+            st.setString(3, imageAlbumString);
+            st.setTime(4, intendedTime);
+            st.setString(5, price);
+            st.setString(6, description);
+            st.setInt(7, categoryId);
+            st.setString(8, rule);
+            st.setInt(9, id);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception appropriately
+        }
+    }
+
+    
+    public List<Tour> getTourBySupplier(int supplierId) {
+        List<Tour> list = new ArrayList<>();
+        String sql = "SELECT Tour.name, Tour.imageMain, Tour.intendedTime, "
+                + "Tour.price, Tour.[description], Category.[name] AS CategoryName, "
+                + "Tour.[rule], Tour.version "
+                + "FROM Tour "
+                + "JOIN Category ON Tour.categoryId = Category.id "
+                + "WHERE Tour.supplierId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, supplierId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Tour tour = new Tour();
+                tour.setName(rs.getString("name"));
+                tour.setImageMain(rs.getString("imageMain"));
+                tour.setIntendedTime(rs.getTime("intendedTime"));
+                tour.setPrice(rs.getString("price"));
+                tour.setDescription(rs.getString("description"));
+
+                Category category = new Category();
+                category.setName(rs.getString("CategoryName"));
+                tour.setCategoryId(category.getId());
+
+                tour.setRule(rs.getString("rule"));
+                tour.setVersion(rs.getInt("version"));
+                list.add(tour);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    //son
+    public List<Schedules> getSchedukesById(int Sid) {
+        List<Schedules> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000) S.[tourId]\n" +
+"                   ,S.[versionId]\n" +
+"                     ,S.[location]\n" +
+"                    ,S.[date]\n" +
+"                     ,S.[description] as [descriptionSchedules]\n" +
+"					 ,S.id\n" +
+"                 FROM [Schedule] S\n" +
+"                 JOIN [Tour] T ON S.[tourId]= T.[id]\n" +
+"                Where T.[id]=?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, Sid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Schedules schedules = new Schedules();
+                schedules.setId(rs.getInt("id"));
+                schedules.setTourId(rs.getInt("tourId"));
+                schedules.setVersionId(rs.getInt("versionId"));
+                schedules.setLocation(rs.getString("location"));
+                schedules.setDate(rs.getTime("date"));
+                schedules.setDescriptionSchedules(rs.getString("descriptionSchedules"));
+                list.add(schedules);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+   public void getFeedbackTour(int accId, int tourId, int versionId, String comment, int star) {
+    String sql = "INSERT INTO [dbo].[Feedback]\n"
+            + "           ([accId]\n"
+            + "           ,[tourId]\n"
+            + "           ,[versionId]\n"
+            + "           ,[comment]\n"
+            + "           ,[rating])\n"
+            + "     VALUES\n"
+            + "           (?,?,?,?,?)";
+
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, accId);        
+        st.setInt(2, tourId);       
+        st.setInt(3, versionId);    
+        st.setString(4, comment);   
+        st.setInt(5, star);          
+
+        st.executeUpdate();
+       
+        st.close();
+    } catch (SQLException e) {
+        e.printStackTrace(); 
+    }
+}
+
+   //son    
+    public List<Schedules> getSchedukesById1(int sid) {
+    List<Schedules> list = new ArrayList<>();
+    String sql = "SELECT [tourId], [versionId], [location], [date], [description], [id] " +
+                 "FROM [HaNoiTour].[dbo].[Schedule] WHERE id=?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, sid);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            Schedules schedules = new Schedules();
+            schedules.setTourId(rs.getInt("tourId"));
+            schedules.setVersionId(rs.getInt("versionId"));
+            schedules.setLocation(rs.getString("location"));
+            schedules.setDate(rs.getTime("date"));
+            schedules.setDescriptionSchedules(rs.getString("description"));
+            schedules.setId(rs.getInt("id"));  
+            list.add(schedules);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+}
+   
+   //son
+  public void editTourSchedules(int id, String location, Time date, String descriptionSchedules) {
+    String sql = "UPDATE [dbo].[Schedule]\n" +
+                 "SET [location] = ?,\n" +
+                 "    [date] = ?,\n" +
+                 "    [description] = ?\n" +
+                 "WHERE [id] = ?";
 
     try {
         PreparedStatement st = connection.prepareStatement(sql);
 
-        // Assuming imageAlbum is a List of Strings
-        String imageAlbumString = String.join("/splitAlbum/", imageAlbum);
-        st.setString(1, name);
-        st.setString(2, imageMain);
-        st.setString(3, imageAlbumString);
-        st.setTime(4, intendedTime);
-        st.setString(5, price);
-        st.setString(6, description);
-        st.setInt(7, categoryId);
-        st.setString(8, rule);
-        st.setInt(9, id);
+        st.setString(1, location);
+        st.setTime(2, date);
+        st.setString(3, descriptionSchedules);
+        st.setInt(4, id);
 
         st.executeUpdate();
     } catch (SQLException e) {
@@ -1067,43 +1133,78 @@ public void editTour(int id, String name, String imageMain, List<String> imageAl
 
 
 
-public List<Tour> getTourBySupplier(int supplierId) {
-    List<Tour> list = new ArrayList<>();
-    String sql = "SELECT Tour.name, Tour.imageMain, Tour.intendedTime, "
-            + "Tour.price, Tour.[description], Category.[name] AS CategoryName, "
-            + "Tour.[rule], Tour.version "
-            + "FROM Tour "
-            + "JOIN Category ON Tour.categoryId = Category.id "
-            + "WHERE Tour.supplierId = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setInt(1, supplierId);
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            Tour tour = new Tour();
-            tour.setName(rs.getString("name"));
-            tour.setImageMain(rs.getString("imageMain"));
-            tour.setIntendedTime(rs.getTime("intendedTime"));
-            tour.setPrice(rs.getString("price"));
-            tour.setDescription(rs.getString("description"));
-            
-            Category category = new Category();
-            category.setName(rs.getString("CategoryName"));
-           tour.setCategoryId(category.getId()); 
-            
-            tour.setRule(rs.getString("rule"));
-tour.setVersion(rs.getInt("version"));
-            list.add(tour);
-        }
+   //son 
+   public void insertTour(String name, String imageMain, List<String> imageAlbum, Time intendedTime, String price,
+                       String description, int categoryId, String rule, int supplierId) {
+    String sql = "INSERT INTO [dbo].[Tour]\n" +
+            "([name]\n" +
+            ",[imageMain]\n" +
+            ",[imageAlbum]\n" +
+            ",[intendedTime]\n" +
+            ",[price]\n" +
+            ",[description]\n" +
+            ",[categoryId]\n" +
+            ",[version]\n" +
+            ",[rule]\n" +
+            ",[supplierId]\n" +
+            ",[status])\n" +
+            "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    try (PreparedStatement st = connection.prepareStatement(sql)) {
+        // Assuming imageAlbum is a List of Strings
+        String imageAlbumString = String.join("/splitAlbum/", imageAlbum);
+        st.setString(1, name);
+        st.setString(2, imageMain);
+        st.setString(3, imageAlbumString);
+        st.setTime(4, intendedTime);
+        st.setString(5, price);
+        st.setString(6, description);
+        st.setInt(7, categoryId);
+        st.setInt(8, 1); 
+        st.setString(9, rule);
+        st.setInt(10, supplierId);
+        st.setInt(11, 1); 
+        st.executeUpdate();
     } catch (SQLException e) {
+        // Log or print the exception for debugging purposes
         e.printStackTrace();
     }
-    return list;
+}
+
+   //dang fix
+   public void insertSchedule( String location, Time date, String descriptionSchedules) {
+    String sql = "INSERT INTO [dbo].[Schedule] ([location], [date], [description]) VALUES (?, ?, ?, ?)";
+    
+    try (PreparedStatement st = connection.prepareStatement(sql)) {
+        // Set values for the parameters
+
+        st.setString(1, location);
+        st.setTime(2, date);
+        st.setString(3, descriptionSchedules);
+        
+        // Execute the update
+        st.executeUpdate();
+    } catch (SQLException e) {
+        // Log or print the exception for debugging purposes
+        e.printStackTrace();
+    }
 }
    
+   public void deleteTour(String id) {
+    String sql = "DELETE FROM Tour WHERE id = ?";
+    
+    try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+
+            st.executeUpdate();
+    }catch(SQLException e){
+        
+    }
+}
+
     public static void main(String[] args) {
         DAO d = new DAO();
-        List<Tour> tour=d.getTourBySupplier(5);
+        List<Tour> tour = d.getTourBySort("asc", "rating");
         System.out.println(tour);
     }
 
@@ -1115,4 +1216,3 @@ tour.setVersion(rs.getInt("version"));
 //            System.out.println("No tours found.");
 //        }
 }
-

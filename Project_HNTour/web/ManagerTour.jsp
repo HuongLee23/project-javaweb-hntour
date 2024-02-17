@@ -41,22 +41,33 @@
 
 
         <div class="container">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-sm-6">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <c:forEach items="${requestScope.tour}" var="c" varStatus="loop">
+                        <c:if test="${loop.index == 0}">
                             <h2>Manage <b>Tour</b></h2>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="#addProductModal" class="btn btn-success" data-toggle="modal">
-                                <i class="material-icons">&#xE147;</i> <span>Add New Product</span>
-                            </a>
-                            <a href="#deleteProductModal" class="btn btn-danger" data-toggle="modal">
-                                <i class="material-icons">&#xE15C;</i> <span>Delete</span>
-                            </a>					
-                        </div>
-                    </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
+                <div class="col-sm-6">
+                    <c:forEach items="${requestScope.tour}" var="c" varStatus="loop">
+                        <c:if test="${loop.index == 0}">
+                            <a href="addtour?supplierID=${c.supplierId}" class="btn btn-success">
+                                <i class="material-icons">&#xE147;</i> <span>Add New Tour</span>
+                            </a>
+                        </c:if>
+                    </c:forEach>
+                    <a href="#deleteProductModal" class="btn btn-danger" data-toggle="modal">
+                        <i class="material-icons">&#xE15C;</i> <span>Delete</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>

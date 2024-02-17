@@ -145,7 +145,7 @@
 
                                 <div class="form-group">
                                     <label>IntendedTime</label>
-                                    <input value="${tour.intendedTime}" name="time" type="text" class="form-control" required>
+                                    <input value="${tour.intendedTime}" name="time" type="time" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Price</label>
@@ -162,18 +162,106 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Category</label>
-                                    <select name="category" class="form-select" aria-label="Default select example">
-                                        <c:forEach items="${requestScope.listC}" var="c">
-                                            <option value="${c.id}">${c.name}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
+    <label>Category</label>
+    <select name="category" class="form-select" aria-label="Default select example">
+        <c:forEach items="${requestScope.listC}" var="c">
+            <c:choose>
+                <c:when test="${c.id eq tour.categoryId}">
+                    <option value="${c.id}" selected>${c.name}</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="${c.id}">${c.name}</option>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </select>
+</div>
+                                
+       <div class="schedules">
+    <label>Schedules</label>
+    
+    <table class="table" id="schedulesTable">
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${requestScope.schedules}" var="s">
+                <tr>
+                    <td><input type="text" name="location" value="${s.location}" readonly /></td>
+                    <td><input type="time" name="date" value="${s.date}" readonly /></td>
+                    <td><input type="text" name="descriptionSchedules" value="${s.descriptionSchedules}" readonly /></td>
+                    <td>
+                        <div class="button book_button">
+                            <a href="editschedule?sid=${s.id}">Edit<span></span><span></span><span></span></a>
+                        </div>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
 
+     <div class="button add_button" onclick="addNewSchedule()">Add Schedule</div>
+    </div>
 
+    <!-- Container for new schedules -->
+    <div id="newSchedulesContainer"></div>
+<script>
+    var scheduleCounter = 1;
 
+    function addNewSchedule() {
+        var schedulesContainer = document.getElementById("newSchedulesContainer");
 
-                            </div>
+        // Create a new table for each set of new schedules
+        var newTable = document.createElement("table");
+        newTable.className = "table";
+
+        // Create a new row for each new schedule
+        var newRow = newTable.insertRow(-1);
+
+        // Add cells to the new row
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+
+        // Set input elements in the cells
+        cell1.innerHTML = '<input type="text" name="newLocation' + scheduleCounter + '" />';
+        cell2.innerHTML = '<input type="time" name="newDate' + scheduleCounter + '" />';
+        cell3.innerHTML = '<input type="text" name="newDescriptionSchedules' + scheduleCounter + '" />';
+        cell4.innerHTML = '<div class="button book_button" onclick="removeNewScheduleRow(this)">Remove<span></span><span></span><span></span></div>';
+
+        // Append the new table to the container
+        schedulesContainer.appendChild(newTable);
+
+        scheduleCounter++;
+    }
+
+    function removeNewScheduleRow(button) {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+
+    // Submit form data using AJAX
+    document.getElementById("scheduleForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // Collect data from the form
+        var formData = new FormData(this);
+
+        // Send data to the servlet using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", this.action, true);
+        xhr.onload = function () {
+            // Handle the response if needed
+        };
+        xhr.send(formData);
+    });
+</script>
                             <div class="modal-footer">
                                 <input type="submit" class="btn btn-success" value="Edit">
                             </div>

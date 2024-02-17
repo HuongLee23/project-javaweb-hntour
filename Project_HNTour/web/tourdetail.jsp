@@ -190,7 +190,7 @@
                                     <div class="hotel_title_button ml-lg-auto text-lg-right">
                                         <div class="button book_button trans_200"><a href="#">book<span></span><span></span><span></span></a></div>
                                         <div class="hotel_map_link_container">
-                                            <div class="hotel_map_link"></div>
+                                            <div class="hotel_map_link">See Location on Map</div>
                                         </div>
                                     </div>
                                 </div>
@@ -202,12 +202,14 @@
                                     <div class="hotel_review_container d-flex flex-column align-items-center justify-content-center">
                                         <div class="hotel_review">
                                             <div class="hotel_review_content">
-                                                <div class="hotel_review_title"></div>
-                                                <div class="hotel_review_subtitle"></div>
+                                                <div class="hotel_review_title">very good</div>
+                                                <div class="hotel_review_subtitle">1 reviews</div>
                                             </div>
+
                                             <c:forEach items="${requestScope.feedback}" var="b"> 
                                                 <div class="hotel_review_rating text-center">${b.rating}</div>
                                             </c:forEach>
+
                                         </div>
                                     </div>
                                 </div>
@@ -274,16 +276,37 @@
                                     <p>${detail.description}</p>
                                 </div>
 
+                                <!-- Schedules Section -->
+                                <div class="schedules">
+                                    <h2>Schedules</h2>
+                                    <table class="table"> 
+
+                                        <thead>
+                                            <tr>
+                                                <th>Location</th>
+                                                <th>Date</th>
+                                                <th>Description</th>
+
+                                            </tr>
+                                        </thead>
+                                        <c:forEach items="${requestScope.schedules}" var="s" >
+                                            <tbody>
+                                                <tr>
+                                                    <td>${s.location}</td>
+                                                    <td>${s.date}</td>
+                                                    <td>${s.descriptionSchedules}</td>
+
+                                                </tr>
+
+                                                <!-- Add more rows as needed -->
+                                            </tbody>
+                                        </c:forEach>
+                                    </table>
+                                </div>
+
                                 <!-- Hotel Info Tags -->
 
-                                <div class="hotel_info_tags">
-                                    <ul class="hotel_icons_list">
-                                        <li class="hotel_icons_item"><img src="images/post.png" alt=""></li>
-                                        <li class="hotel_icons_item"><img src="images/compass.png" alt=""></li>
-                                        <li class="hotel_icons_item"><img src="images/bicycle.png" alt=""></li>
-                                        <li class="hotel_icons_item"><img src="images/sailboat.png" alt=""></li>
-                                    </ul>
-                                </div>
+
 
                             </div>
 
@@ -291,7 +314,7 @@
                             <c:forEach items="${requestScope.relate}" var="o"> 
                                 <div class="rooms">
 
-                                    <!-- Room -->
+
                                     <div class="room">
 
                                         <!-- Room -->
@@ -310,7 +333,10 @@
                                             <div class="col-lg-3 text-lg-right">
                                                 <div class="room_button">
                                                     <div class="button book_button trans_200"><a href="#">book<span></span><span></span><span></span></a></div>
+                                                    <div class="button book_button"><a href="detail?tid=${o.id}">Detail<span></span><span></span><span></span></a></div>
+
                                                 </div>
+
                                             </div>
                                         </div>
 
@@ -331,8 +357,14 @@
                                             <div class="row">
                                                 <div class="col-lg-1">
                                                     <div class="review_image">
-                                                        <img src="" alt="Image by Andrew Robles">
+                                                        <c:if test="${b.avatarAc != null}">
+                                                        <img src="${b.avatarAc}" alt="Image by Andrew Robles">
+                                                    </c:if>
+                                                    <c:if test="${b.avatarAc == null}">
+                                                        <img  src="https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain" alt="">
+                                                    </c:if>
                                                     </div>
+                                                    <div class="review_name">${b.accName}</div>
                                                 </div>
 
                                             </div>
@@ -345,17 +377,43 @@
                                                     <div class="review_text">
                                                         <p>${b.comment}</p>
                                                     </div>
-                                                    <div class="review_name">${b.accName}</div>
-                                                    <div class="review_date"></div>
+                                                    
+
                                                 </div>
                                             </div>
                                         </div>
-                                    </c:forEach>
+                                   </c:forEach>
                                 </div>
                             </div>
-
+                            <br/>
+                    <!-- Comment Form -->
+                    <c:if  test="${sessionScope.account  != null}"> 
+                                <div class="comment_form">
+                                    <form action="addfeeback" method="post">
+                                        <!-- Input for Comment -->
+                                        <div class="form-group">
+                                            <label for="comment">Your Comment:</label>
+                                            <textarea class="form-control" id="comment" name="comment" rows="3" ></textarea>
+                                        </div>
+                                        <!-- Input for Rating (Assuming a 5-star system) -->
+                                        <div class="form-group">
+                                            <label for="rating">Your Rating:</label>
+                                            <select class="form-control" id="rating" name="rating">
+                                                <option value="1">1 star</option>
+                                                <option value="2">2 stars</option>
+                                                <option value="3">3 stars</option>
+                                                <option value="4">4 stars</option>
+                                                <option value="5">5 stars</option>
+                                            </select>
+                                        </div>
+                             
+                                        <!-- Submit Button -->
+                                        <button type="submit" style="background: #fa9e1b; border:0px; float: right " class="btn btn-primary">Submit Comment</button>
+                                    </form>
+                                </div>
+                    </c:if>
                             <!-- Location on Map -->
-
+                                
                             <div class="location_on_map">
                                 <div class="location_on_map_title">location on map</div>
 
