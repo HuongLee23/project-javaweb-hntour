@@ -178,13 +178,7 @@
                                 <div class="hotel_title_container d-flex flex-lg-row flex-column">
                                     <div class="hotel_title_content">
                                         <h1 class="hotel_title">${detail.name}</h1>
-                                        <div class="rating_r rating_r_4 hotel_rating">
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                        </div>
+                                       
                                         <div class="hotel_location"></div>
                                     </div>
                                     <div class="hotel_title_button ml-lg-auto text-lg-right">
@@ -206,9 +200,9 @@
                                                 <div class="hotel_review_subtitle">1 reviews</div>
                                             </div>
 
-                                            <c:forEach items="${requestScope.feedback}" var="b"> 
-                                                <div class="hotel_review_rating text-center">${b.rating}</div>
-                                            </c:forEach>
+                                           
+                                                <div class="hotel_review_rating text-center">${averageRating}</div>
+                                            
 
                                         </div>
                                     </div>

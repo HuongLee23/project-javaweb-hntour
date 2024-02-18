@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 import java.util.List;
 import model.Account;
 import model.Category;
@@ -82,12 +83,25 @@ public class TourDetailServlet extends HttpServlet {
         List<Schedules> list_Schedules = dao.getSchedukesById(id);
          HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-        
-        
+    double averageRating = 0;
+if (list_Feedback != null && !list_Feedback.isEmpty()) {
+    int totalRating = 0;
+    for (Feedback feedback : list_Feedback) {
+        totalRating += feedback.getRating();
+    }
+    averageRating = (double) totalRating / list_Feedback.size();
+
+    // Sử dụng DecimalFormat để chỉ hiển thị một số sau dấu phẩy
+    DecimalFormat decimalFormat = new DecimalFormat("#.#");
+    String formattedRating = decimalFormat.format(averageRating);
+    averageRating = Double.parseDouble(formattedRating.replace(',', '.'));
+}
         request.setAttribute("account", account);
         request.setAttribute("schedules", list_Schedules);
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("feedback", list_Feedback);
+       request.setAttribute("averageRating", averageRating); 
+
         request.getRequestDispatcher("tourdetail.jsp").forward(request, response);
     }
 
