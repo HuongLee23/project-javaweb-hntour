@@ -358,11 +358,11 @@
                                                 <div class="col-lg-1">
                                                     <div class="review_image">
                                                         <c:if test="${b.avatarAc != null}">
-                                                        <img src="${b.avatarAc}" alt="Image by Andrew Robles">
-                                                    </c:if>
-                                                    <c:if test="${b.avatarAc == null}">
-                                                        <img  src="https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain" alt="">
-                                                    </c:if>
+                                                            <img src="${b.avatarAc}" alt="Image by Andrew Robles">
+                                                        </c:if>
+                                                        <c:if test="${b.avatarAc == null}">
+                                                            <img  src="https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain" alt="">
+                                                        </c:if>
                                                     </div>
                                                     <div class="review_name">${b.accName}</div>
                                                 </div>
@@ -377,24 +377,38 @@
                                                     <div class="review_text">
                                                         <p>${b.comment}</p>
                                                     </div>
-                                                    
+
 
                                                 </div>
                                             </div>
                                         </div>
-                                   </c:forEach>
+                                    </c:forEach>
                                 </div>
                             </div>
                             <br/>
-                    <!-- Comment Form -->
-                    <c:if  test="${sessionScope.account  != null}"> 
+                            <!-- Comment Form -->
+                            <c:if  test="${sessionScope.account  != null}"> 
+
                                 <div class="comment_form">
-                                    <form action="addfeeback" method="post">
+                                    <form action="addFeedback" method="post">
+                                
+
+                                        <!-- Input for Account ID -->
+                                        
+                                        <input type="hidden" name="accId" value="${account.id}">
+
+                                        <!-- Input for Tour ID -->
+                                        <input type="hidden" name="tourId" value="${detail.id}">
+
+                                        <!-- Input for Version ID -->
+                                        <input type="hidden" name="versionId" value="${detail.version}">
+
                                         <!-- Input for Comment -->
                                         <div class="form-group">
                                             <label for="comment">Your Comment:</label>
-                                            <textarea class="form-control" id="comment" name="comment" rows="3" ></textarea>
+                                            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                                         </div>
+
                                         <!-- Input for Rating (Assuming a 5-star system) -->
                                         <div class="form-group">
                                             <label for="rating">Your Rating:</label>
@@ -406,14 +420,16 @@
                                                 <option value="5">5 stars</option>
                                             </select>
                                         </div>
-                             
+
                                         <!-- Submit Button -->
                                         <button type="submit" style="background: #fa9e1b; border:0px; float: right " class="btn btn-primary">Submit Comment</button>
                                     </form>
                                 </div>
-                    </c:if>
+
+
+                            </c:if>
                             <!-- Location on Map -->
-                                
+
                             <div class="location_on_map">
                                 <div class="location_on_map_title">location on map</div>
 

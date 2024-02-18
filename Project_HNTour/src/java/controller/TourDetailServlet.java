@@ -71,15 +71,12 @@ public class TourDetailServlet extends HttpServlet {
         int id = Integer.parseInt(id_raw);
         Tour p = dao.getDetail(id);
         request.setAttribute("detail", p);
-//         String id_img=request.getParameter("tid");
-//         int id_i=Integer.parseInt(id_img);
-//         ImageAlbum i=dao.getDetailImage(id_i);
-//         request.setAttribute("image", i);
+       
         String id_relate = request.getParameter("tid");
         int id_rel = Integer.parseInt(id_relate);
         List<Tour> tour_relate = dao.getRelateTour(p.getCategoryId(), id_rel);
         request.setAttribute("relate", tour_relate);
-
+         
         List<Feedback> list_Feedback = dao.getFeedbackDetailTour(id);
         List<Category> listCategory = dao.getListCategory();
         List<Schedules> list_Schedules = dao.getSchedukesById(id);

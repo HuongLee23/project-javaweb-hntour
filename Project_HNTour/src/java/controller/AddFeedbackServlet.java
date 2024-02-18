@@ -20,7 +20,7 @@ import model.Account;
  *
  * @author admin
  */
-@WebServlet(name="AddFeedbackServlet", urlPatterns={"/addfeedback"})
+@WebServlet(name="AddFeedbackServlet", urlPatterns={"/addFeedback"})
 public class AddFeedbackServlet extends HttpServlet {
    
     /** 
@@ -58,7 +58,6 @@ public class AddFeedbackServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
     } 
 
     /** 
@@ -71,15 +70,16 @@ public class AddFeedbackServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-   
-//    String comment = request.getParameter("comment");
-//    int rating = Integer.parseInt(request.getParameter("rating"));  
-//
-//   
-//
-//        DAO dao = new DAO();
-//        dao.getFeedbackTour(accId, tourId, versionId, comment, rating); 
-//        
+    int accId = Integer.parseInt(request.getParameter("accId"));  
+     int tourId = Integer.parseInt(request.getParameter("tourId"));  
+      int versionId = Integer.parseInt(request.getParameter("versionId"));  
+    String comment = request.getParameter("comment");
+    int rating = Integer.parseInt(request.getParameter("rating"));  
+        
+        DAO dao = new DAO();
+        dao.addFeedback(accId, tourId, versionId, comment, rating);
+         
+        response.sendRedirect("detail?tid="+tourId);
 }
 
 
