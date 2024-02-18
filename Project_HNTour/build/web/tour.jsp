@@ -137,7 +137,7 @@
                                     <li class="offers_sorting">
                                         Sắp xếp theo
                                         <select name="sortBy" class="sort_btn">
-                                            <option id="" >VN Travel Giới Thiệu</option>
+                                            <option id="" >Hà Nội Tour Giới Thiệu</option>
                                             <option value="ascPrice">Giá (Thấp đến cao)</option>
                                             <option value="descPrice">Giá (Cao đến thấp)</option>
                                             <option value="descRating">Đánh giá cao nhất</option>

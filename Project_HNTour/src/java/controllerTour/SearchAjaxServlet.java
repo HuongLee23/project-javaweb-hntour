@@ -62,7 +62,7 @@ public class SearchAjaxServlet extends HttpServlet {
             out.println("                    <div><span>Thời gian dự kiến hết: " + tour.getIntendedTime() + "</span></div>");
             out.println("                </div>");
             out.println("                <p class=\"offers_text\">" + truncateDescription(tour.getDescription()) + "</p>");
-            out.println("                <div style=\"background-color: #ee4d2d;\" class=\"button book_button\"><a href=\"#\">book<span></span><span></span><span></span></a></div>");
+            out.println("                <div style=\"background-color: #ee4d2d;\" class=\"button book_button\"><a href=\"#\">Mua ngay<span></span><span></span><span></span></a></div>");
             out.println("                <div class=\"button book_button\"><a href=\"detail?tid=" + tour.getId() + "\">Xem chi tiết</a></div>");
             out.println("            </div>");
             out.println("        </div>");
