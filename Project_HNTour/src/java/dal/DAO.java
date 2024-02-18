@@ -1037,7 +1037,7 @@ public class DAO extends DBContext {
 "					 ,S.id\n" +
 "                 FROM [Schedule] S\n" +
 "                 JOIN [Tour] T ON S.[tourId]= T.[id]\n" +
-"                Where T.[id]=?;";
+"                Where T.[id]=? ORDER BY [id];";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, Sid);
@@ -1171,15 +1171,16 @@ public class DAO extends DBContext {
 }
 
    //dang fix
-   public void insertSchedule( String location, Time date, String descriptionSchedules) {
-    String sql = "INSERT INTO [dbo].[Schedule] ([location], [date], [description]) VALUES (?, ?, ?, ?)";
+   public void insertSchedule(int tourId, String location, Time date, String descriptionSchedules) {
+    String sql = "INSERT INTO [dbo].[Schedule] ([tourId],[versionId],[location], [date], [description]) VALUES (?,?, ?, ?, ?)";
     
     try (PreparedStatement st = connection.prepareStatement(sql)) {
         // Set values for the parameters
-
-        st.setString(1, location);
-        st.setTime(2, date);
-        st.setString(3, descriptionSchedules);
+st.setInt(1,tourId);
+st.setInt(2, 1); 
+        st.setString(3, location);
+        st.setTime(4, date);
+        st.setString(5, descriptionSchedules);
         
         // Execute the update
         st.executeUpdate();

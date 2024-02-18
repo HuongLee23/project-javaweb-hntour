@@ -211,56 +211,31 @@
     <!-- Container for new schedules -->
     <div id="newSchedulesContainer"></div>
 <script>
-    var scheduleCounter = 1;
-
     function addNewSchedule() {
-        var schedulesContainer = document.getElementById("newSchedulesContainer");
+        // Create a new row for the schedule
+        var newRow = document.createElement("tr");
 
-        // Create a new table for each set of new schedules
-        var newTable = document.createElement("table");
-        newTable.className = "table";
+        // Add cells for each column
+        var locationCell = document.createElement("td");
+        var dateCell = document.createElement("td");
+        var descriptionCell = document.createElement("td");
+        var actionCell = document.createElement("td");
 
-        // Create a new row for each new schedule
-        var newRow = newTable.insertRow(-1);
+        // Add input elements to cells
+        locationCell.innerHTML = '<input type="text" name="locationnew" />';
+        dateCell.innerHTML = '<input type="time" name="datenew" />';
+        descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew" />';
+        actionCell.innerHTML = '<div class="button book_button"><a href="#">Edit<span></span><span></span><span></span></a></div>';
 
-        // Add cells to the new row
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
-        var cell3 = newRow.insertCell(2);
-        var cell4 = newRow.insertCell(3);
+        // Append cells to the new row
+        newRow.appendChild(locationCell);
+        newRow.appendChild(dateCell);
+        newRow.appendChild(descriptionCell);
+        newRow.appendChild(actionCell);
 
-        // Set input elements in the cells
-        cell1.innerHTML = '<input type="text" name="newLocation' + scheduleCounter + '" />';
-        cell2.innerHTML = '<input type="time" name="newDate' + scheduleCounter + '" />';
-        cell3.innerHTML = '<input type="text" name="newDescriptionSchedules' + scheduleCounter + '" />';
-        cell4.innerHTML = '<div class="button book_button" onclick="removeNewScheduleRow(this)">Remove<span></span><span></span><span></span></div>';
-
-        // Append the new table to the container
-        schedulesContainer.appendChild(newTable);
-
-        scheduleCounter++;
+        // Append the new row to the table body
+        document.getElementById("schedulesTable").getElementsByTagName('tbody')[0].appendChild(newRow);
     }
-
-    function removeNewScheduleRow(button) {
-        var row = button.parentNode.parentNode;
-        row.parentNode.removeChild(row);
-    }
-
-    // Submit form data using AJAX
-    document.getElementById("scheduleForm").addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        // Collect data from the form
-        var formData = new FormData(this);
-
-        // Send data to the servlet using AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", this.action, true);
-        xhr.onload = function () {
-            // Handle the response if needed
-        };
-        xhr.send(formData);
-    });
 </script>
                             <div class="modal-footer">
                                 <input type="submit" class="btn btn-success" value="Edit">

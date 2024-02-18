@@ -116,6 +116,15 @@ public class EditTour extends HttpServlet {
     // Edit tour
     dao.editTour(id, name, imageMain, Arrays.asList(imageAlbumString.split("/splitAlbum/")), time, price, description, cid, rule);
 
+    String location = request.getParameter("locationnew");
+    String date_raw = request.getParameter("datenew");
+    String descriptionSchedules = request.getParameter("descriptionSchedulesnew");
+
+   
+
+    Time date = Time.valueOf(LocalTime.parse(date_raw));
+    // Insert new schedule
+    dao.insertSchedule(id, location, date, descriptionSchedules);
 // Assuming response is an instance of HttpServletResponse
 response.sendRedirect("managertourlist");
 
