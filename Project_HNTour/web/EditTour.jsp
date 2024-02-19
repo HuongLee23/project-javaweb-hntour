@@ -199,6 +199,9 @@
                         <div class="button book_button">
                             <a href="editschedule?sid=${s.id}">Edit<span></span><span></span><span></span></a>
                         </div>
+                        <div class="button book_button">
+                            <a href="deleteschedule?sid=${s.id}&tourId=${s.tourId}">Delete<span></span><span></span><span></span></a>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>
@@ -219,27 +222,30 @@
         var locationCell = document.createElement("td");
         var dateCell = document.createElement("td");
         var descriptionCell = document.createElement("td");
-        var actionCell = document.createElement("td");
+        
 
         // Add input elements to cells
         locationCell.innerHTML = '<input type="text" name="locationnew" />';
         dateCell.innerHTML = '<input type="time" name="datenew" />';
         descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew" />';
-        actionCell.innerHTML = '<div class="button book_button"><a href="#">Edit<span></span><span></span><span></span></a></div>';
+       
 
         // Append cells to the new row
         newRow.appendChild(locationCell);
         newRow.appendChild(dateCell);
         newRow.appendChild(descriptionCell);
-        newRow.appendChild(actionCell);
+      
 
         // Append the new row to the table body
         document.getElementById("schedulesTable").getElementsByTagName('tbody')[0].appendChild(newRow);
     }
 </script>
                             <div class="modal-footer">
+                                 <a href="managertourlist" class="btn btn-primary">Back Manager</a>
                                 <input type="submit" class="btn btn-success" value="Edit">
+                                
                             </div>
+                       
                         </form>
                     </div>
                 </div>

@@ -38,7 +38,7 @@
 
     <body>
 
-
+ 
 
         <div class="container">
     <div class="table-wrapper">
@@ -62,7 +62,13 @@
                     <a href="#deleteProductModal" class="btn btn-danger" data-toggle="modal">
                         <i class="material-icons">&#xE15C;</i> <span>Delete</span>
                     </a>
-                </div>
+                    <form action="managertourlist" method="post">
+                    <div class="search_item">
+                                                <div>Search Tour</div>
+                                                <input type="text" name="txt" class="destination search_input" >
+                                            </div>
+                     <button class="button search_button">Search<span></span><span></span><span></span></button>
+                </div></form>
             </div>
         </div>
     </div>

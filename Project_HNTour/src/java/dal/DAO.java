@@ -1026,7 +1026,7 @@ public class DAO extends DBContext {
         return list;
     }
 
-    //son
+    
     public List<Schedules> getSchedukesById(int Sid) {
         List<Schedules> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) S.[tourId]\n" +
@@ -1170,7 +1170,7 @@ public class DAO extends DBContext {
     }
 }
 
-   //dang fix
+   //son
    public void insertSchedule(int tourId, String location, Time date, String descriptionSchedules) {
     String sql = "INSERT INTO [dbo].[Schedule] ([tourId],[versionId],[location], [date], [description]) VALUES (?,?, ?, ?, ?)";
     
@@ -1203,6 +1203,73 @@ st.setInt(2, 1);
     }
 }
 
+   public void deleteSchedule(String sid) {
+    String sql = "DELETE FROM Schedule WHERE id = ?";
+    
+    try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, sid);
+
+            st.executeUpdate();
+    }catch(SQLException e){
+        
+    }
+}
+   
+   public List<Tour> searchByNameSupplier(String txtSearch,int supplierId) {
+        List<Tour> list = new ArrayList<>();
+        String sql = "SELECT \n" +
+"    T.[id], \n" +
+"    T.[name],\n" +
+"    T.[imageMain],\n" +
+"    T.[imageAlbum],\n" +
+"    T.[intendedTime], \n" +
+"    T.[price], \n" +
+"    T.[description], \n" +
+"    T.[categoryId],\n" +
+"    T.[version], \n" +
+"    T.[rule], \n" +
+"    T.[supplierId], \n" +
+"    T.[status] \n" +
+"FROM \n" +
+"    [dbo].[Tour] T\n" +
+"WHERE \n" +
+"    T.[name] LIKE ? AND\n" +
+"    T.[supplierId] = ?;";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%" + txtSearch + "%");
+            st.setInt(2,supplierId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String imageAlbumString = rs.getString("imageAlbum");
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
+                list.add(new Tour(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
+                        rs.getTime("intendedTime"),
+                        rs.getString("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryId"),
+                        rs.getInt("version"),
+                        rs.getString("rule"),
+                        rs.getInt("supplierId"),
+                        rs.getBoolean("status")
+                // Add missing commas and complete the constructor parameters as needed
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+   
     public static void main(String[] args) {
         DAO d = new DAO();
         List<Tour> tour = d.getTourBySort("asc", "rating");

@@ -13,18 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.Account;
-import model.Category;
-import model.Tour;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name="ManagerTourList", urlPatterns={"/managertourlist"})
-public class ManagerTourList extends HttpServlet {
+@WebServlet(name="DeleteSchedule", urlPatterns={"/deleteschedule"})
+public class DeleteSchedule extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,10 +36,10 @@ public class ManagerTourList extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManagerTourList</title>");  
+            out.println("<title>Servlet DeleteSchedule</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManagerTourList at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet DeleteSchedule at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,19 +56,12 @@ public class ManagerTourList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        Account account =  (Account) session.getAttribute("account");
-        DAO dao = new DAO();
-        
-            List<Tour> tourList = dao.getTourBySupllierID(account.getId());
-//            getCategoryById
-            request.setAttribute("tour", tourList);
-           
-//            request.setAttribute("category", listCategory);
-        
-        request.getRequestDispatcher("ManagerTour.jsp").forward(request, response);
+        String id=request.getParameter("sid");
+     String tid_raw = request.getParameter("tourId");
+     int tid=Integer.parseInt(tid_raw);
+     DAO dao= new DAO();
+      dao.deleteSchedule(id);
+       response.sendRedirect("loadtour?tid=" + tid);
     } 
 
     /** 
@@ -86,15 +74,7 @@ public class ManagerTourList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         HttpSession session = request.getSession();
-        Account account =  (Account) session.getAttribute("account");
-        DAO dao = new DAO();
-          String text = request.getParameter("txt");
-        List<Tour> listTourSearchByName = dao.searchByNameSupplier(text,account.getId());
-        request.setAttribute("tour", listTourSearchByName);
-//            request.setAttribute("category", listCategory);
-        
-        request.getRequestDispatcher("ManagerTour.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /** 
