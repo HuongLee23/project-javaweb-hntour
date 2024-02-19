@@ -40,9 +40,11 @@ public class Cart {
 
     public void addItem(Item item) {
         if (getItemById(item.getTour().getId()) != null) {
-            Item m = getItemById(item.getTour().getId());
-            m.setQuantity(m.getQuantity() + item.getQuantity());
+            Item existingItem = getItemById(item.getTour().getId());
+            existingItem.setQuantity(existingItem.getQuantity() + item.getQuantity());
+            existingItem.setPrice(existingItem.getPrice() + item.getPrice());
         } else {
+            item.setPrice(item.getPrice() * item.getQuantity());
             items.add(item);
         }
     }
@@ -54,11 +56,11 @@ public class Cart {
     }
 
     public double getTotalMoney() {
-        double t = 0;
+        double total = 0;
         for (Item item : items) {
-            t += (item.getQuantity() * item.getPrice());
+            total += item.getPrice(); // Thay vì item.getQuantity() * item.getPrice()
         }
-        return t;
+        return total;
     }
 
     private Tour getTourById(int id, List<Tour> list) {
