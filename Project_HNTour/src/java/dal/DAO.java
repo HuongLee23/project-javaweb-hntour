@@ -1225,7 +1225,7 @@ public class DAO extends DBContext {
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setInt(1, a.getId());
             ResultSet rs = st1.executeQuery();
-
+            
             if (rs.next()) {
                 int oid = rs.getInt("id");
                 for (Item i : cart.getItems()) {

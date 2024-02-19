@@ -87,16 +87,7 @@ public class ProcessCartServlet extends HttpServlet {
         try {
             id = Integer.parseInt(id_raw);
             num = Integer.parseInt(num_raw);
-//            List<Tour> l = dao.getAllTour();
 
-//            Tour t = null;
-//            for (Tour tour : list) {
-//                if (tour.getId() == id) {
-//                    t = tour;
-//                    break;
-//                }
-//            }
-            
             if (num == -1 && (cart.getQuantityById(id) >= 1)) {
                 Item i = cart.getItemById(id);
                 i.setQuantity(i.getQuantity() - 1);
@@ -108,10 +99,7 @@ public class ProcessCartServlet extends HttpServlet {
                 Item i = cart.getItemById(id);
                 i.setQuantity(i.getQuantity() + 1);
                 i.setPrice(i.getQuantity() * i.getTour().getPrice());
-                
-//                double price = t.getPrice();
-//                Item i = new Item(t, num, price);
-//                cart.addItem(i);
+
             }
 
         } catch (NumberFormatException e) {
