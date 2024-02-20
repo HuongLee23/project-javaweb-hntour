@@ -96,12 +96,11 @@ public class AddTour extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
 
     // Retrieve form parameters
-
     String id_raw = request.getParameter("supplierID");
     String name = request.getParameter("name");
     String imageMain = request.getParameter("imageMain");
@@ -120,7 +119,6 @@ public class AddTour extends HttpServlet {
     int cid = Integer.parseInt(category);
     int supplierId = Integer.parseInt(id_raw);
 
-    
     Time time = Time.valueOf(LocalTime.parse(time_raw));
 
     // Retrieve additional images from the request
@@ -139,27 +137,48 @@ public class AddTour extends HttpServlet {
     // Join all images using the "/splitAlbum/" delimiter
     String imageAlbumString = String.join("/splitAlbum/", allImages);
 
+    // Create a list to store schedules
+    List<Schedules> schedulesList = new ArrayList<>();
+
+    // Retrieve new schedule parameters
+    int scheduleCounter = 1; // Start with the initial counter value
+
+    while (true) {
+        String locationParam = request.getParameter("locationnew_" + scheduleCounter);
+        String dateParam = request.getParameter("datenew_" + scheduleCounter);
+        String descriptionParam = request.getParameter("descriptionSchedulesnew_" + scheduleCounter);
+
+        // Break the loop if the parameters for the current schedule do not exist
+        if (locationParam == null || dateParam == null || descriptionParam == null) {
+            break;
+        }
+
+        // Convert the date string to a Time object (assuming it's stored as Time in your database)
+        Time scheduleTime = Time.valueOf(LocalTime.parse(dateParam));
+
+        // Create a schedule object and add it to the list
+        Schedules schedule = new Schedules();
+        schedule.setLocation(locationParam);
+        schedule.setDate(scheduleTime);
+        schedule.setDescriptionSchedules(descriptionParam);
+        schedulesList.add(schedule);
+
+        // Increment the counter for the next set of parameters
+        scheduleCounter++;
+    }
+
     // Assuming you have a DAO method to handle the insert operation
     DAO dao = new DAO();
 
-    // Insert tour
-    dao.insertTour(name, imageMain, Arrays.asList(imageAlbumString.split("/splitAlbum/")), time, price, description, cid, rule, supplierId);
+    // Call the combined insertTourWithSchedule method with the list of schedules
+    dao.insertTourWithSchedule(name, imageMain, Arrays.asList(imageAlbumString.split("/splitAlbum/")), time, price, description, cid, rule, supplierId, schedulesList);
 
-//String newLocation = request.getParameter("newLocations");
-//String newDateRaw = request.getParameter("newDates");
-//String newDescription = request.getParameter("newDescriptions");
-//
-//// Convert the date string to a Time object (assuming it's stored as Time in your database)
-//Time newTimeSchedule = Time.valueOf(LocalTime.parse(newDateRaw));
-//
-//// Call your DAO method to insert the new schedule
-//// Assuming dao is an instance of your DAO class with the insertSchedule method
-//dao.insertSchedule(newLocation, newTimeSchedule, newDescription);
+    // Redirect to the tour list page
+    response.sendRedirect("managertourlist");
+}
 
-// Redirect to the tour list page
-response.sendRedirect("managertourlist");
 
-    }
+
 
     /** 
      * Returns a short description of the servlet.

@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -115,15 +116,35 @@ public class EditTour extends HttpServlet {
     // Edit tour
     dao.editTour(id, name, imageMain, Arrays.asList(imageAlbumString.split("/splitAlbum/")), time, price, description, cid, rule);
   
-String location = request.getParameter("locationnew");
-String date_raw = request.getParameter("datenew");
-String descriptionSchedules = request.getParameter("descriptionSchedulesnew");
+ int scheduleCounter = 1; // Start with the initial counter value
 
-// Check if date_raw is not null before attempting to parse it
-if (date_raw != null) {
-    Time date = Time.valueOf(LocalTime.parse(date_raw));
-    dao.insertSchedule(id, location, date, descriptionSchedules);
-}
+    while (true) {
+        String locationParam = request.getParameter("locationnew_" + scheduleCounter);
+        String dateParam = request.getParameter("datenew_" + scheduleCounter);
+        String descriptionParam = request.getParameter("descriptionSchedulesnew_" + scheduleCounter);
+
+        // Break the loop if the parameters for the current schedule do not exist
+        if (locationParam == null || dateParam == null || descriptionParam == null) {
+            break;
+        }
+
+        // Check if dateParam is not null before attempting to parse it
+        if (dateParam != null) {
+            try {
+                // Parse the date string to a Time object
+                Time date = Time.valueOf(LocalTime.parse(dateParam));
+
+                // Assuming you have a DAO method to handle the insert operation
+                dao.insertSchedule(id, locationParam, date, descriptionParam);
+            } catch (DateTimeParseException e) {
+                // Handle the exception (invalid date format) as needed
+                e.printStackTrace(); // Log or print the exception
+            }
+        }
+
+        // Increment the counter for the next set of parameters
+        scheduleCounter++;
+    }
    
 // Assuming response is an instance of HttpServletResponse
 response.sendRedirect("loadtour?tid=" + id);

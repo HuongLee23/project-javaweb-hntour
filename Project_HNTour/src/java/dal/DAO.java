@@ -9,6 +9,7 @@ import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1190,16 +1191,102 @@ st.setInt(2, 1);
     }
 }
    
-   public void deleteTour(String id) {
-    String sql = "DELETE FROM Tour WHERE id = ?";
-    
-    try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, id);
+  public void insertTourWithSchedule(String name, String imageMain, List<String> imageAlbum, Time intendedTime,
+                                   String price, String description, int categoryId, String rule, int supplierId,
+                                   List<Schedules> schedules) {
 
-            st.executeUpdate();
-    }catch(SQLException e){
+    String tourSql = "INSERT INTO [dbo].[Tour]\n" +
+            "([name]\n" +
+            ",[imageMain]\n" +
+            ",[imageAlbum]\n" +
+            ",[intendedTime]\n" +
+            ",[price]\n" +
+            ",[description]\n" +
+            ",[categoryId]\n" +
+            ",[version]\n" +
+            ",[rule]\n" +
+            ",[supplierId]\n" +
+            ",[status])\n" +
+            "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+
+    String scheduleSql = "INSERT INTO [dbo].[Schedule] ([tourId],[versionId],[location], [date], [description]) VALUES (?,?,?,?,?)";
+
+    try {
+      
+        try (PreparedStatement tourStatement = connection.prepareStatement(tourSql, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement scheduleStatement = connection.prepareStatement(scheduleSql)) {
+
+            String imageAlbumString = String.join("/splitAlbum/", imageAlbum);
+
+            // Insert Tour
+            tourStatement.setString(1, name);
+            tourStatement.setString(2, imageMain);
+            tourStatement.setString(3, imageAlbumString);
+            tourStatement.setTime(4, intendedTime);
+            tourStatement.setString(5, price);
+            tourStatement.setString(6, description);
+            tourStatement.setInt(7, categoryId);
+            tourStatement.setInt(8, 1);
+            tourStatement.setString(9, rule);
+            tourStatement.setInt(10, supplierId);
+            tourStatement.setInt(11, 1);
+
+            // Execute the insert for tour
+            int affectedRows = tourStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                // If no rows were affected, the insert failed
+                throw new SQLException("Creating tour failed, no rows affected.");
+            }
+
+            // Retrieve the generated tourId
+            try (ResultSet generatedKeys = tourStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int tourId = generatedKeys.getInt(1);
+
+                    // Insert Schedules
+                    for (Schedules schedule : schedules) {
+                        scheduleStatement.setInt(1, tourId);
+                        scheduleStatement.setInt(2, 1);
+                        scheduleStatement.setString(3, schedule.getLocation());
+                        scheduleStatement.setTime(4, schedule.getDate());
+                        scheduleStatement.setString(5, schedule.getDescriptionSchedules());
+
+                        // Execute the insert for schedule
+                        scheduleStatement.executeUpdate();
+                    }
+                } 
+            }
+
+        }  
         
+    } catch (SQLException e) {
+        // Log or print the exception for debugging purposes
+        e.printStackTrace();
+    }
+    }
+   
+   public void deleteTour(String id) {
+    String deleteTourSql = "DELETE FROM Tour WHERE id = ?";
+    String deleteScheduleSql = "DELETE FROM Schedule WHERE tourId = ?";
+
+    try {
+      
+        try (PreparedStatement deleteTourStatement = connection.prepareStatement(deleteTourSql);
+             PreparedStatement deleteScheduleStatement = connection.prepareStatement(deleteScheduleSql)) {
+
+            // Set the tourId parameter for both statements
+            deleteTourStatement.setString(1, id);
+            deleteScheduleStatement.setString(1, id);
+
+            // Execute the delete statements
+            deleteScheduleStatement.executeUpdate();
+            deleteTourStatement.executeUpdate();
+        } 
+
+    } catch (SQLException e) {
+        // Log or print the exception for debugging purposes
+        e.printStackTrace();
     }
 }
 
@@ -1269,6 +1356,8 @@ st.setInt(2, 1);
 
         return list;
     }
+   
+   
    
     public static void main(String[] args) {
         DAO d = new DAO();

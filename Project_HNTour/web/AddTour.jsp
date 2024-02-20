@@ -173,81 +173,66 @@
                                 </select>
                             </div>
 
-
-<!--<div class="schedules">
+ <div class="schedules">
     <label>Schedules</label>
 
-    <table class="table">
+    <table class="table" id="schedulesTable">
         <thead>
             <tr>
                 <th>Location</th>
                 <th>Date</th>
                 <th>Description</th>
+                <th>Action</th>
             </tr>
         </thead>
-        <tbody id="scheduleInputs">
-             Existing schedule inputs from server-side data 
+        <tbody>
             <c:forEach items="${requestScope.schedules}" var="s">
-                 Your existing schedule input fields here 
+                <tr>
+                    <td><input type="text" name="location" value="${s.location}" readonly /></td>
+                    <td><input type="time" name="date" value="${s.date}" readonly /></td>
+                    <td><input type="text" name="descriptionSchedules" value="${s.descriptionSchedules}" readonly /></td>
+                </tr>
             </c:forEach>
-             New schedule input fields for dynamically added schedules 
-             <div class="button add_button" onclick="addNewSchedule()">Add Schedule</div>
-    </div>
+        </tbody>
+    </table>
 
-     Container for new schedules 
-    <div id="newSchedulesContainer"></div>
+    <div style="cursor: pointer" class="button add_button" onclick="addNewSchedule()">Add Schedule</div>
+</div>
+
+<!-- Container for new schedules -->
+<div id="newSchedulesContainer"></div>
+
 <script>
-    var scheduleCounter = 1;
+    var scheduleCounter = 0;
 
     function addNewSchedule() {
-        var schedulesContainer = document.getElementById("newSchedulesContainer");
+        // Create a new row for the schedule
+        var newRow = document.createElement("tr");
 
-        // Create a new table for each set of new schedules
-        var newTable = document.createElement("table");
-        newTable.className = "table";
+        // Add cells for each column
+        var locationCell = document.createElement("td");
+        var dateCell = document.createElement("td");
+        var descriptionCell = document.createElement("td");
 
-        // Create a new row for each new schedule
-        var newRow = newTable.insertRow(-1);
-
-        // Add cells to the new row
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
-        var cell3 = newRow.insertCell(2);
-        var cell4 = newRow.insertCell(3);
-
-        // Set input elements in the cells
-        cell1.innerHTML = '<input type="text" name="newLocation' + scheduleCounter + '" />';
-        cell2.innerHTML = '<input type="time" name="newDate' + scheduleCounter + '" />';
-        cell3.innerHTML = '<input type="text" name="newDescriptionSchedules' + scheduleCounter + '" />';
-        cell4.innerHTML = '<div class="button book_button" onclick="removeNewScheduleRow(this)">Remove<span></span><span></span><span></span></div>';
-
-        // Append the new table to the container
-        schedulesContainer.appendChild(newTable);
-
+        // Increment the counter for unique names
         scheduleCounter++;
+
+        // Add input elements to cells with unique names
+        locationCell.innerHTML = '<input type="text" name="locationnew_' + scheduleCounter + '" />';
+        dateCell.innerHTML = '<input type="time" name="datenew_' + scheduleCounter + '" />';
+        descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew_' + scheduleCounter + '" />';
+
+        // Append cells to the new row
+        newRow.appendChild(locationCell);
+        newRow.appendChild(dateCell);
+        newRow.appendChild(descriptionCell);
+
+        // Append the new row to the table body
+        var tbody = document.getElementById("schedulesTable").getElementsByTagName('tbody')[0];
+        tbody.appendChild(newRow);
     }
+</script>
 
-    function removeNewScheduleRow(button) {
-        var row = button.parentNode.parentNode;
-        row.parentNode.removeChild(row);
-    }
-
-    // Submit form data using AJAX
-    document.getElementById("scheduleForm").addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        // Collect data from the form
-        var formData = new FormData(this);
-
-        // Send data to the servlet using AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", this.action, true);
-        xhr.onload = function () {
-            // Handle the response if needed
-        };
-        xhr.send(formData);
-    });
-</script>-->
 
                            
                             <div class="modal-footer">
