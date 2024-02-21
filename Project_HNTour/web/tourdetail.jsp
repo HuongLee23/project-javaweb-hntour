@@ -178,7 +178,7 @@
                                 <div class="hotel_title_container d-flex flex-lg-row flex-column">
                                     <div class="hotel_title_content">
                                         <h1 class="hotel_title">${detail.name}</h1>
-                                       
+
                                         <div class="hotel_location"></div>
                                     </div>
                                     <div class="hotel_title_button ml-lg-auto text-lg-right">
@@ -196,13 +196,14 @@
                                     <div class="hotel_review_container d-flex flex-column align-items-center justify-content-center">
                                         <div class="hotel_review">
                                             <div class="hotel_review_content">
-                                                <div class="hotel_review_title">very good</div>
-                                                <div class="hotel_review_subtitle">1 reviews</div>
+                                                <div class="hotel_review_title">${overallRating}</div>
+
+                                                <div class="hotel_review_subtitle">${totalFeedback} reviews</div>
                                             </div>
 
-                                           
-                                                <div class="hotel_review_rating text-center">${averageRating}</div>
-                                            
+
+                                            <div class="hotel_review_rating text-center">${averageRating}</div>
+
 
                                         </div>
                                     </div>
@@ -351,28 +352,17 @@
                                             <div class="row">
                                                 <div class="col-lg-1">
                                                     <div class="review_image">
-                                                        <c:if test="${b.avatarAc != null}">
-                                                            <img src="${b.avatarAc}" alt="Image by Andrew Robles">
-                                                        </c:if>
-                                                        <c:if test="${b.avatarAc == null}">
-                                                            <img  src="https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain" alt="">
-                                                        </c:if>
+                                                        <img src="${b.avatarAc != null ? b.avatarAc : 'https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain'}" alt="${b.accName}">
                                                     </div>
                                                     <div class="review_name">${b.accName}</div>
                                                 </div>
-
-                                            </div>
-                                            <div class="col-lg-11">
-                                                <div class="review_content">
-                                                    <div class="review_title_container">
-                                                        <div class="review_title"></div>
+                                                <div class="col-lg-11">
+                                                    <div class="review_content">
                                                         <div class="review_rating">${b.rating}</div>
+                                                        <div class="review_text">
+                                                            <p>${b.comment}</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="review_text">
-                                                        <p>${b.comment}</p>
-                                                    </div>
-
-
                                                 </div>
                                             </div>
                                         </div>
@@ -385,10 +375,10 @@
 
                                 <div class="comment_form">
                                     <form action="addFeedback" method="post">
-                                
+
 
                                         <!-- Input for Account ID -->
-                                        
+
                                         <input type="hidden" name="accId" value="${account.id}">
 
                                         <!-- Input for Tour ID -->

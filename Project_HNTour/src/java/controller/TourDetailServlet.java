@@ -91,11 +91,15 @@ if (list_Feedback != null && !list_Feedback.isEmpty()) {
     }
     averageRating = (double) totalRating / list_Feedback.size();
 
-    // Sử dụng DecimalFormat để chỉ hiển thị một số sau dấu phẩy
     DecimalFormat decimalFormat = new DecimalFormat("#.#");
     String formattedRating = decimalFormat.format(averageRating);
     averageRating = Double.parseDouble(formattedRating.replace(',', '.'));
 }
+ int totalFeedback = list_Feedback.size();
+     String overallRating = convertToOverallRating(averageRating);
+    request.setAttribute("overallRating", overallRating); // Phần tổng quan
+
+  request.setAttribute("totalFeedback", totalFeedback);
         request.setAttribute("account", account);
         request.setAttribute("schedules", list_Schedules);
         request.setAttribute("listCategory", listCategory);
@@ -104,6 +108,15 @@ if (list_Feedback != null && !list_Feedback.isEmpty()) {
 
         request.getRequestDispatcher("tourdetail.jsp").forward(request, response);
     }
+    private String convertToOverallRating(double averageRating) {
+    if (averageRating >= 0 && averageRating < 3) {
+        return "Bad";
+    } else if (averageRating >= 3 && averageRating < 4) {
+        return "Fair";
+    } else {
+        return "Very Good";
+    }
+}
 
     /**
      * Handles the HTTP <code>POST</code> method.
