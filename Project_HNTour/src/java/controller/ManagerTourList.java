@@ -66,7 +66,7 @@ public class ManagerTourList extends HttpServlet {
         HttpSession session = request.getSession();
         Account account =  (Account) session.getAttribute("account");
         DAO dao = new DAO();
-        
+         request.setAttribute("account", account);
             List<Tour> tourList = dao.getTourBySupllierID(account.getId());
 //            getCategoryById
             request.setAttribute("tour", tourList);

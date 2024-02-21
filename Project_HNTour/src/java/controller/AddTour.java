@@ -71,15 +71,7 @@ public class AddTour extends HttpServlet {
     HttpSession session = request.getSession();
     Account account = (Account) session.getAttribute("account");
     
-    // Get supplierID from the account or any other source
-    int supplierID = account.getId();
-    
-    // Retrieve the list of tours based on the supplierID
-    List<Tour> tourList = dao.getTourBySupllierID(supplierID);
-
-    // Set attributes for the request
-    request.setAttribute("tour", tourList);
-    request.setAttribute("supplierID", supplierID);
+     request.setAttribute("account", account);
 
     // Retrieve the list of categories
     List<Category> listC = dao.getListCategory();

@@ -48,6 +48,8 @@
                     </div>
                 </div>
             </div>
+            
+            <c:set value="${requestScope.account}" var="a"/>
             <div id="editEmployeeModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -60,7 +62,7 @@
                             </div>
                             <div class="modal-body">					
                             
-                             <input type="hidden" name="supplierID" value="${supplierID}">
+                             <input type="hidden" name="supplierID" value="${a.id}">
                                 
                                 <div class="form-group">
                                     <label>Name</label>

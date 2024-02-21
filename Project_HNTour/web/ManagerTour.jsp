@@ -38,41 +38,36 @@
 
     <body>
 
- 
+  <c:set value="${requestScope.account}" var="a"/>
 
-        <div class="container">
+      <div class="container">
     <div class="table-wrapper">
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <c:forEach items="${requestScope.tour}" var="c" varStatus="loop">
-                        <c:if test="${loop.index == 0}">
-                            <h2>Manage <b>Tour</b></h2>
-                        </c:if>
-                    </c:forEach>
+                    <h2>Manage <b>Tour</b></h2>
                 </div>
+               
                 <div class="col-sm-6">
-                    <c:forEach items="${requestScope.tour}" var="c" varStatus="loop">
-                        <c:if test="${loop.index == 0}">
-                            <a href="addtour?supplierID=${c.supplierId}" class="btn btn-success">
-                                <i class="material-icons">&#xE147;</i> <span>Add New Tour</span>
-                            </a>
-                        </c:if>
-                    </c:forEach>
+                    <a href="addtour?supplierID=${a.id}" class="btn btn-success">
+                        <i class="material-icons">&#xE147;</i> <span>Add New Tour</span>
+                    </a>
                     <a href="#deleteProductModal" class="btn btn-danger" data-toggle="modal">
                         <i class="material-icons">&#xE15C;</i> <span>Delete</span>
                     </a>
                     <form action="managertourlist" method="post">
-                    <div class="search_item">
-                                                <div>Search Tour</div>
-                                                <input type="text" name="txt" class="destination search_input" >
-                                            </div>
-                     <button class="button search_button">Search<span></span><span></span><span></span></button>
-                </div></form>
+                        <div class="search_item">
+                            <div>Search Tour</div>
+                            <input type="text" name="txt" class="destination search_input" >
+                        </div>
+                        <button class="button search_button">Search<span></span><span></span><span></span></button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
                 <table class="table table-striped table-hover">
                     <thead>
