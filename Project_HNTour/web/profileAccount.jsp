@@ -116,7 +116,7 @@
                                                                 </div>
                                                                 <div class="col">
                                                                     <div class="form-group"> 
-                                                                        <label>User Name</label>
+                                                                        <label>Tên người dùng</label>
                                                                         <input name="username" class="form-control" type="text" value="${a.username}">
                                                                     </div>
                                                                 </div>
@@ -125,7 +125,7 @@
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <div class="form-group">
-                                                                        <label>Address</label>
+                                                                        <label>Địa chỉ</label>
                                                                         <input name="address" class="form-control" type="text" value="${a.address}">
                                                                     </div>
                                                                 </div>
@@ -135,7 +135,7 @@
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <div class="form-group">
-                                                                        <label>Phone Number</label>
+                                                                        <label>SĐT</label>
                                                                         <input name="phone" class="form-control" type="number" value="${a.phoneNumber}">
                                                                     </div>
                                                                 </div>
@@ -145,7 +145,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col d-flex justify-content-end">
-                                                            <button class="btn btn-primary" type="submit">Save Changes</button>
+                                                            <button class="btn btn-primary" type="submit">Lưu</button>
                                                         </div>
                                                     </div>
                                                 </form>
