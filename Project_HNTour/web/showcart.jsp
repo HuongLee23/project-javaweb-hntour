@@ -39,8 +39,56 @@
                         <!--                        <div class="home_title">The payment</div>-->
                     </div>
                 </div>
+
+
+                <!-- Slider-top-step-bar -->
+                <div class="top-step-bar desktop" id="top-step-bar">
+                    <div class="klk-steps klk-steps-horizontal">
+                        <div class="klk-step" id="step1">
+                            <div class="klk-step-line-track" style="background-color: rgb(224, 224, 224);">
+                                <div class="klk-step-line" style=""></div>
+                            </div>
+                            <div class="klk-step-head">
+                                <div class="klk-step-icon">
+                                    <i style="color: white;" class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="klk-step-main">
+                                <div class="klk-step-title">Chọn đơn hàng</div>
+                            </div>
+                        </div>
+                        <div class="klk-step" id="step2">
+                            <div class="klk-step-line-track" style="background-color: rgb(224, 224, 224);">
+                                <div class="klk-step-line" style=""></div>
+                            </div>
+                            <div class="klk-step-head">
+                                <div class="klk-step-icon">
+                                    <i style="color: white;" class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="klk-step-main">
+                                <div class="klk-step-title">Điền thông tin</div>
+                            </div>
+                        </div>
+                        <div class="klk-step" id="step3">
+                            <!--                            <div class="klk-step-line-track" style="background-color: rgb(224, 224, 224);">
+                                                            <div class="klk-step-line" style=""></div>
+                                                        </div>-->
+                            <div class="klk-step-head">
+                                <div class="klk-step-icon">
+                                    <i style="color: white;" class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="klk-step-main">
+                                <div class="klk-step-title">Thanh toán</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             <c:if test="${sessionScope.sizeCart != 0}">
-                <div class="checkout blog" style=" padding:0px;">
+                <div class="checkout blog">
                     <div class="container">
                         <div style="display: block;" class="row">
 
@@ -54,8 +102,7 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col" class="h5">Thanh toán giỏ hàng</th>
-                                                            <th scope="col">Voucher</th>
+                                                            <th scope="col" class="h5">Sản phẩm trong giỏ hàng</th>
                                                             <th scope="col">Số lượng</th>
                                                             <th scope="col">Giá</th>
                                                             <th scope="col">Thao tác</th>
@@ -75,9 +122,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </th>
-                                                                <td class="align-middle border-bottom-0">
-                                                                    <p class="mb-0" style="font-weight: 500;">Voucher</p>
-                                                                </td>
                                                                 <td class="align-middle border-bottom-0">
                                                                     <div class="d-flex flex-row">
                                                                         <a href="processcart?num=-1&id=${i.tour.id}">
@@ -117,30 +161,26 @@
                                                     <div style="display: block" class="row">
 
                                                         <div style="max-width: 100%;" class="col-12 col-xl-6">
-                                                            <div class="d-flex justify-content-between" style="font-weight: 500;">
-                                                                <p class="mb-2">Tổng tiền</p>
-                                                                <p class="mb-2"><fmt:formatNumber value="${o.totalMoney}" pattern="###,###"/> VNÐ</p>
-                                                            </div>
-
-                                                            <div class="d-flex justify-content-between" style="font-weight: 500;">
-                                                                <p class="mb-0">Voucher</p>
-                                                                <p class="mb-0">$2.99</p>
-                                                            </div>
-
-                                                            <hr class="my-4">
-
                                                             <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
                                                                 <p class="mb-2">Tổng thanh toán</p>
                                                                 <p class="mb-2"><fmt:formatNumber value="${o.totalMoney}" pattern="###,###"/> VNÐ</p>
                                                             </div>
 
-                                                            <button type="button" class="btn btn-primary btn-block btn-lg">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <span style="margin-left: 40%;">Mua ngay</span>
-                                                                    <!--<span>$26.48</span>-->
-                                                                </div>
-                                                            </button>
+                                                            <div class="d-flex justify-content-between" style="font-weight: 500;">
+                                                                <p class="mb-0">Số lượng</p>
+                                                                <p class="mb-0">${sessionScope.sizeCart} (Tour)</p>
+                                                            </div>
 
+                                                            <hr class="my-4">
+
+                                                            <form action="fillinformation" method="post">
+                                                                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <span style="margin-left: 40%;">Đặt ngay</span>
+                                                                        <!--<span>$26.48</span>-->
+                                                                    </div>
+                                                                </button>
+                                                            </form>
                                                         </div>
                                                     </div>
 
@@ -175,6 +215,32 @@
             function submitForm(index) {
                 document.getElementById("myForm" + index).submit();
             }
+
+
+            document.addEventListener("DOMContentLoaded", function () {
+                // Thêm lắng nghe sự kiện khi bước thay đổi
+                document.getElementById("step1").classList.add("klk-step-status-process");
+            }
+            );
+
+            document.addEventListener("DOMContentLoaded", function () {
+                // Lấy danh sách tất cả các bước
+                var steps = document.querySelectorAll('.klk-step');
+
+                // Lặp qua từng bước để xác định bước hiện tại
+                steps.forEach(function (step) {
+                    if (step.classList.contains('klk-step-status-process')) {
+                        // Tìm biểu tượng của bước hiện tại và thay đổi nó thành dấu ba chấm
+                        var icon = step.querySelector('.klk-step-icon i');
+                        if (icon) {
+                            icon.classList.remove('fa-check'); // Xóa biểu tượng check
+                            icon.classList.add('fa-ellipsis'); // Thêm biểu tượng ba chấm
+                        }
+                    }
+                });
+            });
+
+
         </script>
 
 
@@ -187,4 +253,3 @@
 
     </body>
 </html>
-

@@ -18,6 +18,7 @@ import model.Account;
 import model.Cart;
 import model.Category;
 import model.Feedback;
+import model.InformationAccount;
 import model.Item;
 //import model.ImageAlbum;
 import model.Schedules;
@@ -1209,15 +1210,23 @@ public class DAO extends DBContext {
         LocalDate curDate = LocalDate.now();
         String date = curDate.toString();
         try {
-            String sql = "Insert into [Order] values(?, ? ,?)";
+            String sql = "INSERT INTO [dbo].[Order]\n"
+                    + "           ([accId]\n"
+                    + "           ,[date]\n"
+                    + "           ,[totalPrice]\n"
+                    + "           ,[voucherId])\n"
+                    + "     VALUES\n"
+                    + "           ( ?, ?, ?, ?)";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, a.getId());
-            st.setDouble(2, cart.getTotalMoney());
-            st.setInt(3, v.getId());
+            st.setString(2, date);
+            st.setDouble(3, cart.getTotalMoney());
+            st.setInt(4, v.getId());
             st.executeUpdate();
 
             String sql1 = "SELECT top(1) [id]\n"
                     + "      ,[accId]\n"
+                    + "      ,[date]\n"
                     + "      ,[totalPrice]\n"
                     + "      ,[voucherId]\n"
                     + "  FROM [dbo].[Order] where accId = ? \n"
@@ -1225,31 +1234,65 @@ public class DAO extends DBContext {
             PreparedStatement st1 = connection.prepareStatement(sql1);
             st1.setInt(1, a.getId());
             ResultSet rs = st1.executeQuery();
-            
+
             if (rs.next()) {
                 int oid = rs.getInt("id");
                 for (Item i : cart.getItems()) {
-                    String sql2 = "insert into [OrderDetail] values (?, ?, ? , ?, ?, ?)";
+                    String sql2 = "INSERT INTO [dbo].[OrderDetail]\n"
+                            + "           ([orderId]\n"
+                            + "           ,[tourId]\n"
+                            + "           ,[quantity]\n"
+                            + "           ,[price]\n"
+                            + "           ,[versionId])\n"
+                            + "     VALUES( ?, ?, ?, ?, ?)";
                     PreparedStatement st2 = connection.prepareStatement(sql2);
                     st2.setInt(1, oid);
                     st2.setInt(2, i.getTour().getId());
-                    st2.setString(3, date);
-                    st2.setInt(4, i.getQuantity());
-                    st2.setDouble(5, i.getPrice());
-                    st2.setInt(6, v.getId());
+                    st2.setInt(3, i.getQuantity());
+                    st2.setDouble(4, i.getPrice());
+                    st2.setInt(5, v.getId());
                     st2.executeUpdate();
                 }
 
             }
         } catch (SQLException e) {
+        }
+    }
+
+    public List<InformationAccount> getListInformationByIdAcc(int accountId) {
+        List<InformationAccount> list = new ArrayList<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[email]\n"
+                + "      ,[username]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthday]\n"
+                + "      ,[accountId]\n"
+                + "  FROM [dbo].[InformationAccounts] where accountId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, 3);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                InformationAccount in = new InformationAccount();
+                in.setId(rs.getInt("id"));
+                in.setEmail(rs.getString("email"));
+                in.setUsername(rs.getString("username"));
+                in.setPhoneNumber(rs.getString("phoneNumber"));
+                in.setBirthday(rs.getDate("birthday"));
+                in.setAccountId(rs.getInt("accountId"));
+                list.add(in);
+            }
+        } catch (SQLException e) {
             System.out.println(e);
         }
+        return list;
     }
 
     public static void main(String[] args) {
         DAO d = new DAO();
-        List<Tour> tour = d.getTourBySort("asc", "rating");
-        System.out.println(tour);
+//        List<InformationAccount> list = d.getListInformationByIdAcc(3);
+        List<Tour> list = d.getAllTour();
+            System.out.println(list.get(0).getName());
     }
 
 }

@@ -40,7 +40,54 @@
                     </div>
                 </div>
 
-                <div class="checkout blog" style=" padding:0px;">
+
+                <!-- Slider-top-step-bar -->
+                <div class="top-step-bar desktop" id="top-step-bar">
+                    <div class="klk-steps klk-steps-horizontal">
+                        <div class="klk-step" id="step1">
+                            <div class="klk-step-line-track" style="background-color: rgb(224, 224, 224);">
+                                <div class="klk-step-line" style=""></div>
+                            </div>
+                            <div class="klk-step-head">
+                                <div class="klk-step-icon">
+                                    <i style="color: white;" class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="klk-step-main">
+                                <div class="klk-step-title">Chọn đơn hàng</div>
+                            </div>
+                        </div>
+                        <div class="klk-step" id="step2">
+                            <div class="klk-step-line-track" style="background-color: rgb(224, 224, 224);">
+                                <div class="klk-step-line" style=""></div>
+                            </div>
+                            <div class="klk-step-head">
+                                <div class="klk-step-icon">
+                                    <i style="color: white;" class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="klk-step-main">
+                                <div class="klk-step-title">Điền thông tin</div>
+                            </div>
+                        </div>
+                        <div class="klk-step" id="step3">
+                            <!--                            <div class="klk-step-line-track" style="background-color: rgb(224, 224, 224);">
+                                                            <div class="klk-step-line" style=""></div>
+                                                        </div>-->
+                            <div class="klk-step-head">
+                                <div class="klk-step-icon">
+                                    <i style="color: white;" class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="klk-step-main">
+                                <div class="klk-step-title">Thanh toán</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="checkout blog">
                     <div class="container">
                         <div class="row">
 
@@ -214,6 +261,36 @@
                 <!-- Footer -->
             <jsp:include page="footer.jsp"></jsp:include>
         </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Xóa trạng thái của các bước trước
+                document.getElementById("step1").classList.remove("klk-step-status-process");
+                document.getElementById("step2").classList.remove("klk-step-status-process");
+                document.getElementById("step1").classList.add("klk-step-status-finish");
+                document.getElementById("step2").classList.add("klk-step-status-finish");
+                // Thêm trạng thái mới cho bước hiện tại
+                document.getElementById("step3").classList.add("klk-step-status-process");
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                // Lấy danh sách tất cả các bước
+                var steps = document.querySelectorAll('.klk-step');
+
+                // Lặp qua từng bước để xác định bước hiện tại
+                steps.forEach(function (step) {
+                    if (step.classList.contains('klk-step-status-process')) {
+                        // Tìm biểu tượng của bước hiện tại và thay đổi nó thành dấu ba chấm
+                        var icon = step.querySelector('.klk-step-icon i');
+                        if (icon) {
+                            icon.classList.remove('fa-check'); // Xóa biểu tượng check
+                            icon.classList.add('fa-ellipsis'); // Thêm biểu tượng ba chấm
+                        }
+                    }
+                });
+            });
+        </script>
+
 
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="styles/bootstrap4/popper.js"></script>
