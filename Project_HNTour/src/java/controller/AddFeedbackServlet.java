@@ -13,17 +13,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Category;
-import model.Schedules;
-import model.Tour;
+import jakarta.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-@WebServlet(name="LoadTour", urlPatterns={"/loadtour"})
-public class LoadTour extends HttpServlet {
+@WebServlet(name="AddFeedbackServlet", urlPatterns={"/addfeedback"})
+public class AddFeedbackServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +38,10 @@ public class LoadTour extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoadTour</title>");  
+            out.println("<title>Servlet AddFeedbackServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoadTour at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet AddFeedbackServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,20 +58,7 @@ public class LoadTour extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         
-       DAO dao=new DAO();
-     String id=request.getParameter("tid");
-     int idi=Integer.parseInt(id);
-       List<Schedules> schedules=dao.getSchedukesById(idi);
-       request.setAttribute("schedules", schedules);
-       
-     Tour p=dao.getTourByID(idi);
-     request.setAttribute("tour", p);
-
-         List<Category> listC=dao.getListCategory();
-        request.setAttribute("listC", listC);
-
-        request.getRequestDispatcher("EditTour.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -86,8 +71,17 @@ public class LoadTour extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
-    }
+   
+//    String comment = request.getParameter("comment");
+//    int rating = Integer.parseInt(request.getParameter("rating"));  
+//
+//   
+//
+//        DAO dao = new DAO();
+//        dao.getFeedbackTour(accId, tourId, versionId, comment, rating); 
+//        
+}
+
 
     /** 
      * Returns a short description of the servlet.

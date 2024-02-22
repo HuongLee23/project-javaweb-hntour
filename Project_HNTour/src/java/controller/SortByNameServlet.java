@@ -20,7 +20,7 @@ import model.Tour;
  *
  * @author admin
  */
-@WebServlet(name="SortByNameServlet", urlPatterns={"/sortname"})
+@WebServlet(name="SortByServlet", urlPatterns={"/sort"})
 public class SortByNameServlet extends HttpServlet {
    
     /** 
@@ -58,20 +58,39 @@ public class SortByNameServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String sort = request.getParameter("sortByName");
-        if (sort != null) {
+        String sort = request.getParameter("sortBy");
+       
+        
+        if (sort!= null ) {
             DAO d = new DAO();
             List<Tour> list = null;
-      
+            String type;
             String typeSort;
-            if (sort.equals("ascending_name")) {
-               
-                typeSort = "asc";
-                list = d.getTourBySortName(typeSort);
-            }else if(sort.equals("descending_name")){
             
-                typeSort = "desc";
-                list = d.getTourBySortName(typeSort);
+            
+            if (sort.equals("ascPrice")) {
+                typeSort = "ASC";
+                type="price";
+                list = d.getTourBySort(typeSort, type);
+            }else if (sort.equals("descPrice")) {
+                typeSort = "DESC";
+                type="price";
+                list = d.getTourBySort(typeSort, type);
+            }
+            else if (sort.equals("ascName")) {
+                typeSort = "ASC";
+                type="name";
+                list = d.getTourBySort(typeSort, type);
+            }else if (sort.equals("descName")) {
+                typeSort = "DESC";
+                type="name";
+                list = d.getTourBySort(typeSort, type);
+            }
+           
+            else if (sort.equals("descRating")) {
+                typeSort = "DESC";
+                type="rating";
+                list = d.getTourBySort(typeSort, type);
             }
             
             request.setAttribute("tour", list);

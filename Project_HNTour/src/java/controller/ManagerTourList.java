@@ -66,21 +66,13 @@ public class ManagerTourList extends HttpServlet {
         HttpSession session = request.getSession();
         Account account =  (Account) session.getAttribute("account");
         DAO dao = new DAO();
-        try {
-            
-//            Category listCategory = dao.getCategoryById(cid);
-            //List<Tour> tourList = dao.getAllTour();
+         request.setAttribute("account", account);
             List<Tour> tourList = dao.getTourBySupllierID(account.getId());
-            for (Tour tour : tourList) {
-            List<Category> categoryList = dao.getListCategory();
-                
-            }
-            
 //            getCategoryById
             request.setAttribute("tour", tourList);
+           
 //            request.setAttribute("category", listCategory);
-        } catch (NumberFormatException e) {
-        }
+        
         request.getRequestDispatcher("ManagerTour.jsp").forward(request, response);
     } 
 
@@ -94,7 +86,15 @@ public class ManagerTourList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+         HttpSession session = request.getSession();
+        Account account =  (Account) session.getAttribute("account");
+        DAO dao = new DAO();
+          String text = request.getParameter("txt");
+        List<Tour> listTourSearchByName = dao.searchByNameSupplier(text,account.getId());
+        request.setAttribute("tour", listTourSearchByName);
+//            request.setAttribute("category", listCategory);
         
+        request.getRequestDispatcher("ManagerTour.jsp").forward(request, response);
     }
 
     /** 

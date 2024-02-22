@@ -17,11 +17,12 @@ public class Feedback {
     private String comment;
     private int rating;
     private String accName;
+    private String avatarAc;
 
     public Feedback() {
     }
 
-    public Feedback(int id, int accId, int tourId, int versionId, String comment, int rating, String accName) {
+    public Feedback(int id, int accId, int tourId, int versionId, String comment, int rating, String accName, String avatarAc) {
         this.id = id;
         this.accId = accId;
         this.tourId = tourId;
@@ -29,6 +30,7 @@ public class Feedback {
         this.comment = comment;
         this.rating = rating;
         this.accName = accName;
+        this.avatarAc = avatarAc;
     }
 
     public int getId() {
@@ -87,9 +89,17 @@ public class Feedback {
         this.accName = accName;
     }
 
+    public String getAvatarAc() {
+        return avatarAc;
+    }
+
+    public void setAvatarAc(String avatarAc) {
+        this.avatarAc = avatarAc;
+    }
+
     @Override
     public String toString() {
-        return "Feedback{" + "id=" + id + ", accId=" + accId + ", tourId=" + tourId + ", versionId=" + versionId + ", comment=" + comment + ", rating=" + rating + ", accName=" + accName + '}';
+        return "Feedback{" + "id=" + id + ", accId=" + accId + ", tourId=" + tourId + ", versionId=" + versionId + ", comment=" + comment + ", rating=" + rating + ", accName=" + accName + ", avatarAc=" + avatarAc + '}';
     }
 
 }

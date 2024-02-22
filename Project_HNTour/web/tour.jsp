@@ -56,7 +56,7 @@
                                             </c:forEach>    
                                         </div>
                                     </div>
-                                <!-- Search Panel -->
+                                    <!-- Search Panel -->
 
                                     <div class="search_panel active">
                                         <form action="searchname" id="search_form_1" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
@@ -132,51 +132,27 @@
                             <div class="offers_sorting_container">
                                 <ul class="">
                                     <li class="offers_sorting">
-
+                                        Sắp xếp theo
                                         <select name="sortBy" class="sort_btn">
-                                            <option id="" >Price</option>
-                                            <option value="ascending">Ascending</option>
-                                            <option value="descending">Descending</option>
+                                            <option id="" >VN Travel Giới Thiệu</option>
+                                            <option value="ascPrice">Giá (Thấp đến cao)</option>
+                                            <option value="descPrice">Giá (Cao đến thấp)</option>
+                                            <option value="descRating">Đánh giá cao nhất</option>
+                                            <option value="ascName">Tên (A-Z)</option>
+                                            <option value="descName">Tên (Z-A)</option>
+                                            <option value="">Bán chạy nhất</option>
+
                                         </select>
                                         <script>
                                             document.querySelector('select[name="sortBy"]').addEventListener('change', function () {
                                                 var selectedValue = this.value;
                                                 // Perform any additional logic if needed
-                                                window.location.href = "sortprice?sortBy=" + selectedValue;
+                                                window.location.href = "sort?sortBy=" + selectedValue;
                                             });
                                         </script>
                                     </li>
-                                    <li class="offers_sorting">
 
-                                        <select name="sortByName" class="sort_btn">
-                                            <option id="" >Name</option>
-                                            <option value="ascending_name">Ascending</option>
-                                            <option value="descending_name">Descending</option>
-                                        </select>
-                                        <script>
-                                            document.querySelector('select[name="sortByName"]').addEventListener('change', function () {
-                                                var selectedValue = this.value;
-                                                // Perform any additional logic if needed
-                                                window.location.href = "sortname?sortByName=" + selectedValue;
-                                            });
-                                        </script>
-                                    </li>
-                                    <li class="offers_sorting">
-
-                                        <select name="sortByRating" class="sort_btn">
-                                            <option id="" >Star</option>
-                                            <option value="ascending_rating">Ascending</option>
-                                            <option value="descending_rating">Descending</option>
-                                        </select>
-                                        <script>
-                                            document.querySelector('select[name="sortByRating"]').addEventListener('change', function () {
-                                                var selectedValue = this.value;
-                                                // Perform any additional logic if needed
-                                                window.location.href = "sortrating?sortByRating=" + selectedValue;
-                                            });
-                                        </script>
-                                    </li>
-                                </ul>
+                                </ul> 
                             </div>
                         </div>
                     </div>
@@ -204,15 +180,15 @@
                                                     <div><span>About ${c.intendedTime}</span></div>
                                                 </div>
                                                 <p class="offers_text">
-                                <c:choose>
-                                    <c:when test="${fn:length(c.description) > 200}">
-                                        ${fn:substring(c.description, 0, 200)}...
-                                    </c:when>
-                                    <c:otherwise>
-                                        ${c.description}
-                                    </c:otherwise>
-                                </c:choose>
-                            </p>
+                                                    <c:choose>
+                                                        <c:when test="${fn:length(c.description) > 200}">
+                                                            ${fn:substring(c.description, 0, 200)}...
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${c.description}
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </p>
                                                 <div class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>
                                                 <div class="button book_button"><a href="detail?tid=${c.id}">Detail<span></span><span></span><span></span></a></div>
                                                 <div class="offer_reviews">

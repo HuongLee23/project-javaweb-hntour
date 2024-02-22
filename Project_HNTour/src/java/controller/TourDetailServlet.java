@@ -12,10 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Account;
 import model.Category;
 import model.Feedback;
 import model.ImageAlbum;
+import model.Schedules;
 import model.Tour;
 
 /**
@@ -79,6 +82,13 @@ public class TourDetailServlet extends HttpServlet {
 
         List<Feedback> list_Feedback = dao.getFeedbackDetailTour(id);
         List<Category> listCategory = dao.getListCategory();
+        List<Schedules> list_Schedules = dao.getSchedukesById(id);
+         HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        
+        
+        request.setAttribute("account", account);
+        request.setAttribute("schedules", list_Schedules);
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("feedback", list_Feedback);
         request.getRequestDispatcher("tourdetail.jsp").forward(request, response);

@@ -13,20 +13,24 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import model.Account;
+import model.Category;
 import model.Schedules;
+import model.Tour;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name="EditTour", urlPatterns={"/edittour"})
-public class EditTour extends HttpServlet {
+@WebServlet(name="AddTour", urlPatterns={"/addtour"})
+public class AddTour extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -43,10 +47,10 @@ public class EditTour extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditTour</title>");  
+            out.println("<title>Servlet AddTour</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditTour at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet AddTour at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,11 +65,21 @@ public class EditTour extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
-    } 
+    DAO dao = new DAO();
+    HttpSession session = request.getSession();
+    Account account = (Account) session.getAttribute("account");
+    
+     request.setAttribute("account", account);
 
+    // Retrieve the list of categories
+    List<Category> listC = dao.getListCategory();
+    request.setAttribute("listC", listC);
+
+    // Forward to AddTour.jsp
+    request.getRequestDispatcher("AddTour.jsp").forward(request, response);
+} 
     /** 
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
@@ -78,7 +92,8 @@ public class EditTour extends HttpServlet {
         throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
 
-    String id_raw = request.getParameter("id");
+    // Retrieve form parameters
+    String id_raw = request.getParameter("supplierID");
     String name = request.getParameter("name");
     String imageMain = request.getParameter("imageMain");
     String[] existingImageAlbumArray = request.getParameterValues("existingImageAlbum");
@@ -89,14 +104,15 @@ public class EditTour extends HttpServlet {
     String category = request.getParameter("category");
     String rule = request.getParameter("rule");
 
-    // Assuming you have a DAO method to handle the edit operation
-    DAO dao = new DAO();
-    
+    // Validate form parameters (add your validation logic here)
+    // (e.g., check if required fields are not empty, validate numeric values, etc.)
+
+    // Convert String values to appropriate types
     int cid = Integer.parseInt(category);
-    int id = Integer.parseInt(id_raw);
-    
+    int supplierId = Integer.parseInt(id_raw);
+
     Time time = Time.valueOf(LocalTime.parse(time_raw));
-    
+
     // Retrieve additional images from the request
     List<String> allImages = new ArrayList<>();
 
@@ -113,10 +129,11 @@ public class EditTour extends HttpServlet {
     // Join all images using the "/splitAlbum/" delimiter
     String imageAlbumString = String.join("/splitAlbum/", allImages);
 
-    // Edit tour
-    dao.editTour(id, name, imageMain, Arrays.asList(imageAlbumString.split("/splitAlbum/")), time, price, description, cid, rule);
-  
- int scheduleCounter = 1; // Start with the initial counter value
+    // Create a list to store schedules
+    List<Schedules> schedulesList = new ArrayList<>();
+
+    // Retrieve new schedule parameters
+    int scheduleCounter = 1; // Start with the initial counter value
 
     while (true) {
         String locationParam = request.getParameter("locationnew_" + scheduleCounter);
@@ -128,33 +145,32 @@ public class EditTour extends HttpServlet {
             break;
         }
 
-        // Check if dateParam is not null before attempting to parse it
-        if (dateParam != null) {
-            try {
-                // Parse the date string to a Time object
-                Time date = Time.valueOf(LocalTime.parse(dateParam));
+        // Convert the date string to a Time object (assuming it's stored as Time in your database)
+        Time scheduleTime = Time.valueOf(LocalTime.parse(dateParam));
 
-                // Assuming you have a DAO method to handle the insert operation
-                dao.insertSchedule(id, locationParam, date, descriptionParam);
-            } catch (DateTimeParseException e) {
-                // Handle the exception (invalid date format) as needed
-                e.printStackTrace(); // Log or print the exception
-            }
-        }
+        // Create a schedule object and add it to the list
+        Schedules schedule = new Schedules();
+        schedule.setLocation(locationParam);
+        schedule.setDate(scheduleTime);
+        schedule.setDescriptionSchedules(descriptionParam);
+        schedulesList.add(schedule);
 
         // Increment the counter for the next set of parameters
         scheduleCounter++;
     }
-   
-// Assuming response is an instance of HttpServletResponse
-response.sendRedirect("loadtour?tid=" + id);
+
+    // Assuming you have a DAO method to handle the insert operation
+    DAO dao = new DAO();
+
+    // Call the combined insertTourWithSchedule method with the list of schedules
+    dao.insertTourWithSchedule(name, imageMain, Arrays.asList(imageAlbumString.split("/splitAlbum/")), time, price, description, cid, rule, supplierId, schedulesList);
+
+    // Redirect to the tour list page
+    response.sendRedirect("managertourlist");
+}
 
 
-   }
 
-
-
-    
 
     /** 
      * Returns a short description of the servlet.
