@@ -35,7 +35,7 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Edit <b>Product</b></h2>
+                            <h2>Sửa <b>Tour</b></h2>
                         </div>
                         <div class="col-sm-6">
                         </div>
@@ -47,7 +47,7 @@
                     <div class="modal-content">
                         <form action="edittour" method="post">
                             <div class="modal-header">						
-                                <h4 class="modal-title">Edit Product</h4>
+                                <h4 class="modal-title">Sửa Tour</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div class="modal-body">					
@@ -56,24 +56,24 @@
                                     <input value="${tour.id}" name="id" type="text" class="form-control" readonly required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Name</label>
+                                    <label>Tên</label>
                                     <input value="${tour.name}" name="name" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>ImageMain</label>
+                                    <label>Ảnh chính</label>
                                     <img src="${tour.imageMain}" alt="${c.name}" width="200"/>
                                     <input value="${tour.imageMain}" name="imageMain" type="text" class="form-control" required>
                                 </div>
 
                                 <div id="imageInputs">
-                                    <label>ImageAlbum</label>
+                                    <label>Album Ảnh</label>
                                     <br>
                                     <!-- Display existing imageAlbum values -->
                                     <c:forEach var="image" items="${tour.imageAlbum}" varStatus="loop">
                                         <div class="existing-image">
                                             <img src="${image}" alt="${c.name}" width="100" />
                                             <input value="${image}" name="existingImageAlbum" type="text" class="form-control" required>
-                                            <button type="button" onclick="deleteImageInput(${loop.index}, '${image}')">Delete</button>
+                                            <button type="button" onclick="deleteImageInput(${loop.index}, '${image}')">Xóa</button>
                                         </div>
                                     </c:forEach>
 
@@ -81,7 +81,7 @@
                                     <div class="new-image">
                                         <img src="" alt="" width="100" />
                                         <input name="additionalImages" type="text" class="form-control" placeholder="New Image URL">
-                                        <button type="button" onclick="deleteNewImageInput(this)">Delete</button>
+                                        <button type="button" onclick="deleteNewImageInput(this)">Xóa</button>
                                     </div>
                                     <button type="button" onclick="addNewImageInput()">+</button>
                                 </div>
@@ -144,25 +144,25 @@
 
 
                                 <div class="form-group">
-                                    <label>IntendedTime</label>
+                                    <label>Tổng thời gian Tour</label>
                                     <input value="${tour.intendedTime}" name="time" type="time" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Price</label>
+                                    <label>Giá</label>
                                     <input value="${tour.price}" name="price" type="text" class="form-control" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Description</label>
+                                    <label>Miêu tả</label>
                                     <textarea id="describe" name="description" class="form-control" required>${tour.description}</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Rule</label>
+                                    <label>Quy Định</label>
                                     <input value="${tour.rule}" name="rule" type="text" class="form-control" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Category</label>
+                                    <label>Thể loại</label>
                                     <select name="category" class="form-select" aria-label="Default select example">
                                         <c:forEach items="${requestScope.listC}" var="c">
                                             <c:choose>
@@ -178,14 +178,14 @@
                                 </div>
 
                                <div class="schedules">
-    <label>Schedules</label>
+    <label>Lịch trình</label>
 
     <table class="table" id="schedulesTable">
         <thead>
             <tr>
-                <th>Location</th>
-                <th>Date</th>
-                <th>Description</th>
+                <th>Địa điểm</th>
+                <th>Thời gian</th>
+                <th>Miêu tả</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -196,12 +196,14 @@
                     <td><input type="time" name="date" value="${s.date}" readonly /></td>
                     <td><input type="text" name="descriptionSchedules" value="${s.descriptionSchedules}" readonly /></td>
                       <td>
-                        <div class="button book_button">
-                            <a href="editschedule?sid=${s.id}">Edit<span></span><span></span><span></span></a>
-                        </div>
-                        <div class="button book_button">
-                            <a href="deleteschedule?sid=${s.id}&tourId=${s.tourId}">Delete<span></span><span></span><span></span></a>
-                        </div>
+                        
+                        <a href="editschedule?sid=${s.id}" class="edit" data-toggle="modal">
+                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                    </a>
+                                        <a href="deleteschedule?sid=${s.id}&tourId=${s.tourId}" class="delete" data-toggle="modal">
+                                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                    </a>
+                        
                     </td>
 
                 </tr>
@@ -209,7 +211,7 @@
         </tbody>
     </table>
 
-    <div style="cursor: pointer" class="button add_button" onclick="addNewSchedule()">Add Schedule</div>
+    <div style="cursor: pointer" class="button add_button" onclick="addNewSchedule()">Thêm lịch trình cho Tour</div>
 </div>
 
 <!-- Container for new schedules -->
@@ -251,8 +253,8 @@
 
 
                                 <div class="modal-footer">
-                                    <a href="managertourlist" class="btn btn-primary">Back Manager</a>
-                                    <input type="submit" class="btn btn-success" value="Edit">
+                                    <a href="managertourlist" class="btn btn-primary">Trở lại trang quản lý</a>
+                                    <input type="submit" class="btn btn-success" value="Sửa">
 
                                 </div>
 

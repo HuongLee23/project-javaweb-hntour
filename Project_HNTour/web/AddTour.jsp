@@ -41,7 +41,7 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Create <b>Tour</b></h2>
+                            <h2>Tạo <b>Tour</b></h2>
                         </div>
                         <div class="col-sm-6">
                         </div>
@@ -57,7 +57,7 @@
                         <form action="addtour" method="post">
                             
                             <div class="modal-header">						
-                                <h4 class="modal-title">Create Tour</h4>
+                                <h4 class="modal-title">Tạo tour mới</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div class="modal-body">					
@@ -65,17 +65,17 @@
                              <input type="hidden" name="supplierID" value="${a.id}">
                                 
                                 <div class="form-group">
-                                    <label>Name</label>
+                                    <label>Tên</label>
                                     <input name="name" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>ImageMain</label>
+                                    <label>Ảnh chính</label>
 
                                     <input name="imageMain" type="text" class="form-control" required>
                                 </div>
 
                                 <div id="imageInputs">
-                                    <label>ImageAlbum</label>
+                                    <label>Album Ảnh</label>
                                     <br>
                                     <!-- Display existing imageAlbum values -->
                                    
@@ -84,7 +84,7 @@
                                     <div class="new-image">
                                         <img src="" alt="" width="100" />
                                         <input name="additionalImages" type="text" class="form-control" placeholder="New Image URL">
-                                        <button type="button" onclick="deleteNewImageInput(this)">Delete</button>
+                                        <button type="button" onclick="deleteNewImageInput(this)">Xóa</button>
                                     </div>
                                     <button type="button" onclick="addNewImageInput()">+</button>
                                 </div>
@@ -147,27 +147,27 @@
 
 
                                 <div class="form-group">
-                                    <label>IntendedTime</label>
+                                    <label>Tổng thời gian Tour</label>
                                     <input name="time" type="time" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Price</label>
+                                    <label>Giá</label>
                                     <input  name="price" type="text" class="form-control" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Description</label>
+                                    <label>Miêu tả</label>
                                     <textarea id="describe" name="description" class="form-control" required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Rule</label>
+                                    <label>Quy Định</label>
                                     <input name="rule" type="text" class="form-control" required>
                                 </div>
 
                                 
                                
                                <div class="form-group">
-                                <label>Category</label>
+                                <label>Thể loại</label>
                                 <select name="category" class="form-select" aria-label="Default select example">
                                     <c:forEach items="${requestScope.listC}" var="c">
                                         <option value="${c.id}">${c.name}</option>
@@ -176,14 +176,14 @@
                             </div>
 
  <div class="schedules">
-    <label>Schedules</label>
+    <label>Lịch trình</label>
 
     <table class="table" id="schedulesTable">
         <thead>
             <tr>
-                <th>Location</th>
-                <th>Date</th>
-                <th>Description</th>
+                <th>Địa điểm</th>
+                <th>Thời gian</th>
+                <th>Miêu tả</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -198,7 +198,7 @@
         </tbody>
     </table>
 
-    <div style="cursor: pointer" class="button add_button" onclick="addNewSchedule()">Add Schedule</div>
+    <div style="cursor: pointer" class="button add_button" onclick="addNewSchedule()">Thêm lịch trình cho Tour</div>
 </div>
 
 <!-- Container for new schedules -->
@@ -238,7 +238,7 @@
 
                            
                             <div class="modal-footer">
-                                <input type="submit" class="btn btn-success" value="Create">
+                                <input type="submit" class="btn btn-success" value="Tạo Tour">
                             </div>
                         </form>
                     </div>

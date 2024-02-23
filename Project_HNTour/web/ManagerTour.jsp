@@ -45,22 +45,22 @@
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2>Manage <b>Tour</b></h2>
+                    <h2>Quản lý <b>Tour</b></h2>
                 </div>
                
                 <div class="col-sm-6">
                     <a href="addtour?supplierID=${a.id}" class="btn btn-success">
-                        <i class="material-icons">&#xE147;</i> <span>Add New Tour</span>
+                        <i class="material-icons">&#xE147;</i> <span>Tạo Tour Mới</span>
                     </a>
                     <a href="#deleteProductModal" class="btn btn-danger" data-toggle="modal">
-                        <i class="material-icons">&#xE15C;</i> <span>Delete</span>
+                        <i class="material-icons">&#xE15C;</i> <span>Xóa</span>
                     </a>
                     <form action="managertourlist" method="post">
                         <div class="search_item">
-                            <div>Search Tour</div>
+                            <div>Tìm kiếm Tour</div>
                             <input type="text" name="txt" class="destination search_input" >
                         </div>
-                        <button class="button search_button">Search<span></span><span></span><span></span></button>
+                        <button class="button search_button">Tìm kiếm<span></span><span></span><span></span></button>
                     </form>
                 </div>
             </div>

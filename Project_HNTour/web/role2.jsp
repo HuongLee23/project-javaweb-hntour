@@ -10,10 +10,10 @@
     
     <body>
         <ul class="nav">
-    <li class="nav-item"><a class="nav-link px-2 active" href="profileaccount"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-    <li class="nav-item"><a class="nav-link px-2" href="home"><i class="fa fa-fw fa-th mr-1"></i><span>Home</span></a></li>
-    <li class="nav-item"><a class="nav-link px-2" href="changepassword"><i class="fa fa-fw fa-cog mr-1"></i><span>Change Password</span></a></li>
-    <li class="nav-item"><a class="nav-link px-2" href="managertourlist"><i class="fa fa-fw fa-cog mr-1"></i><span>Manager Tour</span></a></li>
+    <li class="nav-item"><a class="nav-link px-2 active" href="profileaccount"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Thông tin</span></a></li>
+    <li class="nav-item"><a class="nav-link px-2" href="home"><i class="fa fa-fw fa-th mr-1"></i><span>Trang chủ</span></a></li>
+    <li class="nav-item"><a class="nav-link px-2" href="changepassword"><i class="fa fa-fw fa-cog mr-1"></i><span>Đổi mật khẩu</span></a></li>
+    <li class="nav-item"><a class="nav-link px-2" href="managertourlist"><i class="fa fa-fw fa-cog mr-1"></i><span>Quản lý Tour</span></a></li>
    
 </ul>
     </body>
