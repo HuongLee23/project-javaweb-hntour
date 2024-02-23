@@ -88,7 +88,7 @@
                 </div>
 
 
-
+                <!--Show thông tin đơn hàng-->
                 <section class="fby-show-product" >
                     <div class="container py-5">
 
@@ -99,7 +99,7 @@
                             <div class="fby-section-tips"></div>
                         </h2>
 
-                    <c:set value="${requestScope.cart}" var="o"/>
+                    <c:set value="${sessionScope.cart}" var="o"/>
                     <c:forEach items="${o.items}" var="i" varStatus="loop">
                         <div class="row justify-content-center mb-3">
                             <div class="col-md-12 col-xl-10">
@@ -164,56 +164,110 @@
                                         <div class="col-12 col-lg-9 col-xl-7">
                                             <div class="card shadow-2-strong card-registration" style=" width: 550px;border-radius: 15px;">
                                                 <div class="card-body p-4 p-md-5">
-
                                                     <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Thông tin khách hàng</h3>
 
-                                                    <form>
-                                                    <div style="top: -20px;">
-                                                        <select class="select form-control-lg">
-                                                            <option value="0" disabled>Chọn thông tin liên lạc</option>
-                                                            <c:set value="${requestScope.listInforAcc}" var="listInf"/>
-                                                            <c:forEach items="${listInf}" var="i">
-                                                                <option value="${i.id}">${i.username}</option>
-                                                            </c:forEach>
-                                                        </select>
-                                                        <label class="form-label select-label">Choose option</label>
-                                                    </div>
+                                                    <!--Phần xử lý select option về thông tin tài khoản-->
+                                                    <c:set value="${requestScope.listInforAcc}" var="listInf"/>
+                                                    <c:if test="${not empty listInf}">
+                                                        <form id="formProccessSelect" action="proccessselect" method="post">
+                                                            <div style="top: -20px;">
+                                                                <select id="proccessSelect" class="select form-control-lg" name="valueSelect" >
+                                                                    <option value="0">Chọn thông tin liên lạc</option>
+                                                                    <c:forEach items="${listInf}" var="i">
+                                                                        <option <c:if test="${i.id eq requestScope.infoAcc.id}">selected</c:if> value="${i.id}">${i.username}</option>
+                                                                    </c:forEach>
+                                                                </select>
+                                                                <label class="form-label select-label">Choose option</label>
+                                                            </div>
+                                                        </form>
+                                                    </c:if>
 
-
-                                                        <div class="row">
-                                                            <div class="col-md-6 mb-4">
-                                                                <div class="form-outline">
-                                                                    <input type="text" id="name" class="form-control form-control-lg" />
-                                                                    <label class="form-label" for="name">Họ và tên</label>
+                                                    <!--Phần xử lý sửa về thông tin tài khoản-->
+                                                    <c:if test="${not empty listInf}">
+                                                        <form action="updateinformation" method="post">
+                                                            <c:set value="${requestScope.infoAcc}" var="infoAcc"/>
+                                                            <input type="text" hidden value="${infoAcc.id}" name="idInfor">
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-4">
+                                                                    <div class="form-outline">
+                                                                        <input type="text" id="name" name="username" value="${infoAcc.username}" class="form-control form-control-lg" required />
+                                                                        <label class="form-label" for="name">Họ và tên</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 mb-4 d-flex align-items-center">
+                                                                    <div class="form-outline">
+                                                                        <input type="date" value="${infoAcc.birthday}" name="birthday" class="form-control" required/>
+                                                                        <label class="form-label" for="birthdayDate">Ngày sinh</label>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6 mb-4 d-flex align-items-center">
-                                                                <div class="form-outline">
-                                                                    <input type="date" class="form-control"/>
-                                                                    <label class="form-label" for="birthdayDate">Ngày sinh</label>
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-4 pb-2">
+                                                                    <div class="form-outline">
+                                                                        <input type="email" id="emailAddress" value="${infoAcc.email}" name="email" class="form-control form-control-lg" required/>
+                                                                        <label class="form-label" for="emailAddress">Email</label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6 mb-4 pb-2">
-                                                                <div class="form-outline">
-                                                                    <input type="email" id="emailAddress" class="form-control form-control-lg" />
-                                                                    <label class="form-label" for="emailAddress">Email</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mb-4 pb-2">
-                                                                <div class="form-outline">
-                                                                    <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
-                                                                    <label class="form-label" for="phoneNumber">Số điện thoại</label>
-                                                                </div>
+                                                                <div class="col-md-6 mb-4 pb-2">
+                                                                    <div class="form-outline">
+                                                                        <input type="tel" id="phoneNumber" value="${infoAcc.phoneNumber}" name="phoneNumber" class="form-control form-control-lg" required
+                                                                               <label class="form-label" for="phoneNumber">Số điện thoại</label>
+                                                                    </div>
 
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="mt-4 pt-2">
-                                                            <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
-                                                        </div>
 
-                                                    </form>
+                                                            <h5 style="color: red">${requestScope.mess}</h5>
+
+                                                            <div class="mt-4 pt-2">
+                                                                <input class="btn btn-primary btn-lg" type="submit" value="Cập nhật thông tin" />
+                                                            </div>
+
+                                                        </form>
+                                                    </c:if>
+
+                                                    <!--Phần xử lý thêm thông tin tài khoản-->
+                                                    <c:if test="${empty listInf}">
+                                                        <form action="insertinformation" method="post">
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-4">
+                                                                    <div class="form-outline">
+                                                                        <input type="text" id="name" name="username" class="form-control form-control-lg" required />
+                                                                        <label class="form-label" for="name">Họ và tên</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 mb-4 d-flex align-items-center">
+                                                                    <div class="form-outline">
+                                                                        <input type="date"  name="birthday" class="form-control" required/>
+                                                                        <label class="form-label" for="birthdayDate">Ngày sinh</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-4 pb-2">
+                                                                    <div class="form-outline">
+                                                                        <input type="email" id="emailAddress" name="email" class="form-control form-control-lg" required/>
+                                                                        <label class="form-label" for="emailAddress">Email</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 mb-4 pb-2">
+                                                                    <div class="form-outline">
+                                                                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg" required
+                                                                               <label class="form-label" for="phoneNumber">Số điện thoại</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <h5 style="color: red">${requestScope.mess}</h5>
+
+                                                            <div class="mt-4 pt-2">
+                                                                <input class="btn btn-primary btn-lg" type="submit" value="Thêm thông tin" />
+                                                            </div>
+
+                                                        </form>
+                                                    </c:if>
+
 
 
                                                 </div>
@@ -307,6 +361,9 @@
                 });
             });
 
+            document.getElementById('proccessSelect').onchange = function () {
+                document.getElementById('formProccessSelect').submit();
+            };
 
 
         </script>

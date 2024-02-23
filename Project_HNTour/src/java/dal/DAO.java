@@ -6,6 +6,7 @@
 package dal;
 
 //import java.sql.Array;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -1270,7 +1271,7 @@ public class DAO extends DBContext {
                 + "  FROM [dbo].[InformationAccounts] where accountId = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, 3);
+            st.setInt(1, accountId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 InformationAccount in = new InformationAccount();
@@ -1288,11 +1289,96 @@ public class DAO extends DBContext {
         return list;
     }
 
+    public boolean updateInformationAccount(
+            int id, String email,
+            String username, String phoneNumber,
+            Date birthday
+    ) {
+        String sql = "UPDATE [dbo].[InformationAccounts]\n"
+                + "   SET [email] = ?\n"
+                + "      ,[username] = ?\n"
+                + "      ,[phoneNumber] = ?\n"
+                + "      ,[birthday] = ?\n"
+                + " WHERE id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, username);
+            st.setString(3, phoneNumber);
+            st.setDate(4, birthday);
+            st.setInt(5, id);
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public InformationAccount getInformationAccountById(int accountId) {
+        String sql = "SELECT TOP (1) [id]\n"
+                + "      ,[email]\n"
+                + "      ,[username]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthday]\n"
+                + "      ,[accountId]\n"
+                + "  FROM [HaNoiTour].[dbo].[InformationAccounts] \n"
+                + "  where accountId = ?\n"
+                + "  Order By [id] DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, accountId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                InformationAccount in = new InformationAccount(
+                        rs.getInt("id"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("phoneNumber"),
+                        rs.getDate("birthday"),
+                        accountId);
+                return in;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+
+    public boolean insertInformationAccount(
+            String email,
+            String username, String phoneNumber,
+            Date birthday, int accountId
+    ) {
+        String sql = "INSERT INTO [dbo].[InformationAccounts]\n"
+                + "           ([email]\n"
+                + "           ,[username]\n"
+                + "           ,[phoneNumber]\n"
+                + "           ,[birthday]\n"
+                + "           ,[accountId])\n"
+                + "     VALUES(?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, username);
+            st.setString(3, phoneNumber);
+            st.setDate(4, birthday);
+            st.setInt(5, accountId);
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         DAO d = new DAO();
-//        List<InformationAccount> list = d.getListInformationByIdAcc(3);
-        List<Tour> list = d.getAllTour();
-            System.out.println(list.get(0).getName());
+        List<Tour> l = d.getTourBySort("asc", "rating");
+        System.out.println(l);
+
     }
 
 }

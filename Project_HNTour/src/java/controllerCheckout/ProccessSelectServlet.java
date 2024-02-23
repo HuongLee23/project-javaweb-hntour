@@ -9,23 +9,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Account;
-import model.Cart;
 import model.InformationAccount;
-import model.Tour;
 
 /**
  *
  * @author hello
  */
-@WebServlet(name = "FillBuyerInformationServlet", urlPatterns = {"/fillinformation"})
-public class FillBuyerInformationServlet extends HttpServlet {
+@WebServlet(name = "ProccessSelectServlet", urlPatterns = {"/proccessselect"})
+public class ProccessSelectServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +41,10 @@ public class FillBuyerInformationServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FillBuyerInformationServlet</title>");
+            out.println("<title>Servlet ProccessSelectServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FillBuyerInformationServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProccessSelectServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,6 +63,7 @@ public class FillBuyerInformationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**
@@ -79,32 +77,29 @@ public class FillBuyerInformationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         DAO dao = new DAO();
-
-        //phần show cart
-        List<Tour> list = dao.getAllTour();
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
-                }
-            }
-        }
-        Cart cart = new Cart(txt, list);
-
-        //Phần show Information 
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-        if (account == null) {
-            request.setAttribute("error", "Bạn chưa đăng nhập!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
+
+        String id_raw = request.getParameter("valueSelect");
+        int id;
+        InformationAccount infoAcc = null;
+
+        try {
+            id = Integer.parseInt(id_raw);
             List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(account.getId());
-            session.setAttribute("cart", cart);
+            for (int i = 0; i < listInformationAccount.size(); i++) {
+                if (listInformationAccount.get(i).getId() == id) {
+                    infoAcc = listInformationAccount.get(i);
+                    break;
+                }
+            }
+
+            request.setAttribute("infoAcc", infoAcc);
             request.setAttribute("listInforAcc", listInformationAccount);
             request.getRequestDispatcher("fillBuyerInformation.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
         }
     }
 

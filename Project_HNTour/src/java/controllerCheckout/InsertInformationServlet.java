@@ -9,23 +9,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
 import java.util.List;
 import model.Account;
-import model.Cart;
 import model.InformationAccount;
-import model.Tour;
 
 /**
  *
  * @author hello
  */
-@WebServlet(name = "FillBuyerInformationServlet", urlPatterns = {"/fillinformation"})
-public class FillBuyerInformationServlet extends HttpServlet {
+@WebServlet(name = "InsertInformationServlet", urlPatterns = {"/insertinformation"})
+public class InsertInformationServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +42,10 @@ public class FillBuyerInformationServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FillBuyerInformationServlet</title>");
+            out.println("<title>Servlet InsertInformationServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FillBuyerInformationServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet InsertInformationServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,6 +64,7 @@ public class FillBuyerInformationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**
@@ -80,32 +79,32 @@ public class FillBuyerInformationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
-
-        //phần show cart
-        List<Tour> list = dao.getAllTour();
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
-                }
-            }
-        }
-        Cart cart = new Cart(txt, list);
-
-        //Phần show Information 
         HttpSession session = request.getSession();
+
+        String email = request.getParameter("email");
+        String username = request.getParameter("username");
+        String birthday_raw = request.getParameter("birthday");
+        String phoneNumber = request.getParameter("phoneNumber");
+        Date birthday;
         Account account = (Account) session.getAttribute("account");
-        if (account == null) {
-            request.setAttribute("error", "Bạn chưa đăng nhập!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
+        try {
+            birthday = Date.valueOf(birthday_raw);
+            boolean result = dao.insertInformationAccount(email, username, phoneNumber, birthday, account.getId());
             List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(account.getId());
-            session.setAttribute("cart", cart);
-            request.setAttribute("listInforAcc", listInformationAccount);
-            request.getRequestDispatcher("fillBuyerInformation.jsp").forward(request, response);
+            InformationAccount infoAcc = dao.getInformationAccountById(account.getId());
+
+            if (result) {
+                request.setAttribute("infoAcc", infoAcc);
+                request.setAttribute("listInforAcc", listInformationAccount);
+                request.setAttribute("mess", "Thêm thông tin thành công");
+            } else {
+                request.setAttribute("mess", "Thêm thông tin không thành công!");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
+
+        request.getRequestDispatcher("fillBuyerInformation.jsp").forward(request, response);
     }
 
     /**
