@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -1004,6 +1005,7 @@ public class DAO extends DBContext {
         return category;
     }
 
+    //lay tour cua supplier do
     public List<Tour> getTourBySupllierID(int supplierId) {
         List<Tour> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) "
@@ -1052,37 +1054,8 @@ public class DAO extends DBContext {
         return list;
     }
 
-    public Tour getTourByID(int id) {
-        String sql = "select * from Tour\n"
-                + "                where id = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                String imageAlbumString = rs.getString("imageAlbum");
-
-                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
-                return new Tour(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("imageMain"),
-                        imageAlbumList,
-                        rs.getTime("intendedTime"),
-                        rs.getDouble("price"),
-                        rs.getString("description"),
-                        rs.getInt("categoryId"),
-                        rs.getInt("version"),
-                        rs.getString("rule"),
-                        rs.getInt("supplierId"),
-                        rs.getBoolean("status")
-                );
-            }
-        } catch (SQLException e) {
-        }
-        return null;
-    }
-
+        
+        
     public void editTour(int id, String name, String imageMain, List<String> imageAlbum, Time intendedTime, String price,
             String description, int categoryId, String rule) {
         String sql = "UPDATE [dbo].[Tour]\n"
@@ -1117,56 +1090,26 @@ public class DAO extends DBContext {
         }
     }
 
-    public List<Tour> getTourBySupplier(int supplierId) {
-        List<Tour> list = new ArrayList<>();
-        String sql = "SELECT Tour.name, Tour.imageMain, Tour.intendedTime, "
-                + "Tour.price, Tour.[description], Category.[name] AS CategoryName, "
-                + "Tour.[rule], Tour.version "
-                + "FROM Tour "
-                + "JOIN Category ON Tour.categoryId = Category.id "
-                + "WHERE Tour.supplierId = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, supplierId);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Tour tour = new Tour();
-                tour.setName(rs.getString("name"));
-                tour.setImageMain(rs.getString("imageMain"));
-                tour.setIntendedTime(rs.getTime("intendedTime"));
-                tour.setPrice(rs.getDouble("price"));
-                tour.setDescription(rs.getString("description"));
-
-                Category category = new Category();
-                category.setName(rs.getString("CategoryName"));
-                tour.setCategoryId(category.getId());
-
-                tour.setRule(rs.getString("rule"));
-                tour.setVersion(rs.getInt("version"));
-                list.add(tour);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
+        
+    //lay tat ca cac schedule cua tour do
     public List<Schedules> getSchedukesById(int Sid) {
         List<Schedules> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) S.[tourId]\n"
-                + "      ,S.[versionId]\n"
-                + "      ,S.[location]\n"
-                + "      ,S.[date]\n"
-                + "      ,S.[description] as [descriptionSchedules]\n"
-                + "  FROM [Schedule] S\n"
-                + "  JOIN [Tour] T ON S.[tourId]= T.[id]\n"
-                + "  Where T.[id]=?;";
+                + "                   ,S.[versionId]\n"
+                + "                     ,S.[location]\n"
+                + "                    ,S.[date]\n"
+                + "                     ,S.[description] as [descriptionSchedules]\n"
+                + "					 ,S.id\n"
+                + "                 FROM [Schedule] S\n"
+                + "                 JOIN [Tour] T ON S.[tourId]= T.[id]\n"
+                + "                Where T.[id]=? ORDER BY [id];";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, Sid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Schedules schedules = new Schedules();
+                schedules.setId(rs.getInt("id"));
                 schedules.setTourId(rs.getInt("tourId"));
                 schedules.setVersionId(rs.getInt("versionId"));
                 schedules.setLocation(rs.getString("location"));
@@ -1346,7 +1289,6 @@ public class DAO extends DBContext {
         return null;
     }
 
-
     public boolean insertInformationAccount(
             String email,
             String username, String phoneNumber,
@@ -1372,6 +1314,232 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
         return false;
+    }
+
+    //lay schedule theo ID    
+    public List<Schedules> getSchedukesById1(int sid) {
+        List<Schedules> list = new ArrayList<>();
+        String sql = "SELECT [tourId], [versionId], [location], [date], [description], [id] "
+                + "FROM [HaNoiTour].[dbo].[Schedule] WHERE id=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, sid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Schedules schedules = new Schedules();
+                schedules.setTourId(rs.getInt("tourId"));
+                schedules.setVersionId(rs.getInt("versionId"));
+                schedules.setLocation(rs.getString("location"));
+                schedules.setDate(rs.getTime("date"));
+                schedules.setDescriptionSchedules(rs.getString("description"));
+                schedules.setId(rs.getInt("id"));
+                list.add(schedules);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    //son
+    public void editTourSchedules(int id, String location, Time date, String descriptionSchedules) {
+        String sql = "UPDATE [dbo].[Schedule]\n"
+                + "SET [location] = ?,\n"
+                + "    [date] = ?,\n"
+                + "    [description] = ?\n"
+                + "WHERE [id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            st.setString(1, location);
+            st.setTime(2, date);
+            st.setString(3, descriptionSchedules);
+            st.setInt(4, id);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle or log the exception appropriately
+        }
+    }
+
+    //son
+    public void insertSchedule(int tourId, String location, Time date, String descriptionSchedules) {
+        String sql = "INSERT INTO [dbo].[Schedule] ([tourId],[versionId],[location], [date], [description]) VALUES (?,?, ?, ?, ?)";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            // Set values for the parameters
+            st.setInt(1, tourId);
+            st.setInt(2, 1);
+            st.setString(3, location);
+            st.setTime(4, date);
+            st.setString(5, descriptionSchedules);
+
+            // Execute the update
+            st.executeUpdate();
+        } catch (SQLException e) {
+            // Log or print the exception for debugging purposes
+            e.printStackTrace();
+        }
+    }
+
+    //add tour
+    public void insertTourWithSchedule(String name, String imageMain, List<String> imageAlbum, Time intendedTime,
+            String price, String description, int categoryId, String rule, int supplierId,
+            List<Schedules> schedules) {
+
+        String tourSql = "INSERT INTO [dbo].[Tour]\n"
+                + "([name]\n"
+                + ",[imageMain]\n"
+                + ",[imageAlbum]\n"
+                + ",[intendedTime]\n"
+                + ",[price]\n"
+                + ",[description]\n"
+                + ",[categoryId]\n"
+                + ",[version]\n"
+                + ",[rule]\n"
+                + ",[supplierId]\n"
+                + ",[status])\n"
+                + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+
+        String scheduleSql = "INSERT INTO [dbo].[Schedule] ([tourId],[versionId],[location], [date], [description]) VALUES (?,?,?,?,?)";
+
+        try {
+
+            try ( PreparedStatement tourStatement = connection.prepareStatement(tourSql, Statement.RETURN_GENERATED_KEYS);  PreparedStatement scheduleStatement = connection.prepareStatement(scheduleSql)) {
+
+                String imageAlbumString = String.join("/splitAlbum/", imageAlbum);
+
+                // Insert Tour
+                tourStatement.setString(1, name);
+                tourStatement.setString(2, imageMain);
+                tourStatement.setString(3, imageAlbumString);
+                tourStatement.setTime(4, intendedTime);
+                tourStatement.setString(5, price);
+                tourStatement.setString(6, description);
+                tourStatement.setInt(7, categoryId);
+                tourStatement.setInt(8, 1);
+                tourStatement.setString(9, rule);
+                tourStatement.setInt(10, supplierId);
+                tourStatement.setInt(11, 1);
+
+                tourStatement.executeUpdate();
+
+                // Retrieve the generated tourId
+                try ( ResultSet generatedKeys = tourStatement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int tourId = generatedKeys.getInt(1);
+
+                        // Insert Schedules
+                        for (Schedules schedule : schedules) {
+                            scheduleStatement.setInt(1, tourId);
+                            scheduleStatement.setInt(2, 1);
+                            scheduleStatement.setString(3, schedule.getLocation());
+                            scheduleStatement.setTime(4, schedule.getDate());
+                            scheduleStatement.setString(5, schedule.getDescriptionSchedules());
+
+                            scheduleStatement.executeUpdate();
+                        }
+                    }
+                }
+
+            }
+
+        } catch (SQLException e) {
+            // Log or print the exception for debugging purposes
+            e.printStackTrace();
+        }
+    }
+
+    //xóa tour
+    public void deleteTour(String id) {
+        String deleteTourSql = "DELETE FROM Tour WHERE id = ?";
+        String deleteScheduleSql = "DELETE FROM Schedule WHERE tourId = ?";
+
+        try {
+
+            try ( PreparedStatement deleteTourStatement = connection.prepareStatement(deleteTourSql);  PreparedStatement deleteScheduleStatement = connection.prepareStatement(deleteScheduleSql)) {
+
+                // Set the tourId parameter for both statements
+                deleteTourStatement.setString(1, id);
+                deleteScheduleStatement.setString(1, id);
+
+                // Execute the delete statements
+                deleteScheduleStatement.executeUpdate();
+                deleteTourStatement.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            // Log or print the exception for debugging purposes
+            e.printStackTrace();
+        }
+    }
+
+    //xóa schedule
+    public void deleteSchedule(String sid) {
+        String sql = "DELETE FROM Schedule WHERE id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, sid);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+
+    public List<Tour> searchByNameSupplier(String txtSearch, int supplierId) {
+        List<Tour> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    T.[id], \n"
+                + "    T.[name],\n"
+                + "    T.[imageMain],\n"
+                + "    T.[imageAlbum],\n"
+                + "    T.[intendedTime], \n"
+                + "    T.[price], \n"
+                + "    T.[description], \n"
+                + "    T.[categoryId],\n"
+                + "    T.[version], \n"
+                + "    T.[rule], \n"
+                + "    T.[supplierId], \n"
+                + "    T.[status] \n"
+                + "FROM \n"
+                + "    [dbo].[Tour] T\n"
+                + "WHERE \n"
+                + "    T.[name] LIKE ? AND\n"
+                + "    T.[supplierId] = ?;";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%" + txtSearch + "%");
+            st.setInt(2, supplierId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String imageAlbumString = rs.getString("imageAlbum");
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
+                list.add(new Tour(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
+                        rs.getTime("intendedTime"),
+                        rs.getDouble("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryId"),
+                        rs.getInt("version"),
+                        rs.getString("rule"),
+                        rs.getInt("supplierId"),
+                        rs.getBoolean("status")
+                // Add missing commas and complete the constructor parameters as needed
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     public static void main(String[] args) {

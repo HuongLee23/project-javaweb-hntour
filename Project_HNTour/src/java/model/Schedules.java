@@ -11,22 +11,32 @@ import java.sql.Time;
  * @author admin
  */
 public class Schedules {
-   
+
+    private int id;
     private int tourId;
     private int versionId;
     private String location;
-    private Time date ;
+    private Time date;
     private String descriptionSchedules;
 
     public Schedules() {
     }
 
-    public Schedules(int tourId, int versionId, String location, Time date, String descriptionSchedules) {
+    public Schedules(int id, int tourId, int versionId, String location, Time date, String descriptionSchedules) {
+        this.id = id;
         this.tourId = tourId;
         this.versionId = versionId;
         this.location = location;
         this.date = date;
         this.descriptionSchedules = descriptionSchedules;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getTourId() {
@@ -69,12 +79,4 @@ public class Schedules {
         this.descriptionSchedules = descriptionSchedules;
     }
 
-    @Override
-    public String toString() {
-        return "Schedules{" + "tourId=" + tourId + ", versionId=" + versionId + ", location=" + location + ", date=" + date + ", descriptionSchedules=" + descriptionSchedules + '}';
-    }
-    
-    
 }
- 
-

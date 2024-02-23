@@ -4,6 +4,12 @@
     Author     : Admin
 --%>
 
+<%-- 
+    Document   : Edit
+    Created on : Oct 20, 2023, 2:43:22 AM
+    Author     : Admin
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -35,71 +41,71 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Edit <b>Product</b></h2>
+                            <h2>Tạo <b>Tour</b></h2>
                         </div>
                         <div class="col-sm-6">
                         </div>
                     </div>
                 </div>
             </div>
+
+            <c:set value="${requestScope.account}" var="a"/>
             <div id="editEmployeeModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form action="edittour" method="post">
+
+                        <form action="addtour" method="post">
+
                             <div class="modal-header">						
-                                <h4 class="modal-title">Edit Product</h4>
+                                <h4 class="modal-title">Tạo tour mới</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div class="modal-body">					
+
+                                <input type="hidden" name="supplierID" value="${a.id}">
+
                                 <div class="form-group">
-                                    <label>ID</label>
-                                    <input value="${tour.id}" name="id" type="text" class="form-control" readonly required>
+                                    <label>Tên</label>
+                                    <input name="name" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Name</label>
-                                    <input value="${tour.name}" name="name" type="text" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>ImageMain</label>
-                                    <img src="${tour.imageMain}" alt="${c.name}" width="200"/>
-                                    <input value="${tour.imageMain}" name="imageMain" type="text" class="form-control" required>
+                                    <label>Ảnh chính</label>
+
+                                    <input name="imageMain" type="text" class="form-control" required>
                                 </div>
 
                                 <div id="imageInputs">
-                                    <label>ImageAlbum</label>
+                                    <label>Album Ảnh</label>
                                     <br>
                                     <!-- Display existing imageAlbum values -->
-                                    <c:forEach var="image" items="${tour.imageAlbum}" varStatus="loop">
-                                        <div class="existing-image">
-                                            <img src="${image}" alt="${c.name}" width="100" onclick="deleteImageInput('${image}')"/>
-                                            <input value="${image}" name="imageAlbum" type="text" class="form-control" required>
-                                            <button type="button" onclick="deleteImageInput('${image}')">Delete</button>
-                                        </div>
-                                    </c:forEach>
+
 
                                     <!-- Dynamic input for adding more imageAlbum values -->
-                                    <button type="button" onclick="addImageInput()">+</button>
+                                    <div class="new-image">
+                                        <img src="" alt="" width="100" />
+                                        <input name="additionalImages" type="text" class="form-control" placeholder="New Image URL">
+                                        <button type="button" onclick="deleteNewImageInput(this)">Xóa</button>
+                                    </div>
+                                    <button type="button" onclick="addNewImageInput()">+</button>
                                 </div>
 
+
+
                                 <script>
-                                    function addImageInput() {
-                                        var imageInputs = document.getElementById('imageInputs');
+                                    function addNewImageInput() {
                                         var newInput = document.createElement('div');
-                                        newInput.className = 'existing-image';
+                                        newInput.className = 'new-image';
 
                                         var img = document.createElement('img');
                                         img.src = '';  // Set a default or leave it empty
                                         img.alt = '';  // Set a default or leave it empty
                                         img.width = 100;
-                                        img.onclick = function () {
-                                            deleteImageInput('', newInput);
-                                        };
                                         newInput.appendChild(img);
 
                                         var input = document.createElement('input');
                                         input.type = 'text';
-                                        input.name = 'imageAlbum';
-                                        input.placeholder = 'Image URL';
+                                        input.name = 'additionalImages';
+                                        input.placeholder = 'New Image URL';
                                         input.className = 'form-control';
                                         newInput.appendChild(input);
 
@@ -107,29 +113,31 @@
                                         deleteButton.type = 'button';
                                         deleteButton.textContent = 'Delete';
                                         deleteButton.onclick = function () {
-                                            deleteImageInput('', newInput);
+                                            deleteNewImageInput(this);
                                         };
                                         newInput.appendChild(deleteButton);
 
-                                        imageInputs.appendChild(newInput);
+                                        document.getElementById('imageInputs').appendChild(newInput);
                                     }
 
-                                    function deleteImageInput(imageUrl, element) {
-                                        var imageInputs = document.getElementById('imageInputs');
+                                    function deleteNewImageInput(button) {
+                                        var newInput = button.parentNode;
+                                        newInput.parentNode.removeChild(newInput);
+                                    }
 
-                                        if (imageUrl !== '') {
-                                            // Handle deletion in the List<String> imageAlbum
-                                            var imageAlbumInput = element.querySelector('input[name="imageAlbum"]');
-                                            var currentImageAlbum = imageAlbumInput.value;
-                                            var updatedImageAlbum = currentImageAlbum.split('/splitAlbum/').filter(function (image) {
-                                                return image !== imageUrl;
-                                            }).join('/splitAlbum/');
+                                    function deleteImageInput(index, imageUrl) {
+                                        // Create a hidden input to mark an existing image for deletion in the backend
+                                        var hiddenInput = document.createElement('input');
+                                        hiddenInput.type = 'hidden';
+                                        hiddenInput.name = 'deletedImages';
+                                        hiddenInput.value = imageUrl;
+                                        document.getElementById('imageInputs').appendChild(hiddenInput);
 
-                                            imageAlbumInput.value = updatedImageAlbum;
+                                        // Handle deletion of existing image in the UI after adding hidden input
+                                        var elements = document.getElementsByName('existingImageAlbum');
+                                        if (elements[index]) {
+                                            elements[index].parentNode.remove();
                                         }
-
-                                        // Handle deletion in the UI
-                                        imageInputs.removeChild(element);
                                     }
                                 </script>
 
@@ -139,25 +147,27 @@
 
 
                                 <div class="form-group">
-                                    <label>IntendedTime</label>
-                                    <input value="${tour.intendedTime}" name="time" type="text" class="form-control" required>
+                                    <label>Tổng thời gian Tour</label>
+                                    <input name="time" type="time" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Price</label>
-                                    <input value="${tour.price}" name="price" type="text" class="form-control" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Description</label>
-                                    <textarea id="describe" name="description" class="form-control" required>${tour.description}</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Rule</label>
-                                    <input value="${tour.rule}" name="rule" type="text" class="form-control" required>
+                                    <label>Giá</label>
+                                    <input  name="price" type="text" class="form-control" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Category</label>
+                                    <label>Miêu tả</label>
+                                    <textarea id="describe" name="description" class="form-control" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Quy Định</label>
+                                    <input name="rule" type="text" class="form-control" required>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label>Thể loại</label>
                                     <select name="category" class="form-select" aria-label="Default select example">
                                         <c:forEach items="${requestScope.listC}" var="c">
                                             <option value="${c.id}">${c.name}</option>
@@ -165,13 +175,72 @@
                                     </select>
                                 </div>
 
+                                <div class="schedules">
+                                    <label>Lịch trình</label>
+
+                                    <table class="table" id="schedulesTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Địa điểm</th>
+                                                <th>Thời gian</th>
+                                                <th>Miêu tả</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${requestScope.schedules}" var="s">
+                                                <tr>
+                                                    <td><input type="text" name="location" value="${s.location}" readonly /></td>
+                                                    <td><input type="time" name="date" value="${s.date}" readonly /></td>
+                                                    <td><input type="text" name="descriptionSchedules" value="${s.descriptionSchedules}" readonly /></td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+
+                                    <div style="cursor: pointer" class="button add_button" onclick="addNewSchedule()">Thêm lịch trình cho Tour</div>
+                                </div>
+
+                                <!-- Container for new schedules -->
+                                <div id="newSchedulesContainer"></div>
+
+                                <script>
+                                    var scheduleCounter = 0;
+
+                                    function addNewSchedule() {
+                                        // Create a new row for the schedule
+                                        var newRow = document.createElement("tr");
+
+                                        // Add cells for each column
+                                        var locationCell = document.createElement("td");
+                                        var dateCell = document.createElement("td");
+                                        var descriptionCell = document.createElement("td");
+
+                                        // Increment the counter for unique names
+                                        scheduleCounter++;
+
+                                        // Add input elements to cells with unique names
+                                        locationCell.innerHTML = '<input type="text" name="locationnew_' + scheduleCounter + '" />';
+                                        dateCell.innerHTML = '<input type="time" name="datenew_' + scheduleCounter + '" />';
+                                        descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew_' + scheduleCounter + '" />';
+
+                                        // Append cells to the new row
+                                        newRow.appendChild(locationCell);
+                                        newRow.appendChild(dateCell);
+                                        newRow.appendChild(descriptionCell);
+
+                                        // Append the new row to the table body
+                                        var tbody = document.getElementById("schedulesTable").getElementsByTagName('tbody')[0];
+                                        tbody.appendChild(newRow);
+                                    }
+                                </script>
 
 
 
-                            </div>
-                            <div class="modal-footer">
-                                <input type="submit" class="btn btn-success" value="Edit">
-                            </div>
+                                <div class="modal-footer">
+                                    <a href="managertourlist" class="btn btn-primary">Trở lại trang quản lý</a>
+                                    <input type="submit" class="btn btn-success" value="Tạo Tour">
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -182,7 +251,7 @@
 
         <script src="js/manager.js" type="text/javascript"></script>
         <script>
-    CKEDITOR.replace('describe');
+                                    CKEDITOR.replace('describe');
         </script>
     </body>
 </html>

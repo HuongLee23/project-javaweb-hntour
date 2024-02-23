@@ -13,6 +13,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Time;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import model.Category;
 import model.Schedules;
@@ -22,8 +25,8 @@ import model.Tour;
  *
  * @author Admin
  */
-@WebServlet(name="LoadTour", urlPatterns={"/loadtour"})
-public class LoadTour extends HttpServlet {
+@WebServlet(name="EditSchedules", urlPatterns={"/editschedule"})
+public class EditSchedules extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +43,10 @@ public class LoadTour extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoadTour</title>");  
+            out.println("<title>Servlet EditSchedules</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoadTour at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet EditSchedules at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,20 +63,14 @@ public class LoadTour extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         
-       DAO dao=new DAO();
-     String id=request.getParameter("tid");
+         DAO dao=new DAO();
+     String id=request.getParameter("sid");
      int idi=Integer.parseInt(id);
-       List<Schedules> schedules=dao.getSchedukesById(idi);
+       List<Schedules> schedules=dao.getSchedukesById1(idi);
        request.setAttribute("schedules", schedules);
        
-     Tour p=dao.getDetail(idi);
-     request.setAttribute("tour", p);
 
-         List<Category> listC=dao.getListCategory();
-        request.setAttribute("listC", listC);
-
-        request.getRequestDispatcher("EditTour.jsp").forward(request, response);
+        request.getRequestDispatcher("EditSchedules.jsp").forward(request, response);
     } 
 
     /** 
@@ -85,9 +82,27 @@ public class LoadTour extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        throws ServletException, IOException {
+    String id_raw = request.getParameter("sid");
+     String tid_raw = request.getParameter("tourId");
+    String location = request.getParameter("location");
+    String date_raw = request.getParameter("date");
+    String des = request.getParameter("descriptionSchedules");
+
+
+   
+        int id = Integer.parseInt(id_raw);
+int tid=Integer.parseInt(tid_raw);
+        // Validation: Check if the date format is correct before parsing
+        Time time = Time.valueOf(LocalTime.parse(date_raw));
+
+        DAO dao = new DAO();
+        dao.editTourSchedules(id, location, time, des);
+
+        // Include the schedule ID in the redirect URL
+        response.sendRedirect("loadtour?tid=" + tid);
+   
+}
 
     /** 
      * Returns a short description of the servlet.

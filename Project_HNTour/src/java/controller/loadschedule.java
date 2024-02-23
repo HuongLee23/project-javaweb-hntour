@@ -14,16 +14,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Category;
 import model.Schedules;
-import model.Tour;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name="LoadTour", urlPatterns={"/loadtour"})
-public class LoadTour extends HttpServlet {
+@WebServlet(name="loadschedule", urlPatterns={"/loadschedule"})
+public class loadschedule extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,10 +38,10 @@ public class LoadTour extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoadTour</title>");  
+            out.println("<title>Servlet loadschedule</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoadTour at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet loadschedule at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,20 +58,14 @@ public class LoadTour extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         
-       DAO dao=new DAO();
-     String id=request.getParameter("tid");
+         DAO dao=new DAO();
+     String id=request.getParameter("sid");
      int idi=Integer.parseInt(id);
-       List<Schedules> schedules=dao.getSchedukesById(idi);
+       List<Schedules> schedules=dao.getSchedukesById1(idi);
        request.setAttribute("schedules", schedules);
        
-     Tour p=dao.getDetail(idi);
-     request.setAttribute("tour", p);
 
-         List<Category> listC=dao.getListCategory();
-        request.setAttribute("listC", listC);
-
-        request.getRequestDispatcher("EditTour.jsp").forward(request, response);
+        request.getRequestDispatcher("EditSchedules.jsp").forward(request, response);
     } 
 
     /** 
