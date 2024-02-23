@@ -877,6 +877,7 @@ public class DAO extends DBContext {
         return category;
     }
 
+    //lay tour cua supplier do
     public List<Tour> getTourBySupllierID(int supplierId) {
         List<Tour> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) "
@@ -926,36 +927,7 @@ public class DAO extends DBContext {
     }
 
     
-    public Tour getTourByID(int id) {
-        String sql = "select * from Tour\n"
-                + "                where id = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                String imageAlbumString = rs.getString("imageAlbum");
-
-                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
-                return new Tour(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("imageMain"),
-                        imageAlbumList,
-                        rs.getTime("intendedTime"),
-                        rs.getString("price"),
-                        rs.getString("description"),
-                        rs.getInt("categoryId"),
-                        rs.getInt("version"),
-                        rs.getString("rule"),
-                        rs.getInt("supplierId"),
-                        rs.getBoolean("status")
-                );
-            }
-        } catch (SQLException e) {
-        }
-        return null;
-    }
+    
 
     //son
     public void editTour(int id, String name, String imageMain, List<String> imageAlbum, Time intendedTime, String price,
@@ -992,42 +964,8 @@ public class DAO extends DBContext {
         }
     }
 
-    
-    public List<Tour> getTourBySupplier(int supplierId) {
-        List<Tour> list = new ArrayList<>();
-        String sql = "SELECT Tour.name, Tour.imageMain, Tour.intendedTime, "
-                + "Tour.price, Tour.[description], Category.[name] AS CategoryName, "
-                + "Tour.[rule], Tour.version "
-                + "FROM Tour "
-                + "JOIN Category ON Tour.categoryId = Category.id "
-                + "WHERE Tour.supplierId = ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, supplierId);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Tour tour = new Tour();
-                tour.setName(rs.getString("name"));
-                tour.setImageMain(rs.getString("imageMain"));
-                tour.setIntendedTime(rs.getTime("intendedTime"));
-                tour.setPrice(rs.getString("price"));
-                tour.setDescription(rs.getString("description"));
 
-                Category category = new Category();
-                category.setName(rs.getString("CategoryName"));
-                tour.setCategoryId(category.getId());
-
-                tour.setRule(rs.getString("rule"));
-                tour.setVersion(rs.getInt("version"));
-                list.add(tour);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    
+    //lay tat ca cac schedule cua tour do
     public List<Schedules> getSchedukesById(int Sid) {
         List<Schedules> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) S.[tourId]\n" +
@@ -1085,7 +1023,7 @@ public class DAO extends DBContext {
     }
 }
 
-   //son    
+   //lay schedule theo ID    
     public List<Schedules> getSchedukesById1(int sid) {
     List<Schedules> list = new ArrayList<>();
     String sql = "SELECT [tourId], [versionId], [location], [date], [description], [id] " +
@@ -1134,42 +1072,7 @@ public class DAO extends DBContext {
 
 
 
-   //son 
-   public void insertTour(String name, String imageMain, List<String> imageAlbum, Time intendedTime, String price,
-                       String description, int categoryId, String rule, int supplierId) {
-    String sql = "INSERT INTO [dbo].[Tour]\n" +
-            "([name]\n" +
-            ",[imageMain]\n" +
-            ",[imageAlbum]\n" +
-            ",[intendedTime]\n" +
-            ",[price]\n" +
-            ",[description]\n" +
-            ",[categoryId]\n" +
-            ",[version]\n" +
-            ",[rule]\n" +
-            ",[supplierId]\n" +
-            ",[status])\n" +
-            "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-    try (PreparedStatement st = connection.prepareStatement(sql)) {
-        // Assuming imageAlbum is a List of Strings
-        String imageAlbumString = String.join("/splitAlbum/", imageAlbum);
-        st.setString(1, name);
-        st.setString(2, imageMain);
-        st.setString(3, imageAlbumString);
-        st.setTime(4, intendedTime);
-        st.setString(5, price);
-        st.setString(6, description);
-        st.setInt(7, categoryId);
-        st.setInt(8, 1); 
-        st.setString(9, rule);
-        st.setInt(10, supplierId);
-        st.setInt(11, 1); 
-        st.executeUpdate();
-    } catch (SQLException e) {
-        // Log or print the exception for debugging purposes
-        e.printStackTrace();
-    }
-}
+   
 
    //son
    public void insertSchedule(int tourId, String location, Time date, String descriptionSchedules) {
@@ -1191,6 +1094,7 @@ st.setInt(2, 1);
     }
 }
    
+   //add tour
   public void insertTourWithSchedule(String name, String imageMain, List<String> imageAlbum, Time intendedTime,
                                    String price, String description, int categoryId, String rule, int supplierId,
                                    List<Schedules> schedules) {
@@ -1231,13 +1135,7 @@ st.setInt(2, 1);
             tourStatement.setInt(10, supplierId);
             tourStatement.setInt(11, 1);
 
-            // Execute the insert for tour
-            int affectedRows = tourStatement.executeUpdate();
-
-            if (affectedRows == 0) {
-                // If no rows were affected, the insert failed
-                throw new SQLException("Creating tour failed, no rows affected.");
-            }
+            tourStatement.executeUpdate();
 
             // Retrieve the generated tourId
             try (ResultSet generatedKeys = tourStatement.getGeneratedKeys()) {
@@ -1252,7 +1150,6 @@ st.setInt(2, 1);
                         scheduleStatement.setTime(4, schedule.getDate());
                         scheduleStatement.setString(5, schedule.getDescriptionSchedules());
 
-                        // Execute the insert for schedule
                         scheduleStatement.executeUpdate();
                     }
                 } 
@@ -1266,6 +1163,7 @@ st.setInt(2, 1);
     }
     }
    
+  //xóa tour
    public void deleteTour(String id) {
     String deleteTourSql = "DELETE FROM Tour WHERE id = ?";
     String deleteScheduleSql = "DELETE FROM Schedule WHERE tourId = ?";
@@ -1290,6 +1188,7 @@ st.setInt(2, 1);
     }
 }
 
+   //xóa schedule
    public void deleteSchedule(String sid) {
     String sql = "DELETE FROM Schedule WHERE id = ?";
     

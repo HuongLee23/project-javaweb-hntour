@@ -67,7 +67,7 @@ public class LoadTour extends HttpServlet {
        List<Schedules> schedules=dao.getSchedukesById(idi);
        request.setAttribute("schedules", schedules);
        
-     Tour p=dao.getTourByID(idi);
+     Tour p=dao.getDetail(idi);
      request.setAttribute("tour", p);
 
          List<Category> listC=dao.getListCategory();
