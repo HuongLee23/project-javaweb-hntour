@@ -6,20 +6,26 @@
 package dal;
 
 import java.sql.Array;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import model.Account;
+import model.Cart;
 import model.Category;
 import model.Feedback;
 import model.ImageAlbum;
+import model.InformationAccount;
+import model.Item;
 import model.Schedules;
 import model.Tour;
+import model.Voucher;
 
 /**
  *
@@ -237,7 +243,7 @@ public class DAO extends DBContext {
                         rs.getString("imageMain"),
                         imageAlbumList,
                         rs.getTime("intendedTime"),
-                        rs.getString("price"),
+                        rs.getDouble("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
@@ -295,7 +301,7 @@ public class DAO extends DBContext {
                         rs.getString("imageMain"),
                         imageAlbumList,
                         rs.getTime("intendedTime"),
-                        rs.getString("price"),
+                        rs.getDouble("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
@@ -342,7 +348,7 @@ public class DAO extends DBContext {
                         rs.getString("imageMain"),
                         imageAlbumList,
                         rs.getTime("intendedTime"),
-                        rs.getString("price"),
+                        rs.getDouble("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
@@ -395,7 +401,7 @@ public class DAO extends DBContext {
                             rs.getString("imageMain"),
                             imageAlbumList,
                             rs.getTime("intendedTime"),
-                            rs.getString("price"),
+                            rs.getDouble("price"),
                             rs.getString("description"),
                             rs.getInt("categoryId"),
                             rs.getInt("version"),
@@ -474,7 +480,7 @@ public class DAO extends DBContext {
 //                        rs.getString("name"),
 //                        rs.getInt("imageId"),
 //                        rs.getTime("intendedTime"),
-//                        rs.getString("price"),
+//                        rs.getDouble("price"),
 //                        rs.getString("description"),
 //                        rs.getInt("categoryId"),
 //                        rs.getInt("version"),
@@ -516,7 +522,7 @@ public class DAO extends DBContext {
 //                        rs.getString("name"),
 //                        rs.getInt("imageId"),
 //                        rs.getTime("intendedTime"),
-//                        rs.getString("price"),
+//                        rs.getDouble("price"),
 //                        rs.getString("description"),
 //                        rs.getInt("categoryId"),
 //                        rs.getInt("version"),
@@ -558,7 +564,7 @@ public class DAO extends DBContext {
 //                        rs.getString("name"),
 //                        rs.getInt("imageId"),
 //                        rs.getTime("intendedTime"),
-//                        rs.getString("price"),
+//                        rs.getDouble("price"),
 //                        rs.getString("description"),
 //                        rs.getInt("categoryId"),
 //                        rs.getInt("version"),
@@ -622,7 +628,7 @@ public class DAO extends DBContext {
                         rs.getString("imageMain"),
                         imageAlbumList,
                         rs.getTime("intendedTime"),
-                        rs.getString("price"),
+                        rs.getDouble("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
@@ -666,7 +672,7 @@ public class DAO extends DBContext {
                         rs.getString("imageMain"),
                         imageAlbumList,
                         rs.getTime("intendedTime"),
-                        rs.getString("price"),
+                        rs.getDouble("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
@@ -710,7 +716,7 @@ public class DAO extends DBContext {
                         rs.getString("imageMain"),
                         imageAlbumList,
                         rs.getTime("intendedTime"),
-                        rs.getString("price"),
+                        rs.getDouble("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
@@ -771,7 +777,7 @@ public class DAO extends DBContext {
                     rs.getString("imageMain"),
                     imageAlbumList,
                     rs.getTime("intendedTime"),
-                    rs.getString("price"),
+                    rs.getDouble("price"),
                     rs.getString("description"),
                     rs.getInt("categoryId"),
                     rs.getInt("version"),
@@ -839,7 +845,7 @@ public class DAO extends DBContext {
                         rs.getString("imageMain"),
                         imageAlbumList,
                         rs.getTime("intendedTime"),
-                        rs.getString("price"),
+                        rs.getDouble("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
@@ -910,7 +916,7 @@ public class DAO extends DBContext {
                         rs.getString("imageMain"),
                         imageAlbumList,
                         rs.getTime("intendedTime"),
-                        rs.getString("price"),
+                        rs.getDouble("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
@@ -1202,6 +1208,7 @@ st.setInt(2, 1);
     }
 }
    
+   //search tour on the manager tour list
    public List<Tour> searchByNameSupplier(String txtSearch,int supplierId) {
         List<Tour> list = new ArrayList<>();
         String sql = "SELECT \n" +
@@ -1239,7 +1246,7 @@ st.setInt(2, 1);
                         rs.getString("imageMain"),
                         imageAlbumList,
                         rs.getTime("intendedTime"),
-                        rs.getString("price"),
+                        rs.getDouble("price"),
                         rs.getString("description"),
                         rs.getInt("categoryId"),
                         rs.getInt("version"),
@@ -1256,6 +1263,173 @@ st.setInt(2, 1);
         return list;
     }
    
+   
+   // Chưa hoàn thiện xong phần checkout
+    public void addOrder(Account a, Cart cart, Voucher v) {
+        LocalDate curDate = LocalDate.now();
+        String date = curDate.toString();
+        try {
+            String sql = "INSERT INTO [dbo].[Order]\n"
+                    + "           ([accId]\n"
+                    + "           ,[date]\n"
+                    + "           ,[totalPrice]\n"
+                    + "           ,[voucherId])\n"
+                    + "     VALUES\n"
+                    + "           ( ?, ?, ?, ?)";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, a.getId());
+            st.setString(2, date);
+            st.setDouble(3, cart.getTotalMoney());
+            st.setInt(4, v.getId());
+            st.executeUpdate();
+
+            String sql1 = "SELECT top(1) [id]\n"
+                    + "      ,[accId]\n"
+                    + "      ,[date]\n"
+                    + "      ,[totalPrice]\n"
+                    + "      ,[voucherId]\n"
+                    + "  FROM [dbo].[Order] where accId = ? \n"
+                    + "  order by id desc";
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            st1.setInt(1, a.getId());
+            ResultSet rs = st1.executeQuery();
+
+            if (rs.next()) {
+                int oid = rs.getInt("id");
+                for (Item i : cart.getItems()) {
+                    String sql2 = "INSERT INTO [dbo].[OrderDetail]\n"
+                            + "           ([orderId]\n"
+                            + "           ,[tourId]\n"
+                            + "           ,[quantity]\n"
+                            + "           ,[price]\n"
+                            + "           ,[versionId])\n"
+                            + "     VALUES( ?, ?, ?, ?, ?)";
+                    PreparedStatement st2 = connection.prepareStatement(sql2);
+                    st2.setInt(1, oid);
+                    st2.setInt(2, i.getTour().getId());
+                    st2.setInt(3, i.getQuantity());
+                    st2.setDouble(4, i.getPrice());
+                    st2.setInt(5, v.getId());
+                    st2.executeUpdate();
+                }
+
+            }
+        } catch (SQLException e) {
+        }
+    }
+
+    public List<InformationAccount> getListInformationByIdAcc(int accountId) {
+        List<InformationAccount> list = new ArrayList<>();
+        String sql = "SELECT [id]\n"
+                + "      ,[email]\n"
+                + "      ,[username]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthday]\n"
+                + "      ,[accountId]\n"
+                + "  FROM [dbo].[InformationAccounts] where accountId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, accountId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                InformationAccount in = new InformationAccount();
+in.setId(rs.getInt("id"));
+                in.setEmail(rs.getString("email"));
+                in.setUsername(rs.getString("username"));
+                in.setPhoneNumber(rs.getString("phoneNumber"));
+                in.setBirthday(rs.getDate("birthday"));
+                in.setAccountId(rs.getInt("accountId"));
+                list.add(in);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public boolean updateInformationAccount(
+            int id, String email,
+            String username, String phoneNumber,
+            Date birthday
+    ) {
+        String sql = "UPDATE [dbo].[InformationAccounts]\n"
+                + "   SET [email] = ?\n"
+                + "      ,[username] = ?\n"
+                + "      ,[phoneNumber] = ?\n"
+                + "      ,[birthday] = ?\n"
+                + " WHERE id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, username);
+            st.setString(3, phoneNumber);
+            st.setDate(4, birthday);
+            st.setInt(5, id);
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public InformationAccount getInformationAccountById(int accountId) {
+        String sql = "SELECT TOP (1) [id]\n"
+                + "      ,[email]\n"
+                + "      ,[username]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[birthday]\n"
+                + "      ,[accountId]\n"
+                + "  FROM [HaNoiTour].[dbo].[InformationAccounts] \n"
+                + "  where accountId = ?\n"
+                + "  Order By [id] DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, accountId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                InformationAccount in = new InformationAccount(
+                        rs.getInt("id"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("phoneNumber"),
+                        rs.getDate("birthday"),
+                        accountId);
+                return in;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public boolean insertInformationAccount(
+            String email,
+            String username, String phoneNumber,
+            Date birthday, int accountId
+    ) {
+        String sql = "INSERT INTO [dbo].[InformationAccounts]\n"
+                + "           ([email]\n"
+                + "           ,[username]\n"
+                + "           ,[phoneNumber]\n"
+                + "           ,[birthday]\n"
+                + "           ,[accountId])\n"
++ "     VALUES(?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, username);
+            st.setString(3, phoneNumber);
+            st.setDate(4, birthday);
+            st.setInt(5, accountId);
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
    
    
     public static void main(String[] args) {
