@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -79,35 +80,32 @@ public class InsertInformationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
-//        HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 
-        String idAccount_raw = request.getParameter("idAccount");
         String email = request.getParameter("email");
         String username = request.getParameter("username");
         String birthday_raw = request.getParameter("birthday");
         String phoneNumber = request.getParameter("phoneNumber");
         Date birthday;
-
-        int idAccount;
+        Account account = (Account) session.getAttribute("account");
         try {
-            idAccount = Integer.parseInt(idAccount_raw);
             birthday = Date.valueOf(birthday_raw);
-            boolean result = dao.insertInformationAccount(email, username, phoneNumber, birthday, idAccount);
-            List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(idAccount);
-            InformationAccount infoAcc = dao.getInformationAccountById(idAccount);
+            boolean result = dao.insertInformationAccount(email, username, phoneNumber, birthday, account.getId());
+            List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(account.getId());
+            InformationAccount infoAcc = dao.getInformationAccountById(account.getId());
 
             if (result) {
+                request.setAttribute("infoAcc", infoAcc);
+                request.setAttribute("listInforAcc", listInformationAccount);
                 request.setAttribute("mess", "Thêm thông tin thành công");
             } else {
                 request.setAttribute("mess", "Thêm thông tin không thành công!");
             }
-            request.setAttribute("infoAcc", infoAcc);
-            request.setAttribute("listInforAcc", listInformationAccount);
-            request.getRequestDispatcher("fillBuyerInformation.jsp").forward(request, response);
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
 
+        request.getRequestDispatcher("fillBuyerInformation.jsp").forward(request, response);
     }
 
     /**
@@ -121,3 +119,4 @@ public class InsertInformationServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+

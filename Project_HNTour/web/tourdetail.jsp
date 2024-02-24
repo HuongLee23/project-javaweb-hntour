@@ -16,7 +16,7 @@
         <title>Hà Nội Tour</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="Travelix Project">
+        <meta name="description" content="Ha Noi Tour">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
 
@@ -152,7 +152,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <button class="button search_button">search<span></span><span></span><span></span></button>
+                                        <button class="button search_button">tìm kiếm<span></span><span></span><span></span></button>
                                     </form>
 
                                 </div>
@@ -187,12 +187,16 @@
                                         </div>
                                         <div class="hotel_location"></div>
                                     </div>
-                                    <div class="hotel_title_button ml-lg-auto text-lg-right">
-                                        <div class="button book_button trans_200"><a href="#">book<span></span><span></span><span></span></a></div>
-                                        <div class="hotel_map_link_container">
-                                            <div class="hotel_map_link">See Location on Map</div>
-                                        </div>
+                                    <div style="display: flex;" class="hotel_title_button ml-lg-auto text-lg-right">
+                                        <div class="button book_button trans_200 book_button_buy"><a href="#">Mua ngay<span></span><span></span><span></span></a></div>
+                                        <form id="myForm" action="additem" method="post">
+                                            <div class="button book_button trans_200 book_button_add_cart" onclick="submitForm()"><a href="#">Thêm vào giỏ hàng</a></div>
+                                            <input type="hidden" name="id" value="${detail.id}">
+                                            <input type="hidden" name="num" value="1">
+                                        </form>
+
                                     </div>
+
                                 </div>
 
                                 <!-- Listing Image -->
@@ -278,14 +282,14 @@
 
                                 <!-- Schedules Section -->
                                 <div class="schedules">
-                                    <h2>Schedules</h2>
+                                    <h2>Lịch trình chuyến đi</h2>
                                     <table class="table"> 
 
                                         <thead>
                                             <tr>
-                                                <th>Location</th>
-                                                <th>Date</th>
-                                                <th>Description</th>
+                                                <th>Địa điểm</th>
+                                                <th>Thời gian</th>
+                                                <th>Mô tả</th>
 
                                             </tr>
                                         </thead>
@@ -322,19 +326,18 @@
                                             <div class="col-lg-2">
                                                 <div class="room_image"><img src="${o.imageMain}" alt="https://unsplash.com/@grovemade"></div>
                                             </div>
-                                            <div class="col-lg-7">
+                                            <div class="col-lg-6">
                                                 <div class="room_content">
                                                     <div class="room_title"><a href="detail?tid=${o.id}">${o.name}</a></div>
                                                     <div class="room_price"><fmt:formatNumber value="${o.price}" pattern="###,###"/>VNÐ</div>
-                                                    <div class="room_text">Time: ${o.intendedTime}</div>
+                                                    <div class="room_text">Thời gian dự kiến: ${o.intendedTime}</div>
 
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3 text-lg-right">
+                                            <div class="col-lg-4 text-lg-right">
                                                 <div class="room_button">
-                                                    <div class="button book_button trans_200"><a href="#">book<span></span><span></span><span></span></a></div>
-                                                    <div class="button book_button"><a href="detail?tid=${o.id}">Detail<span></span><span></span><span></span></a></div>
-
+                                                    <div class="button book_button_book_another book_button trans_200"><a href="#">Mua ngay</a></div>
+                                                    <div class="button book_button_detail_another book_button"><a href="detail?tid=${o.id}">Xem chi tiết</a></div>
                                                 </div>
 
                                             </div>
@@ -346,10 +349,10 @@
 
                                 </div>
                             </c:forEach>
-                            <!-- Reviews -->
 
+                            <!-- Reviews -->
                             <div class="reviews">
-                                <div class="reviews_title">reviews</div>
+                                <div class="reviews_title">Đánh giá</div>
                                 <div class="reviews_container">
                                     <c:forEach items="${requestScope.feedback}" var="b"> 
                                         <!-- Review -->
@@ -358,108 +361,117 @@
                                                 <div class="col-lg-1">
                                                     <div class="review_image">
                                                         <c:if test="${b.avatarAc != null}">
-                                                        <img src="${b.avatarAc}" alt="Image by Andrew Robles">
-                                                    </c:if>
-                                                    <c:if test="${b.avatarAc == null}">
-                                                        <img  src="https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain" alt="">
-                                                    </c:if>
+                                                            <img src="${b.avatarAc}" alt="">
+                                                        </c:if>
+                                                        <c:if test="${b.avatarAc == null}">
+                                                            <img  src="https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain" alt="">
+                                                        </c:if>
                                                     </div>
-                                                    <div class="review_name">${b.accName}</div>
                                                 </div>
-
-                                            </div>
-                                            <div class="col-lg-11">
-                                                <div class="review_content">
-                                                    <div class="review_title_container">
-                                                        <div class="review_title"></div>
-                                                        <div class="review_rating">${b.rating}</div>
+                                                <div class="col-lg-11">
+                                                    <div class="review_content">
+                                                        <div class="review_title_container">
+                                                            <div class="review_title">${b.accName}</div>
+                                                            <div class="review_rating">${b.rating}</div>
+                                                        </div>
+                                                        <div class="review_text">
+                                                            <p>${b.comment}</p>
+                                                        </div>
+                                                        <!--<div class="review_name">Christinne Smith</div>-->
+                                                        <div class="review_date">12 November 2017</div>
                                                     </div>
-                                                    <div class="review_text">
-                                                        <p>${b.comment}</p>
-                                                    </div>
-                                                    
-
                                                 </div>
                                             </div>
                                         </div>
-                                   </c:forEach>
+                                    </c:forEach>
                                 </div>
                             </div>
-                            <br/>
-                    <!-- Comment Form -->
-                    <c:if  test="${sessionScope.account  != null}"> 
-                                <div class="comment_form">
-                                    <form action="addfeeback" method="post">
-                                        <!-- Input for Comment -->
-                                        <div class="form-group">
-                                            <label for="comment">Your Comment:</label>
-                                            <textarea class="form-control" id="comment" name="comment" rows="3" ></textarea>
-                                        </div>
-                                        <!-- Input for Rating (Assuming a 5-star system) -->
-                                        <div class="form-group">
-                                            <label for="rating">Your Rating:</label>
-                                            <select class="form-control" id="rating" name="rating">
-                                                <option value="1">1 star</option>
-                                                <option value="2">2 stars</option>
-                                                <option value="3">3 stars</option>
-                                                <option value="4">4 stars</option>
-                                                <option value="5">5 stars</option>
-                                            </select>
-                                        </div>
-                             
-                                        <!-- Submit Button -->
-                                        <button type="submit" style="background: #fa9e1b; border:0px; float: right " class="btn btn-primary">Submit Comment</button>
-                                    </form>
-                                </div>
-                    </c:if>
-                            <!-- Location on Map -->
-                                
-                            <div class="location_on_map">
-                                <div class="location_on_map_title">location on map</div>
+                        </div>
 
-                                <!-- Google Map -->
 
-                                <div class="travelix_map">
-                                    <div id="google_map" class="google_map">
-                                        <div class="map_container">
-                                            <div id="map"></div>
-                                        </div>
+
+
+
+                        <!-- Comment Form -->
+                        <c:if  test="${sessionScope.account  != null}"> 
+                            <div class="comment_form">
+                                <form action="addfeeback" method="post">
+                                    <!-- Input for Comment -->
+                                    <div class="form-group">
+                                        <label for="comment">Your Comment:</label>
+                                        <textarea class="form-control" id="comment" name="comment" rows="3" ></textarea>
+                                    </div>
+                                    <!-- Input for Rating (Assuming a 5-star system) -->
+                                    <div class="form-group">
+                                        <label for="rating">Your Rating:</label>
+                                        <select class="form-control" id="rating" name="rating">
+                                            <option value="1">1 star</option>
+                                            <option value="2">2 stars</option>
+                                            <option value="3">3 stars</option>
+                                            <option value="4">4 stars</option>
+                                            <option value="5">5 stars</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <button type="submit" style="background: #fa9e1b; border:0px; float: right " class="btn btn-primary">Submit Comment</button>
+                                </form>
+                            </div>
+                        </c:if>
+                        <!-- Location on Map -->
+
+                        <div class="location_on_map">
+                            <div class="location_on_map_title">location on map</div>
+
+                            <!-- Google Map -->
+
+                            <div class="travelix_map">
+                                <div id="google_map" class="google_map">
+                                    <div class="map_container">
+                                        <div id="map"></div>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
                     </div>
                 </div>
-            </div>		
-        </div>
-        <!-- Footer -->
-
-        <jsp:include page="footer.jsp"></jsp:include>
-
+            </div>
+        </div>		
     </div>
+    <!-- Footer -->
 
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="styles/bootstrap4/popper.js"></script>
-    <script src="styles/bootstrap4/bootstrap.min.js"></script>
-    <script src="plugins/greensock/TweenMax.min.js"></script>
-    <script src="plugins/greensock/TimelineMax.min.js"></script>
-    <script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-    <script src="plugins/greensock/animation.gsap.min.js"></script>
-    <script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-    <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="plugins/easing/easing.js"></script>
-    <script src="plugins/parallax-js-master/parallax.min.js"></script>
-    <script src="js/about_custom.js"></script>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="styles/bootstrap4/popper.js"></script>
-    <script src="styles/bootstrap4/bootstrap.min.js"></script>
-    <script src="plugins/easing/easing.js"></script>
-    <script src="plugins/parallax-js-master/parallax.min.js"></script>
-    <script src="plugins/colorbox/jquery.colorbox-min.js"></script>
-    <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
-    <script src="js/single_listing_custom.js"></script>
+    <jsp:include page="footer.jsp"></jsp:include>
+
+</div>
+
+<script>
+    function submitForm() {
+        document.getElementById("myForm").submit();
+    }
+</script>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="styles/bootstrap4/popper.js"></script>
+<script src="styles/bootstrap4/bootstrap.min.js"></script>
+<script src="plugins/greensock/TweenMax.min.js"></script>
+<script src="plugins/greensock/TimelineMax.min.js"></script>
+<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="plugins/greensock/animation.gsap.min.js"></script>
+<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="plugins/easing/easing.js"></script>
+<script src="plugins/parallax-js-master/parallax.min.js"></script>
+<script src="js/about_custom.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="styles/bootstrap4/popper.js"></script>
+<script src="styles/bootstrap4/bootstrap.min.js"></script>
+<script src="plugins/easing/easing.js"></script>
+<script src="plugins/parallax-js-master/parallax.min.js"></script>
+<script src="plugins/colorbox/jquery.colorbox-min.js"></script>
+<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+<script src="js/single_listing_custom.js"></script>
 </body>
 
 </html>

@@ -11,12 +11,12 @@ import java.sql.Time;
  * @author admin
  */
 public class Schedules {
-    
+
     private int id;
     private int tourId;
     private int versionId;
     private String location;
-    private Time date ;
+    private Time date;
     private String descriptionSchedules;
 
     public Schedules() {
@@ -79,9 +79,4 @@ public class Schedules {
         this.descriptionSchedules = descriptionSchedules;
     }
 
-    
-    
-    
 }
- 
-

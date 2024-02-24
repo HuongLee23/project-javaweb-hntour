@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -6,10 +7,9 @@ package model;
 
 /**
  *
- * @author Admin
+ * @author hello
  */
-
-    public class Item {
+public class Item {
     private Tour tour;
     private int quantity;
     private double price;
@@ -49,5 +49,4 @@ package model;
 
    
 }
-
 

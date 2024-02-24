@@ -6,6 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Ha Noi Tour">
         <title>Hà Nội Tour</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -19,7 +20,7 @@
 
                 <div style="height: 420px;" class="login__screen login__authenticate">
                     <div class="login__logo">
-                        <a href="./home.jsp">
+                        <a href="home">
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>

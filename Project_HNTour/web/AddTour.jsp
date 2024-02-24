@@ -48,22 +48,22 @@
                     </div>
                 </div>
             </div>
-            
+
             <c:set value="${requestScope.account}" var="a"/>
             <div id="editEmployeeModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        
+
                         <form action="addtour" method="post">
-                            
+
                             <div class="modal-header">						
                                 <h4 class="modal-title">Tạo tour mới</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div class="modal-body">					
-                            
-                             <input type="hidden" name="supplierID" value="${a.id}">
-                                
+
+                                <input type="hidden" name="supplierID" value="${a.id}">
+
                                 <div class="form-group">
                                     <label>Tên</label>
                                     <input name="name" type="text" class="form-control" required>
@@ -78,7 +78,7 @@
                                     <label>Album Ảnh</label>
                                     <br>
                                     <!-- Display existing imageAlbum values -->
-                                   
+
 
                                     <!-- Dynamic input for adding more imageAlbum values -->
                                     <div class="new-image">
@@ -164,82 +164,83 @@
                                     <input name="rule" type="text" class="form-control" required>
                                 </div>
 
-                                
-                               
-                               <div class="form-group">
-                                <label>Thể loại</label>
-                                <select name="category" class="form-select" aria-label="Default select example">
-                                    <c:forEach items="${requestScope.listC}" var="c">
-                                        <option value="${c.id}">${c.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-
- <div class="schedules">
-    <label>Lịch trình</label>
-
-    <table class="table" id="schedulesTable">
-        <thead>
-            <tr>
-                <th>Địa điểm</th>
-                <th>Thời gian</th>
-                <th>Miêu tả</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${requestScope.schedules}" var="s">
-                <tr>
-                    <td><input type="text" name="location" value="${s.location}" readonly /></td>
-                    <td><input type="time" name="date" value="${s.date}" readonly /></td>
-                    <td><input type="text" name="descriptionSchedules" value="${s.descriptionSchedules}" readonly /></td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-
-    <div style="cursor: pointer" class="button add_button" onclick="addNewSchedule()">Thêm lịch trình cho Tour</div>
-</div>
-
-<!-- Container for new schedules -->
-<div id="newSchedulesContainer"></div>
-
-<script>
-    var scheduleCounter = 0;
-
-    function addNewSchedule() {
-        // Create a new row for the schedule
-        var newRow = document.createElement("tr");
-
-        // Add cells for each column
-        var locationCell = document.createElement("td");
-        var dateCell = document.createElement("td");
-        var descriptionCell = document.createElement("td");
-
-        // Increment the counter for unique names
-        scheduleCounter++;
-
-        // Add input elements to cells with unique names
-        locationCell.innerHTML = '<input type="text" name="locationnew_' + scheduleCounter + '" />';
-        dateCell.innerHTML = '<input type="time" name="datenew_' + scheduleCounter + '" />';
-        descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew_' + scheduleCounter + '" />';
-
-        // Append cells to the new row
-        newRow.appendChild(locationCell);
-        newRow.appendChild(dateCell);
-        newRow.appendChild(descriptionCell);
-
-        // Append the new row to the table body
-        var tbody = document.getElementById("schedulesTable").getElementsByTagName('tbody')[0];
-        tbody.appendChild(newRow);
-    }
-</script>
 
 
-                           
-                            <div class="modal-footer">
-                                <input type="submit" class="btn btn-success" value="Tạo Tour">
-                            </div>
+                                <div class="form-group">
+                                    <label>Thể loại</label>
+                                    <select name="category" class="form-select" aria-label="Default select example">
+                                        <c:forEach items="${requestScope.listC}" var="c">
+                                            <option value="${c.id}">${c.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+
+                                <div class="schedules">
+                                    <label>Lịch trình</label>
+
+                                    <table class="table" id="schedulesTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Địa điểm</th>
+                                                <th>Thời gian</th>
+                                                <th>Miêu tả</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${requestScope.schedules}" var="s">
+                                                <tr>
+                                                    <td><input type="text" name="location" value="${s.location}" readonly /></td>
+                                                    <td><input type="time" name="date" value="${s.date}" readonly /></td>
+                                                    <td><input type="text" name="descriptionSchedules" value="${s.descriptionSchedules}" readonly /></td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+
+                                    <div style="cursor: pointer" class="button add_button" onclick="addNewSchedule()">Thêm lịch trình cho Tour</div>
+                                </div>
+
+                                <!-- Container for new schedules -->
+                                <div id="newSchedulesContainer"></div>
+
+                                <script>
+                                    var scheduleCounter = 0;
+
+                                    function addNewSchedule() {
+                                        // Create a new row for the schedule
+                                        var newRow = document.createElement("tr");
+
+                                        // Add cells for each column
+                                        var locationCell = document.createElement("td");
+                                        var dateCell = document.createElement("td");
+                                        var descriptionCell = document.createElement("td");
+
+                                        // Increment the counter for unique names
+                                        scheduleCounter++;
+
+                                        // Add input elements to cells with unique names
+                                        locationCell.innerHTML = '<input type="text" name="locationnew_' + scheduleCounter + '" />';
+                                        dateCell.innerHTML = '<input type="time" name="datenew_' + scheduleCounter + '" />';
+                                        descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew_' + scheduleCounter + '" />';
+
+                                        // Append cells to the new row
+                                        newRow.appendChild(locationCell);
+                                        newRow.appendChild(dateCell);
+                                        newRow.appendChild(descriptionCell);
+
+                                        // Append the new row to the table body
+                                        var tbody = document.getElementById("schedulesTable").getElementsByTagName('tbody')[0];
+                                        tbody.appendChild(newRow);
+                                    }
+                                </script>
+
+
+
+                                <div class="modal-footer">
+                                    <a href="managertourlist" class="btn btn-primary">Trở lại trang quản lý</a>
+                                    <input type="submit" class="btn btn-success" value="Tạo Tour">
+                                </div>
                         </form>
                     </div>
                 </div>

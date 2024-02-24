@@ -102,22 +102,27 @@ public class SendEmailServlet extends HttpServlet {
                 }
             } else if (role == 2) {
 
-                //Check xem tài khoản đã đăng ký hay chưa để cho phép mở tài khoản
-                if (checkExistAccount) {
-                    request.setAttribute("error", "Tài khoản này đã đăng ký!");
-                    request.getRequestDispatcher("register.jsp").forward(request, response);
+                if (registerPass.equals(registerRepass)) {
+                    //Check xem tài khoản đã đăng ký hay chưa để cho phép mở tài khoản
+                    if (checkExistAccount) {
+                        request.setAttribute("error", "Tài khoản này đã đăng ký!");
+                        request.getRequestDispatcher("register.jsp").forward(request, response);
+                    } else {
+                        messageEmail = "Hà Nội Tour đã nhận được yêu cầu của Quý khách về việc xác minh mã để mở tài khoản.";
+                        send.sendMailForCusBuy(sendEmail, randomNumber, messageEmail);
+                        message = "Quý khách vui lòng nhập mã xác thực để yêu cầu mở tài khoản. Hà Nội Tour sẽ xác nhận mã đã gửi tới email.";
+
+                        session.setAttribute("sendEmail", sendEmail);
+                        session.setAttribute("registerUser", registerUser);
+                        session.setAttribute("registerPass", registerPass);
+                        session.setAttribute("registerRepass", registerRepass);
+
+                        request.setAttribute("message", message);
+                        request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
+                    }
                 } else {
-                    messageEmail = "Hà Nội Tour đã nhận được yêu cầu của Quý khách về việc xác minh mã để mở tài khoản.";
-                    send.sendMailForCusBuy(sendEmail, randomNumber, messageEmail);
-                    message = "Quý khách vui lòng nhập mã xác thực để yêu cầu mở tài khoản. Hà Nội Tour sẽ xác nhận mã đã gửi tới email.";
-
-                    session.setAttribute("sendEmail", sendEmail);
-                    session.setAttribute("registerUser", registerUser);
-                    session.setAttribute("registerPass", registerPass);
-                    session.setAttribute("registerRepass", registerRepass);
-
-                    request.setAttribute("message", message);
-                    request.getRequestDispatcher("authenticateEmail.jsp").forward(request, response);
+                    request.setAttribute("error", "Mật khẩu không khớp. Vui lòng thử lại.");
+                    request.getRequestDispatcher("register.jsp").forward(request, response);
                 }
             }
         } catch (NumberFormatException e) {
@@ -169,7 +174,7 @@ public class SendEmailServlet extends HttpServlet {
                     session.setAttribute("registerUser", registerUser);
                     session.setAttribute("registerPass", registerPass);
                     session.setAttribute("registerRepass", registerRepass);
-                    response.sendRedirect("account");
+                    response.sendRedirect("register");
                 }
             } else {
 

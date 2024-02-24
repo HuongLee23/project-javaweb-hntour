@@ -11,7 +11,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-
+        <meta name="description" content="Ha Noi Tour">
         <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css'>
         <link rel="stylesheet" href="./assets/css/profileaccount.css"/>
         <script src='https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js'></script>
@@ -67,25 +67,27 @@
                                                         <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">${a.username}</h4>
                                                         <p class="mb-0">${a.email}</p>
 
-                                            </div>
-                                                    <button <button class="btn btn-primary" type="button" onclick="document.getElementById('imageInput').click();" >Cập Nhật Ảnh</button>
+                                                    </div>
+                                                    <button class="btn btn-primary" type="button" onclick="document.getElementById('imageInput').click();" >Cập Nhật Ảnh</button>
 
                                                 </form>
-                                        </div>
+                                            </div>
                                         </div>
                                         <script>
                                             function handleImageChange(input) {
                                                 const selectedImage = document.getElementById('selectedImage');
-                                            const ngoaiFormImage = document.getElementById('ngoaiFormImage');
-                                            const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
+
+                                                const ngoaiFormImage = document.getElementById('ngoaiFormImage');
+                                                const ngoaiFormImage2 = document.getElementById('ngoaiFormImage2');
 
                                                 if (input.files && input.files[0]) {
                                                     const reader = new FileReader();
 
                                                     reader.onload = function (e) {
                                                         selectedImage.src = e.target.result;
-                                            ngoaiFormImage.src = e.target.result;
-                                            ngoaiFormImage2.src = e.target.result;
+
+                                                        ngoaiFormImage.src = e.target.result;
+                                                        ngoaiFormImage2.src = e.target.result;
                                                     };
 
                                                     reader.readAsDataURL(input.files[0]);
@@ -105,7 +107,7 @@
                                                         <div class="col">
                                                             <div class="row">
                                                                 <input type="file" id="imageInput" accept=".jpeg, .jpg, .png" name="fileName" style="display: none;" onchange="handleImageChange(this);">
-                    
+
                                                                 <input type="hidden" name="id" value="${a.id}">
 
                                                                 <div class="col">

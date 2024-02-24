@@ -12,7 +12,7 @@
         <title>Hà Nội Tour</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="Travelix Project">
+        <meta name="description" content="Ha Noi Tour">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
         <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -52,7 +52,7 @@
                                     <div class="home_slider_content_inner" data-animation-in="flipInX" data-animation-out="animate-out fadeOut">
                                         <h1></h1>
                                         <h1>Khám Phá <br>Hà Nội</h1>
-                                        <div class="button home_slider_button"><div class="button_bcg"></div><a href="tourlist">explore now<span></span><span></span><span></span></a></div>
+                                        <div class="button home_slider_button"><div class="button_bcg"></div><a href="tourlist">khám phá ngay<span></span><span></span><span></span></a></div>
                                     </div>
                                 </div>
                             </div>
@@ -160,121 +160,15 @@
                                             <option>03</option>
                                         </select>
                                     </div>
-                                    <button class="button search_button">search<span></span><span></span><span></span></button>
+                                    <button class="button search_button">Tìm kiếm<span></span><span></span><span></span></button>
                                 </form>
                             </div>
-                            <!--
-                                                         Search Panel 
-                            
-                                                        <div class="search_panel">
-                                                            <form action="#" id="search_form_2" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-                                                                <div class="search_item">
-                                                                    <div>destination</div>
-                                                                    <input type="text" class="destination search_input" required="required">
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>check in</div>
-                                                                    <input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>check out</div>
-                                                                    <input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>adults</div>
-                                                                    <select name="adults" id="adults_2" class="dropdown_item_select search_input">
-                                                                        <option>01</option>
-                                                                        <option>02</option>
-                                                                        <option>03</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>children</div>
-                                                                    <select name="children" id="children_2" class="dropdown_item_select search_input">
-                                                                        <option>0</option>
-                                                                        <option>02</option>
-                                                                        <option>03</option>
-                                                                    </select>
-                                                                </div>
-                                                                <button class="button search_button">search<span></span><span></span><span></span></button>
-                                                            </form>
-                                                        </div>
-                            
-                                                         Search Panel 
-                            
-                                                        <div class="search_panel">
-                                                            <form action="#" id="search_form_3" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-                                                                <div class="search_item">
-                                                                    <div>destination</div>
-                                                                    <input type="text" class="destination search_input" required="required">
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>check in</div>
-                                                                    <input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>check out</div>
-                                                                    <input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>adults</div>
-                                                                    <select name="adults" id="adults_3" class="dropdown_item_select search_input">
-                                                                        <option>01</option>
-                                                                        <option>02</option>
-                                                                        <option>03</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>children</div>
-                                                                    <select name="children" id="children_3" class="dropdown_item_select search_input">
-                                                                        <option>0</option>
-                                                                        <option>02</option>
-                                                                        <option>03</option>
-                                                                    </select>
-                                                                </div>
-                                                                <button class="button search_button">search<span></span><span></span><span></span></button>
-                                                            </form>
-                                                        </div>
-                            
-                                                         Search Panel 
-                            
-                                                        <div class="search_panel">
-                                                            <form action="#" id="search_form_4" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-                                                                <div class="search_item">
-                                                                    <div>destination</div>
-                                                                    <input type="text" class="destination search_input" required="required">
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>check in</div>
-                                                                    <input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>check out</div>
-                                                                    <input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>adults</div>
-                                                                    <select name="adults" id="adults_4" class="dropdown_item_select search_input">
-                                                                        <option>01</option>
-                                                                        <option>02</option>
-                                                                        <option>03</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="search_item">
-                                                                    <div>children</div>
-                                                                    <select name="children" id="children_4" class="dropdown_item_select search_input">
-                                                                        <option>0</option>
-                                                                        <option>02</option>
-                                                                        <option>03</option>
-                                                                    </select>
-                                                                </div>
-                                                                <button class="button search_button">search<span></span><span></span><span></span></button>
-                                                            </form>
-                                                        </div>-->
+
                         </div>
                     </div>
                 </div>		
             </div>
+
 
             <!-- Intro -->
 
@@ -282,7 +176,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <h2 class="intro_title text-center">We have the best tours</h2>
+                            <h2 class="intro_title text-center">Chúng tôi có những chuyến đi tốt nhất</h2>
                         </div>
                     </div>
                     <div class="row">
@@ -301,7 +195,7 @@
                                     <div class="intro_item_overlay"></div>
                                     <div class="intro_item_background" style="background-image:url(${c.imageMain})"></div>
                                     <div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
-                                        <div class="button intro_button"><div class="button_bcg"></div><a href="detail?tid=${c.id}">see more<span></span><span></span><span></span></a></div>
+                                        <div class="button intro_button"><div class="button_bcg"></div><a href="detail?tid=${c.id}">xem chi tiết<span></span><span></span><span></span></a></div>
                                         <div class="intro_center text-center">
                                             <h2 style="color: white">${c.name}</h2>
                                             <div class="intro_price" style="font-size: 25px "><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</div>
@@ -347,7 +241,7 @@
                                                                                         <i></i>
                                                                                     </div>-->
                                         <p class="cta_text">Chào mừng bạn đến với Hà Nội Tour - nơi tận hưởng hành trình khám phá văn hóa và lịch sử tuyệt vời. Hà Nội, thành phố lâu dài và truyền thống, đang chờ đón bạn với những con phố phấn khích, những di tích lịch sử độc đáo và ẩm thực ngon lành. Hãy cùng chúng tôi bắt đầu cuộc phiêu lưu, nơi mỗi góc phố là một câu chuyện, và mỗi bữa ăn là một trải nghiệm đậm chất Việt. Đặt vali và hãy để chúng tôi làm hướng dẫn cho chuyến hành trình đáng nhớ của bạn tại Hà Nội!</p>
-                                        <div class="button cta_button"><div class="button_bcg"></div><a href="tourlist">book now<span></span><span></span><span></span></a></div>
+                                        <div class="button cta_button"><div class="button_bcg"></div><a href="tourlist">khám phá ngay<span></span><span></span><span></span></a></div>
                                     </div>
 
                                     <!-- CTA Slider Item -->
@@ -364,19 +258,7 @@
                                         <div class="button cta_button"><div class="button_bcg"></div><a href="#">book now<span></span><span></span><span></span></a></div>
                                     </div>
 
-                                    <!-- CTA Slider Item -->
-                                    <div class="owl-item cta_item text-center">
-                                        <div class="cta_title">maldives deluxe package</div>
-                                        <div class="rating_r rating_r_4">
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                        </div>
-                                        <p class="cta_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec. Proin bibendum, augue faucibus tincidunt ultrices, tortor augue gravida lectus, et efficitur enim justo vel ligula.</p>
-                                        <div class="button cta_button"><div class="button_bcg"></div><a href="#">book now<span></span><span></span><span></span></a></div>
-                                    </div>
+
 
                                 </div>
 
@@ -430,7 +312,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col text-center">
-                            <h2 class="section_title">The newest tours</h2>
+                            <h2 class="section_title">Các tour du lịch mới nhất</h2>
                         </div>
                     </div>
                     <div class="row offers_items">
@@ -462,7 +344,7 @@
                                                         <li class="offers_icons_item"><img src="images/compass.png" alt=""></li>
                                                     </ul>
                                                 </div>
-                                                <div class="offers_link"><a href="detail?tid=${c.id}">read more</a></div>
+                                                <div class="offers_link"><a href="detail?tid=${c.id}">xem chi tiết</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -480,7 +362,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col text-center">
-                            <h2 class="section_title">what our clients say about us</h2>
+                            <h2 class="section_title">khách hàng nói gì về Ha Noi Tour</h2>
                         </div>
                     </div>
                     <div class="row">
@@ -649,7 +531,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col text-center">
-                            <h2 class="section_title">trending now</h2>
+                            <h2 class="section_title">Những tour xu hướng nhất</h2>
                         </div>
                     </div>
                     <div class="row trending_container">

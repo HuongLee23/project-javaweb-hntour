@@ -6,6 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Ha Noi Tour">
         <title>Hà Nội Tour</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -17,9 +18,9 @@
         <div class="add">
             <div class="all__screen">
 
-                <div class="login__screen" style="height: 717px">
+                <div class="login__screen" style="height: 774px;">
                     <div  class="login__logo">
-                        <a href="./index.jsp">
+                        <a href="home">
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>
@@ -51,8 +52,8 @@
                                 <label class="login__label" for="newpass">Nhập mật khẩu mới *</label>
                                 <i id="eye-icon2" onclick="togglePassVisibility2()" class="fa fa-eye"></i>
                             </div>
-                                
-                                <div class="login__form">
+
+                            <div class="login__form">
                                 <input id="password3" class="login__input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" type="password" name="newpass2" placeholder=" " required>
                                 <label class="login__label" for="newpass">Nhập lại mật khẩu mới *</label>
                                 <i id="eye-icon3" onclick="togglePassVisibility3()" class="fa fa-eye"></i>
@@ -121,7 +122,7 @@
 
             }
 
-function togglePassVisibility3() {
+            function togglePassVisibility3() {
                 var password1 = document.getElementById("password3");
                 var eyeIcon1 = document.getElementById("eye-icon3");
                 if (password1.type === "password") {

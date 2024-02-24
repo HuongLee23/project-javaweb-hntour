@@ -177,76 +177,76 @@
                                     </select>
                                 </div>
 
-                               <div class="schedules">
-    <label>Lịch trình</label>
+                                <div class="schedules">
+                                    <label>Lịch trình</label>
 
-    <table class="table" id="schedulesTable">
-        <thead>
-            <tr>
-                <th>Địa điểm</th>
-                <th>Thời gian</th>
-                <th>Miêu tả</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${requestScope.schedules}" var="s">
-                <tr>
-                    <td><input type="text" name="location" value="${s.location}" readonly /></td>
-                    <td><input type="time" name="date" value="${s.date}" readonly /></td>
-                    <td><input type="text" name="descriptionSchedules" value="${s.descriptionSchedules}" readonly /></td>
-                      <td>
-                        
-                        <a href="editschedule?sid=${s.id}" class="edit" data-toggle="modal">
-                                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                    </a>
-                                        <a href="deleteschedule?sid=${s.id}&tourId=${s.tourId}" class="delete" data-toggle="modal">
-                                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                    </a>
-                        
-                    </td>
+                                    <table class="table" id="schedulesTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Địa điểm</th>
+                                                <th>Thời gian</th>
+                                                <th>Miêu tả</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${requestScope.schedules}" var="s">
+                                                <tr>
+                                                    <td><input type="text" name="location" value="${s.location}" readonly /></td>
+                                                    <td><input type="time" name="date" value="${s.date}" readonly /></td>
+                                                    <td><input type="text" name="descriptionSchedules" value="${s.descriptionSchedules}" readonly /></td>
+                                                    <td>
 
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+                                                        <a href="editschedule?sid=${s.id}" class="edit" data-toggle="modal">
+                                                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                                        </a>
+                                                        <a href="deleteschedule?sid=${s.id}&tourId=${s.tourId}" class="delete" data-toggle="modal">
+                                                            <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                                        </a>
 
-    <div style="cursor: pointer" class="button add_button" onclick="addNewSchedule()">Thêm lịch trình cho Tour</div>
-</div>
+                                                    </td>
 
-<!-- Container for new schedules -->
-<div id="newSchedulesContainer"></div>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
 
-<script>
-    var scheduleCounter = 0;
+                                    <div style="cursor: pointer" class="button add_button" onclick="addNewSchedule()">Thêm lịch trình cho Tour</div>
+                                </div>
 
-    function addNewSchedule() {
-        // Create a new row for the schedule
-        var newRow = document.createElement("tr");
+                                <!-- Container for new schedules -->
+                                <div id="newSchedulesContainer"></div>
 
-        // Add cells for each column
-        var locationCell = document.createElement("td");
-        var dateCell = document.createElement("td");
-        var descriptionCell = document.createElement("td");
+                                <script>
+                                    var scheduleCounter = 0;
 
-        // Increment the counter for unique names
-        scheduleCounter++;
+                                    function addNewSchedule() {
+                                        // Create a new row for the schedule
+                                        var newRow = document.createElement("tr");
 
-        // Add input elements to cells with unique names
-        locationCell.innerHTML = '<input type="text" name="locationnew_' + scheduleCounter + '" />';
-        dateCell.innerHTML = '<input type="time" name="datenew_' + scheduleCounter + '" />';
-        descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew_' + scheduleCounter + '" />';
+                                        // Add cells for each column
+                                        var locationCell = document.createElement("td");
+                                        var dateCell = document.createElement("td");
+                                        var descriptionCell = document.createElement("td");
 
-        // Append cells to the new row
-        newRow.appendChild(locationCell);
-        newRow.appendChild(dateCell);
-        newRow.appendChild(descriptionCell);
+                                        // Increment the counter for unique names
+                                        scheduleCounter++;
 
-        // Append the new row to the table body
-        var tbody = document.getElementById("schedulesTable").getElementsByTagName('tbody')[0];
-        tbody.appendChild(newRow);
-    }
-</script>
+                                        // Add input elements to cells with unique names
+                                        locationCell.innerHTML = '<input type="text" name="locationnew_' + scheduleCounter + '" />';
+                                        dateCell.innerHTML = '<input type="time" name="datenew_' + scheduleCounter + '" />';
+                                        descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew_' + scheduleCounter + '" />';
+
+                                        // Append cells to the new row
+                                        newRow.appendChild(locationCell);
+                                        newRow.appendChild(dateCell);
+                                        newRow.appendChild(descriptionCell);
+
+                                        // Append the new row to the table body
+                                        var tbody = document.getElementById("schedulesTable").getElementsByTagName('tbody')[0];
+                                        tbody.appendChild(newRow);
+                                    }
+                                </script>
 
 
 

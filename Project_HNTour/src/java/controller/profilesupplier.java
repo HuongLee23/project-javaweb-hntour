@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
 import dal.DAO;
@@ -20,36 +19,39 @@ import model.Account;
  *
  * @author Admin
  */
-@WebServlet(name="profilesupplier", urlPatterns={"/profilesupplier"})
+@WebServlet(name = "profilesupplier", urlPatterns = {"/profilesupplier"})
 public class profilesupplier extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet profilesupplier</title>");  
+            out.println("<title>Servlet profilesupplier</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet profilesupplier at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet profilesupplier at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -68,8 +70,8 @@ public class profilesupplier extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException, SecurityException {
-    try {
+            throws ServletException, IOException, SecurityException {
+        try {
 //        Part part = (Part) request.getPart("profileImage");
 //        String realPath = request.getServletContext().getRealPath("/images");
 //
@@ -84,35 +86,37 @@ public class profilesupplier extends HttpServlet {
 //
 //        String profileImage = "images/" + filename; // Adjust the path as needed
 
-        // Retrieve other form parameters
-        String profileImage = request.getParameter("profileImage");
-        String username = request.getParameter("username");
-        String address = request.getParameter("address");
-        String phoneNumber = request.getParameter("phone");
-        int userId = Integer.parseInt(request.getParameter("id"));
-        String email = request.getParameter("email");
+            // Retrieve other form parameters
+            String profileImage = request.getParameter("profileImage");
+            String username = request.getParameter("username");
+            String address = request.getParameter("address");
+            String phoneNumber = request.getParameter("phone");
+            int userId = Integer.parseInt(request.getParameter("id"));
+            String email = request.getParameter("email");
 
-        DAO accountDAO = new DAO();
-        HttpSession session = request.getSession();
-        boolean updateSuccess = accountDAO.updateProfile(userId, email, username, address, profileImage, phoneNumber);
+            DAO accountDAO = new DAO();
+            HttpSession session = request.getSession();
+            boolean updateSuccess = accountDAO.updateProfile(userId, email, username, address, profileImage, phoneNumber);
 
-        String message = (updateSuccess) ? "Cập nhật hồ sơ thành công." : "Có lỗi xảy ra. Vui lòng thực hiện lại.";
+            String message = (updateSuccess) ? "Cập nhật hồ sơ thành công." : "Có lỗi xảy ra. Vui lòng thực hiện lại.";
 
-        // Update session attribute and forward the request
-        Account account = (Account) session.getAttribute("account");
-        Account acc2 = accountDAO.getAccountDetail(account.getEmail());
-        request.setAttribute("account", acc2);
-        request.setAttribute("ms", message);
-        request.getRequestDispatcher("ProfileSupplier.jsp").forward(request, response);
+            // Update session attribute and forward the request
+            Account account = (Account) session.getAttribute("account");
+            Account acc2 = accountDAO.getAccountDetail(account.getEmail());
+            request.setAttribute("account", acc2);
+            request.setAttribute("ms", message);
+            request.getRequestDispatcher("ProfileSupplier.jsp").forward(request, response);
 
-    } catch (Exception e) {
-        // Handle or log the exception
-        e.printStackTrace(); // Log the exception, or use a logging framework
-        response.sendRedirect("error.jsp"); // Redirect to an error page
+        } catch (Exception e) {
+            // Handle or log the exception
+            e.printStackTrace(); // Log the exception, or use a logging framework
+            response.sendRedirect("error.jsp"); // Redirect to an error page
+        }
     }
-}
-    /** 
+
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

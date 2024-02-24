@@ -1,4 +1,5 @@
 
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -48,101 +49,102 @@ public class Tour {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getImageMain() {
         return imageMain;
     }
 
-    public void setImageMain(String imageMain) {
-        this.imageMain = imageMain;
-    }
-
     public List<String> getImageAlbum() {
         return imageAlbum;
-    }
-
-    public void setImageAlbum(List<String> imageAlbum) {
-        this.imageAlbum = imageAlbum;
     }
 
     public Time getIntendedTime() {
         return intendedTime;
     }
 
-    public void setIntendedTime(Time intendedTime) {
-        this.intendedTime = intendedTime;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getCategoryId() {
         return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
     }
 
     public int getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
     public String getRule() {
         return rule;
-    }
-
-    public void setRule(String rule) {
-        this.rule = rule;
     }
 
     public int getSupplierId() {
         return supplierId;
     }
 
-    public void setSupplierId(int supplierId) {
-        this.supplierId = supplierId;
-    }
-
     public boolean isStatus() {
         return status;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImageMain(String imageMain) {
+        this.imageMain = imageMain;
+    }
+
+    public void setImageAlbum(List<String> imageAlbum) {
+        this.imageAlbum = imageAlbum;
+    }
+
+    public void setIntendedTime(Time intendedTime) {
+        this.intendedTime = intendedTime;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public void setSupplierId(int supplierId) {
+        this.supplierId = supplierId;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
     }
- 
 
-    
-    
+    @Override
+    public String toString() {
+        return "Tour{" + "id=" + id + ", name=" + name + ", imageMain=" + imageMain + ", imageAlbum=" + imageAlbum + ", intendedTime=" + intendedTime + ", price=" + price + ", description=" + description + ", categoryId=" + categoryId + ", version=" + version + ", rule=" + rule + ", supplierId=" + supplierId + ", status=" + status + '}';
+    }
 
 }
 

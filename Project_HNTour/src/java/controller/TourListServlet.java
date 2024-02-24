@@ -1,32 +1,27 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controllerCheckout;
+package controller;
 
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Account;
-import model.Cart;
-import model.InformationAccount;
+import model.Category;
 import model.Tour;
 
 /**
  *
- * @author hello
+ * @author Admin
  */
-@WebServlet(name = "FillBuyerInformationServlet", urlPatterns = {"/fillinformation"})
-public class FillBuyerInformationServlet extends HttpServlet {
+@WebServlet(name = "tourlist", urlPatterns = {"/tourlist"})
+public class TourListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +40,10 @@ public class FillBuyerInformationServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FillBuyerInformationServlet</title>");
+            out.println("<title>Servlet tourlist</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FillBuyerInformationServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet tourlist at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,33 +61,14 @@ public class FillBuyerInformationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         DAO dao = new DAO();
-
-        //phần show cart
-        List<Tour> list = dao.getAllTour();
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
-                }
-            }
-        }
-        Cart cart = new Cart(txt, list);
-
-        //Phần show Information 
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-        if (account == null) {
-            request.setAttribute("error", "Bạn chưa đăng nhập!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
-            List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(account.getId());
-            session.setAttribute("cart", cart);
-            request.setAttribute("listInforAcc", listInformationAccount);
-            request.getRequestDispatcher("fillBuyerInformation.jsp").forward(request, response);
-        }
+        List<Category> listCategory = dao.getListCategory();
+        List<Tour> tourlist = dao.getAllTour();
+        request.setAttribute("tour", tourlist);
+        request.setAttribute("listCategory", listCategory);
+        request.getRequestDispatcher("tour.jsp").forward(request, response);
     }
 
     /**
@@ -106,7 +82,7 @@ public class FillBuyerInformationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -120,4 +96,3 @@ public class FillBuyerInformationServlet extends HttpServlet {
     }// </editor-fold>
 
 }
-

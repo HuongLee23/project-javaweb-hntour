@@ -1,8 +1,3 @@
-<%-- 
-    Document   : showcart
-    Created on : Feb 24, 2024, 5:23:07 PM
-    Author     : Admin
---%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -174,16 +169,20 @@
 
                                                             <hr class="my-4">
 
+
                                                             <!--<form action="fillinformation" method="post">-->
                                                             <a href="fillinformation">
                                                                 <button class="btn btn-primary btn-block btn-lg">
+
                                                                     <div class="d-flex justify-content-between">
                                                                         <span style="margin-left: 40%;">Đặt ngay</span>
                                                                         <!--<span>$26.48</span>-->
                                                                     </div>
                                                                 </button>
+
                                                             </a>
                                                             <!--</form>-->
+
                                                         </div>
                                                     </div>
 

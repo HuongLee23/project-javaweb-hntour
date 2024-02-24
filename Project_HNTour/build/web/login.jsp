@@ -6,6 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Ha Noi Tour">
         <title>Hà Nội Tour</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -19,7 +20,7 @@
 
                 <div class="login__screen">
                     <div class="login__logo">
-                        <a href="home.jsp">
+                        <a href="home">
                             <img src="./assets/img/logo.png" alt="logo">
                         </a>
                     </div>
@@ -35,7 +36,7 @@
                     </div>
 
                     <div class="login__body">
-                        <form action="account" method="post">
+                        <form action="login" method="post">
                             <div class="login__form">
                                 <input class="login__input" value="${cookie.cemail.value}" type="email" pattern="^([A-Za-z0-9_\-\.])+\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,20}))$" name="email" placeholder=" " required>
                                 <label class="login__label" for="email">Email *</label>
@@ -69,7 +70,7 @@
                                 </a>
                                 <span class="transfer__form-separate">
                                 </span>
-                                <a class="transfer__form-link2" href="home.jsp">
+                                <a class="transfer__form-link2" href="home">
                                     Trở lại
                                 </a>
                             </div>

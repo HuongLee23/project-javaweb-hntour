@@ -101,5 +101,4 @@ public class Feedback {
     public String toString() {
         return "Feedback{" + "id=" + id + ", accId=" + accId + ", tourId=" + tourId + ", versionId=" + versionId + ", comment=" + comment + ", rating=" + rating + ", accName=" + accName + ", avatarAc=" + avatarAc + '}';
     }
-
 }

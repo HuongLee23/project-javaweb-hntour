@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controllerAccount;
 
 import controller.*;
 import dal.DAO;
@@ -22,7 +22,7 @@ import model.Account;
  */
 //<<<<<<<< HEAD:Project_HNTour/src/java/controller/changepassword.java
 @WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
-public class changepassword extends HttpServlet {
+public class ChangePassword extends HttpServlet {
 //========
 //@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/forgotpassword"})
 //public class ForgotPasswordServlet extends HttpServlet {
@@ -79,40 +79,39 @@ public class changepassword extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    String email = request.getParameter("email");
-    String oldPass = request.getParameter("pass");
-    String newPass = request.getParameter("newpass");
-    String newPass2 = request.getParameter("newpass2");
+            throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String oldPass = request.getParameter("pass");
+        String newPass = request.getParameter("newpass");
+        String newPass2 = request.getParameter("newpass2");
 
-    DAO d = new DAO();
-    Account a = d.loginAccount(email, oldPass);
+        DAO d = new DAO();
+        Account a = d.loginAccount(email, oldPass);
 
-    if (a == null || !a.getPassword().equals(oldPass)) {
-        String errorMessage = "Mật khẩu cũ không đúng!";
-        request.setAttribute("error", errorMessage);
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-    } else if (!newPass.equals(newPass2)) {
-        String errorMessage = "Mật khẩu mới không khớp!";
-        request.setAttribute("error", errorMessage);
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-    } else {
-        // Update the password in the database
-        d.changePassword(email, oldPass, newPass);
+        if (a == null || !a.getPassword().equals(oldPass)) {
+            String errorMessage = "Mật khẩu cũ không đúng!";
+            request.setAttribute("error", errorMessage);
+            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        } else if (!newPass.equals(newPass2)) {
+            String errorMessage = "Mật khẩu mới không khớp!";
+            request.setAttribute("error", errorMessage);
+            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        } else {
+            // Update the password in the database
+            d.changePassword(email, oldPass, newPass);
 
-        // Update the password in the account object
-        a.setPassword(newPass);
+            // Update the password in the account object
+            a.setPassword(newPass);
 
-        // Update the session with the modified account
-        HttpSession session = request.getSession();
-        session.setAttribute("account", a);
+            // Update the session with the modified account
+            HttpSession session = request.getSession();
+            session.setAttribute("account", a);
 
-        String successMessage = "Thay đổi mật khẩu thành công!";
-        request.setAttribute("error", successMessage);
-        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+            String successMessage = "Thay đổi mật khẩu thành công!";
+            request.setAttribute("error", successMessage);
+            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+        }
     }
-}
-
 
     /**
      * Returns a short description of the servlet.

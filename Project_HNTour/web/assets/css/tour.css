@@ -22,3 +22,32 @@
     background-color: #FFFFFF;
     color: #fa9e1b;
 }
+
+/*---------------- Add to Cart -----------------*/
+.icon_card{
+    font-size: x-large;
+    left: 15px;
+    top: 15px;
+    z-index: 1;
+    position: absolute;
+    color: #e2492b;
+}
+
+.icon_card:hover{
+    color: #f3906d !important;
+}
+
+.card-img-top{
+    position: relative;
+    width: 358px;
+    height: 250px;
+}
+
+.offer_name span{
+    color: white;
+    font-size: 18px;
+    margin-left: 35px;
+}
+
+
+/*------------------------------------------------*/
