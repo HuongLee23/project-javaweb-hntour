@@ -20,7 +20,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="css/manager.css" rel="stylesheet" type="text/css"/>
-        <script src="./lib/ckeditor/ckeditor.js" >
+        <!--<script src="./ckeditor/ckeditor/ckeditor.js" >-->
 
         </script>
         <style>
@@ -50,7 +50,7 @@
                        <td style="display:none;"><input type="hidden" name="tourId" value="${s.tourId}" /></td>
                         <td><input type="text" name="location" value="${s.location}" /></td>
                         <td><input type="time" name="date" value="${s.date}" /></td>
-                      <td><textarea name="descriptionSchedules">${s.descriptionSchedules}</textarea></td>
+                      <td><textarea id="describe" name="descriptionSchedules">${s.descriptionSchedules}</textarea></td>
                         <td>
                            
                           
