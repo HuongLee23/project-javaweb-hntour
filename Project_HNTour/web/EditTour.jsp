@@ -144,13 +144,13 @@
 
 
                                 <div class="form-group">
-                                    <label>Tổng thời gian Tour</label>
-                                    <input value="${tour.intendedTime}" name="time" type="time" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Giá</label>
-                                    <input value="${tour.price}" name="price" type="text" class="form-control" required>
-                                </div>
+    <label>Tổng thời gian Tour</label>
+    <input value="${tour.intendedTime}" name="time" type="time" class="form-control" required >
+</div>
+                                <div>
+    <label>Giá</label>
+    <input value="${tour.price}" name="price" type="number" class="form-control" required min="0">
+</div>
 
                                 <div class="form-group">
                                     <label>Miêu tả</label>

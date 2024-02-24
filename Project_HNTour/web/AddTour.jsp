@@ -151,9 +151,9 @@
                                     <input name="time" type="time" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Giá</label>
-                                    <input  name="price" type="text" class="form-control" required>
-                                </div>
+    <label>Giá</label>
+    <input name="price" type="number" class="form-control" required min="0">
+</div>
 
                                 <div class="form-group">
                                     <label>Miêu tả</label>
