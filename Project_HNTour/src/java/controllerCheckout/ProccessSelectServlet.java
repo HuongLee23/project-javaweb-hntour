@@ -98,7 +98,7 @@ public class ProccessSelectServlet extends HttpServlet {
 
             request.setAttribute("infoAcc", infoAcc);
             request.setAttribute("listInforAcc", listInformationAccount);
-            request.getRequestDispatcher("fillBuyerInformation.jsp").forward(request, response);
+            request.getRequestDispatcher("fillInformationBuyer.jsp").forward(request, response);
         } catch (NumberFormatException e) {
         }
     }

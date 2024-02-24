@@ -863,6 +863,9 @@ public class DAO extends DBContext {
         }
         return list;
     }
+    
+    
+    
 //
 //    public List<Tour> getTourBySortRating(String typeSort) {
 //        List<Tour> list = new ArrayList<>();

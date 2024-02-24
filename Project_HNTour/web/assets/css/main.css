@@ -417,5 +417,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     color:  #f0552d;
 }
 
+
+.fib-add{
+    padding: 12px 20px 0px 20px;
+    top: -20px;
+    left: 15px;
+    border-radius: 8px;
+    border: 1px solid #ff5b00;
+    cursor: pointer;
+}
+
 /*-----------------------------*/
 

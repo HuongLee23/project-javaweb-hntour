@@ -173,14 +173,16 @@
 
                                                             <hr class="my-4">
 
-                                                            <form action="fillinformation" method="post">
-                                                                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                                                            <!--<form action="fillinformation" method="post">-->
+                                                            <a href="fillinformationbuyer">
+                                                                <button class="btn btn-primary btn-block btn-lg">
                                                                     <div class="d-flex justify-content-between">
                                                                         <span style="margin-left: 40%;">Đặt ngay</span>
                                                                         <!--<span>$26.48</span>-->
                                                                     </div>
                                                                 </button>
-                                                            </form>
+                                                            </a>
+                                                            <!--</form>-->
                                                         </div>
                                                     </div>
 

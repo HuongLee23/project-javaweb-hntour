@@ -186,7 +186,6 @@
                                                 <th>Địa điểm</th>
                                                 <th>Thời gian</th>
                                                 <th>Miêu tả</th>
-                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
