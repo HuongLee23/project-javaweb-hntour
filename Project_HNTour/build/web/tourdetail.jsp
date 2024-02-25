@@ -19,7 +19,7 @@
         <meta name="description" content="Travelix Project">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
-
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
         <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
@@ -34,9 +34,13 @@
         <link rel="stylesheet" type="text/css" href="styles/single_listing_styles.css">
         <link rel="stylesheet" type="text/css" href="styles/single_listing_responsive.css">
         <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
-
-
-
+        <link rel="stylesheet" type="text/css" href="./assets/css/detail.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </style>
 </head>
 
@@ -341,125 +345,154 @@
 
                                 </div>
                             </c:forEach>
-                            <!-- Reviews -->
-
-                            <div class="reviews">
-                                <div class="reviews_title">reviews</div>
-                                <div class="reviews_container">
-                                    <c:forEach items="${requestScope.feedback}" var="b"> 
-                                        <!-- Review -->
-                                        <div class="review">
-                                            <div class="row">
-                                                <div class="col-lg-1">
-                                                    <div class="review_image">
-                                                        <img src="${b.avatarAc != null ? b.avatarAc : 'https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain'}" alt="${b.accName}">
-                                                    </div>
-                                                    <div class="review_name">${b.accName}</div>
-                                                </div>
-                                                <div class="col-lg-11">
-                                                    <div class="review_content">
-                                                        <div class="review_rating">${b.rating}</div>
-                                                        <div class="review_text">
-                                                            <p>${b.comment}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                            <div class="container">
+                                <div class="be-comment-block">
+                                    <h1 class="comments-title">Comments (${totalFeedback})</h1>
+                                    <div class="be-comment">
+                                        <c:forEach items="${requestScope.feedback}" var="b"> 
+                                            <div class="be-img-comment">   
+                                                <img src="${b.avatarAc != null ? b.avatarAc : 'https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain'}" alt="${b.accName}" class="be-ava-comment">
                                             </div>
-                                        </div>
-                                    </c:forEach>
+                                            <div class="be-comment-content">
+                                                <span class="be-comment-name">
+                                                    <p>${b.accName}</p>
+                                                </span>
+
+                                                <span class="be-comment-time">
+                                                    <i class="fa fa-star" style="color: orange"></i>
+                                                    ${b.rating}
+                                                </span>
+                                                <span class="comment-options">
+                                                    <c:if test="${sessionScope.account != null && sessionScope.account.id == b.accId}">
+                                                        <a href="loadfeedback?fid=${b.id}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                                        <form action="deletefeedback" method="get">
+                                                            <input type="hidden" name="fid" value="${b.id}">
+                                                            <input type="hidden" name="tid" value="${b.tourId}">
+                                                            <a href="deletefeedback?fid=${b.id}&tid=${b.tourId}" class="delete" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                                        </form>
+                                                    </c:if>
+
+
+
+                                                </span>
+                                                <p class="be-comment-text">
+                                                    ${b.comment}
+                                                </p>
+                                            </div>
+                                        </c:forEach>        
+                                    </div> 
                                 </div>
                             </div>
-                            <br/>
-                            <!-- Comment Form -->
-                            <c:if  test="${sessionScope.account  != null}"> 
 
-                                <div class="comment_form">
-                                    <form action="addFeedback" method="post">
+                            <!-- Pagination -->
 
-
-                                        <!-- Input for Account ID -->
-
-                                        <input type="hidden" name="accId" value="${account.id}">
-
-                                        <!-- Input for Tour ID -->
-                                        <input type="hidden" name="tourId" value="${detail.id}">
-
-                                        <!-- Input for Version ID -->
-                                        <input type="hidden" name="versionId" value="${detail.version}">
-
-                                        <!-- Input for Comment -->
-                                        <div class="form-group">
-                                            <label for="comment">Your Comment:</label>
-                                            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-                                        </div>
-
-                                        <!-- Input for Rating (Assuming a 5-star system) -->
-                                        <div class="form-group">
-                                            <label for="rating">Your Rating:</label>
-                                            <select class="form-control" id="rating" name="rating">
-                                                <option value="1">1 star</option>
-                                                <option value="2">2 stars</option>
-                                                <option value="3">3 stars</option>
-                                                <option value="4">4 stars</option>
-                                                <option value="5">5 stars</option>
-                                            </select>
-                                        </div>
-
-                                        <!-- Submit Button -->
-                                        <button type="submit" style="background: #fa9e1b; border:0px; float: right " class="btn btn-primary">Submit Comment</button>
-                                    </form>
-                                </div>
+                            <!-- End Pagination -->
+                        </div>
+                    </div>
 
 
-                            </c:if>
-                            <!-- Location on Map -->
-
-                            <div class="location_on_map">
-                                <div class="location_on_map_title">location on map</div>
-
-                                <!-- Google Map -->
-
-                                <div class="travelix_map">
-                                    <div id="google_map" class="google_map">
-                                        <div class="map_container">
-                                            <div id="map"></div>
-                                        </div>
+                                    <div class="">
+                    <c:if test="${sessionScope.account != null }">
+                        <form class="form-block" action="addFeedback" method="post">
+                            <input type="hidden" name="accId" value="${account.id}">
+                            <!-- Input for Tour ID -->
+                            <input type="hidden" name="tourId" value="${detail.id}">
+                            <!-- Input for Version ID -->
+                            <input type="hidden" name="versionId" value="${detail.version}">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username">Username:</label>
+                                        <input class="form-control" type="text" id="username" placeholder="${account.username}" disabled>
                                     </div>
                                 </div>
-
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input class="form-control" type="email" id="email" placeholder="${account.email}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="comment">Comment:</label>
+                                        <textarea class="form-control" name="comment" id="comment" required placeholder="Your text"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="rating">Your Rating:</label>
+                                        <select class="form-control" id="rating" name="rating">
+                                            <option value="1">1 star</option>
+                                            <option value="2">2 stars</option>
+                                            <option value="3">3 stars</option>
+                                            <option value="4">4 stars</option>
+                                            <option value="5">5 stars</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <button type="submit" class="btn btn-primary btn-block" style="background: #fa9e1b; border:0px;">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </c:if>
+                  </div>
+                    <!-- Reviews -->
+                    <div id="deleteEmployeeModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form>
+                                    <div class="modal-header">						
+                                        <h4 class="modal-title">Xóa Đánh giá</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">					
+                                        <p>Are you sure you want to delete these Records?</p>
+                                        <p class="text-warning"><small>This action cannot be undone.</small></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+
+
+                    
                 </div>
-            </div>		
+            </div>
         </div>
-        <!-- Footer -->
+    </div>		
+</div>
+<!-- Footer -->
 
-        <jsp:include page="footer.jsp"></jsp:include>
+<jsp:include page="footer.jsp"></jsp:include>
 
-    </div>
+</div>
 
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="styles/bootstrap4/popper.js"></script>
-    <script src="styles/bootstrap4/bootstrap.min.js"></script>
-    <script src="plugins/greensock/TweenMax.min.js"></script>
-    <script src="plugins/greensock/TimelineMax.min.js"></script>
-    <script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-    <script src="plugins/greensock/animation.gsap.min.js"></script>
-    <script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-    <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="plugins/easing/easing.js"></script>
-    <script src="plugins/parallax-js-master/parallax.min.js"></script>
-    <script src="js/about_custom.js"></script>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="styles/bootstrap4/popper.js"></script>
-    <script src="styles/bootstrap4/bootstrap.min.js"></script>
-    <script src="plugins/easing/easing.js"></script>
-    <script src="plugins/parallax-js-master/parallax.min.js"></script>
-    <script src="plugins/colorbox/jquery.colorbox-min.js"></script>
-    <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
-    <script src="js/single_listing_custom.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="styles/bootstrap4/popper.js"></script>
+<script src="styles/bootstrap4/bootstrap.min.js"></script>
+<script src="plugins/greensock/TweenMax.min.js"></script>
+<script src="plugins/greensock/TimelineMax.min.js"></script>
+<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="plugins/greensock/animation.gsap.min.js"></script>
+<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="plugins/easing/easing.js"></script>
+<script src="plugins/parallax-js-master/parallax.min.js"></script>
+<script src="js/about_custom.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="styles/bootstrap4/popper.js"></script>
+<script src="styles/bootstrap4/bootstrap.min.js"></script>
+<script src="plugins/easing/easing.js"></script>
+<script src="plugins/parallax-js-master/parallax.min.js"></script>
+<script src="plugins/colorbox/jquery.colorbox-min.js"></script>
+<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+<script src="js/single_listing_custom.js"></script>
 </body>
 
 </html>

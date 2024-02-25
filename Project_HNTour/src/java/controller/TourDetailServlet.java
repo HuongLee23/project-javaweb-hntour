@@ -77,8 +77,12 @@ public class TourDetailServlet extends HttpServlet {
         int id_rel = Integer.parseInt(id_relate);
         List<Tour> tour_relate = dao.getRelateTour(p.getCategoryId(), id_rel);
         request.setAttribute("relate", tour_relate);
-         
+
+       
         List<Feedback> list_Feedback = dao.getFeedbackDetailTour(id);
+       
+        
+        
         List<Category> listCategory = dao.getListCategory();
         List<Schedules> list_Schedules = dao.getSchedukesById(id);
          HttpSession session = request.getSession();

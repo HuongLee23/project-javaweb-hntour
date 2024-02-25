@@ -411,7 +411,7 @@ public class DAO extends DBContext {
         return list;
     }
 
-    public List<Feedback> getFeedbackDetailTour(int tourId) {
+    public List<Feedback> getFeedbackDetailTour( int tourId) {
         List<Feedback> list = new ArrayList<>();
 
         String sql = "  SELECT F.[id], F.[accId], A.[username] AS [accountUsername], \n"
@@ -419,11 +419,12 @@ public class DAO extends DBContext {
                 + "              FROM [Feedback] F \n"
                 + "              JOIN [Tour] T ON F.[tourId] = T.[id] \n"
                 + "               JOIN [Account] A ON F.[accId] = A.[id] \n"
-                + "               WHERE T.[id] = ?;";
+                + "               WHERE T.[id] = ?"
+               ;
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, tourId);
-
+            
             try ( ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
                     Feedback feedback = new Feedback();
@@ -1050,7 +1051,7 @@ public class DAO extends DBContext {
         String sql = "INSERT INTO Feedback (accId, tourId, versionId, comment, rating) VALUES (?, ?, ?, ?, ?)";
 
         try {
-          
+
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, accId);
             statement.setInt(2, tourId);
@@ -1058,7 +1059,6 @@ public class DAO extends DBContext {
             statement.setString(4, comment);
             statement.setInt(5, rating);
             statement.executeUpdate();
-        
 
             statement.close();
         } catch (SQLException e) {
@@ -1066,13 +1066,80 @@ public class DAO extends DBContext {
         }
     }
 
+    public Feedback getFeedbackByID(int id) {
+        String sql = "SELECT F.[id], F.[accId], A.[username] AS [accName], \n"
+                + "                           F.[tourId], F.[versionId], F.[comment], F.[rating] , A.[avatar] as [avatarAc]\n"
+                + "                             FROM [Feedback] F \n"
+                + "                            \n"
+                + "                              JOIN [Account] A ON F.[accId] = A.[id] \n"
+                + "                              WHERE F.[id]=?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
 
-//    public static void main(String[] args) {
-//        DAO d = new DAO();
-//        List<Tour> tour = d.getTourBySort("asc", "rating");
-//        System.out.println(tour);
-//    }
+                return new Feedback(
+                        rs.getInt("id"),
+                        rs.getInt("accId"),
+                        rs.getInt("tourId"),
+                        rs.getInt("versionId"),
+                        rs.getString("comment"),
+                        rs.getInt("rating"),
+                        rs.getString("accName"),
+                        rs.getString("avatarAc"));
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
 
+    public void updateFeedback(int id, int accId, int tourId, String comment, int rating) {
+        String sql = " UPDATE Feedback\n"
+                + "SET \n"
+                + "    accId = ?,\n"
+                + "    tourId = ?,\n"
+                + "    comment = ?,\n"
+                + "    rating = ?\n"
+                + "WHERE\n"
+                + "    id = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            
+            ps.setInt(1, accId);
+            ps.setInt(2, tourId);
+            ps.setString(3, comment);
+            ps.setInt(4, rating);
+            ps.setInt(5, id);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+        }
+    }
+
+    public void deleteFeedback(String id) {
+        String sql = "delete from feedback where id =?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+        }
+    }
+
+  
+
+    public static void main(String[] args) {
+        DAO d = new DAO();
+        Feedback feedback = d.getFeedbackByID(1);
+        if (feedback != null) {
+            System.out.println(feedback);
+        } else {
+            System.out.println("Feedback not found or an error occurred.");
+        }
+    }
 //        if (!tourList.isEmpty()) {
 //            for (Tour tour : tourList) {
 //                System.out.println(tour);
