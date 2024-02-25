@@ -63,8 +63,34 @@ public class InsertInformationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        DAO dao = new DAO();
+//        HttpSession session = request.getSession();
 
+        String idAccount_raw = request.getParameter("idAccount");
+        String email = request.getParameter("email");
+        String username = request.getParameter("username");
+        String birthday_raw = request.getParameter("birthday");
+        String phoneNumber = request.getParameter("phoneNumber");
+        Date birthday;
+        int idAccount;
+        try {
+            idAccount = Integer.parseInt(idAccount_raw);
+            birthday = Date.valueOf(birthday_raw);
+            boolean result = dao.insertInformationAccount(email, username, phoneNumber, birthday, idAccount);
+            List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(idAccount);
+            InformationAccount infoAcc = dao.getInformationAccountById(idAccount);
+
+            if (result) {
+                request.setAttribute("mess", "Thêm thông tin thành công");
+            } else {
+                request.setAttribute("mess", "Thêm thông tin không thành công!");
+            }
+            request.setAttribute("infoAcc", infoAcc);
+            request.setAttribute("listInforAcc", listInformationAccount);
+            request.getRequestDispatcher("fillInformationBuyer.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
     }
 
     /**

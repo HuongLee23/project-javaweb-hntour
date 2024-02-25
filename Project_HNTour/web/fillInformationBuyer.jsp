@@ -26,6 +26,8 @@
 
     </head>
     <body>
+
+
         <div class="super_container">
 
             <!-- Header -->
@@ -190,7 +192,7 @@
                                                         </form>
                                                     </c:if>
 
-                                                    <div class="fib-add">
+                                                    <div class="fib-add" onclick="openForm()">
                                                         <i class="fa-solid fa-plus" style="color: #ff5b00;"></i>
                                                         <span>
                                                             Thêm
@@ -290,46 +292,7 @@
                                                 </c:if>
 
 
-                                                <!--Phần xử lý tạo thêm thông tin tài khoản-->
-                                                    <form action="insertinformation">
-                                                        <input type="text" hidden value="${sessionScope.account.id}" name="idAccount">
-                                                        <div class="row">
-                                                            <div class="col-md-6 mb-4">
-                                                                <div class="form-outline">
-                                                                    <input type="text" id="name" name="username" class="form-control form-control-lg" required />
-                                                                    <label class="form-label" for="name">Họ và tên</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mb-4 d-flex align-items-center">
-                                                                <div class="form-outline">
-                                                                    <input type="date"  name="birthday" class="form-control" required/>
-                                                                    <label class="form-label" for="birthdayDate">Ngày sinh</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6 mb-4 pb-2">
-                                                                <div class="form-outline">
-                                                                    <input type="email" id="emailAddress" name="email" class="form-control form-control-lg" required/>
-                                                                    <label class="form-label" for="emailAddress">Email</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mb-4 pb-2">
-                                                                <div class="form-outline">
-                                                                    <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg" required
-                                                                           <label class="form-label" for="phoneNumber">Số điện thoại</label>
-                                                                </div>
 
-                                                            </div>
-                                                        </div>
-
-                                                        <h5 style="color: red">${requestScope.mess}</h5>
-
-                                                        <div class="mt-4 pt-2">
-                                                            <input class="btn btn-primary btn-lg" type="submit" value="Thêm thông tin" />
-                                                        </div>
-
-                                                    </form>
 
                                             </div>
                                         </div>
@@ -337,6 +300,45 @@
                                 </div>
                             </div>
                         </section>
+
+                        <!--Phần xử lý tạo thêm thông tin tài khoản-->
+                        <div class="fib-drawer-mask" onclick="closeForm()"></div>
+
+                        <!--<div class="fib-add-form">-->
+                        <div class="fib-add-form">
+                            <h2 style="left: 4px;" class="fby-section-title">
+                                <span>
+                                    Thông tin khách hàng
+                                </span>
+                                <div class="fby-section-tips"></div>
+                            </h2>
+                            <!-- Nội dung của form ở đây -->
+                            <form action="insertinformation">
+                                <input type="text" hidden value="${sessionScope.account.id}" name="idAccount">
+
+                                <input type="text" id="name" name="username" class="form-control" required />
+                                <label class="form-label" for="name">Họ và tên</label>
+
+                                <input type="date" name="birthday" class="form-control" required/>
+                                <label class="form-label" for="birthdayDate">Ngày sinh</label>
+
+                                <input type="email" id="emailAddress" name="email" class="form-control" required/>
+                                <label class="form-label" for="emailAddress">Email</label>
+
+                                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" required/>
+                                <label class="form-label" for="phoneNumber">Số điện thoại</label>
+
+                                <h5 style="color: red">${requestScope.mess}</h5>
+
+                                <input class="btn-submit" type="submit" value="Thêm thông tin" />
+                                <button type="button" onclick="closeForm()">Hủy bỏ</button>
+                            </form>
+                        </div>
+                        <!--</div>-->
+
+
+
+
 
 
                         <section style="left: -150px;" class="h-100 h-custom">
@@ -392,6 +394,19 @@
         </div>
 
         <script>
+
+            function openForm() {
+                document.querySelector(".fib-add-form").classList.add("active");
+                document.querySelector(".fib-drawer-mask").classList.add("active");
+            }
+
+            function closeForm() {
+                document.querySelector(".fib-add-form").classList.remove("active");
+                document.querySelector(".fib-drawer-mask").classList.remove("active");
+            }
+
+
+
 
             document.addEventListener("DOMContentLoaded", function () {
                 // Xóa trạng thái của bước trước
