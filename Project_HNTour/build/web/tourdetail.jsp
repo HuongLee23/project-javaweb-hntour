@@ -188,7 +188,7 @@
                                         <div class="hotel_location"></div>
                                     </div>
                                     <div style="display: flex;" class="hotel_title_button ml-lg-auto text-lg-right">
-                                        <div class="button book_button trans_200 book_button_buy"><a href="#">Mua ngay<span></span><span></span><span></span></a></div>
+                                        <div class="button book_button trans_200 book_button_buy"><a href="fillinformationbuyer?id=${detail.id}&num=1">Mua ngay<span></span><span></span><span></span></a></div>
                                         <form id="myForm" action="additem" method="post">
                                             <div class="button book_button trans_200 book_button_add_cart" onclick="submitForm()"><a href="#">Thêm vào giỏ hàng</a></div>
                                             <input type="hidden" name="id" value="${detail.id}">
@@ -336,7 +336,7 @@
                                             </div>
                                             <div class="col-lg-4 text-lg-right">
                                                 <div class="room_button">
-                                                    <div class="button book_button_book_another book_button trans_200"><a href="#">Mua ngay</a></div>
+                                                    <div class="button book_button_book_another book_button trans_200"><a href="fillinformationbuyer?id=${o.id}&num=1">Mua ngay</a></div>
                                                     <div class="button book_button_detail_another book_button"><a href="detail?tid=${o.id}">Xem chi tiết</a></div>
                                                 </div>
 
