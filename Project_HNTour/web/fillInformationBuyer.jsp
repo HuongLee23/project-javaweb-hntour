@@ -215,8 +215,12 @@
                             <div class="container py-5 h-100">
                                 <div class="row justify-content-center align-items-center h-100">
                                     <div class="col-12 col-lg-9 col-xl-7">
-                                        <div class="card shadow-2-strong card-registration" style=" width: 550px;border-radius: 15px;">
-                                            <div class="card-body p-4 p-md-5">
+                                        <div class="card shadow-2-strong card-registration" style="
+                                             height: 434px;
+                                             left: -60px;
+                                             width: 699px;
+                                             border-radius: 15px;">
+                                            <div style="top: -25px;" class="card-body p-4 p-md-5">
                                                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">
                                                     <h2 style="top: -50px;left: 4px;" class="fby-section-title">
                                                         <span>
@@ -291,8 +295,10 @@
 
                                                         <h5 style="color: red">${requestScope.mess}</h5>
 
-                                                        <div class="mt-4 pt-2">
-                                                            <input class="btn btn-primary btn-lg" type="submit" value="Cập nhật thông tin" />
+                                                        <div style="
+                                                             left: 444px;
+                                                             position: absolute;" class="mt-4 pt-2">
+                                                            <input style="cursor: pointer ;margin-top: -90px;" class="btn btn-primary btn-lg" type="submit" value="Cập nhật thông tin" />
                                                         </div>
 
                                                     </form>
@@ -397,7 +403,10 @@
                             <div class="container h-100 py-5">
                                 <div class="row d-flex justify-content-center align-items-center h-100">
                                     <div class="col">
-                                        <div  class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;width: 500px;margin-left: 30%;">
+                                        <div  class="card shadow-2-strong mb-5 mb-lg-0" style="
+                                              border-radius: 16px;
+                                              width: 500px;
+                                              margin-left: 40%;">
                                             <div class="card-body p-4">
                                                 <div style="display: block" class="row">
                                                     <div style="max-width: 100%;" class="col-12 col-xl-6">
@@ -414,7 +423,7 @@
                                                         <hr class="my-4">
 
                                                         <!--<form action="fillinformation">-->
-                                                        <button class="btn btn-primary btn-block btn-lg">
+                                                        <button style=" cursor: pointer;border: none;background-color: #ff5b00;" class="btn btn-primary btn-block btn-lg">
                                                             <div class="d-flex justify-content-between">
                                                                 <span style="margin-left: 40%;">Mua ngay</span>
                                                                 <!--<span>$26.48</span>-->
