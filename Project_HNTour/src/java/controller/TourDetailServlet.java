@@ -72,55 +72,71 @@ public class TourDetailServlet extends HttpServlet {
         int id = Integer.parseInt(id_raw);
         Tour p = dao.getDetail(id);
         request.setAttribute("detail", p);
-       
+
         String id_relate = request.getParameter("tid");
         int id_rel = Integer.parseInt(id_relate);
         List<Tour> tour_relate = dao.getRelateTour(p.getCategoryId(), id_rel);
         request.setAttribute("relate", tour_relate);
+//// phan trangg
+        List<Feedback> list_Feedback1 = dao.getFeedbackDetailTour(id);
+        int page = 1;
+        int recordsPerPage = 3; // Số lượng phản hồi trên mỗi trang
 
-       
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+
+        int startIndex = (page - 1) * recordsPerPage;
+        int endIndex = Math.min(startIndex + recordsPerPage, list_Feedback1.size());
+
+        List<Feedback> pagedFeedback = list_Feedback1.subList(startIndex, endIndex);
+        int totalPages = (int) Math.ceil((double) list_Feedback1.size() / recordsPerPage);
+
+        request.setAttribute("pagedFeedback", pagedFeedback);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", page);
+
+// Tiếp tục với phần logic khác...
         List<Feedback> list_Feedback = dao.getFeedbackDetailTour(id);
-       
-        
-        
         List<Category> listCategory = dao.getListCategory();
         List<Schedules> list_Schedules = dao.getSchedukesById(id);
-         HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-    double averageRating = 0;
-if (list_Feedback != null && !list_Feedback.isEmpty()) {
-    int totalRating = 0;
-    for (Feedback feedback : list_Feedback) {
-        totalRating += feedback.getRating();
-    }
-    averageRating = (double) totalRating / list_Feedback.size();
+        double averageRating = 0;
+        if (list_Feedback != null && !list_Feedback.isEmpty()) {
+            int totalRating = 0;
+            for (Feedback feedback : list_Feedback) {
+                totalRating += feedback.getRating();
+            }
+            averageRating = (double) totalRating / list_Feedback.size();
 
-    DecimalFormat decimalFormat = new DecimalFormat("#.#");
-    String formattedRating = decimalFormat.format(averageRating);
-    averageRating = Double.parseDouble(formattedRating.replace(',', '.'));
-}
- int totalFeedback = list_Feedback.size();
-     String overallRating = convertToOverallRating(averageRating);
-    request.setAttribute("overallRating", overallRating); // Phần tổng quan
+            DecimalFormat decimalFormat = new DecimalFormat("#.#");
+            String formattedRating = decimalFormat.format(averageRating);
+            averageRating = Double.parseDouble(formattedRating.replace(',', '.'));
+        }
+        int totalFeedback = list_Feedback.size();
+        String overallRating = convertToOverallRating(averageRating);
+        request.setAttribute("overallRating", overallRating); // Phần tổng quan
 
-  request.setAttribute("totalFeedback", totalFeedback);
+        request.setAttribute("totalFeedback", totalFeedback);
         request.setAttribute("account", account);
         request.setAttribute("schedules", list_Schedules);
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("feedback", list_Feedback);
-       request.setAttribute("averageRating", averageRating); 
+        request.setAttribute("averageRating", averageRating);
 
         request.getRequestDispatcher("tourdetail.jsp").forward(request, response);
     }
+
     private String convertToOverallRating(double averageRating) {
-    if (averageRating >= 0 && averageRating < 3) {
-        return "Bad";
-    } else if (averageRating >= 3 && averageRating < 4) {
-        return "Fair";
-    } else {
-        return "Very Good";
+        if (averageRating >= 0 && averageRating < 3) {
+            return "Bad";
+        } else if (averageRating >= 3 && averageRating < 4) {
+            return "Fair";
+        } else {
+            return "Very Good";
+        }
     }
-}
 
     /**
      * Handles the HTTP <code>POST</code> method.
