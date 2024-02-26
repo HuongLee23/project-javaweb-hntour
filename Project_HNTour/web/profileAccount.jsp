@@ -14,6 +14,7 @@
         <meta name="description" content="Ha Noi Tour">
         <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css'>
         <link rel="stylesheet" href="./assets/css/profileaccount.css"/>
+        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
         <script src='https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js'></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Hà Nội Tour</title>

@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
         <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
         <link rel="stylesheet" type="text/css" href="./styles/offers_styles.css">
         <link rel="stylesheet" type="text/css" href="./styles/offers_responsive.css">
         <link rel="stylesheet" href="./assets/css/tour.css"/>

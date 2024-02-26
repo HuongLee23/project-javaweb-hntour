@@ -19,6 +19,8 @@
         <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
         <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
         <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
+        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
+
         <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
         <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
         <link rel="stylesheet" type="text/css" href="styles/responsive.css">
