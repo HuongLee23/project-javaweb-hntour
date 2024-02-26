@@ -103,7 +103,7 @@
 
                     <c:set value="${sessionScope.cart}" var="o"/>
                     <c:forEach items="${o.items}" var="i" varStatus="loop">
-                        <c:if test="${sessionScope.idSelectOne != null}">
+                        <c:if test="${sessionScope.idSelectOne != 0}">
                             <c:if test="${sessionScope.idSelectOne == i.tour.id}">
                                 <div class="row justify-content-center mb-3">
                                     <div class="col-md-12 col-xl-10">
@@ -153,7 +153,7 @@
                                 </div>
                             </c:if>
                         </c:if>
-                        <c:if test="${sessionScope.idSelectOne == null}">
+                        <c:if test="${sessionScope.idSelectOne == 0}">
                             <div class="row justify-content-center mb-3">
                                 <div class="col-md-12 col-xl-10">
                                     <div class="card shadow-0 border rounded-3">
@@ -209,7 +209,7 @@
 
             <div class="checkout blog">
                 <div class="container">
-                    <div style="justify-content: space-around;" class="row">
+                    <div style="left: -188px;justify-content: space-evenly;" class="row">
 
                         <section style="width: 600px;left: -120px;" class="vh-100 gradient-custom">
                             <div class="container py-5 h-100">
@@ -361,12 +361,11 @@
 
                         <!--Phần xử lý tạo thêm thông tin tài khoản-->
                         <div class="fib-drawer-mask" onclick="closeForm()"></div>
-
                         <!--<div class="fib-add-form">-->
                         <div class="fib-add-form">
                             <h2 style="left: 4px;" class="fby-section-title">
                                 <span>
-                                    Thông tin khách hàng
+                                    Thêm thông tin khách hàng
                                 </span>
                                 <div class="fby-section-tips"></div>
                             </h2>
@@ -395,15 +394,13 @@
                         <!--</div>-->
 
 
-
-
-
-
-                        <section style="left: -150px;" class="h-100 h-custom">
+                        <!--Phần xử lý thanh toán-->
+                        <section style="width: 0px;left: -150px;" class="h-100 h-custom">
                             <div class="container h-100 py-5">
                                 <div class="row d-flex justify-content-center align-items-center h-100">
                                     <div class="col">
                                         <div  class="card shadow-2-strong mb-5 mb-lg-0" style="
+                                              left: 50px;
                                               border-radius: 16px;
                                               width: 500px;
                                               margin-left: 40%;">
@@ -431,21 +428,16 @@
                                                         </button>
                                                         <!--</form>-->
                                                     </div>  
-
-
-
-
-
                                                 </div>
-
                                             </div>
-
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </section>
+
+
+
 
                     </div>
                 </div>
