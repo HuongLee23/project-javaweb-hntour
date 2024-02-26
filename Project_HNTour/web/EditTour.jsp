@@ -233,9 +233,9 @@
                                         scheduleCounter++;
 
                                         // Add input elements to cells with unique names
-                                        locationCell.innerHTML = '<input type="text" name="locationnew_' + scheduleCounter + '" />';
-                                        dateCell.innerHTML = '<input type="time" name="datenew_' + scheduleCounter + '" />';
-                                        descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew_' + scheduleCounter + '" />';
+                                        locationCell.innerHTML = '<input type="text" name="locationnew_' + scheduleCounter + '" required/>';
+                                        dateCell.innerHTML = '<input type="time" name="datenew_' + scheduleCounter + '" required/>';
+                                        descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew_' + scheduleCounter + '" required/>';
 
                                         // Append cells to the new row
                                         newRow.appendChild(locationCell);

@@ -132,18 +132,14 @@ public class EditTour extends HttpServlet {
             }
 
             // Check if dateParam is not null before attempting to parse it
-            if (dateParam != null) {
-                try {
-                    // Parse the date string to a Time object
+            
+                
                     Time date = Time.valueOf(LocalTime.parse(dateParam));
 
                     // Assuming you have a DAO method to handle the insert operation
                     dao.insertSchedule(id, locationParam, date, descriptionParam);
-                } catch (DateTimeParseException e) {
-                    // Handle the exception (invalid date format) as needed
-                    e.printStackTrace(); // Log or print the exception
-                }
-            }
+                
+            
 
             // Increment the counter for the next set of parameters
             scheduleCounter++;
