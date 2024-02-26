@@ -365,7 +365,9 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="be-comment-block">
-                                            <h1 class="comments-title">Comments (${totalFeedback})</h1>
+                                            <h3 class="comments-heading" style="color: #333333;">Đánh Giá:</h3>
+                                            <h3 class="font-weight-bold" style="color: #fa9e1b;">${averageRating}/5</h3>
+                                            <h1 class="comments-title"> Đánh giá dựa trên(${totalFeedback}) comments</h1>
                                             <div class="be-comment">
                                                 <c:forEach items="${requestScope.pagedFeedback}" var="b"> 
                                                     <div class="be-img-comment">   
