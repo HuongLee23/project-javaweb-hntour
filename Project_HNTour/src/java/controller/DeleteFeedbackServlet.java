@@ -13,15 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.Account;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="AddFeedbackServlet", urlPatterns={"/addFeedback"})
-public class AddFeedbackServlet extends HttpServlet {
+@WebServlet(name="DeleteFeedbackServlet", urlPatterns={"/deletefeedback"})
+public class DeleteFeedbackServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +36,10 @@ public class AddFeedbackServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddFeedbackServlet</title>");  
+            out.println("<title>Servlet DeleteFeedbackServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddFeedbackServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet DeleteFeedbackServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,6 +56,14 @@ public class AddFeedbackServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        String feedbackId = request.getParameter("fid");
+    String tourId = request.getParameter("tid");
+
+    DAO dao = new DAO();
+    dao.deleteFeedback(feedbackId);
+
+ 
+    response.sendRedirect("detail?tid=" + tourId);
     } 
 
     /** 
@@ -70,18 +76,8 @@ public class AddFeedbackServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    int accId = Integer.parseInt(request.getParameter("accId"));  
-     int tourId = Integer.parseInt(request.getParameter("tourId"));  
-      int versionId = Integer.parseInt(request.getParameter("versionId"));  
-    String comment = request.getParameter("comment");
-    int rating = Integer.parseInt(request.getParameter("rating"));  
-        
-        DAO dao = new DAO();
-        dao.addFeedback(accId, tourId, versionId, comment, rating);
-         
-        response.sendRedirect("detail?tid="+tourId);
-}
-
+      
+    }
 
     /** 
      * Returns a short description of the servlet.

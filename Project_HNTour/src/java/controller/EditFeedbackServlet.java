@@ -13,15 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.Account;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="AddFeedbackServlet", urlPatterns={"/addFeedback"})
-public class AddFeedbackServlet extends HttpServlet {
+@WebServlet(name="EditFeedbackServlet", urlPatterns={"/editfeedback"})
+public class EditFeedbackServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +36,10 @@ public class AddFeedbackServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddFeedbackServlet</title>");  
+            out.println("<title>Servlet EditFeedbackServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddFeedbackServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet EditFeedbackServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,6 +56,7 @@ public class AddFeedbackServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        processRequest(request, response);
     } 
 
     /** 
@@ -70,18 +69,22 @@ public class AddFeedbackServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    int accId = Integer.parseInt(request.getParameter("accId"));  
-     int tourId = Integer.parseInt(request.getParameter("tourId"));  
-      int versionId = Integer.parseInt(request.getParameter("versionId"));  
-    String comment = request.getParameter("comment");
-    int rating = Integer.parseInt(request.getParameter("rating"));  
-        
-        DAO dao = new DAO();
-        dao.addFeedback(accId, tourId, versionId, comment, rating);
-         
-        response.sendRedirect("detail?tid="+tourId);
-}
-
+       
+        String id__raw= request.getParameter("id");
+         int id=Integer.parseInt(id__raw);
+         String id_a= request.getParameter("accId");
+         int aid=Integer.parseInt(id_a);
+         String id_t= request.getParameter("tourId");
+         int tid=Integer.parseInt(id_t);
+         String comment= request.getParameter("comment");
+         String id_r= request.getParameter("rating");
+         int rid= Integer.parseInt(id_r);
+        DAO dao= new DAO();
+       
+                
+         dao.updateFeedback(id, aid, tid, comment, rid);
+        response.sendRedirect("detail?tid="+tid);
+    }
 
     /** 
      * Returns a short description of the servlet.

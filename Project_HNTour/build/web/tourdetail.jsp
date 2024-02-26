@@ -19,7 +19,7 @@
         <meta name="description" content="Travelix Project">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
-
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
         <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
@@ -34,11 +34,31 @@
         <link rel="stylesheet" type="text/css" href="styles/single_listing_styles.css">
         <link rel="stylesheet" type="text/css" href="styles/single_listing_responsive.css">
         <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/detail.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="./ckeditor/ckeditor/ckeditor.js"></script>
+    </style>
+    <style>
+        .page-item.active .page-link{
+            background-color: #fa9e1b;
+            border-color: #fa9e1b;
+        }
+        .pagination>li>a{
+            color: black ;
+        }
+        .type-feedback{
 
-
+            margin-left: 90%;
+        }
 
     </style>
 </head>
+
 
 <body>
 
@@ -178,13 +198,7 @@
                                 <div class="hotel_title_container d-flex flex-lg-row flex-column">
                                     <div class="hotel_title_content">
                                         <h1 class="hotel_title">${detail.name}</h1>
-                                        <div class="rating_r rating_r_4 hotel_rating">
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                        </div>
+
                                         <div class="hotel_location"></div>
                                     </div>
                                     <div class="hotel_title_button ml-lg-auto text-lg-right">
@@ -202,13 +216,14 @@
                                     <div class="hotel_review_container d-flex flex-column align-items-center justify-content-center">
                                         <div class="hotel_review">
                                             <div class="hotel_review_content">
-                                                <div class="hotel_review_title">very good</div>
-                                                <div class="hotel_review_subtitle">1 reviews</div>
+                                                <div class="hotel_review_title">${overallRating}</div>
+
+                                                <div class="hotel_review_subtitle">${totalFeedback} reviews</div>
                                             </div>
 
-                                            <c:forEach items="${requestScope.feedback}" var="b"> 
-                                                <div class="hotel_review_rating text-center">${b.rating}</div>
-                                            </c:forEach>
+
+                                            <div class="hotel_review_rating text-center">${averageRating}</div>
+
 
                                         </div>
                                     </div>
@@ -346,88 +361,130 @@
 
                                 </div>
                             </c:forEach>
-                            <!-- Reviews -->
-
-                            <div class="reviews">
-                                <div class="reviews_title">reviews</div>
-                                <div class="reviews_container">
-                                    <c:forEach items="${requestScope.feedback}" var="b"> 
-                                        <!-- Review -->
-                                        <div class="review">
-                                            <div class="row">
-                                                <div class="col-lg-1">
-                                                    <div class="review_image">
-                                                        <c:if test="${b.avatarAc != null}">
-                                                        <img src="${b.avatarAc}" alt="Image by Andrew Robles">
-                                                    </c:if>
-                                                    <c:if test="${b.avatarAc == null}">
-                                                        <img  src="https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain" alt="">
-                                                    </c:if>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="be-comment-block">
+                                            <h3 class="comments-heading" style="color: #333333;">Đánh Giá:</h3>
+                                            <h3 class="font-weight-bold" style="color: #fa9e1b;">${averageRating}/5</h3>
+                                            <h1 class="comments-title"> Đánh giá dựa trên(${totalFeedback}) comments</h1>
+                                            <div class="be-comment">
+                                                <c:forEach items="${requestScope.pagedFeedback}" var="b"> 
+                                                    <div class="be-img-comment">   
+                                                        <img src="${b.avatarAc != null ? b.avatarAc : 'https://th.bing.com/th/id/OIP.g-FcRsj_DrnzN7sIDOrsEwHaHa?rs=1&pid=ImgDetMain'}" alt="${b.accName}" class="be-ava-comment">
                                                     </div>
-                                                    <div class="review_name">${b.accName}</div>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-lg-11">
-                                                <div class="review_content">
-                                                    <div class="review_title_container">
-                                                        <div class="review_title"></div>
-                                                        <div class="review_rating">${b.rating}</div>
+                                                    <div class="be-comment-content">
+                                                        <span class="be-comment-name">
+                                                            <p>${b.accName}</p>
+                                                        </span>
+                                                        <span class="be-comment-time">
+                                                            <i class="fa fa-star" style="color: orange"></i>
+                                                            ${b.rating}
+                                                        </span>
+                                                        <div class="type-feedback">
+                                                            <span class="comment-options" style="display: flex">
+                                                                <c:if test="${sessionScope.account != null && sessionScope.account.id == b.accId}">
+                                                                    <a href="loadfeedback?fid=${b.id}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                                                    <form action="deletefeedback" method="get">
+                                                                        <input type="hidden" name="fid" value="${b.id}">
+                                                                        <input type="hidden" name="tid" value="${b.tourId}">
+                                                                        <a href="deletefeedback?fid=${b.id}&tid=${b.tourId}" class="delete" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                                                    </form>
+                                                                </c:if>
+                                                            </span>
+                                                        </div>
+                                                        <p class="be-comment-text">
+                                                            ${b.comment}
+                                                        </p>
                                                     </div>
-                                                    <div class="review_text">
-                                                        <p>${b.comment}</p>
+                                                </c:forEach>        
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="be-comment-block">
+                                            <c:if test="${sessionScope.account != null }">
+                                                <form class="form-block" action="addFeedback" method="post">
+                                                    <input type="hidden" name="accId" value="${account.id}">
+                                                    <input type="hidden" name="tourId" value="${detail.id}">
+                                                    <input type="hidden" name="versionId" value="${detail.version}">
+                                                    <div class="form-group">
+                                                        <label for="username">Username:</label>
+                                                        <input class="form-control" type="text" id="username" placeholder="${account.username}" disabled>
                                                     </div>
-                                                    
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                   </c:forEach>
-                                </div>
-                            </div>
-                            <br/>
-                    <!-- Comment Form -->
-                    <c:if  test="${sessionScope.account  != null}"> 
-                                <div class="comment_form">
-                                    <form action="addfeeback" method="post">
-                                        <!-- Input for Comment -->
-                                        <div class="form-group">
-                                            <label for="comment">Your Comment:</label>
-                                            <textarea class="form-control" id="comment" name="comment" rows="3" ></textarea>
-                                        </div>
-                                        <!-- Input for Rating (Assuming a 5-star system) -->
-                                        <div class="form-group">
-                                            <label for="rating">Your Rating:</label>
-                                            <select class="form-control" id="rating" name="rating">
-                                                <option value="1">1 star</option>
-                                                <option value="2">2 stars</option>
-                                                <option value="3">3 stars</option>
-                                                <option value="4">4 stars</option>
-                                                <option value="5">5 stars</option>
-                                            </select>
-                                        </div>
-                             
-                                        <!-- Submit Button -->
-                                        <button type="submit" style="background: #fa9e1b; border:0px; float: right " class="btn btn-primary">Submit Comment</button>
-                                    </form>
-                                </div>
-                    </c:if>
-                            <!-- Location on Map -->
-                                
-                            <div class="location_on_map">
-                                <div class="location_on_map_title">location on map</div>
-
-                                <!-- Google Map -->
-
-                                <div class="travelix_map">
-                                    <div id="google_map" class="google_map">
-                                        <div class="map_container">
-                                            <div id="map"></div>
+                                                    <div class="form-group">
+                                                        <label for="email">Email:</label>
+                                                        <input class="form-control" type="email" id="email" placeholder="${account.email}" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="comment">Comment:</label>
+                                                        <textarea class="form-control" name="comment" id="describe" required placeholder="Your text"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="rating">Your Rating:</label>
+                                                        <select class="form-control" id="rating" name="rating">
+                                                            <option value="1">1 star</option>
+                                                            <option value="2">2 stars</option>
+                                                            <option value="3">3 stars</option>
+                                                            <option value="4">4 stars</option>
+                                                            <option value="5">5 stars</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary btn-block" style="background: #fa9e1b; border:0px;">Submit</button>
+                                                </form>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center" style="margin-top: -40px; margin-left: 338px; margin-bottom: 21px;">
+                                <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                    <a class="page-link" href="detail?tid=${detail.id}&page=${currentPage - 1}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+
+                                <c:forEach begin="1" end="${totalPages}" varStatus="loop">
+                                    <li class="page-item ${loop.index == currentPage ? 'active' : ''}">
+                                        <a class="page-link" href="detail?tid=${detail.id}&page=${loop.index}">${loop.index}</a>
+                                    </li>
+                                </c:forEach>
+
+                                <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                                    <a class="page-link" href="detail?tid=${detail.id}&page=${currentPage + 1}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <!-- Reviews -->
+                            <div id="deleteEmployeeModal" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form>
+                                            <div class="modal-header">						
+                                                <h4 class="modal-title">Xóa Đánh giá</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">					
+                                                <p>Are you sure you want to delete these Records?</p>
+                                                <p class="text-warning"><small>This action cannot be undone.</small></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                                <input type="submit" class="btn btn-danger" value="Delete">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </div>
                 </div>
@@ -438,6 +495,9 @@
         <jsp:include page="footer.jsp"></jsp:include>
 
     </div>
+    <script>
+        CKEDITOR.replace('describe');
+    </script>
 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="styles/bootstrap4/popper.js"></script>
