@@ -18,9 +18,6 @@
         <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
         <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="plugins/colorbox/colorbox.css" rel="stylesheet" type="text/css">
-        <!--Icon web-->
-        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
-        <!--Icon web-->
         <link rel="stylesheet" type="text/css" href="styles/blog_styles.css">
         <link rel="stylesheet" type="text/css" href="styles/blog_responsive.css">
         <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
@@ -163,10 +160,9 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col" style="width: 59%;" class="h6">Sản phẩm trong giỏ hàng</th>
-                                                            <th scope="col">Giá</th>
+                                                            <th scope="col" style="width: 68%;" class="h6">Sản phẩm trong giỏ hàng</th>
                                                             <th scope="col">Số lượng</th>
-                                                            <th scope="col">Đơn giá</th>
+                                                            <th scope="col">Giá</th>
                                                             <th scope="col">Thao tác</th>
                                                         </tr>
                                                     </thead>
@@ -187,9 +183,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </th>
-                                                                <td class="align-middle border-bottom-0">
-                                                                    <p class="mb-0" style="font-weight: 500;"><fmt:formatNumber value="${i.tour.price}" pattern="###,###"/> VNÐ</p>
-                                                                </td>
                                                                 <td class="align-middle border-bottom-0">
                                                                     <div class="d-flex flex-row">
                                                                         <a href="processcart?num=-1&id=${i.tour.id}">

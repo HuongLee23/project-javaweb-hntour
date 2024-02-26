@@ -21,7 +21,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="css/manager.css" rel="stylesheet" type="text/css"/>
-        <script src="./lib/ckeditor/ckeditor.js" >
+        <script src="./ckeditor/ckeditor/ckeditor.js" >
 
         </script>
         <style>
@@ -146,11 +146,11 @@
 
                                 <div class="form-group">
                                     <label>Tổng thời gian Tour</label>
-                                    <input value="${tour.intendedTime}" name="time" type="time" class="form-control" required>
+                                    <input value="${tour.intendedTime}" name="time" type="time" class="form-control" required >
                                 </div>
-                                <div class="form-group">
+                                <div>
                                     <label>Giá</label>
-                                    <input value="${tour.price}" name="price" type="text" class="form-control" required>
+                                    <input value="${tour.price}" name="price" type="number" class="form-control" required min="0">
                                 </div>
 
                                 <div class="form-group">
@@ -233,9 +233,9 @@
                                         scheduleCounter++;
 
                                         // Add input elements to cells with unique names
-                                        locationCell.innerHTML = '<input type="text" name="locationnew_' + scheduleCounter + '" />';
-                                        dateCell.innerHTML = '<input type="time" name="datenew_' + scheduleCounter + '" />';
-                                        descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew_' + scheduleCounter + '" />';
+                                        locationCell.innerHTML = '<input type="text" name="locationnew_' + scheduleCounter + '" required/>';
+                                        dateCell.innerHTML = '<input type="time" name="datenew_' + scheduleCounter + '" required/>';
+                                        descriptionCell.innerHTML = '<input type="text" name="descriptionSchedulesnew_' + scheduleCounter + '" required/>';
 
                                         // Append cells to the new row
                                         newRow.appendChild(locationCell);

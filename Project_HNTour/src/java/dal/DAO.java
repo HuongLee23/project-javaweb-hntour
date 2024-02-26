@@ -5,7 +5,7 @@
  */
 package dal;
 
-//import java.sql.Array;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,9 +20,10 @@ import model.Account;
 import model.Cart;
 import model.Category;
 import model.Feedback;
+
 import model.InformationAccount;
 import model.Item;
-//import model.ImageAlbum;
+
 import model.Schedules;
 import model.Tour;
 import model.Voucher;
@@ -535,7 +536,7 @@ public class DAO extends DBContext {
 //                        rs.getString("name"),
 //                        rs.getInt("imageId"),
 //                        rs.getTime("intendedTime"),
-//                        rs.getString("price"),
+//                        rs.getDouble("price"),
 //                        rs.getString("description"),
 //                        rs.getInt("categoryId"),
 //                        rs.getInt("version"),
@@ -577,7 +578,7 @@ public class DAO extends DBContext {
 //                        rs.getString("name"),
 //                        rs.getInt("imageId"),
 //                        rs.getTime("intendedTime"),
-//                        rs.getString("price"),
+//                        rs.getDouble("price"),
 //                        rs.getString("description"),
 //                        rs.getInt("categoryId"),
 //                        rs.getInt("version"),
@@ -619,7 +620,7 @@ public class DAO extends DBContext {
 //                        rs.getString("name"),
 //                        rs.getInt("imageId"),
 //                        rs.getTime("intendedTime"),
-//                        rs.getString("price"),
+//                        rs.getDouble("price"),
 //                        rs.getString("description"),
 //                        rs.getInt("categoryId"),
 //                        rs.getInt("version"),
@@ -801,12 +802,14 @@ public class DAO extends DBContext {
                 + "T.[status]"
                 + " FROM [Tour] T ";
 
+
         if (type.equals("name")) {
             sql += "ORDER BY T.[name]";
         } else if (type.equals("price")) {
             sql += "ORDER BY T.[price]";
         } else if (type.equals("rating")) {
             sql += "JOIN [Feedback] F ON T.[id] = F.[tourId] ORDER BY F.[rating]";
+
         }
 
         if (typeSort.equals("ASC")) {
@@ -1491,7 +1494,9 @@ public class DAO extends DBContext {
         }
     }
 
+
     public List<Tour> searchByNameSupplier(String txtSearch, int supplierId) {
+
         List<Tour> list = new ArrayList<>();
         String sql = "SELECT \n"
                 + "    T.[id], \n"
@@ -1545,6 +1550,8 @@ public class DAO extends DBContext {
         return list;
     }
 
+
+   
     public static void main(String[] args) {
         DAO d = new DAO();
         List<Tour> l = d.getTourBySort("asc", "rating");
