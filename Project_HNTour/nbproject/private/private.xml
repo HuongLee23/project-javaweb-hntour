@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/fillInformationBuyer.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerAddToCart/ShowCartServlet.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/nbproject/private/private.xml</file>
@@ -21,6 +22,24 @@
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/ulti/SendEmail.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/nbproject/project.properties</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/showcart.jsp</file>
+=======
+<<<<<<< HEAD
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Tour.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/DAO.java</file>
+=======
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/AccountServlet.java</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/assets/css/main.css</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/tourlist.java</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/tour.jsp</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/assets/css/tour.css</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/home.jsp</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/TourDetailServlet.java</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/model/Account.java</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/dal/DAO.java</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/changepassword.jsp</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/tourdetail.jsp</file>
+>>>>>>> e12ce26704d4667763f9e2948168017b0d1ea456
+>>>>>>> Namcthe171385
         </group>
     </open-files>
 </project-private>
