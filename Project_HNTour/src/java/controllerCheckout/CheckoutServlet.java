@@ -61,7 +61,33 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        HttpSession session = request.getSession();
+
+        String selectCheckout_raw = request.getParameter("selectCheckout");
+        String idInfor_raw = request.getParameter("idInfor");
+
+        int selectCheckout, id, idInfor;
+        try {
+            selectCheckout = Integer.parseInt(selectCheckout_raw);
+            idInfor = Integer.parseInt(idInfor_raw);
+
+            if (selectCheckout != 0) {
+//            Nếu selectCheckout != 0 thì nó chỉ thanh toán cho 1 đơn hàng
+                id = selectCheckout;
+//               
+                session.setAttribute("idSelectOne", id);
+            } else {
+//            Nếu selectCheckout == 0 thì nó thanh toán cho các đơn hàng trong giỏ hàng
+                session.setAttribute("idSelectOne", selectCheckout);
+            }
+
+            session.setAttribute("idInfor", idInfor);
+            request.getRequestDispatcher("checkout.jsp").forward(request, response);
+
+        } catch (NumberFormatException e) {
+        }
+
     }
 
     /**
@@ -75,34 +101,7 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAO dao = new DAO();
-        HttpSession session = request.getSession();
-
-        String selectCheckout_raw = request.getParameter("selectCheckout");
-        int selectCheckout, id;
-//        List<Tour> list = dao.getAllTour();
-        try {
-            selectCheckout = Integer.parseInt(selectCheckout_raw);
-
-//            Nếu selectCheckout != 0 thì nó chỉ thanh toán cho 1 đơn hàng
-            if (selectCheckout != 0) {
-//                Tour tour = null;
-                id = selectCheckout;
-//                for (Tour tour1 : list) {
-//                    if (tour1.getId() == id) {
-//                        tour = tour1;
-//                        break;
-//                    }
-//                }
-                session.setAttribute("idSelectOne", id);
-            } else {
-//            Nếu selectCheckout == 0 thì nó thanh toán cho các đơn hàng trong giỏ hàng
-                session.setAttribute("idSelectOne", selectCheckout);
-            }
-            request.getRequestDispatcher("checkout.jsp").forward(request, response);
-
-        } catch (NumberFormatException e) {
-        }
+        processRequest(request, response);
     }
 
     /**

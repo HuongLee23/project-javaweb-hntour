@@ -266,8 +266,8 @@
                                                 <c:if test="${not empty listInf}">
                                                     <form action="updateinformationacc" method="post">
                                                         <c:set value="${requestScope.infoAcc}" var="infoAcc"/>
-                                                        <input type="text" hidden value="${sessionScope.account.id}" name="idAccount">
-                                                        <input type="text" hidden value="${infoAcc.id}" name="idInfor">
+                                                        <input id="idAccount" type="text" hidden value="${sessionScope.account.id}" name="idAccount">
+                                                        <input id="idInfor" type="text" hidden value="${infoAcc.id}" name="idInfor">
                                                         <div class="row">
                                                             <div class="col-md-6 mb-4">
                                                                 <div class="form-outline">
@@ -428,9 +428,14 @@
 
                                                             <hr class="my-4">
 
-                                                            <form action="checkout" method="post">
+                                                            <form action="checkout">
+                                                                <c:set value="${requestScope.infoAcc}" var="infoAcc"/>
+                                                                <!--<input type="text" hidden value="${sessionScope.account.id}" name="idAccount">-->
+                                                                <input type="text" hidden value="${infoAcc.id}" name="idInfor">
+
+
                                                                 <input type="hidden" name="selectCheckout" value="${i.id}">
-                                                                <button style=" cursor: pointer;border: none;background-color: #ff5b00;" class="btn btn-primary btn-block btn-lg">
+                                                                <button onclick="buyNow(event)" style=" cursor: pointer;border: none;background-color: #ff5b00;" class="btn btn-primary btn-block btn-lg">
                                                                     <div class="d-flex justify-content-between">
                                                                         <span style="margin-left: 40%;">Mua ngay</span>
                                                                         <!--<span>$26.48</span>-->
@@ -459,9 +464,13 @@
 
                                                             <hr class="my-4">
 
-                                                            <form action="checkout" method="post">
+                                                            <form action="checkout">
+                                                                <c:set value="${requestScope.infoAcc}" var="infoAcc"/>
+                                                                <!--<input type="text" hidden value="${sessionScope.account.id}" name="idAccount">-->
+                                                                <input type="text" hidden value="${infoAcc.id}" name="idInfor">
+                                                                
                                                                 <input type="hidden" name="selectCheckout" value="0">
-                                                                <button style=" cursor: pointer;border: none;background-color: #ff5b00;" class="btn btn-primary btn-block btn-lg">
+                                                                <button onclick="buyNow(event)" style=" cursor: pointer;border: none;background-color: #ff5b00;" class="btn btn-primary btn-block btn-lg">
                                                                     <div class="d-flex justify-content-between">
                                                                         <span style="margin-left: 40%;">Mua ngay</span>
                                                                         <!--<span>$26.48</span>-->
@@ -492,6 +501,31 @@
         </div>
 
         <script>
+
+            function buyNow(event) {
+                // Lấy giá trị đã chọn từ select box
+                var selectedValue = document.getElementById("proccessSelect").value;
+
+                // Kiểm tra xem một tùy chọn đã được chọn hay chưa
+                if (selectedValue === "0") {
+                    alert("Vui lòng chọn thông tin liên lạc trước khi mua hàng.");
+                    event.preventDefault();
+                    return;
+                }
+
+                // Gán các giá trị đã chọn vào các trường trong form
+//                var infoAcc = document.getElementById("formProccessSelect").querySelector('[value="' + selectedValue + '"]');
+//                document.getElementById("idInfor").value = infoAcc.dataset.idInfor;
+//                document.getElementById("idAccount").value = infoAcc.dataset.idAccount;
+//                document.getElementById("name").value = infoAcc.dataset.username;
+//                document.getElementById("birthdayDate").value = infoAcc.dataset.birthday;
+//                document.getElementById("emailAddress").value = infoAcc.dataset.email;
+//                document.getElementById("phoneNumber").value = infoAcc.dataset.phoneNumber;
+
+                // Tiến hành mua hàng hoặc các hành động khác
+                // ở đây có thể là gửi form thanh toán
+            }
+
 
             function openForm() {
                 document.querySelector(".fib-add-form").classList.add("active");
