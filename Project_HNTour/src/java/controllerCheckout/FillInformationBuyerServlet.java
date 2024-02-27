@@ -120,6 +120,7 @@ public class FillInformationBuyerServlet extends HttpServlet {
 //            }
 //        }
 
+        //Show cho một sản phẩm khi mua ngay
         DAO dao = new DAO();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
@@ -127,45 +128,22 @@ public class FillInformationBuyerServlet extends HttpServlet {
             request.setAttribute("error", "Bạn chưa đăng nhập!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            //phần show cart
             List<Tour> list = dao.getAllTour();
-            Cookie[] arr = request.getCookies();
-            String txt = "";
-            if (arr != null) {
-                for (Cookie o : arr) {
-                    if (o.getName().equals("cart")) {
-                        txt += o.getValue();
-                    }
-                }
-            }
-            String id = request.getParameter("id");
-            String num = request.getParameter("num");
+            String id_raw = request.getParameter("id");
+            int id;
+            Tour tour = null;
             try {
-
-                if (txt.isEmpty()) {
-                    txt = id + ":" + num;
-                } else {
-                    txt = txt + "/" + id + ":" + num;
-                }
-
-                Cookie c = new Cookie("cart", txt);
-                c.setMaxAge(60 * 60 * 24 * 7);
-                response.addCookie(c);
-
-                Cart cart = new Cart(txt, list);
-                List<Item> listItem = cart.getItems();
-                int size;
-                if (listItem != null) {
-                    size = listItem.size();
-                } else {
-                    size = 0;
+                id = Integer.parseInt(id_raw);
+                for (Tour tour1 : list) {
+                    if (tour1.getId() == id) {
+                        tour = tour1;
+                        break;
+                    }
                 }
 
                 List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(account.getId());
 
-                session.setAttribute("sizeCart", size);
-                session.setAttribute("listItem", listItem);
-                session.setAttribute("cart", cart);
+                session.setAttribute("tourFill", tour);
                 session.setAttribute("idSelectOne", id);
                 request.setAttribute("listInforAcc", listInformationAccount);
                 request.getRequestDispatcher("fillInformationBuyer.jsp").forward(request, response);
@@ -189,7 +167,7 @@ public class FillInformationBuyerServlet extends HttpServlet {
 
         DAO dao = new DAO();
 
-        //phần show cart
+        //Show cho các sản phẩm trong giỏ hàng
         List<Tour> list = dao.getAllTour();
         Cookie[] arr = request.getCookies();
         String txt = "";

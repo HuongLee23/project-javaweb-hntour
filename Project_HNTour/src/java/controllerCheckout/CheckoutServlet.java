@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controllerCheckout;
 
 import dal.DAO;
 import java.io.IOException;
@@ -12,15 +12,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Feedback;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import model.Tour;
 
 /**
  *
- * @author admin
+ * @author hello
  */
-@WebServlet(name = "LoadFeedbackServlet", urlPatterns = {"/loadfeedback"})
-public class LoadFeedbackServlet extends HttpServlet {
+@WebServlet(name = "CheckoutServlet", urlPatterns = {"/checkout"})
+public class CheckoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +40,10 @@ public class LoadFeedbackServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoadFeedbackServlet</title>");
+            out.println("<title>Servlet CheckoutServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoadFeedbackServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CheckoutServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,12 +61,7 @@ public class LoadFeedbackServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAO dao = new DAO();
-        String id_e = request.getParameter("fid");
-        int id = Integer.parseInt(id_e);
-        Feedback feedback_list = dao.getFeedbackByID(id);
-        request.setAttribute("feedback", feedback_list);
-        request.getRequestDispatcher("EditFeedback.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -79,7 +75,34 @@ public class LoadFeedbackServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        DAO dao = new DAO();
+        HttpSession session = request.getSession();
+
+        String selectCheckout_raw = request.getParameter("selectCheckout");
+        int selectCheckout, id;
+//        List<Tour> list = dao.getAllTour();
+        try {
+            selectCheckout = Integer.parseInt(selectCheckout_raw);
+
+//            Nếu selectCheckout != 0 thì nó chỉ thanh toán cho 1 đơn hàng
+            if (selectCheckout != 0) {
+//                Tour tour = null;
+                id = selectCheckout;
+//                for (Tour tour1 : list) {
+//                    if (tour1.getId() == id) {
+//                        tour = tour1;
+//                        break;
+//                    }
+//                }
+                session.setAttribute("idSelectOne", id);
+            } else {
+//            Nếu selectCheckout == 0 thì nó thanh toán cho các đơn hàng trong giỏ hàng
+                session.setAttribute("idSelectOne", selectCheckout);
+            }
+            request.getRequestDispatcher("checkout.jsp").forward(request, response);
+
+        } catch (NumberFormatException e) {
+        }
     }
 
     /**

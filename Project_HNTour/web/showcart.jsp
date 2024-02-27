@@ -160,9 +160,10 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col" style="width: 68%;" class="h6">Sản phẩm trong giỏ hàng</th>
-                                                            <th scope="col">Số lượng</th>
+                                                            <th scope="col" style="width: 56%;;" class="h6">Sản phẩm trong giỏ hàng</th>
                                                             <th scope="col">Giá</th>
+                                                            <th scope="col">Số lượng</th>
+                                                            <th scope="col">Đơn giá</th>
                                                             <th scope="col">Thao tác</th>
                                                         </tr>
                                                     </thead>
@@ -183,6 +184,9 @@
                                                                         </div>
                                                                     </div>
                                                                 </th>
+                                                                <td class="align-middle border-bottom-0">
+                                                                    <p class="mb-0" style="font-weight: 500;"><fmt:formatNumber value="${i.tour.price}" pattern="###,###"/> VNÐ</p>
+                                                                </td>
                                                                 <td class="align-middle border-bottom-0">
                                                                     <div class="d-flex flex-row">
                                                                         <a href="processcart?num=-1&id=${i.tour.id}">

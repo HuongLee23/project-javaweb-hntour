@@ -71,7 +71,7 @@
             <div class="home">
                 <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/about_background.jpg"></div>
                 <div class="home_content">
-                    <div class="home_title">Tour detail</div>
+                    <!--<div class="home_title">Tour detail</div>-->
                 </div>
             </div>
 
@@ -198,7 +198,7 @@
                                         <div class="hotel_location"></div>
                                     </div>
                                     <div style="display: flex;" class="hotel_title_button ml-lg-auto text-lg-right">
-                                        <div class="button book_button trans_200 book_button_buy"><a href="fillinformationbuyer?id=${detail.id}&num=1">Mua ngay<span></span><span></span><span></span></a></div>
+                                        <div class="button book_button trans_200 book_button_buy"><a href="fillinformationbuyer?id=${detail.id}">Mua ngay<span></span><span></span><span></span></a></div>
                                         <form id="myForm" action="additem" method="post">
                                             <div class="button book_button trans_200 book_button_add_cart" onclick="submitForm()"><a href="#">Thêm vào giỏ hàng</a></div>
                                             <input type="hidden" name="id" value="${detail.id}">
@@ -348,7 +348,7 @@
                                             </div>
                                             <div class="col-lg-4 text-lg-right">
                                                 <div class="room_button">
-                                                    <div class="button book_button_book_another book_button trans_200"><a href="fillinformationbuyer?id=${o.id}&num=1">Mua ngay</a></div>
+                                                    <div class="button book_button_book_another book_button trans_200"><a href="fillinformationbuyer?id=${o.id}">Mua ngay</a></div>
                                                     <div class="button book_button_detail_another book_button"><a href="detail?tid=${o.id}">Xem chi tiết</a></div>
                                                 </div>
 
@@ -475,7 +475,7 @@
 
                             <!-- Pagination -->
                             <ul class="pagination justify-content-center"
-                                style="margin-top: -40px; margin-left: 338px; margin-bottom: 21px;">
+                                style="width: 80%;;margin-top: -40px; margin-bottom: 21px;">
                                 <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
                                     <a class="page-link"
                                        href="detail?tid=${detail.id}&page=${currentPage - 1}"

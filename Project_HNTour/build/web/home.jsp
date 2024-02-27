@@ -247,7 +247,7 @@
                                     </div>
 
                                     <!-- CTA Slider Item -->
-                                    <div class="owl-item cta_item text-center">
+<!--                                    <div class="owl-item cta_item text-center">
                                         <div class="cta_title">maldives deluxe package</div>
                                         <div class="rating_r rating_r_4">
                                             <i></i>
@@ -258,7 +258,7 @@
                                         </div>
                                         <p class="cta_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec. Proin bibendum, augue faucibus tincidunt ultrices, tortor augue gravida lectus, et efficitur enim justo vel ligula.</p>
                                         <div class="button cta_button"><div class="button_bcg"></div><a href="#">book now<span></span><span></span><span></span></a></div>
-                                    </div>
+                                    </div>-->
 
 
 

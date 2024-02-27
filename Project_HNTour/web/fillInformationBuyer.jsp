@@ -102,59 +102,61 @@
                             <div class="fby-section-tips"></div>
                         </h2>
 
-                    <c:set value="${sessionScope.cart}" var="o"/>
-                    <c:forEach items="${o.items}" var="i" varStatus="loop">
-                        <c:if test="${sessionScope.idSelectOne != 0}">
-                            <c:if test="${sessionScope.idSelectOne == i.tour.id}">
-                                <div class="row justify-content-center mb-3">
-                                    <div class="col-md-12 col-xl-10">
-                                        <div class="card shadow-0 border rounded-3">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
-                                                        <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                                            <img src="${i.tour.imageMain}"
-                                                                 class="w-100" />
-                                                            <a href="#!">
-                                                                <div class="hover-overlay">
-                                                                    <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                                                                </div>
-                                                            </a>
+                        <!--Show thông tin của tour muốn mua ngay-->
+                    <c:if test="${sessionScope.idSelectOne != 0}">
+                        <c:set value="${sessionScope.tourFill}" var="i"/>
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-md-12 col-xl-10">
+                                <div class="card shadow-0 border rounded-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                                                <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                                    <img src="${i.imageMain}"
+                                                         class="w-100" />
+                                                    <a href="#!">
+                                                        <div class="hover-overlay">
+                                                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
                                                         </div>
-                                                    </div>
-                                                    <div class="fby-show-product-information col-md-6 col-lg-6 col-xl-6">
-                                                        <h5>${i.tour.name}</h5>
-                                                        <div class="fby-show-product-information-price d-flex flex-row">
-                                                            <span><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="fby-show-product-information col-md-6 col-lg-6 col-xl-6">
+                                                <h5>${i.name}</h5>
+                                                <div class="fby-show-product-information-price d-flex flex-row">
+                                                    <span><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</span>
+                                                </div>
+                                                <div class="mt-1 mb-0 text-muted small">
+                                                    <span></span>          
+                                                    <span class="text-primary">Số lượng bạn đặt: 1 vé</span>
+                                                </div>
+                                                <p class="text-truncate mb-4 mb-md-0">
+                                                    ${i.description}
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                                                <div class="d-flex flex-row align-items-center mb-1">
+                                                    <!--<h4 class="mb-1 me-1">$13.99</h4>-->
+                                                    <span class="text-danger"><div class="text-danger mb-1 me-2">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
                                                         </div>
-                                                        <div class="mt-1 mb-0 text-muted small">
-                                                            <span></span>
-                                                            <span class="text-primary">Số lượng bạn đặt: ${i.quantity} vé</span>
-                                                        </div>
-                                                        <p class="text-truncate mb-4 mb-md-0">
-                                                            ${i.tour.description}
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                                                        <div class="d-flex flex-row align-items-center mb-1">
-                                                            <!--<h4 class="mb-1 me-1">$13.99</h4>-->
-                                                            <span class="text-danger"><div class="text-danger mb-1 me-2">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                </div>
-                                                            </span>
-                                                        </div>
-                                                    </div>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </c:if>
-                        </c:if>
-                        <c:if test="${sessionScope.idSelectOne == 0}">
+                            </div>
+                        </div>
+                    </c:if>
+
+                    <!--Show thông tin của các tour trong cart-->
+                    <c:if test="${sessionScope.idSelectOne == 0}">
+                        <c:set value="${sessionScope.cart}" var="o"/>
+                        <c:forEach items="${o.items}" var="i" varStatus="loop">
                             <div class="row justify-content-center mb-3">
                                 <div class="col-md-12 col-xl-10">
                                     <div class="card shadow-0 border rounded-3">
@@ -201,8 +203,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </c:if>
-                    </c:forEach>
+                        </c:forEach>
+                    </c:if>
+
+
 
                 </div>
             </section>
@@ -406,30 +410,70 @@
                                               width: 500px;
                                               margin-left: 40%;">
                                             <div class="card-body p-4">
-                                                <div style="display: block" class="row">
-                                                    <div style="max-width: 100%;" class="col-12 col-xl-6">
-                                                        <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
-                                                            <p class="mb-2">Tổng thanh toán</p>
-                                                            <p class="mb-2"><fmt:formatNumber value="${o.totalMoney}" pattern="###,###"/> VNÐ</p>
-                                                        </div>
 
-                                                        <div class="d-flex justify-content-between" style="font-weight: 500;">
-                                                            <p class="mb-0">Số lượng</p>
-                                                            <p class="mb-0">${sessionScope.sizeCart} (Tour)</p>
-                                                        </div>
-
-                                                        <hr class="my-4">
-
-                                                        <!--<form action="fillinformation">-->
-                                                        <button style=" cursor: pointer;border: none;background-color: #ff5b00;" class="btn btn-primary btn-block btn-lg">
-                                                            <div class="d-flex justify-content-between">
-                                                                <span style="margin-left: 40%;">Mua ngay</span>
-                                                                <!--<span>$26.48</span>-->
+                                                <!--Show thông tin thanh toán của một tour mua ngay-->
+                                                <c:if test="${sessionScope.idSelectOne != 0}">
+                                                    <c:set value="${sessionScope.tourFill}" var="i"/>
+                                                    <div style="display: block" class="row">
+                                                        <div style="max-width: 100%;" class="col-12 col-xl-6">
+                                                            <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
+                                                                <p class="mb-2">Tổng thanh toán</p>
+                                                                <p class="mb-2"><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</p>
                                                             </div>
-                                                        </button>
-                                                        <!--</form>-->
-                                                    </div>  
-                                                </div>
+
+                                                            <div class="d-flex justify-content-between" style="font-weight: 500;">
+                                                                <p class="mb-0">Số lượng</p>
+                                                                <p class="mb-0">1 (Tour)</p>
+                                                            </div>
+
+                                                            <hr class="my-4">
+
+                                                            <form action="checkout" method="post">
+                                                                <input type="hidden" name="selectCheckout" value="${i.id}">
+                                                                <button style=" cursor: pointer;border: none;background-color: #ff5b00;" class="btn btn-primary btn-block btn-lg">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <span style="margin-left: 40%;">Mua ngay</span>
+                                                                        <!--<span>$26.48</span>-->
+                                                                    </div>
+                                                                </button>
+                                                            </form>
+                                                        </div>  
+                                                    </div>
+
+                                                </c:if>
+
+                                                <!--Show thông tin thanh toán của các tour trong cart-->
+                                                <c:if test="${sessionScope.idSelectOne == 0}">
+                                                    <c:set value="${sessionScope.cart}" var="o"/>
+                                                    <div style="display: block" class="row">
+                                                        <div style="max-width: 100%;" class="col-12 col-xl-6">
+                                                            <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
+                                                                <p class="mb-2">Tổng thanh toán</p>
+                                                                <p class="mb-2"><fmt:formatNumber value="${o.totalMoney}" pattern="###,###"/> VNÐ</p>
+                                                            </div>
+
+                                                            <div class="d-flex justify-content-between" style="font-weight: 500;">
+                                                                <p class="mb-0">Số lượng</p>
+                                                                <p class="mb-0">${sessionScope.sizeCart} (Tour)</p>
+                                                            </div>
+
+                                                            <hr class="my-4">
+
+                                                            <form action="checkout" method="post">
+                                                                <input type="hidden" name="selectCheckout" value="0">
+                                                                <button style=" cursor: pointer;border: none;background-color: #ff5b00;" class="btn btn-primary btn-block btn-lg">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <span style="margin-left: 40%;">Mua ngay</span>
+                                                                        <!--<span>$26.48</span>-->
+                                                                    </div>
+                                                                </button>
+                                                            </form>
+                                                        </div>  
+                                                    </div>
+                                                </c:if>
+
+
+
                                             </div>
                                         </div>
                                     </div>

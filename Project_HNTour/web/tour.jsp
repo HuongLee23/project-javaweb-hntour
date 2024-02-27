@@ -32,7 +32,7 @@
                 <div class="home">
                     <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/about_background.jpg"></div>
                     <div class="home_content">
-                        <div class="home_title">our Tour</div>
+                        <!--<div class="home_title">our Tour</div>-->
                     </div>
                 </div>
 
@@ -197,7 +197,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </p>
-                                                <div style="background-color: #ee4d2d;" class="button book_button"><a href="fillinformationbuyer?id=${c.id}&num=1">Mua ngay<span></span><span></span><span></span></a></div>
+                                                <div style="background-color: #ee4d2d;" class="button book_button"><a href="fillinformationbuyer?id=${c.id}">Mua ngay<span></span><span></span><span></span></a></div>
                                                 <div class="button book_button"><a href="detail?tid=${c.id}">Xem chi tiết</a></div>
 
                                                 <div class="offer_reviews">
