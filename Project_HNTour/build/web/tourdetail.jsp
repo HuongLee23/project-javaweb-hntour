@@ -390,30 +390,25 @@
                                                             ${b.rating}
                                                         </span>
                                                         <div class="type-feedback">
-                                                            <span class="comment-options"
-                                                                  style="display: flex">
-                                                                <c:if
-                                                                    test="${sessionScope.account != null && sessionScope.account.id == b.accId}">
-                                                                    <a href="loadfeedback?fid=${b.id}"
-                                                                       class="edit"
-                                                                       data-toggle="modal"><i
-                                                                            class="material-icons"
-                                                                            data-toggle="tooltip"
-                                                                            title="Edit">&#xE254;</i></a>
-                                                                    <form action="deletefeedback"
-                                                                          method="get">
-                                                                        <input type="hidden" name="fid"
-                                                                               value="${b.id}">
-                                                                        <input type="hidden" name="tid"
-                                                                               value="${b.tourId}">
-                                                                        <a href="deletefeedback?fid=${b.id}&tid=${b.tourId}"
-                                                                           class="delete"><i
-                                                                                class="material-icons"
-                                                                                data-toggle="tooltip"
-                                                                                title="Delete">&#xE872;</i></a>
+
+
+                                                            <span class="comment-options" style="display: flex">
+                                                                <c:if test="${sessionScope.account != null && sessionScope.account.id == b.accId}">
+                                                                    <a href="#" onclick="editFeedback(${b.id})" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                                                    <form action="deletefeedback" method="get">
+                                                                        <input type="hidden" name="fid" value="${b.id}">
+                                                                        <input type="hidden" name="tid" value="${b.tourId}">
+                                                                        <a href="deletefeedback?fid=${b.id}&tid=${b.tourId}" class="delete" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                                                     </form>
                                                                 </c:if>
                                                             </span>
+                                                            <script >
+                                                                function editFeedback(feedbackId) {
+                                                                    window.location.href = "loadfeedback?fid=" + feedbackId;
+                                                                }
+                                                            </script>
+
+
                                                         </div>
                                                         <p class="be-comment-text">
                                                             ${b.comment}
