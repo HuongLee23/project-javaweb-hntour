@@ -3,43 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/fillInformationBuyer.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerAddToCart/ShowCartServlet.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/nbproject/private/private.xml</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controller/ManagerAccountServlet.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/nbproject/genfiles.properties</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/home.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/EditTour.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/ManagerTour.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerAddToCart/AddItemServlet.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/EditSchedules.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/tour.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/header.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/checkout.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerAddToCart/ProcessCartServlet.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/AddTour.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/nbproject/build-impl.xml</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/ulti/SendEmail.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/nbproject/project.properties</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/showcart.jsp</file>
-=======
-<<<<<<< HEAD
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/css/styles.css</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerAccount/changepassword.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/tourdetail.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/ManagerAccountDBContext.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerAccount/ForgotPasswordServlet.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/WEB-INF/web.xml</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Tour.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controller/ManagerAccountBlockServlet.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/header.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Voucher.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controller/TourDetailServlet.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/assets/css/styles.css</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/DBContext.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controller/ManagerAccountUnlockServlet.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/DAO.java</file>
-=======
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/AccountServlet.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/assets/css/main.css</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/tourlist.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/tour.jsp</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/assets/css/tour.css</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/home.jsp</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/TourDetailServlet.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/model/Account.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/dal/DAO.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/changepassword.jsp</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/tourdetail.jsp</file>
->>>>>>> e12ce26704d4667763f9e2948168017b0d1ea456
->>>>>>> Namcthe171385
         </group>
     </open-files>
 </project-private>
