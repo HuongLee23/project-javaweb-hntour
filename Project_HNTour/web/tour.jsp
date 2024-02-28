@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
         <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
         <link rel="stylesheet" type="text/css" href="./styles/offers_styles.css">
         <link rel="stylesheet" type="text/css" href="./styles/offers_responsive.css">
         <link rel="stylesheet" href="./assets/css/tour.css"/>
@@ -31,7 +32,7 @@
                 <div class="home">
                     <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/about_background.jpg"></div>
                     <div class="home_content">
-                        <div class="home_title">our Tour</div>
+                        <!--<div class="home_title">our Tour</div>-->
                     </div>
                 </div>
 
@@ -196,7 +197,7 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </p>
-                                                <div style="background-color: #ee4d2d;" class="button book_button"><a href="#">Mua ngay<span></span><span></span><span></span></a></div>
+                                                <div style="background-color: #ee4d2d;" class="button book_button"><a href="fillinformationbuyer?id=${c.id}">Mua ngay<span></span><span></span><span></span></a></div>
                                                 <div class="button book_button"><a href="detail?tid=${c.id}">Xem chi tiết</a></div>
 
                                                 <div class="offer_reviews">
@@ -234,55 +235,6 @@
                     }
                 }); // Add closing bracket here
             }
-
-
-//            function searchByAll(param) {
-//                var searchAll = param.value;
-//                $.ajax({
-//                    url: "/VNTravel/searchajax",
-//                    type: "get",
-//                    data: {
-//                        search: searchAll
-//                    },
-//                    success: function (data) {
-//                        // Xóa các dòng hiện tại trong offers_tour
-//                        $('#offers_tour').empty();
-//
-//                        // Thêm dữ liệu mới vào offers_tour
-//                        $.each(data, function (index, tour) {
-//                            var offerItem = '<div class="offers_item rating_4">' +
-//                                    '<div class="row">' +
-//                                    '<div class="col-lg-1 temp_col"></div>' +
-//                                    '<div class="col-lg-3 col-1680-4">' +
-//                                    '<div class="offers_image_container">' +
-//                                    '<a class="add_to_card" href="additem?id=' + tour.id + '&num=1">' +
-//                                    '<i class="icon_card fa-solid fa-cart-plus" style="color: #e2492b"></i>' +
-//                                    '</a>' +
-//                                    '<img class="card-img-top" src="' + tour.imageMain + '">' +
-//                                    '<div class="offer_name"><span>' + tour.price + ' VNĐ</span></div>' +
-//                                    '</div>' +
-//                                    '</div>' +
-//                                    '<div class="col-lg-8">' +
-//                                    '<div class="offers_content">' +
-//                                    '<div class="offers_price" style="font-size: 25px">' + tour.name +
-//                                    '<div><span>Thời gian dự kiến hết: ' + tour.intendedTime + '</span></div>' +
-//                                    '</div>' +
-//                                    '<p class="offers_text">' + (tour.description.length > 200 ? tour.description.substring(0, 200) + '...' : tour.description) + '</p>' +
-//                                    '<div style="background-color: #ee4d2d;" class="button book_button"><a href="#">book<span></span><span></span><span></span></a></div>' +
-//                                    '<div class="button book_button"><a href="detail?tid=' + tour.id + '">Xem chi tiết</a></div>' +
-//                                    '</div>' +
-//                                    '</div>' +
-//                                    '</div>' +
-//                                    '</div>';
-//
-//                            $('#offers_tour').append(offerItem);
-//                        });
-//                    },
-//                    error: function (xhr, status, error) {
-//                        console.log("An error occurred:", error);
-//                    }
-//                });
-//            }
 
         </script>
 

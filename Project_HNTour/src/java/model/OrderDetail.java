@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -11,7 +12,6 @@ package model;
  */
 public class OrderDetail {
     private int orderId, tourId;
-    private String date;
     private int quantity;
     private double price;
     private int versionId;
@@ -19,10 +19,9 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(int orderId, int tourId, String date, int quantity, double price, int versionId) {
+    public OrderDetail(int orderId, int tourId, int quantity, double price, int versionId) {
         this.orderId = orderId;
         this.tourId = tourId;
-        this.date = date;
         this.quantity = quantity;
         this.price = price;
         this.versionId = versionId;
@@ -34,10 +33,6 @@ public class OrderDetail {
 
     public int getTourId() {
         return tourId;
-    }
-
-    public String getDate() {
-        return date;
     }
 
     public int getQuantity() {
@@ -60,10 +55,6 @@ public class OrderDetail {
         this.tourId = tourId;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
@@ -77,5 +68,5 @@ public class OrderDetail {
     }
 
     
-    
 }
+

@@ -14,9 +14,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import model.Schedules;
 
 /**
  *
@@ -90,13 +92,15 @@ public class EditTour extends HttpServlet {
         String category = request.getParameter("category");
         String rule = request.getParameter("rule");
 
+        // Assuming you have a DAO method to handle the edit operation
+        DAO dao = new DAO();
+
         int cid = Integer.parseInt(category);
         int id = Integer.parseInt(id_raw);
 
         Time time = Time.valueOf(LocalTime.parse(time_raw));
 
         // Retrieve additional images from the request
-        // Create a list to store all images
         List<String> allImages = new ArrayList<>();
 
         // Add existing images to the list
@@ -112,11 +116,34 @@ public class EditTour extends HttpServlet {
         // Join all images using the "/splitAlbum/" delimiter
         String imageAlbumString = String.join("/splitAlbum/", allImages);
 
-        // Assuming that you have a DAO method to handle the edit operation
-        DAO dao = new DAO();
+        // Edit tour
         dao.editTour(id, name, imageMain, Arrays.asList(imageAlbumString.split("/splitAlbum/")), time, price, description, cid, rule);
 
-        response.sendRedirect("managertourlist");
+        int scheduleCounter = 1; // Start with the initial counter value
+
+        while (true) {
+            String locationParam = request.getParameter("locationnew_" + scheduleCounter);
+            String dateParam = request.getParameter("datenew_" + scheduleCounter);
+            String descriptionParam = request.getParameter("descriptionSchedulesnew_" + scheduleCounter);
+
+            // Break the loop if the parameters for the current schedule do not exist
+            if (locationParam == null || dateParam == null || descriptionParam == null) {
+                break;
+            }
+
+            // Check if dateParam is not null before attempting to parse it
+            Time date = Time.valueOf(LocalTime.parse(dateParam));
+
+            // Assuming you have a DAO method to handle the insert operation
+            dao.insertSchedule(id, locationParam, date, descriptionParam);
+
+            // Increment the counter for the next set of parameters
+            scheduleCounter++;
+        }
+
+// Assuming response is an instance of HttpServletResponse
+        response.sendRedirect("loadtour?tid=" + id);
+
     }
 
     /**

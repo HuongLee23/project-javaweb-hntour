@@ -10,6 +10,7 @@
         <title>Hà Nội Tour</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
         <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="./assets/css/login.css">
     </head>
@@ -75,6 +76,8 @@
                 <img src="./assets/img/background-demo1.png" alt="login">
             </div>
         </div>
+
+
         <script>
         </script>               
 

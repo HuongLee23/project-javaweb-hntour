@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controllerCheckout;
 
 import dal.DAO;
 import java.io.IOException;
@@ -15,15 +15,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Account;
-import model.Category;
-import model.Tour;
+import model.InformationAccount;
 
 /**
  *
- * @author Admin
+ * @author hello
  */
-@WebServlet(name = "managertourcategory", urlPatterns = {"/managertourcategory"})
-public class managertourcategory extends HttpServlet {
+@WebServlet(name = "ProccessSelectServlet", urlPatterns = {"/proccessselect"})
+public class ProccessSelectServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +41,10 @@ public class managertourcategory extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet managertourcategory</title>");
+            out.println("<title>Servlet ProccessSelectServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet managertourcategory at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProccessSelectServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,29 +62,8 @@ public class managertourcategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
 
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        Account account =  (Account) session.getAttribute("account");
-        DAO dao = new DAO();
-        try {
-            
-//            Category listCategory = dao.getCategoryById(cid);
-            //List<Tour> tourList = dao.getAllTour();
-            List<Tour> tourList = dao.getTourBySupplier(account.getId());
-            for (Tour tour : tourList) {
-            List<Category> categoryList = dao.getListCategory();
-                
-            }
-            
-//            getCategoryById
-            request.setAttribute("tour", tourList);
-//            request.setAttribute("category", listCategory);
-        } catch (NumberFormatException e) {
-        }
-
-        request.getRequestDispatcher("ManagerTourCategory.jsp").forward(request, response);
     }
 
     /**
@@ -99,7 +77,30 @@ public class managertourcategory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        DAO dao = new DAO();
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+
+        String id_raw = request.getParameter("valueSelect");
+        int id;
+        InformationAccount infoAcc = null;
+
+        try {
+            id = Integer.parseInt(id_raw);
+            List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(account.getId());
+            for (int i = 0; i < listInformationAccount.size(); i++) {
+                if (listInformationAccount.get(i).getId() == id) {
+                    infoAcc = listInformationAccount.get(i);
+                    break;
+                }
+            }
+
+            request.setAttribute("infoAcc", infoAcc);
+            request.setAttribute("listInforAcc", listInformationAccount);
+            request.getRequestDispatcher("fillInformationBuyer.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+        }
     }
 
     /**

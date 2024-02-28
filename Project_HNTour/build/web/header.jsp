@@ -7,9 +7,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Header -->
-<link rel="stylesheet" type="text/css" href="./assets/css/main.css">
-<script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
 
+<script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="./assets/css/main.css"/>
 
 <header class="header">
 
@@ -147,13 +147,12 @@
                                             <input type="search" class="search_content_input bez_1">
                                         </form>-->
 
-<!--                    <div class="hamburger">
-                        <i class="fa fa-bars trans_200"></i>
-                    </div>-->
+                    <!--                    <div class="hamburger">
+                                            <i class="fa fa-bars trans_200"></i>
+                                        </div>-->
                 </div>
             </div>
         </div>	
     </nav>
 
 </header>
-
