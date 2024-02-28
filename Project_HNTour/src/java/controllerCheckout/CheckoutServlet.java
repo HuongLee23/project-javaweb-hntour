@@ -76,18 +76,16 @@ public class CheckoutServlet extends HttpServlet {
 //            Nếu selectCheckout != 0 thì nó chỉ thanh toán cho 1 đơn hàng
                 id = selectCheckout;
 //               
-                session.setAttribute("idSelectOne", id);
+                session.setAttribute("selectCheckout", id);
             } else {
 //            Nếu selectCheckout == 0 thì nó thanh toán cho các đơn hàng trong giỏ hàng
-                session.setAttribute("idSelectOne", selectCheckout);
+                session.setAttribute("selectCheckout", selectCheckout);
             }
 
             session.setAttribute("idInfor", idInfor);
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
-
         } catch (NumberFormatException e) {
         }
-
     }
 
     /**
@@ -101,7 +99,16 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+
+        int idInfor = (int) session.getAttribute("idInfor");
+        int selectCheckout = (int) session.getAttribute("selectCheckout");
+
+        
+        
+        
+        
+
     }
 
     /**

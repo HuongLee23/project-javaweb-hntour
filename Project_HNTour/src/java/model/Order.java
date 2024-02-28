@@ -11,7 +11,9 @@ package model;
  */
 public class Order {
 
-    private int id, accountId;
+    private int id,
+            accountId,
+            idInforAcc;
     private String date;
     private double totalPrice;
     private int voucherId;
@@ -19,9 +21,10 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, int accountId, String date, double totalPrice, int voucherId) {
+    public Order(int id, int accountId, int idInforAcc, String date, double totalPrice, int voucherId) {
         this.id = id;
         this.accountId = accountId;
+        this.idInforAcc = idInforAcc;
         this.date = date;
         this.totalPrice = totalPrice;
         this.voucherId = voucherId;
@@ -33,6 +36,10 @@ public class Order {
 
     public int getAccountId() {
         return accountId;
+    }
+
+    public int getIdInforAcc() {
+        return idInforAcc;
     }
 
     public String getDate() {
@@ -55,6 +62,10 @@ public class Order {
         this.accountId = accountId;
     }
 
+    public void setIdInforAcc(int idInforAcc) {
+        this.idInforAcc = idInforAcc;
+    }
+
     public void setDate(String date) {
         this.date = date;
     }
@@ -68,5 +79,5 @@ public class Order {
     }
 
     
-}
 
+}

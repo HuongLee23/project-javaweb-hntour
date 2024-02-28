@@ -199,7 +199,7 @@
                                     <div class="intro_item_content d-flex flex-column align-items-center justify-content-center">
                                         <div class="button intro_button"><div class="button_bcg"></div><a href="detail?tid=${c.id}">xem chi tiết<span></span><span></span><span></span></a></div>
                                         <div class="intro_center text-center">
-                                            <h2 style="color: white">${c.name}</h2>
+                                            <h2 style="font-size: xx-large;color: white">${c.name}</h2>
                                             <div class="intro_price" style="font-size: 25px "><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</div>
                                             <div class="rating rating_4 ">
                                                 <i class="fa fa-star"></i>

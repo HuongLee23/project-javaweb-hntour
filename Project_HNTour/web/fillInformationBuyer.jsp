@@ -236,22 +236,21 @@
 
                                                 </h3>
 
+                                                <!--Phần xử lý select option về thông tin tài khoản-->
                                                 <div style="display: flex">
-                                                    <!--Phần xử lý select option về thông tin tài khoản-->
                                                     <c:set value="${requestScope.listInforAcc}" var="listInf"/>
-                                                    <c:if test="${not empty listInf}">
-                                                        <form id="formProccessSelect" action="proccessselect" method="post">
-                                                            <div style="top: -20px;">
-                                                                <select id="proccessSelect" class="select form-control-lg" name="valueSelect" required>
-                                                                    <option value="0" disabled selected hidden>Chọn thông tin liên lạc</option>
-                                                                    <c:forEach items="${listInf}" var="i">
-                                                                        <option <c:if test="${i.id eq requestScope.infoAcc.id}">selected</c:if> value="${i.id}">${i.username}</option>
-                                                                    </c:forEach>
-                                                                </select>
-                                                                <!--<label class="form-label select-label">Choose option</label>-->
-                                                            </div>
-                                                        </form>
-                                                    </c:if>
+                                                    <form id="formProccessSelect" action="proccessselect" method="post">
+                                                        <div style="top: -20px;">
+                                                            <select id="proccessSelect" class="select form-control-lg" name="valueSelect" required>
+                                                                <option value="0" disabled selected hidden>Chọn thông tin liên lạc</option>
+                                                                <c:forEach items="${listInf}" var="i">
+                                                                    <option <c:if test="${i.id eq requestScope.infoAcc.id}">selected</c:if> value="${i.id}">${i.username}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                            
+                                                            <!--<label class="form-label select-label">Choose option</label>-->
+                                                        </div>
+                                                    </form>
 
                                                     <div class="fib-add" onclick="openForm()">
                                                         <i class="fa-solid fa-plus" style="color: #ff5b00;"></i>
@@ -347,9 +346,12 @@
 
                                                         <h5 style="color: red">${requestScope.mess}</h5>
 
-                                                        <div class="mt-4 pt-2">
-                                                            <input class="btn btn-primary btn-lg" type="submit" value="Thêm thông tin" />
+                                                        <div style="
+                                                             left: 444px;
+                                                             position: absolute;" class="mt-4 pt-2">
+                                                            <input style="cursor: pointer ;margin-top: -90px;" class="btn btn-primary btn-lg" type="submit" value="Thêm thông tin" />
                                                         </div>
+
 
                                                     </form>
                                                 </c:if>
@@ -468,7 +470,7 @@
                                                                 <c:set value="${requestScope.infoAcc}" var="infoAcc"/>
                                                                 <!--<input type="text" hidden value="${sessionScope.account.id}" name="idAccount">-->
                                                                 <input type="text" hidden value="${infoAcc.id}" name="idInfor">
-                                                                
+
                                                                 <input type="hidden" name="selectCheckout" value="0">
                                                                 <button onclick="buyNow(event)" style=" cursor: pointer;border: none;background-color: #ff5b00;" class="btn btn-primary btn-block btn-lg">
                                                                     <div class="d-flex justify-content-between">

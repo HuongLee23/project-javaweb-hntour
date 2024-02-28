@@ -1205,22 +1205,24 @@ public class DAO extends DBContext {
     }
 
 // Chưa hoàn thiện xong phần checkout
-    public void addOrder(Account a, Cart cart, Voucher v) {
+    public void addOrder(Account a, InformationAccount inforAcc, Cart cart, Voucher v) {
         LocalDate curDate = LocalDate.now();
         String date = curDate.toString();
         try {
             String sql = "INSERT INTO [dbo].[Order]\n"
                     + "           ([accId]\n"
+                    + "           ,[idInforAcc]\n"
                     + "           ,[date]\n"
                     + "           ,[totalPrice]\n"
                     + "           ,[voucherId])\n"
                     + "     VALUES\n"
-                    + "           ( ?, ?, ?, ?)";
+                    + "           (?, ?, ?, ?, ?)";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, a.getId());
-            st.setString(2, date);
-            st.setDouble(3, cart.getTotalMoney());
-            st.setInt(4, v.getId());
+            st.setInt(2, inforAcc.getId());
+            st.setString(3, date);
+            st.setDouble(4, cart.getTotalMoney());
+            st.setInt(5, v.getId());
             st.executeUpdate();
 
             String sql1 = "SELECT top(1) [id]\n"
