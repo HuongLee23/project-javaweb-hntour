@@ -103,7 +103,7 @@ public class CheckoutServlet extends HttpServlet {
 
         int idInfor = (int) session.getAttribute("idInfor");
         int selectCheckout = (int) session.getAttribute("selectCheckout");
-
+        
         
         
         
