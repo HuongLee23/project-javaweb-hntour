@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.InformationAccount;
+import model.Supplier;
 
 public class AdminDAO extends DBContext {
 
@@ -179,6 +181,54 @@ public class AdminDAO extends DBContext {
             System.out.println(e);
         }
         return false;
+    }
+
+    public Supplier getInforSupplierByID(int id) {
+        String sql = "SELECT [fullName]\n"
+                + "      ,[birthday]\n"
+                + "      ,[email]\n"
+                + "      ,[phoneNumber]\n"
+                + "      ,[frontCMND]\n"
+                + "      ,[backCMND]\n"
+                + "      ,[nameCompany]\n"
+                + "      ,[addressCompany]\n"
+                + "      ,[emailCompany]\n"
+                + "      ,[phoneNumberCompany]\n"
+                + "      ,[businessCode]\n"
+                + "      ,[businessRegis]\n"
+                + "      ,[taxCertificate]\n"
+                + "      ,[taxPayment]\n"
+                + "      ,[accId]\n"
+                + "  FROM [dbo].[Supplier] \n"
+                + "  WHERE accId = ?";
+        try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return new Supplier(
+                        id, 
+                        rs.getString("fullName"), 
+                        rs.getDate("birthday"), 
+                        rs.getString("email"), 
+                        rs.getString("phoneNumber"), 
+                        rs.getString("frontCMND"),
+                        rs.getString("backCMND"),
+                        rs.getString("nameCompany"),
+                        rs.getString("addressCompany"),
+                        rs.getString("emailCompany"),
+                        rs.getString("phoneNumberCompany"),
+                        rs.getString("businessCode"), 
+                        rs.getString("businessRegis"),
+                        rs.getString("taxCertificate"),
+                        rs.getString("taxPayment")
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+        return null;
     }
 
     public static void main(String[] args) {

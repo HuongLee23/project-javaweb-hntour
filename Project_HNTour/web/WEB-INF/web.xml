@@ -24,6 +24,10 @@
         <servlet-name>ManagerAccCustomerServlet</servlet-name>
         <servlet-class>controllerAdmin.ManagerAccCustomerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewProfileSupplierServlet</servlet-name>
+        <servlet-class>controllerAdmin.ViewProfileSupplierServlet</servlet-class>
+    </servlet>
     
     
     <servlet-mapping>
@@ -51,6 +55,11 @@
     <servlet-mapping>
         <servlet-name>ManagerAccCustomerServlet</servlet-name>
         <url-pattern>/admin/manageracccustomer</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ViewProfileSupplierServlet</servlet-name>
+        <url-pattern>/admin/viewprofilesupplier</url-pattern>
     </servlet-mapping>
     
     <session-config>

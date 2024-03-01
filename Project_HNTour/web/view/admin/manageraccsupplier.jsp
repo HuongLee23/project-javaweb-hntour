@@ -24,7 +24,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background: linear-gradient(to right, #fa9e1b, #8d4fff, #fa9e1b);">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="../home">Start Bootstrap</a>
+            <a class="navbar-brand ps-3" href="manageraccount">Start Bootstrap</a>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
@@ -36,7 +36,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="../home">Home</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="../logout">Logout</a></li>
@@ -48,9 +48,9 @@
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Dashboard for supplier</h1>
-<!--                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>-->
+                    <!--                    <ol class="breadcrumb mb-4">
+                                            <li class="breadcrumb-item active">Dashboard</li>
+                                        </ol>-->
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
@@ -122,8 +122,7 @@
                                         <th>Password</th>
                                         <th>Email</th>
                                         <th>Address</th>
-                                        <th>Status</th>
-                                        <th></th>
+                                        <th style="text-align: center">Profile information</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -134,26 +133,7 @@
                                             <td>${a.email}</td>
                                             <td>${a.address}</td>
                                             <td>
-                                                <c:if test="${a.status}">
-                                                    <i class="fa-solid fa-circle" style="color: greenyellow"></i> Active
-                                                </c:if>
-                                                <c:if test="${!a.status}">
-                                                    <i class="fa-solid fa-circle" style="color: red"></i> Blocked
-                                                </c:if>
-                                            </td>
-                                            <td style="color: #00adef">
-                                                <c:if test="${a.status}">
-                                                    <div class="button-edit">
-                                                        <i class="fa-solid fa-lock"></i> 
-                                                        <a id="button-edit-customer" href="lock?id=${a.id}"  style="text-decoration: none; color: red">Block</a>
-                                                    </div>
-                                                </c:if>
-                                                <c:if test="${!a.status}">
-                                                    <div class="button-edit">
-                                                        <i class="fa-solid fa-lock-open"></i>
-                                                        <a id="button-edit-customer" href="unlock?id=${a.id}"style="text-decoration: none">UnBlock</a>
-                                                    </div>
-                                                </c:if>
+                                                <a href="viewprofilesupplier?idAcc=${a.id}">View detail</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -181,6 +161,9 @@
                     </div>
                 </div>
             </footer>
+
+            
+
         </div>
         <style>
             #banAccount {
