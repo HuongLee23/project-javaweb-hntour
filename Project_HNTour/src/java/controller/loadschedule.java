@@ -58,14 +58,14 @@ public class loadschedule extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         DAO dao=new DAO();
-     String id=request.getParameter("sid");
-     int idi=Integer.parseInt(id);
-       List<Schedules> schedules=dao.getSchedukesById1(idi);
-       request.setAttribute("schedules", schedules);
-       
-
-        request.getRequestDispatcher("EditSchedules.jsp").forward(request, response);
+//         DAO dao=new DAO();
+//     String id=request.getParameter("sid");
+//     int idi=Integer.parseInt(id);
+//       List<Schedules> schedules=dao.getSchedukesById1(idi);
+//       request.setAttribute("schedules", schedules);
+//       
+//
+//        request.getRequestDispatcher("EditSchedules.jsp").forward(request, response);
     } 
 
     /** 
