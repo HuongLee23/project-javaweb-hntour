@@ -2,31 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controllerCheckout;
+package controllerAdmin;
 
-import dal.DAO;
+import dal.AdminDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
+import java.sql.Date;
 import model.Account;
-import model.Cart;
-import model.Item;
-import model.Tour;
-import model.Voucher;
 
 /**
  *
  * @author hello
  */
-@WebServlet(name = "CheckoutServlet", urlPatterns = {"/checkout"})
-public class CheckoutServlet extends HttpServlet {
+@WebServlet(name = "ResgisterSupplierServlet", urlPatterns = {"/resgistersupplier"})
+public class ResgisterSupplierServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +40,10 @@ public class CheckoutServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CheckoutServlet</title>");
+            out.println("<title>Servlet ResgisterSupplierServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CheckoutServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ResgisterSupplierServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,22 +61,7 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-
-        String selectCheckout_raw = request.getParameter("selectCheckout");
-        String idInfor_raw = request.getParameter("idInfor");
-
-        int selectCheckout, idInfor;
-        try {
-            selectCheckout = Integer.parseInt(selectCheckout_raw);
-            idInfor = Integer.parseInt(idInfor_raw);
-
-            session.setAttribute("selectCheckout", selectCheckout);
-            session.setAttribute("idInfor", idInfor);
-            request.getRequestDispatcher("checkout.jsp").forward(request, response);
-        } catch (NumberFormatException e) {
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -95,58 +75,46 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        AdminDAO admindao = new AdminDAO();
         HttpSession session = request.getSession();
-        DAO dao = new DAO();
-
-        List<Tour> list = dao.getAllTour();
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
-                }
-            }
-        }
-        Cart cart = new Cart(txt, list);
-
-        int idInfor = (int) session.getAttribute("idInfor");
-        int selectCheckout = (int) session.getAttribute("selectCheckout");
         Account account = (Account) session.getAttribute("account");
+        String fullName = request.getParameter("fullName");
+        String birthday_raw = request.getParameter("birthday");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String frontCMND = request.getParameter("frontCMND");
+        String backCMND = request.getParameter("backCMND");
 
-//        PrintWriter out = response.getWriter();
-//        out.println("idInfor:" + idInfor);
-//        out.println("selectCheckout:" + selectCheckout);
-//        out.println("account:" + account.getUsername());
-//        out.println("cart:" + cart.getItems().get(1).getTour().getName());
-        Voucher v = null;
+        String nameCompany = request.getParameter("nameCompany");
+        String addressCompany = request.getParameter("addressCompany");
+        String emailCompany = request.getParameter("emailCompany");
+        String phoneNumberCompany = request.getParameter("phoneNumberCompany");
+
+        String businessCode = request.getParameter("businessCode");
+        String businessRegis = request.getParameter("businessRegis");
+        String taxCertificate = request.getParameter("taxCertificate");
+        String taxPayment = request.getParameter("taxPayment");
+
+        Date birthday;
         if (account == null) {
             response.sendRedirect("login.jsp");
         } else {
+            birthday = Date.valueOf(birthday_raw);
+            boolean result = admindao.registerSupplier(
+                    account.getId(), fullName, birthday,
+                    email, phoneNumber, frontCMND, backCMND, nameCompany,
+                    addressCompany, emailCompany, phoneNumberCompany,
+                    businessCode, businessRegis, taxCertificate, taxPayment
+            );
 
-            if (selectCheckout != 0) {
-                int idTour = selectCheckout;
-                Tour tour = dao.getTourByID(idTour);
-
-//                dao.addOrderForBuyNow(tour, account, idInfor, cart, v);
+            if (result) {
+                request.setAttribute("ms", "Gửi đơn đăng ký thành công");
             } else {
-                boolean ressult = dao.addOrderForCart(account, idInfor, cart, v);
-
-                if (ressult) {
-                    Cookie c = new Cookie("cart", "");
-                    c.setMaxAge(0);
-                    response.addCookie(c);
-
-                    session.setAttribute("sizeCart", 0);
-                    session.removeAttribute("cart");
-                    request.setAttribute("mess", "Mua hàng trong cart thành công");
-                } else {
-                    request.setAttribute("mess", "Mua hàng trong cart thất bại");
-                }
+                request.setAttribute("ms", "Gửi đơn đăng ký thất bại!");
             }
-//            request.setAttribute("mess", "Mua hàng thành công");
-            request.getRequestDispatcher("checkout.jsp").forward(request, response);
+            request.getRequestDispatcher("upsupplier.jsp").forward(request, response);
         }
+
     }
 
     /**

@@ -1,6 +1,7 @@
 package dal;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,12 +14,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
 
-public class ManagerAccountDBContext extends DBContext<Account> {
+public class AdminDAO extends DBContext {
 
-    public List<Account> getListAccount() {
+    public List<Account> getListAccount(int role) {
         List<Account> listAccounts = new ArrayList<>();
         try {
-            String sql = "SELECT id,  email, username, [password],[address],[role],[status] FROM Account where [role] = 2";
+            String sql = "SELECT id,  email, username,"
+                    + " [password],[address],[role],[status] "
+                    + "FROM Account where [role] != 1";
+            if (role != 0) {
+                sql += "and [role] = " + role;
+            }
             try ( PreparedStatement stm = connection.prepareStatement(sql)) {
                 ResultSet rs = stm.executeQuery();
                 while (rs.next()) {
@@ -35,9 +41,8 @@ public class ManagerAccountDBContext extends DBContext<Account> {
                 return listAccounts;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ManagerAccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return null;
     }
 
@@ -50,7 +55,7 @@ public class ManagerAccountDBContext extends DBContext<Account> {
                 totalAccountCustomer = rs.getInt("id");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ManagerAccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return totalAccountCustomer;
     }
@@ -64,7 +69,7 @@ public class ManagerAccountDBContext extends DBContext<Account> {
                 totalAccountSupplier = rs.getInt("id");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ManagerAccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return totalAccountSupplier;
     }
@@ -96,7 +101,7 @@ public class ManagerAccountDBContext extends DBContext<Account> {
                 totalBanned = rs.getInt("id");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ManagerAccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return totalBanned;
     }
@@ -109,7 +114,7 @@ public class ManagerAccountDBContext extends DBContext<Account> {
             stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ManagerAccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -121,7 +126,62 @@ public class ManagerAccountDBContext extends DBContext<Account> {
             stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ManagerAccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public boolean registerSupplier(
+            int idAcc, String fullName, Date birthday, String email,
+            String phoneNumber, String frontCMND, String backCMND,
+            String nameCompany, String addressCompany, String emailCompany,
+            String phoneNumberCompany, String businessCode, String businessRegis,
+            String taxCertificate, String taxPayment) {
+
+        String sql = "INSERT INTO [dbo].[Supplier]\n"
+                + "           ([fullName]\n"
+                + "           ,[birthday]\n"
+                + "           ,[email]\n"
+                + "           ,[phoneNumber]\n"
+                + "           ,[frontCMND]\n"
+                + "           ,[backCMND]\n"
+                + "           ,[nameCompany]\n"
+                + "           ,[addressCompany]\n"
+                + "           ,[emailCompany]\n"
+                + "           ,[phoneNumberCompany]\n"
+                + "           ,[businessCode]\n"
+                + "           ,[businessRegis]\n"
+                + "           ,[taxCertificate]\n"
+                + "           ,[taxPayment]\n"
+                + "           ,[accId])\n"
+                + "     VALUES\n"
+                + "           (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, fullName);
+            st.setDate(2, birthday);
+            st.setString(3, email);
+            st.setString(4, phoneNumber);
+            st.setString(5, frontCMND);
+            st.setString(6, backCMND);
+            st.setString(7, nameCompany);
+            st.setString(8, addressCompany);
+            st.setString(9, emailCompany);
+            st.setString(10, phoneNumberCompany);
+            st.setString(11, businessCode);
+            st.setString(12, businessRegis);
+            st.setString(13, taxCertificate);
+            st.setString(14, taxPayment);
+            st.setInt(15, idAcc);
+
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+
     }
 }

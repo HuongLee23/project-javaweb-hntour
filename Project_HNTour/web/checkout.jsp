@@ -106,7 +106,7 @@
                         </h2>
 
                         <!--Show thông tin của tour muốn mua ngay-->
-                    <c:if test="${sessionScope.idSelectOne != 0}">
+                    <c:if test="${sessionScope.selectCheckout != 0}">
                         <c:set value="${sessionScope.tourFill}" var="i"/>
                         <div class="row justify-content-center mb-3">
                             <div class="col-md-12 col-xl-10">
@@ -157,7 +157,7 @@
                     </c:if>
 
                     <!--Show thông tin của các tour trong cart-->
-                    <c:if test="${sessionScope.idSelectOne == 0}">
+                    <c:if test="${sessionScope.selectCheckout == 0}">
                         <c:set value="${sessionScope.cart}" var="o"/>
                         <c:forEach items="${o.items}" var="i" varStatus="loop">
                             <div class="row justify-content-center mb-3">
@@ -296,6 +296,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-xl-3">
+                                                        <h3 style="color: red">${requestScope.mess}</h3>
                                                         <div class="d-flex justify-content-between" style="font-weight: 500;">
                                                             <p class="mb-2">Tổng tiền</p>
                                                             <p class="mb-2">$23.49</p>

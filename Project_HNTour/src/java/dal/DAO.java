@@ -1204,8 +1204,65 @@ public class DAO extends DBContext {
         }
     }
 
-// Chưa hoàn thiện xong phần checkout
-    public void addOrder(Account a, InformationAccount inforAcc, Cart cart, Voucher v) {
+    // Xử lý checkout sản phẩm đối với Buy now
+//    public void addOrderForBuyNow(Tour tour, Account a, int idInforAcc, Cart cart, Voucher v) {
+//        LocalDate curDate = LocalDate.now();
+//        String date = curDate.toString();
+//        try {
+//            String sql = "INSERT INTO [dbo].[Order]\n"
+//                    + "           ([accId]\n"
+//                    + "           ,[idInforAcc]\n"
+//                    + "           ,[date]\n"
+//                    + "           ,[totalPrice]\n"
+//                    + "           ,[voucherId])\n"
+//                    + "     VALUES\n"
+//                    + "           (?, ?, ?, ?, ?)";
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, a.getId());
+//            st.setInt(2, idInforAcc);
+//            st.setString(3, date);
+//            st.setDouble(4, cart.getTotalMoney());
+//            st.setInt(5, v.getId());
+//            st.executeUpdate();
+//
+//            String sql1 = "SELECT top(1) [id]\n"
+//                    + "      ,[accId]\n"
+//                    + "      ,[date]\n"
+//                    + "      ,[totalPrice]\n"
+//                    + "      ,[voucherId]\n"
+//                    + "  FROM [dbo].[Order] where accId = ? \n"
+//                    + "  order by id desc";
+//            PreparedStatement st1 = connection.prepareStatement(sql1);
+//            st1.setInt(1, a.getId());
+//            ResultSet rs = st1.executeQuery();
+//
+//            if (rs.next()) {
+//                int oid = rs.getInt("id");
+//                for (Item i : cart.getItems()) {
+//                    String sql2 = "INSERT INTO [dbo].[OrderDetail]\n"
+//                            + "           ([orderId]\n"
+//                            + "           ,[tourId]\n"
+//                            + "           ,[quantity]\n"
+//                            + "           ,[price]\n"
+//                            + "           ,[versionId])\n"
+//                            + "     VALUES( ?, ?, ?, ?, ?)";
+//                    PreparedStatement st2 = connection.prepareStatement(sql2);
+//                    st2.setInt(1, oid);
+//                    st2.setInt(2, i.getTour().getId());
+//                    st2.setInt(3, i.getQuantity());
+//                    st2.setDouble(4, i.getPrice());
+//                    st2.setInt(5, v.getId());
+//                    st2.executeUpdate();
+//                }
+//
+//            }
+//        } catch (SQLException e) {
+//        }
+//
+//    }
+
+// Xử lý checkout các sản phẩm trong giỏ hàng
+    public boolean addOrderForCart(Account a, int idInforAcc, Cart cart, Voucher v) {
         LocalDate curDate = LocalDate.now();
         String date = curDate.toString();
         try {
@@ -1213,23 +1270,20 @@ public class DAO extends DBContext {
                     + "           ([accId]\n"
                     + "           ,[idInforAcc]\n"
                     + "           ,[date]\n"
-                    + "           ,[totalPrice]\n"
-                    + "           ,[voucherId])\n"
+                    + "           ,[totalPrice])\n"
                     + "     VALUES\n"
-                    + "           (?, ?, ?, ?, ?)";
+                    + "           (?, ?, ?, ?)";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, a.getId());
-            st.setInt(2, inforAcc.getId());
+            st.setInt(2, idInforAcc);
             st.setString(3, date);
             st.setDouble(4, cart.getTotalMoney());
-            st.setInt(5, v.getId());
             st.executeUpdate();
 
             String sql1 = "SELECT top(1) [id]\n"
                     + "      ,[accId]\n"
                     + "      ,[date]\n"
                     + "      ,[totalPrice]\n"
-                    + "      ,[voucherId]\n"
                     + "  FROM [dbo].[Order] where accId = ? \n"
                     + "  order by id desc";
             PreparedStatement st1 = connection.prepareStatement(sql1);
@@ -1243,24 +1297,25 @@ public class DAO extends DBContext {
                             + "           ([orderId]\n"
                             + "           ,[tourId]\n"
                             + "           ,[quantity]\n"
-                            + "           ,[price]\n"
-                            + "           ,[versionId])\n"
-                            + "     VALUES( ?, ?, ?, ?, ?)";
+                            + "           ,[price])\n"
+                            + "     VALUES( ?, ?, ?, ?)";
                     PreparedStatement st2 = connection.prepareStatement(sql2);
                     st2.setInt(1, oid);
                     st2.setInt(2, i.getTour().getId());
                     st2.setInt(3, i.getQuantity());
                     st2.setDouble(4, i.getPrice());
-                    st2.setInt(5, v.getId());
                     st2.executeUpdate();
                 }
-
             }
+            return true;
         } catch (SQLException e) {
+            System.out.println(e);
         }
-
+        return false;
     }
 
+    
+    
     public Feedback getFeedbackByID(int id) {
         String sql = "SELECT F.[id], F.[accId], A.[username] AS [accName], \n"
                 + "                           F.[tourId], F.[versionId], F.[comment], F.[rating] , A.[avatar] as [avatarAc]\n"

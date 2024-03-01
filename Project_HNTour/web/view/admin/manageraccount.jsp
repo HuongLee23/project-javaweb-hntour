@@ -17,7 +17,8 @@
         <meta name="author" content="" />
         <title>Hà Nội Tour</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <<link rel="stylesheet" href="../css/styles.css"/>>
+        <link rel="stylesheet" href="../css/styles.css"/>
+        <link rel="stylesheet" href="../css/main.css"/>
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -43,19 +44,21 @@
                 </li>
             </ul>
         </nav>
-        <div id="layoutSidenav_content">
+        <div style="margin-top: 80px" id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Dashboard</h1>
-                    <ol class="breadcrumb mb-4">
+<!--                    <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
+                    </ol>-->
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
                                 <div class="card-body">Customer Account</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <p>${requestScope.totalcustomer}</p>
+                                    <div class="small text-white"><a href="manageracccustomer?role=3" style="color: white"><i class="fas fa-angle-right"></i></a></div>
+
                                 </div>
                             </div>
                         </div>
@@ -64,7 +67,7 @@
                                 <div class="card-body">Supplier Account</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <p>${requestScope.totalsupplier}</p>
-                                    <div class="small text-white"><a href="#" style="color: white"><i class="fas fa-angle-right"></i></a></div>
+                                    <div class="small text-white"><a href="manageraccsupplier?role=2" style="color: white"><i class="fas fa-angle-right"></i></a></div>
                                 </div>
                             </div>
                         </div>

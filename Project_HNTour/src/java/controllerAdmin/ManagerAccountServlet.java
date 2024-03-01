@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controllerAdmin;
 
-import dal.ManagerAccountDBContext;
+import controller.*;
+import dal.AdminDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -61,11 +62,13 @@ public class ManagerAccountServlet extends HttpServlet {
             throws ServletException, IOException {
         String pageStr = request.getParameter("page");
         int currentPage = (pageStr != null) ? Integer.parseInt(pageStr) : 1;
-        int itemsPerPage = 4;
-        ManagerAccountDBContext mnAccount = new ManagerAccountDBContext();
+        int itemsPerPage = 10;
+        AdminDAO mnAccount = new AdminDAO();
 
+        
         // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
-        List<Account> listAccounts = getAllAccountsFromDatabase();
+        int roleAll = 0;
+        List<Account> listAccounts = getAllAccountsFromDatabase(roleAll);
         // Tính toán số trang
         int totalPages = (int) Math.ceil((double) listAccounts.size() / itemsPerPage);
         // Lấy sublist của danh sách để hiển thị trên trang hiện tại
@@ -74,6 +77,8 @@ public class ManagerAccountServlet extends HttpServlet {
         int totalAccountSupplier = mnAccount.countAccountSupplier();
         String totalPrice = mnAccount.totalPrice();
         int totalBanned = mnAccount.totalAccountBanned();
+        
+        
         // Gán danh sách tài khoản vào request để truy cập từ trang JSP
         request.setAttribute("currentPageData", currentPageData);
         request.setAttribute("totalPages", totalPages);
@@ -88,9 +93,9 @@ public class ManagerAccountServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private List<Account> getAllAccountsFromDatabase() {
-        ManagerAccountDBContext mnacc = new ManagerAccountDBContext();
-        List<Account> listAccounts = mnacc.getListAccount();
+    private List<Account> getAllAccountsFromDatabase(int roleAll) {
+        AdminDAO mnacc = new AdminDAO();
+        List<Account> listAccounts = mnacc.getListAccount(roleAll);
         return listAccounts;
     }
 

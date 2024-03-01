@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controllerAdmin;
 
-import dal.ManagerAccountDBContext;
+import controller.*;
+import dal.AdminDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -56,7 +57,7 @@ public class ManagerAccountBlockServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ManagerAccountDBContext mnAccount = new ManagerAccountDBContext();
+        AdminDAO mnAccount = new AdminDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         mnAccount.banAccount(id);
         response.sendRedirect("manageraccount");

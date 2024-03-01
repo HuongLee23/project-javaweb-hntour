@@ -41,6 +41,9 @@
                 </div>
 
 
+
+
+            <c:if test="${sessionScope.sizeCart != 0}">
                 <!-- Slider-top-step-bar -->
                 <div class="top-step-bar desktop" id="top-step-bar">
                     <div class="klk-steps klk-steps-horizontal">
@@ -85,9 +88,10 @@
                         </div>
                     </div>
                 </div>
-
-
-            <c:if test="${sessionScope.sizeCart != 0}">
+                
+                
+                
+                <!--Show sản phẩm trong giỏ hàng-->
                 <div class="checkout blog">
                     <div class="container">
                         <div style="display: block;" class="row">
@@ -284,14 +288,14 @@
             </c:if>
 
             <c:if test="${sessionScope.sizeCart == 0}">
-                <div style="text-align: center;" class="checkout blog">
+                <div style="margin: 50px 0 100px 0;text-align: center;" class="checkout blog">
                     <button class="tour-button-book">
                         <a href="tourlist">
                             <span class="">Khám phá ngay</span>
                         </a>
                     </button>
                     <i class="fa-solid fa-arrow-down fa-bounce" style="font-size: xx-large;position: absolute;top: 135px;right: 619px;color: #ee4d2d;"></i>
-                    <img style="height: 300px;width: 400px;" src="./assets/img/emptyCart.png" alt="Empty cart"/>
+                    <img style="margin-top: 100px;height: 300px;width: 400px;" src="./assets/img/emptyCart.png" alt="Empty cart"/>
                     <div class="R1_cart">Giỏ hàng của bạn còn trống</div>
                 </div>
             </c:if>
