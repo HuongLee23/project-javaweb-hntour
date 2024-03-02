@@ -70,8 +70,6 @@ public class ViewProfileSupplierServlet extends HttpServlet {
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/viewprofilesupplier.jsp");
             dispatcher.forward(request, response);
-//            processRequest(request, response);
-//            request.getRequestDispatcher("../view/admin/viewprofilesupplier.jsp").forward(request, response);
         } catch (NumberFormatException e) {
             System.out.println(e);
         }

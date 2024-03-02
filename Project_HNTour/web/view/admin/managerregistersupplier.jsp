@@ -18,7 +18,8 @@
         <title>Hà Nội Tour</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/styles.css"/>
-        <link rel="stylesheet" href="../css/main.css"/>
+        <!--<link rel="stylesheet" href="../css/main.css"/>-->
+        <link rel="stylesheet" type="text/css" href="../view/css/base.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -48,18 +49,17 @@
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Dashboard</h1>
+                    <h2>${requestScope.ms}</h2>
                     <div class="row">
-                                    
                         <div class="col-xl-3 col-md-6">
-                            <div class="card bg-warning text-white mb-4">
-                                <div class="card-body">Supplier Account</div>
+                            <div class="card bg-success text-white mb-4">
+                                <div class="card-body">Supplier registration</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <p>${requestScope.totalsupplier}</p>
-                                    <div class="small text-white"><a href="manageraccsupplier?role=2" style="color: white"><i class="fas fa-angle-right"></i></a></div>
+                                    <p>0</p>
+                                    <div class="small text-white"><a href="managerregistersupplier" style="color: white"><i class="fas fa-angle-right"></i></a></div>
                                 </div>
                             </div>
                         </div>
-                                    
                     </div>
                     <div class="row">
                         <div class="col-xl-6">
@@ -90,22 +90,27 @@
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>Username</th>
-                                        <th>Password</th>
-                                        <th>Email</th>
-                                        <th>Address</th>
+                                        <th>Full name</th>
+                                        <th>Phone number</th>
+                                        <th style="text-align: center">Email</th>
                                         <th style="text-align: center">Profile information</th>
+                                        <th style="text-align: center">Active</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <c:forEach items="${requestScope.currentPageData}" var="a">
-                                            <td>${a.username}</td>
-                                            <td>${a.password}</td>
+                                            <td>${a.fullName}</td>
+                                            <td>${a.phoneNumber}</td>
                                             <td>${a.email}</td>
-                                            <td>${a.address}</td>
+                                            <td style="text-align: center">
+                                                <a href="viewprofilesupplier?idAcc=${a.idAcc}">View detail</a>
+                                            </td>
                                             <td>
-                                                <a href="viewprofilesupplier?idAcc=${a.id}">View detail</a>
+                                                <form action="managerregistersupplier" method="post">
+                                                    <input type="hidden" name="idAcc" value="${a.idAcc}"/>
+                                                    <input class="confirm-btn" type="submit" value="Confirm"/>
+                                                </form>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -114,7 +119,7 @@
                             <%-- Hiển thị nút phân trang --%>
                             <div>
                                 <c:forEach begin="1" end="${requestScope.totalPages}" var="page">
-                                    <a href="manageraccsupplier?page=${page}">${page}</a>
+                                    <a href="managerregistersupplier?page=${page}">${page}</a>
                                 </c:forEach>
                             </div>
                         </div>

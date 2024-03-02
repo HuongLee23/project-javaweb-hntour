@@ -11,13 +11,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Hà Nội Tour</title>
-        <link rel="stylesheet" href="../css/base.css"/>
+        <link rel="stylesheet" type="text/css" href="../view/css/base.css">
     </head>
     <body>
         <!--Phần xử lý hiện thông tin hồ sơ của supplier-->
-        <div class="fib-drawer-mask" onclick="closeForm()"></div>
+        <!--<div class="fib-drawer-mask" onclick="closeForm()"></div>-->
         <!--<div class="fib-add-form">-->
         <div class="fib-add-form">
+            <h1>Thông tin hồ sơ</h1>
             <form action="resgistersupplier" method="post">
                 <!--Phần thông tin của chủ doanh nghiệp-->
                 <h2 class="ups-section-title">
@@ -127,7 +128,7 @@
                     </div>
                 </div>
 
-                <input class="btn-submit" type="submit" value="Đăng ký" />
+                <!--<input class="btn-submit" type="submit" value="Xác nhận" />-->
                 <!--<button type="button" onclick="closeForm()">Hủy bỏ</button>-->
             </form>
         </div>

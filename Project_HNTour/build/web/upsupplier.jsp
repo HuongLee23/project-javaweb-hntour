@@ -82,36 +82,36 @@
                                                         <!-- Nội dung của form ở đây -->
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="fullName">Họ và tên</label>
+                                                                <label class="form-label" for="fullName">Họ và tên *</label>
                                                                 <input type="text" id="fullName" name="fullName" class="form-control" required />
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="birthdayDate">Ngày sinh</label>
+                                                                <label class="form-label" for="birthdayDate">Ngày sinh *</label>
                                                                 <input type="date" name="birthday" class="form-control" required/>
                                                             </div>
                                                         </div>
 
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="emailAddress">Email</label>
+                                                                <label class="form-label" for="emailAddress">Email *</label>
                                                                 <input type="email" id="emailAddress" name="email" class="form-control" required/>
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="phoneNumber">Số điện thoại</label>
+                                                                <label class="form-label" for="phoneNumber">Số điện thoại *</label>
                                                                 <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" required/>
                                                             </div>
                                                         </div>
 
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="frontCMND">Ảnh CMND mặt trước</label>
+                                                                <label class="form-label" for="frontCMND">Ảnh CMND mặt trước *</label>
                                                                 <input type="text" id="frontCMND" name="frontCMND" class="form-control" required/>
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="backCMND">Ảnh CMND mặt sau</label>
+                                                                <label class="form-label" for="backCMND">Ảnh CMND mặt sau *</label>
                                                                 <input type="text" id="backCMND" name="backCMND" class="form-control" required/>
                                                             </div>
                                                         </div>
@@ -125,24 +125,24 @@
                                                         </h2>
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="nameCompany">Tên doanh nghiệp</label>
+                                                                <label class="form-label" for="nameCompany">Tên doanh nghiệp *</label>
                                                                 <input type="text" id="nameCompany" name="nameCompany" class="form-control" required />
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="addressCompany">Địa chỉ doanh nghiệp</label>
+                                                                <label class="form-label" for="addressCompany">Địa chỉ doanh nghiệp *</label>
                                                                 <input type="text" name="addressCompany" class="form-control" required/>
                                                             </div>
                                                         </div>
 
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="emailCompany">Email</label>
+                                                                <label class="form-label" for="emailCompany">Email *</label>
                                                                 <input type="email" id="emailAddress" name="emailCompany" class="form-control" required/>
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="phoneNumberCompany">Số điện thoại</label>
+                                                                <label class="form-label" for="phoneNumberCompany">Số điện thoại *</label>
                                                                 <input type="tel" id="phoneNumberCompany" name="phoneNumberCompany" class="form-control" required/>
                                                             </div>
                                                         </div>
@@ -157,24 +157,24 @@
                                                         </h2>
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="businessCode">Mã số doanh nghiệp</label>
+                                                                <label class="form-label" for="businessCode">Mã số doanh nghiệp *</label>
                                                                 <input type="text" id="businessCode" name="businessCode" class="form-control" required />
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="businessRegis">Ảnh giấy chứng nhận đăng ký kinh doanh</label>
+                                                                <label class="form-label" for="businessRegis">Ảnh giấy chứng nhận đăng ký kinh doanh *</label>
                                                                 <input type="text" name="businessRegis" class="form-control" required/>
                                                             </div>
                                                         </div>
 
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="taxCertificate">Ảnh giấy chứng nhận thuế</label>
+                                                                <label class="form-label" for="taxCertificate">Ảnh giấy chứng nhận thuế *</label>
                                                                 <input type="text" id="taxCertificate" name="taxCertificate" class="form-control" required/>
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
-                                                                <label class="form-label" for="taxPayment">Ảnh giấy việc xác nhận đóng thuế</label>
+                                                                <label class="form-label" for="taxPayment">Ảnh giấy việc xác nhận đóng thuế *</label>
                                                                 <input type="text" id="taxPayment" name="taxPayment" class="form-control" required/>
                                                             </div>
                                                         </div>

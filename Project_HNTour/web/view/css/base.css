@@ -10,11 +10,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /*----------- phần tạo thêm thông tin -----------*/
 /* CSS cho form */
 .fib-add-form {
-    display: block;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 50%; /* Chiếm một nửa màn hình */
+    position: relative;
+    width: 96%; /* Chiếm một nửa màn hình */
     height: 100%;
     background-color: #ffffff;
     z-index: 9999;
@@ -24,10 +21,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border-left: 1px solid #e0e0e0; /* Thêm viền trái */
 }
 
+.fib-add-form h1{
+    font-size: xxx-large;
+    margin: 0 0 50px 460px;
+    color: #ff5b00;
+}
+
 
 /*Show phần đăng ký trở thành supplier*/
 
 .ups-register-form-infor-pers{
+    display: inline-grid;
     margin-top: 20px;
 }
 
@@ -55,6 +59,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .form-control{
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     width: 350px;
 }
 
@@ -70,55 +85,95 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .btn-submit {
     border: none;
-    margin: 15px 0 0 150px;
+    margin: 25px 0 0 325px;
     padding: 15px 250px;
     background-color: #ff5b00;
     color: #ffffff;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    /*transition: background-color 0.3s ease;*/
 }
 .btn-submit:hover {
     background-color: #e04113; /* Thay đổi màu khi di chuột vào */
 }
-/*.fib-add-form.active {
 
-    transform: translateX(0);  Hiển thị form từ phải sang 
-}*/
-/*
+
+/*---------------------------------*/
+.confirm-btn {
+    background-color: #4CAF50; /* Màu nền */
+    border: none; /* Không viền */
+    color: white; /* Màu chữ */
+    padding: 12px 24px; /* Độ lớn */
+    text-align: center; /* Căn giữa văn bản */
+    text-decoration: none; /* Không gạch chân */
+    display: inline-block;
+    font-size: 16px; /* Cỡ chữ */
+    margin: 4px 2px; /* Khoảng cách với phần tử khác */
+    transition-duration: 0.4s; /* Thời gian chuyển đổi hover */
+    cursor: pointer; /* Con trỏ chuột */
+    border-radius: 8px; /* Bo tròn viền */
+}
+
+.confirm-btn:hover {
+    background-color: #45a049; /* Màu nền khi hover */
+}
+
+
+/*----------- phần tạo update thông tin -----------*/
+/* CSS cho form */
+.fib-add-form {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%; /* Chiếm một nửa màn hình */
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 9999;
+    transition: transform 0.5s ease;
+    padding: 20px; /* Thêm padding để nội dung không sát mép */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Thêm bóng để tạo chiều sâu */
+    border-left: 1px solid #e0e0e0; /* Thêm viền trái */
+}
+
+.fib-add-form.active {
+    display: block;
+    transform: translateX(0); /* Hiển thị form từ phải sang */
+}
+
 .fib-add-form label {
     top: 15px;
     left: 15px;
     color: #888888;
     transition: all 0.3s ease;
     pointer-events: none;
-    width: calc(100% - 30px);  Thêm chiều rộng cho label 
+    width: calc(100% - 30px); /* Thêm chiều rộng cho label */
 }
 
- CSS cho input 
+/* CSS cho input */
 .fib-add-form input {
     width: calc(100% - 30px);
-    padding: 15px;
-    margin: 0 0 10px;  Điều chỉnh khoảng cách giữa các input 
+    padding: 8px;
+    margin: 0 0 10px; /* Điều chỉnh khoảng cách giữa các input */
     border: none;
     border-bottom: 1px solid #e0e0e0;
     outline: none;
     transition: all 0.3s ease;
 }
 
- CSS cho input khi được focus 
+/* CSS cho input khi được focus */
 .fib-add-form input:focus {
-    border-bottom: 1px solid #ff5b00;  Thay đổi màu viền dưới khi focus 
+    border-bottom: 1px solid #ff5b00; /* Thay đổi màu viền dưới khi focus */
 }
 
- CSS cho label khi input có focus hoặc đã được điền dữ liệu 
+/* CSS cho label khi input có focus hoặc đã được điền dữ liệu */
 .fib-add-form input:focus + label,
 .fib-add-form input:valid + label {
     top: -10px;
     font-size: 12px;
-    color: #ff5b00;  Thay đổi màu và kích thước của label 
+    color: #ff5b00; /* Thay đổi màu và kích thước của label */
 }
 
- CSS cho button 
+CSS cho button
 .fib-add-form button {
     background-color: transparent;
     border: none;
@@ -132,10 +187,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .fib-add-form button:hover {
-    color: #e04113;  Thay đổi màu khi di chuột vào 
+    color: #e04113;
 }
 
- CSS cho button submit 
+/* CSS cho button submit */
 .fib-add-form .btn-submit {
     background-color: #ff5b00;
     color: #ffffff;
@@ -145,22 +200,25 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .fib-add-form .btn-submit:hover {
-    background-color: #e04113;  Thay đổi màu khi di chuột vào 
+    background-color: #e04113; /* Thay đổi màu khi di chuột vào */
 }
 
- CSS cho mask 
+/* CSS cho mask */
 .fib-drawer-mask {
-    display: block;
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
-    width: 50%;  Chiếm một nửa màn hình 
+    width: 50%; /* Chiếm một nửa màn hình */
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);  Màu nền mờ 
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
     z-index: 9998;
-    opacity: 1;
+    opacity: 0;
     transition: opacity 0.5s ease;
-}*/
+}
 
+.fib-drawer-mask.active {
+    display: block;
+    opacity: 1; /* Hiển thị mask */
+}
 
-/*---------------------------------*/

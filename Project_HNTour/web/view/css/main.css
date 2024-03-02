@@ -9,5 +9,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 #layoutSidenav_content{
     margin-top: 80px;
 }
+/*
+.confirm-btn {
+        background-color: #4CAF50;  Màu nền 
+        color: white;  Màu chữ 
+        padding: 10px 20px;  Kích thước nút 
+        border: none;  Không có viền 
+        border-radius: 5px;  Bo góc 
+        cursor: pointer;  Con trỏ chuột 
+        text-align: center;  Căn giữa văn bản 
+        text-decoration: none;  Không gạch chân văn bản 
+        display: inline-block;
+        transition-duration: 0.4s;  Thời gian chuyển đổi hover 
+    }
 
-
+    .confirm-btn:hover {
+        background-color: #45a049;  Màu nền khi hover 
+    }
+*/

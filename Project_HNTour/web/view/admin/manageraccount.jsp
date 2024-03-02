@@ -75,8 +75,8 @@
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body">Supplier registration</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <p>${requestScope.totalPrice}đ</p>
-                                    <div class="small text-white"><a href="#" style="color: white"><i class="fas fa-angle-right"></i></a></div>
+                                    <p>0</p>
+                                    <div class="small text-white"><a href="managerregistersupplier" style="color: white"><i class="fas fa-angle-right"></i></a></div>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                             <div class="card bg-danger text-white mb-4">
                                 <div class="card-body">Feedback</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <p>${requestScope.totalBanned}</p>
+                                    <p>0</p>
                                 </div>
                             </div>
                         </div>
@@ -122,6 +122,7 @@
                                         <th>Password</th>
                                         <th>Email</th>
                                         <th>Address</th>
+                                        <th>Role</th>
                                         <th>Status</th>
                                         <th></th>
                                     </tr>
@@ -133,6 +134,14 @@
                                             <td>${a.password}</td>
                                             <td>${a.email}</td>
                                             <td>${a.address}</td>
+                                            <td style="text-align: center; font-size: xx-large;">
+                                                <c:if test="${a.role == 2}">
+                                                    <i class="fa-solid fa-user-tie" ></i>
+                                                </c:if>
+                                                <c:if test="${a.role == 3}">
+                                                    <i class="fa-solid fa-user" ></i>
+                                                </c:if>
+                                            </td>
                                             <td>
                                                 <c:if test="${a.status}">
                                                     <i class="fa-solid fa-circle" style="color: greenyellow"></i> Active

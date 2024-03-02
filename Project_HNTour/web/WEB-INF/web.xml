@@ -28,6 +28,10 @@
         <servlet-name>ViewProfileSupplierServlet</servlet-name>
         <servlet-class>controllerAdmin.ViewProfileSupplierServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerRegisterSupplierServlet</servlet-name>
+        <servlet-class>controllerAdmin.ManagerRegisterSupplierServlet</servlet-class>
+    </servlet>
     
     
     <servlet-mapping>
@@ -61,6 +65,12 @@
         <servlet-name>ViewProfileSupplierServlet</servlet-name>
         <url-pattern>/admin/viewprofilesupplier</url-pattern>
     </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ManagerRegisterSupplierServlet</servlet-name>
+        <url-pattern>/admin/managerregistersupplier</url-pattern>
+    </servlet-mapping>
+    
     
     <session-config>
         <session-timeout>

@@ -50,7 +50,7 @@ public class AdminDAO extends DBContext {
 
     public int countAccountCustomer() {
         int totalAccountCustomer = 0;
-        String sql = "SELECT COUNT(*) AS id FROM Account where [status] = 1 and [role] = 2";
+        String sql = "SELECT COUNT(*) AS id FROM Account where [status] = 1 and [role] = 3";
         try ( PreparedStatement stm = connection.prepareStatement(sql)) {
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
@@ -64,7 +64,7 @@ public class AdminDAO extends DBContext {
 
     public int countAccountSupplier() {
         int totalAccountSupplier = 0;
-        String sql = "SELECT COUNT(*) AS id FROM Account where [status] = 1 and [role] = 3";
+        String sql = "SELECT COUNT(*) AS id FROM Account where [status] = 1 and [role] = 2";
         try ( PreparedStatement stm = connection.prepareStatement(sql)) {
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
@@ -206,18 +206,18 @@ public class AdminDAO extends DBContext {
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 return new Supplier(
-                        id, 
-                        rs.getString("fullName"), 
-                        rs.getDate("birthday"), 
-                        rs.getString("email"), 
-                        rs.getString("phoneNumber"), 
+                        id,
+                        rs.getString("fullName"),
+                        rs.getDate("birthday"),
+                        rs.getString("email"),
+                        rs.getString("phoneNumber"),
                         rs.getString("frontCMND"),
                         rs.getString("backCMND"),
                         rs.getString("nameCompany"),
                         rs.getString("addressCompany"),
                         rs.getString("emailCompany"),
                         rs.getString("phoneNumberCompany"),
-                        rs.getString("businessCode"), 
+                        rs.getString("businessCode"),
                         rs.getString("businessRegis"),
                         rs.getString("taxCertificate"),
                         rs.getString("taxPayment")
@@ -226,12 +226,138 @@ public class AdminDAO extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        return null;
+    }
+//
+//    public List<Supplier> getListRegisterSupplier() {
+//        List<Supplier> list = new ArrayList<>();
+//        String sql = "SELECT \n"
+//                + "    s.[fullName],\n"
+//                + "    s.[birthday],\n"
+//                + "    s.[email],\n"
+//                + "    s.[phoneNumber],\n"
+//                + "    s.[frontCMND],\n"
+//                + "    s.[backCMND],\n"
+//                + "    s.[nameCompany],\n"
+//                + "    s.[addressCompany],\n"
+//                + "    s.[emailCompany],\n"
+//                + "    s.[phoneNumberCompany],\n"
+//                + "    s.[businessCode],\n"
+//                + "    s.[businessRegis],\n"
+//                + "    s.[taxCertificate],\n"
+//                + "    s.[taxPayment]\n"
+//                + "FROM \n"
+//                + "    [HaNoiTour].[dbo].[Supplier] AS s\n"
+//                + "JOIN \n"
+//                + "    [HaNoiTour].[dbo].[Account] AS a\n"
+//                + "ON \n"
+//                + "    s.[accId] = a.[id]\n"
+//                + "WHERE \n"
+//                + "    a.[role] = 3;";
+//
+//        try {
+//            PreparedStatement stm = connection.prepareStatement(sql);
+//            ResultSet rs = stm.executeQuery();
+//            while (rs.next()) {
+//                Supplier s = new Supplier();
+//                s.setIdAcc(rs.getInt("idAcc"));
+//                s.setFullName(rs.getString("fullName"));
+//                s.setBirthday(rs.getDate("birthday"));
+//                s.setEmail(rs.getString("email"));
+//                s.setPhoneNumber(rs.getString("phoneNumber"));
+//                s.setFrontCMND(rs.getString("frontCMND"));
+//                s.setBackCMND(rs.getString("backCMND"));
+//                s.setNameCompany(rs.getString("nameCompany"));
+//                s.setAddressCompany(rs.getString("addressCompany"));
+//                s.setEmailCompany(rs.getString("emailCompany"));
+//                s.setPhoneNumberCompany(rs.getString("phoneNumberCompany"));
+//                s.setBusinessCode(rs.getString("businessCode"));
+//                s.setBusinessRegis(rs.getString("businessRegis"));
+//                s.setTaxCertificate(rs.getString("taxCertificate"));
+//                s.setTaxPayment(rs.getString("taxPayment"));
+//                list.add(s);
+//            }
+//            return list;
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//        return null;
+//    }
 
+    public List<Supplier> getListRegisterSupplier() {
+        List<Supplier> list = new ArrayList();
+        try {
+            String sql = "SELECT \n"
+                    + "	s.[accId],\n"
+                    + "    s.[fullName],\n"
+                    + "    s.[birthday],\n"
+                    + "    s.[email],\n"
+                    + "    s.[phoneNumber],\n"
+                    + "    s.[frontCMND],\n"
+                    + "    s.[backCMND],\n"
+                    + "    s.[nameCompany],\n"
+                    + "    s.[addressCompany],\n"
+                    + "    s.[emailCompany],\n"
+                    + "    s.[phoneNumberCompany],\n"
+                    + "    s.[businessCode],\n"
+                    + "    s.[businessRegis],\n"
+                    + "    s.[taxCertificate],\n"
+                    + "    s.[taxPayment]\n"
+                    + "FROM \n"
+                    + "    [HaNoiTour].[dbo].[Supplier] AS s\n"
+                    + "JOIN \n"
+                    + "    [HaNoiTour].[dbo].[Account] AS a\n"
+                    + "ON \n"
+                    + "    s.[accId] = a.[id]\n"
+                    + "WHERE \n"
+                    + "    a.[role] = 3;";
+
+            try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    Supplier s = new Supplier();
+                    s.setIdAcc(rs.getInt("accId"));
+                    s.setFullName(rs.getString("fullName"));
+                    s.setBirthday(rs.getDate("birthday"));
+                    s.setEmail(rs.getString("email"));
+                    s.setPhoneNumber(rs.getString("phoneNumber"));
+                    s.setFrontCMND(rs.getString("frontCMND"));
+                    s.setBackCMND(rs.getString("backCMND"));
+                    s.setNameCompany(rs.getString("nameCompany"));
+                    s.setAddressCompany(rs.getString("addressCompany"));
+                    s.setEmailCompany(rs.getString("emailCompany"));
+                    s.setPhoneNumberCompany(rs.getString("phoneNumberCompany"));
+                    s.setBusinessCode(rs.getString("businessCode"));
+                    s.setBusinessRegis(rs.getString("businessRegis"));
+                    s.setTaxCertificate(rs.getString("taxCertificate"));
+                    s.setTaxPayment(rs.getString("taxPayment"));
+                    list.add(s);
+                }
+                return list;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
 
-    public static void main(String[] args) {
+    public boolean confirmRegisterSupplier(int id) {
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "   SET [role] = 2\n"
+                + " WHERE id = ?";
+        try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, id);
+            int result = stm.executeUpdate();
+            return result > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
+    public static void main(String[] args) {
+        AdminDAO d = new AdminDAO();
+        Supplier s = d.getInforSupplierByID(1);
+        System.out.println(s.getEmail());
     }
 }
