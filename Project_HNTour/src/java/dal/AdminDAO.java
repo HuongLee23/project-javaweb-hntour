@@ -335,6 +335,50 @@ public class AdminDAO extends DBContext {
         return false;
     }
 
+    public List<Account> searchAccount(String txt) {
+        List<Account> listAccounts = new ArrayList<>();
+        try {
+            String sql = "SELECT [id]\n"
+                    + "      ,[email]\n"
+                    + "      ,[username]\n"
+                    + "      ,[password]\n"
+                    + "      ,[role]\n"
+                    + "      ,[address]\n"
+                    + "      ,[avatar]\n"
+                    + "      ,[phoneNumber]\n"
+                    + "      ,[status]\n"
+                    + "  FROM [HaNoiTour].[dbo].[Account] "
+                    + "where [role] != 1 and "
+                    + "([email] LIKE ? or [username] LIKE ? "
+                    + "or [address] LIKE ? or [phoneNumber] LIKE ? )";
+
+            try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+                stm.setString(1, "%" + txt + "%");
+                stm.setString(2, "%" + txt + "%");
+                stm.setString(3, "%" + txt + "%");
+                stm.setString(4, "%" + txt + "%");
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    Account a = new Account();
+                    a.setId(rs.getInt("id"));
+                    a.setEmail(rs.getString("email"));
+                    a.setUsername(rs.getString("username"));
+                    a.setPassword(rs.getString("password"));
+                    a.setRole(rs.getInt("role"));
+                    a.setAddress(rs.getString("address"));
+                    a.setAvatar(rs.getString("avatar"));
+                    a.setPhoneNumber(rs.getString("phoneNumber"));
+                    a.setStatus(rs.getBoolean("status"));
+                    listAccounts.add(a);
+                }
+                return listAccounts;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         AdminDAO d = new AdminDAO();
         Supplier s = d.getInforSupplierByID(1);

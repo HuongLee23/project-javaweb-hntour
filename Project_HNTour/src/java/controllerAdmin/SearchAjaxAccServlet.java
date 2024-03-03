@@ -38,13 +38,8 @@ public class SearchAjaxAccServlet extends HttpServlet {
         String search = request.getParameter("txt");
 
         AdminDAO ad = new AdminDAO();
-        List<Account> list = ad.getListAccount(0);
-        List<Account> listAccount = null;
-        for (Account account : list) {
-            if (account.toString().contains(search)) {
-                listAccount.add(account);
-            }
-        }
+        List<Account> listAcc = ad.searchAccount(search);
+
         PrintWriter out = response.getWriter();
 
         out.println("<table id=\"datatablesSimple\">");
@@ -60,84 +55,43 @@ public class SearchAjaxAccServlet extends HttpServlet {
         out.println("</tr>");
         out.println("</thead>");
         out.println("<tbody>");
-        if (listAccount == null) {
-            for (Account a : list) {
-                out.println("<tr>");
-                out.println("<td>" + a.getUsername() + "</td>");
-                out.println("<td>" + a.getPassword() + "</td>");
-                out.println("<td>" + a.getEmail() + "</td>");
-                out.println("<td>" + a.getAddress() + "</td>");
-                out.println("<td style=\"text-align: center; font-size: xx-large;\">");
-                out.println("<c:if test=\"${" + a.getRole() + "== 2}\">");
+        for (Account a : listAcc) {
+            out.println("<tr>");
+            out.println("<td>" + a.getUsername() + "</td>");
+            out.println("<td>" + a.getPassword() + "</td>");
+            out.println("<td>" + a.getEmail() + "</td>");
+            out.println("<td>" + a.getAddress() + "</td>");
+            out.println("<td style=\"text-align: center; font-size: xx-large;\">");
+            if (a.getRole() == 2) {
                 out.println("<i class=\"fa-solid fa-user-tie\" ></i>");
-                out.println("</c:if>");
-                out.println("<c:if test=\"${" + a.getRole() + "== 3}\">");
+            } else if (a.getRole() == 3) {
                 out.println("<i class=\"fa-solid fa-user\" ></i>");
-                out.println("</c:if>");
-                out.println("</td>");
-                out.println("<td>");
-                out.println("<c:if test=\"" + a.isStatus() + "\">");
+            }
+            out.println("</td>");
+
+            out.println("<td>");
+            if (a.isStatus()) {
                 out.println("<i class=\"fa-solid fa-circle\" style=\"color: greenyellow\"></i> Active");
-                out.println("</c:if>");
-                out.println("<c:if test=\"!" + a.isStatus() + "\">");
+            } else {
                 out.println("<i class=\"fa-solid fa-circle\" style=\"color: red\"></i> Blocked");
-                out.println("</c:if>");
-                out.println("</td>");
-                out.println("<td style=\"color: #00adef\">");
-                out.println("<c:if test=\"" + a.isStatus() + "\">");
+            }
+            out.println("</td>");
+
+            out.println("<td style=\"color: #00adef\">");
+            if (a.isStatus()) {
                 out.println("<div class=\"button-edit\">");
                 out.println("<i class=\"fa-solid fa-lock\"></i>");
                 out.println("<a id=\"button-edit-customer\" href=\"lock?id=" + a.getId() + "\"  style=\"text-decoration: none; color: red\">Block</a>");
                 out.println("</div>");
-                out.println("</c:if>");
-                out.println("<c:if test=\"!" + a.isStatus() + "\">");
+            } else {
                 out.println("<div class=\"button-edit\">");
                 out.println("<i class=\"fa-solid fa-lock-open\"></i>");
                 out.println("<a id=\"button-edit-customer\" href=\"unlock?id=" + a.getId() + "\"style=\"text-decoration: none\">UnBlock</a>");
                 out.println("</div>");
-                out.println("</c:if>");
-                out.println("</td>");
-                out.println("</tr>");
             }
-        } else {
-            for (Account a : listAccount) {
-                out.println("<tr>");
-                out.println("<td>" + a.getUsername() + "</td>");
-                out.println("<td>" + a.getPassword() + "</td>");
-                out.println("<td>" + a.getEmail() + "</td>");
-                out.println("<td>" + a.getAddress() + "</td>");
-                out.println("<td style=\"text-align: center; font-size: xx-large;\">");
-                out.println("<c:if test=\"${" + a.getRole() + "== 2}\">");
-                out.println("<i class=\"fa-solid fa-user-tie\" ></i>");
-                out.println("</c:if>");
-                out.println("<c:if test=\"${" + a.getRole() + "== 3}\">");
-                out.println("<i class=\"fa-solid fa-user\" ></i>");
-                out.println("</c:if>");
-                out.println("</td>");
-                out.println("<td>");
-                out.println("<c:if test=\"" + a.isStatus() + "\">");
-                out.println("<i class=\"fa-solid fa-circle\" style=\"color: greenyellow\"></i> Active");
-                out.println("</c:if>");
-                out.println("<c:if test=\"!" + a.isStatus() + "\">");
-                out.println("<i class=\"fa-solid fa-circle\" style=\"color: red\"></i> Blocked");
-                out.println("</c:if>");
-                out.println("</td>");
-                out.println("<td style=\"color: #00adef\">");
-                out.println("<c:if test=\"" + a.isStatus() + "\">");
-                out.println("<div class=\"button-edit\">");
-                out.println("<i class=\"fa-solid fa-lock\"></i>");
-                out.println("<a id=\"button-edit-customer\" href=\"lock?id=" + a.getId() + "\"  style=\"text-decoration: none; color: red\">Block</a>");
-                out.println("</div>");
-                out.println("</c:if>");
-                out.println("<c:if test=\"!" + a.isStatus() + "\">");
-                out.println("<div class=\"button-edit\">");
-                out.println("<i class=\"fa-solid fa-lock-open\"></i>");
-                out.println("<a id=\"button-edit-customer\" href=\"unlock?id=" + a.getId() + "\"style=\"text-decoration: none\">UnBlock</a>");
-                out.println("</div>");
-                out.println("</c:if>");
-                out.println("</td>");
-                out.println("</tr>");
-            }
+            out.println("</td>");
+
+            out.println("</tr>");
         }
         out.println("</tbody>");
         out.println("</table>");
