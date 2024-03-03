@@ -46,12 +46,12 @@
                 <div class="ups-register-form-infor">
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="emailAddress">Email</label>
-                        <input type="email" id="emailAddress" name="email" class="form-control" required/>
+                        <input type="email" id="emailAddress" value="${su.email}" name="email" class="form-control" required/>
                     </div>
 
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="phoneNumber">Số điện thoại</label>
-                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" required/>
+                        <input type="tel" id="phoneNumber" value="${su.phoneNumber}" name="phoneNumber" class="form-control" required/>
                     </div>
                 </div>
 
@@ -59,11 +59,13 @@
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="frontCMND">Ảnh CMND mặt trước</label>
                         <input type="text" id="frontCMND" name="frontCMND" class="form-control" required/>
+                        <img src="${su.frontCMND}" width="100px" height="100px" alt="alt"/>
                     </div>
 
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="backCMND">Ảnh CMND mặt sau</label>
                         <input type="text" id="backCMND" name="backCMND" class="form-control" required/>
+                        <img src="${su.backCMND}" width="100px" height="100px" alt="alt"/>
                     </div>
                 </div>
 
@@ -77,24 +79,24 @@
                 <div class="ups-register-form-infor">
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="nameCompany">Tên doanh nghiệp</label>
-                        <input type="text" id="nameCompany" name="nameCompany" class="form-control" required />
+                        <input type="text" id="nameCompany" value="${su.nameCompany}" name="nameCompany" class="form-control" required />
                     </div>
 
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="addressCompany">Địa chỉ doanh nghiệp</label>
-                        <input type="text" name="addressCompany" class="form-control" required/>
+                        <input type="text" value="${su.addressCompany}" name="addressCompany" class="form-control" required/>
                     </div>
                 </div>
 
                 <div class="ups-register-form-infor">
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="emailCompany">Email</label>
-                        <input type="email" id="emailAddress" name="emailCompany" class="form-control" required/>
+                        <input type="email" id="emailAddress" value="${su.emailCompany}" name="emailCompany" class="form-control" required/>
                     </div>
 
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="phoneNumberCompany">Số điện thoại</label>
-                        <input type="tel" id="phoneNumberCompany" name="phoneNumberCompany" class="form-control" required/>
+                        <input type="tel" id="phoneNumberCompany" value="${su.phoneNumberCompany}" name="phoneNumberCompany" class="form-control" required/>
                     </div>
                 </div>
 
@@ -109,12 +111,13 @@
                 <div class="ups-register-form-infor">
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="businessCode">Mã số doanh nghiệp</label>
-                        <input type="text" id="businessCode" name="businessCode" class="form-control" required />
+                        <input type="text" id="businessCode" value="${su.businessCode}" name="businessCode" class="form-control" required />
                     </div>
 
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="businessRegis">Ảnh giấy chứng nhận đăng ký kinh doanh</label>
                         <input type="text" name="businessRegis" class="form-control" required/>
+                        <img src="${su.businessRegis}" width="100px" height="100px" alt="alt"/>
                     </div>
                 </div>
 
@@ -122,11 +125,13 @@
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="taxCertificate">Ảnh giấy chứng nhận thuế</label>
                         <input type="text" id="taxCertificate" name="taxCertificate" class="form-control" required/>
+                        <img src="${su.taxCertificate}" width="100px" height="100px" alt="alt"/>
                     </div>
 
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="taxPayment">Ảnh giấy việc xác nhận đóng thuế</label>
                         <input type="text" id="taxPayment" name="taxPayment" class="form-control" required/>
+                        <img src="${su.taxPayment}" width="100px" height="100px" alt="alt"/>
                     </div>
                 </div>
 
