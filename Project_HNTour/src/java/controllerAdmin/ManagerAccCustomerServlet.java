@@ -78,6 +78,7 @@ public class ManagerAccCustomerServlet extends HttpServlet {
         int totalAccountSupplier = mnAccount.countAccountSupplier();
         String totalPrice = mnAccount.totalPrice();
         int totalBanned = mnAccount.totalAccountBanned();
+
         // Gán danh sách tài khoản vào request để truy cập từ trang JSP
         request.setAttribute("currentPageData", currentPageData);
         request.setAttribute("totalPages", totalPages);
@@ -119,7 +120,46 @@ public class ManagerAccCustomerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        String pageStr = request.getParameter("page");
+        String role_raw = request.getParameter("role");
+//        int currentPage = (pageStr != null) ? Integer.parseInt(pageStr) : 1;
+//        int itemsPerPage = 10;
+        AdminDAO mnAccount = new AdminDAO();
+
+        //Phần cập nhật thông tin khách hàng của admin
+        String id_raw = request.getParameter("id");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String address = request.getParameter("address");
+
+        try {
+            int id = Integer.parseInt(id_raw);
+            boolean result = mnAccount.updateInforCustomer(id, username, password, email, phoneNumber, address);
+            if (result) {
+                request.setAttribute("ms", "Cập nhật thông tin khách hàng thành công");
+            } else {
+                request.setAttribute("ms", "Cập nhật thông tin khách hàng thất bại!");
+            }
+
+            int role = Integer.parseInt(role_raw);
+            // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
+            List<Account> listAccounts = getAllAccountsFromDatabase(role);
+            int totalAccountCustomer = mnAccount.countAccountCustomer();
+
+            // Gán danh sách tài khoản vào request để truy cập từ trang JSP
+            request.setAttribute("currentPageData", listAccounts);
+            request.setAttribute("totalcustomer", totalAccountCustomer);
+
+            // Chuyển hướng (forward) request và response đến trang JSP
+            RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/manageracccustomer.jsp");
+            dispatcher.forward(request, response);
+            processRequest(request, response);
+
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
     }
 
     /**

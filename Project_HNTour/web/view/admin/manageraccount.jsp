@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="../css/styles.css"/>
         <link rel="stylesheet" href="../css/main.css"/>
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background: linear-gradient(to right, #fa9e1b, #8d4fff, #fa9e1b);">
@@ -27,7 +28,7 @@
             <a class="navbar-brand ps-3" href="manageraccount">Start Bootstrap</a>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <input class="form-control" type="text" oninput="searchAccountByAll(this)" name="txt" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
             </form>
@@ -75,7 +76,7 @@
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body">Supplier registration</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <p>0</p>
+                                    <p>${requestScope.totalRegisterSupplier}</p>
                                     <div class="small text-white"><a href="managerregistersupplier" style="color: white"><i class="fas fa-angle-right"></i></a></div>
                                 </div>
                             </div>
@@ -128,8 +129,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <c:forEach items="${requestScope.currentPageData}" var="a">
+                                    <c:forEach items="${requestScope.currentPageData}" var="a">
+                                        <tr>
                                             <td>${a.username}</td>
                                             <td>${a.password}</td>
                                             <td>${a.email}</td>
@@ -206,6 +207,25 @@
             }
         </style>
         <script>
+
+            function searchAccountByAll(param) {
+                var searchAll = param.value;
+                $.ajax({
+                    url: "/VNTravel/admin/searchajaxacc",
+                    type: "get",
+                    data: {
+                        txt: searchAll
+                    },
+                    success: function (data) {
+                        var row = document.getElementById("datatablesSimple");
+                        row.innerHTML = data;
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("An error occurred:", error);
+                    }
+                }); // Add closing bracket here
+            }
+
             function banAccount() {
                 // Hiển thị hộp thoại xác nhận
                 var userConfirmed = confirm('Are you sure lock this account?');

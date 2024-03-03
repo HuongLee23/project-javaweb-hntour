@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import model.Account;
+import model.Supplier;
 
 /**
  *
@@ -65,7 +66,6 @@ public class ManagerAccountServlet extends HttpServlet {
         int itemsPerPage = 10;
         AdminDAO mnAccount = new AdminDAO();
 
-        
         // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
         int roleAll = 0;
         List<Account> listAccounts = getAllAccountsFromDatabase(roleAll);
@@ -77,14 +77,16 @@ public class ManagerAccountServlet extends HttpServlet {
         int totalAccountSupplier = mnAccount.countAccountSupplier();
         String totalPrice = mnAccount.totalPrice();
         int totalBanned = mnAccount.totalAccountBanned();
-        
-        
+
         // Gán danh sách tài khoản vào request để truy cập từ trang JSP
         request.setAttribute("currentPageData", currentPageData);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("totalcustomer", totalAccountCustomer);
         request.setAttribute("totalsupplier", totalAccountSupplier);
+        List<Supplier> listResgisterSupplier = mnAccount.getListRegisterSupplier();
+        int totalRegisterSupplier = listResgisterSupplier.size();
+        request.setAttribute("totalRegisterSupplier", totalRegisterSupplier);
         request.setAttribute("totalPrice", totalPrice);
         request.setAttribute("totalBanned", totalBanned);
 

@@ -55,7 +55,7 @@
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body">Supplier registration</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <p>0</p>
+                                    <p>${requestScope.totalRegisterSupplier}</p>
                                     <div class="small text-white"><a href="managerregistersupplier" style="color: white"><i class="fas fa-angle-right"></i></a></div>
                                 </div>
                             </div>

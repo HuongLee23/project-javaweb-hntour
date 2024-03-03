@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Account;
 import model.Supplier;
@@ -66,7 +67,6 @@ public class ManagerRegisterSupplierServlet extends HttpServlet {
         int currentPage = (pageStr != null) ? Integer.parseInt(pageStr) : 1;
         int itemsPerPage = 10;
         AdminDAO mnAccount = new AdminDAO();
-
 //        int role = Integer.parseInt(role_raw);
         // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
         List<Supplier> listAccounts = getAllAccountsFromDatabase();
@@ -75,6 +75,7 @@ public class ManagerRegisterSupplierServlet extends HttpServlet {
         int totalPages = (int) Math.ceil((double) listAccounts.size() / itemsPerPage);
         // Lấy sublist của danh sách để hiển thị trên trang hiện tại
         List<Supplier> currentPageData = getCurrentPageData(listAccounts, currentPage, itemsPerPage);
+        int totalRegisterSupplier = listAccounts.size();
         int totalAccountCustomer = mnAccount.countAccountCustomer();
         int totalAccountSupplier = mnAccount.countAccountSupplier();
         String totalPrice = mnAccount.totalPrice();
@@ -85,6 +86,7 @@ public class ManagerRegisterSupplierServlet extends HttpServlet {
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("totalcustomer", totalAccountCustomer);
         request.setAttribute("totalsupplier", totalAccountSupplier);
+        request.setAttribute("totalRegisterSupplier", totalRegisterSupplier);
         request.setAttribute("totalPrice", totalPrice);
         request.setAttribute("totalBanned", totalBanned);
 

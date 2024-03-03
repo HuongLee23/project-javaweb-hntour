@@ -105,4 +105,9 @@ public class Account {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return email + username + role + address + phoneNumber;
+    }
+
 }

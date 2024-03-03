@@ -66,6 +66,11 @@ public class ViewProfileSupplierServlet extends HttpServlet {
         try {
             idAcc = Integer.parseInt(idAcc_raw);
             Supplier supplier = aDao.getInforSupplierByID(idAcc);
+//
+//            PrintWriter out = response.getWriter();
+//            out.print("Hello " + supplier.getFullName());
+//            out.print("Email:  " + supplier.getEmail());
+
             request.setAttribute("supplier", supplier);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/viewprofilesupplier.jsp");
@@ -73,8 +78,6 @@ public class ViewProfileSupplierServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
-
-//        processRequest(request, response);
     }
 
     /**

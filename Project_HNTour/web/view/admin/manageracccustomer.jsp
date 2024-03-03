@@ -18,8 +18,7 @@
         <title>Hà Nội Tour</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/styles.css"/>
-        <link rel="stylesheet" href="../css/main.css"/>
-        <link rel="stylesheet" href="../view/css/base.css"/>
+        <link rel="stylesheet" href="../view/css/main.css"/>
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -108,7 +107,7 @@
                                             <td>${a.phoneNumber}</td>
                                             <td style="color: #00adef">
                                                 <!--<form action="managerregistersupplier" method="post">-->
-                                                <input class="confirm-btn" onclick="openForm(this)" data-id="${a.id}" data-username="${a.username}" data-password="${a.password}" data-email="${a.email}" data-address="${a.address}" data-phonenumber="${a.phoneNumber}" value="Update"/>
+                                                <input class="confirm-btn" onclick="openForm(this)" data-id="${a.id}" data-role="${a.role}" data-username="${a.username}" data-password="${a.password}" data-email="${a.email}" data-address="${a.address}" data-phonenumber="${a.phoneNumber}" value="Update"/>
 
                                                 <!--</form>-->
                                             </td>
@@ -139,8 +138,11 @@
                     <div class="fby-section-tips"></div>
                 </h2>
                 <!-- Nội dung của form ở đây -->
-                <form action="insertinformation">
+                <form action="manageracccustomer" method="post">
 
+                    <input type="hidden" id="id" name="id" >
+                    <input type="hidden" id="role" name="role" >
+                    
                     <input type="text" id="name" name="username" class="form-control" required />
                     <label class="form-label" for="name">Họ và tên</label>
 
@@ -201,6 +203,7 @@
 
                 // Lấy dữ liệu từ thuộc tính data của nút "Update"
                 var id = btn.getAttribute("data-id");
+                var role = btn.getAttribute("data-role");
                 var username = btn.getAttribute("data-username");
                 var password = btn.getAttribute("data-password");
                 var email = btn.getAttribute("data-email");
@@ -209,6 +212,7 @@
 
                 // Cập nhật giá trị của các trường input trong form
                 document.getElementById("id").value = id;
+                document.getElementById("role").value = role;
                 document.getElementById("name").value = username;
                 document.getElementById("password").value = password;
                 document.getElementById("emailAddress").value = email;

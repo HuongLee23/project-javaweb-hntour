@@ -32,6 +32,10 @@
         <servlet-name>ManagerRegisterSupplierServlet</servlet-name>
         <servlet-class>controllerAdmin.ManagerRegisterSupplierServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchAjaxAccServlet</servlet-name>
+        <servlet-class>controllerAdmin.SearchAjaxAccServlet</servlet-class>
+    </servlet>
     
     
     <servlet-mapping>
@@ -69,6 +73,11 @@
     <servlet-mapping>
         <servlet-name>ManagerRegisterSupplierServlet</servlet-name>
         <url-pattern>/admin/managerregistersupplier</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>SearchAjaxAccServlet</servlet-name>
+        <url-pattern>/admin/searchajaxacc</url-pattern>
     </servlet-mapping>
     
     

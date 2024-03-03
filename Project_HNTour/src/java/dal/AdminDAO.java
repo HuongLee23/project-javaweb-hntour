@@ -21,9 +21,17 @@ public class AdminDAO extends DBContext {
     public List<Account> getListAccount(int role) {
         List<Account> listAccounts = new ArrayList<>();
         try {
-            String sql = "SELECT id,  email, username,"
-                    + " [password],[address],[role],[status] "
-                    + "FROM Account where [role] != 1";
+            String sql = "SELECT [id]\n"
+                    + "      ,[email]\n"
+                    + "      ,[username]\n"
+                    + "      ,[password]\n"
+                    + "      ,[role]\n"
+                    + "      ,[address]\n"
+                    + "      ,[avatar]\n"
+                    + "      ,[phoneNumber]\n"
+                    + "      ,[status]\n"
+                    + "  FROM [HaNoiTour].[dbo].[Account] "
+                    + "where [role] != 1";
             if (role != 0) {
                 sql += "and [role] = " + role;
             }
@@ -33,10 +41,12 @@ public class AdminDAO extends DBContext {
                     Account a = new Account();
                     a.setId(rs.getInt("id"));
                     a.setEmail(rs.getString("email"));
-                    a.setRole(rs.getInt("role"));
                     a.setUsername(rs.getString("username"));
                     a.setPassword(rs.getString("password"));
+                    a.setRole(rs.getInt("role"));
                     a.setAddress(rs.getString("address"));
+                    a.setAvatar(rs.getString("avatar"));
+                    a.setPhoneNumber(rs.getString("phoneNumber"));
                     a.setStatus(rs.getBoolean("status"));
                     listAccounts.add(a);
                 }
@@ -228,61 +238,6 @@ public class AdminDAO extends DBContext {
         }
         return null;
     }
-//
-//    public List<Supplier> getListRegisterSupplier() {
-//        List<Supplier> list = new ArrayList<>();
-//        String sql = "SELECT \n"
-//                + "    s.[fullName],\n"
-//                + "    s.[birthday],\n"
-//                + "    s.[email],\n"
-//                + "    s.[phoneNumber],\n"
-//                + "    s.[frontCMND],\n"
-//                + "    s.[backCMND],\n"
-//                + "    s.[nameCompany],\n"
-//                + "    s.[addressCompany],\n"
-//                + "    s.[emailCompany],\n"
-//                + "    s.[phoneNumberCompany],\n"
-//                + "    s.[businessCode],\n"
-//                + "    s.[businessRegis],\n"
-//                + "    s.[taxCertificate],\n"
-//                + "    s.[taxPayment]\n"
-//                + "FROM \n"
-//                + "    [HaNoiTour].[dbo].[Supplier] AS s\n"
-//                + "JOIN \n"
-//                + "    [HaNoiTour].[dbo].[Account] AS a\n"
-//                + "ON \n"
-//                + "    s.[accId] = a.[id]\n"
-//                + "WHERE \n"
-//                + "    a.[role] = 3;";
-//
-//        try {
-//            PreparedStatement stm = connection.prepareStatement(sql);
-//            ResultSet rs = stm.executeQuery();
-//            while (rs.next()) {
-//                Supplier s = new Supplier();
-//                s.setIdAcc(rs.getInt("idAcc"));
-//                s.setFullName(rs.getString("fullName"));
-//                s.setBirthday(rs.getDate("birthday"));
-//                s.setEmail(rs.getString("email"));
-//                s.setPhoneNumber(rs.getString("phoneNumber"));
-//                s.setFrontCMND(rs.getString("frontCMND"));
-//                s.setBackCMND(rs.getString("backCMND"));
-//                s.setNameCompany(rs.getString("nameCompany"));
-//                s.setAddressCompany(rs.getString("addressCompany"));
-//                s.setEmailCompany(rs.getString("emailCompany"));
-//                s.setPhoneNumberCompany(rs.getString("phoneNumberCompany"));
-//                s.setBusinessCode(rs.getString("businessCode"));
-//                s.setBusinessRegis(rs.getString("businessRegis"));
-//                s.setTaxCertificate(rs.getString("taxCertificate"));
-//                s.setTaxPayment(rs.getString("taxPayment"));
-//                list.add(s);
-//            }
-//            return list;
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return null;
-//    }
 
     public List<Supplier> getListRegisterSupplier() {
         List<Supplier> list = new ArrayList();
@@ -347,6 +302,31 @@ public class AdminDAO extends DBContext {
                 + " WHERE id = ?";
         try ( PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, id);
+            int result = stm.executeUpdate();
+            return result > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean updateInforCustomer(int id, String name, String password,
+            String email, String phoneNumber, String address
+    ) {
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "   SET [email] = ?\n"
+                + "      ,[username] = ?\n"
+                + "      ,[password] = ?\n"
+                + "      ,[address] = ?\n"
+                + "      ,[phoneNumber] = ?\n"
+                + " WHERE id = ?";
+        try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setString(1, email);
+            stm.setString(2, name);
+            stm.setString(3, password);
+            stm.setString(4, address);
+            stm.setString(5, phoneNumber);
+            stm.setInt(6, id);
             int result = stm.executeUpdate();
             return result > 0;
         } catch (SQLException ex) {

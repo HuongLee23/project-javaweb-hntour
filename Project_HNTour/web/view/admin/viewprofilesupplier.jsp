@@ -12,6 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Hà Nội Tour</title>
         <link rel="stylesheet" type="text/css" href="../view/css/base.css">
+        <!--<link rel="stylesheet" type="text/css" href="../../view/css/main.css">-->
+        <!--<link rel="stylesheet" type="text/css" href="../../view/admin/viewprofilesupplier.jsp">-->
     </head>
     <body>
         <!--Phần xử lý hiện thông tin hồ sơ của supplier-->
