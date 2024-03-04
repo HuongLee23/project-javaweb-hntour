@@ -71,8 +71,10 @@
                                                 <div  class="ups-register-form">
 
 
-                                                    <form action="resgistersupplier" method="post">
+                                                    <form action="resgistersupplier" method="post" enctype="multipart/form-data">
+
                                                         <!--Phần thông tin của chủ doanh nghiệp-->
+                                                        <c:set value="${requestScope.supplier}" var="su" />
                                                         <h2 class="ups-section-title">
                                                             <span>
                                                                 Điền thông tin người đại diện doanh nghiệp
@@ -80,39 +82,46 @@
                                                             <div class="ups-section-tips"></div>
                                                         </h2>
                                                         <!-- Nội dung của form ở đây -->
+
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="fullName">Họ và tên *</label>
-                                                                <input type="text" id="fullName" name="fullName" class="form-control" required />
+                                                                <input type="text" id="fullName" value="${su.fullName}" name="fullName" class="form-control" required />
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="birthdayDate">Ngày sinh *</label>
-                                                                <input type="date" name="birthday" class="form-control" required/>
+                                                                <input type="date" value="${su.birthday}" name="birthday" class="form-control" required/>
                                                             </div>
                                                         </div>
 
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="emailAddress">Email *</label>
-                                                                <input type="email" id="emailAddress" name="email" class="form-control" required/>
+                                                                <input type="email" id="emailAddress" value="${su.email}" name="email" class="form-control" required/>
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="phoneNumber">Số điện thoại *</label>
-                                                                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" required/>
+                                                                <input type="tel" id="phoneNumber" value="${su.phoneNumber}" name="phoneNumber" class="form-control" required/>
                                                             </div>
                                                         </div>
 
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="frontCMND">Ảnh CMND mặt trước *</label>
-                                                                <input type="text" id="frontCMND" name="frontCMND" class="form-control" required/>
+                                                                <input type="file" id="frontCMND" name="frontCMND" class="form-control" required/>
+                                                                <c:if test="${su != null}">
+                                                                    <img src="${su.frontCMND}" style="width: 374px;height: 200px;" alt="alt"/>
+                                                                </c:if>
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="backCMND">Ảnh CMND mặt sau *</label>
-                                                                <input type="text" id="backCMND" name="backCMND" class="form-control" required/>
+                                                                <input type="file" id="backCMND" name="backCMND" class="form-control" required/>
+                                                                <c:if test="${su != null}">
+                                                                    <img src="${su.backCMND}" style="width: 374px;height: 200px;" alt="alt"/>
+                                                                </c:if>
                                                             </div>
                                                         </div>
 
@@ -126,24 +135,24 @@
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="nameCompany">Tên doanh nghiệp *</label>
-                                                                <input type="text" id="nameCompany" name="nameCompany" class="form-control" required />
+                                                                <input type="text" id="nameCompany" value="${su.nameCompany}" name="nameCompany" class="form-control" required />
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="addressCompany">Địa chỉ doanh nghiệp *</label>
-                                                                <input type="text" name="addressCompany" class="form-control" required/>
+                                                                <input type="text" value="${su.addressCompany}" name="addressCompany" class="form-control" required/>
                                                             </div>
                                                         </div>
 
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="emailCompany">Email *</label>
-                                                                <input type="email" id="emailAddress" name="emailCompany" class="form-control" required/>
+                                                                <input type="email" id="emailAddress" value="${su.emailCompany}" name="emailCompany" class="form-control" required/>
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="phoneNumberCompany">Số điện thoại *</label>
-                                                                <input type="tel" id="phoneNumberCompany" name="phoneNumberCompany" class="form-control" required/>
+                                                                <input type="tel" id="phoneNumberCompany" value="${su.phoneNumberCompany}" name="phoneNumberCompany" class="form-control" required/>
                                                             </div>
                                                         </div>
 
@@ -158,28 +167,38 @@
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="businessCode">Mã số doanh nghiệp *</label>
-                                                                <input type="text" id="businessCode" name="businessCode" class="form-control" required />
+                                                                <input type="text" id="businessCode" value="${su.businessCode}" name="businessCode" class="form-control" required />
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="businessRegis">Ảnh giấy chứng nhận đăng ký kinh doanh *</label>
-                                                                <input type="text" name="businessRegis" class="form-control" required/>
+                                                                <input type="file" name="businessRegis" class="form-control" required/>
+                                                                <c:if test="${su != null}">
+                                                                    <img src="${su.businessRegis}" style="width: 374px;height: 200px;" alt="alt"/>
+                                                                </c:if>
                                                             </div>
                                                         </div>
 
                                                         <div class="ups-register-form-infor">
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="taxCertificate">Ảnh giấy chứng nhận thuế *</label>
-                                                                <input type="text" id="taxCertificate" name="taxCertificate" class="form-control" required/>
+                                                                <input type="file" id="taxCertificate" name="taxCertificate" class="form-control" required/>
+                                                                <c:if test="${su != null}">
+                                                                    <img src="${su.taxCertificate}" style="width: 374px;height: 200px;" alt="alt"/>
+                                                                </c:if>
                                                             </div>
 
                                                             <div class="ups-register-form-infor-pers">
                                                                 <label class="form-label" for="taxPayment">Ảnh giấy việc xác nhận đóng thuế *</label>
-                                                                <input type="text" id="taxPayment" name="taxPayment" class="form-control" required/>
+                                                                <input type="file" id="taxPayment" name="taxPayment" class="form-control" required/>
+                                                                <c:if test="${su != null}">
+                                                                    <img src="${su.taxPayment}" style="width: 374px;height: 200px;" alt="alt"/>
+                                                                </c:if>
                                                             </div>
                                                         </div>
-
-                                                        <input class="btn-submit" type="submit" value="Đăng ký" />
+                                                        <c:if test="${su == null}">
+                                                            <input class="btn-submit" type="submit" value="Đăng ký" />
+                                                        </c:if>
                                                         <!--<button type="button" onclick="closeForm()">Hủy bỏ</button>-->
                                                     </form>
 

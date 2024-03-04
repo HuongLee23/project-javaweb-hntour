@@ -192,7 +192,7 @@
 
 
                 function redirectToOtherPage() {
-                    window.location.href = "upsupplier.jsp";
+                    window.location.href = "resgistersupplier";
                 }
             </script>
         </div>  

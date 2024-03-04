@@ -59,13 +59,13 @@
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="frontCMND">Ảnh CMND mặt trước</label>
                         <input type="text" id="frontCMND" name="frontCMND" class="form-control" required/>
-                        <img src="${su.frontCMND}" width="100px" height="100px" alt="alt"/>
+                        <img src="${pageContext.request.contextPath}/${su.frontCMND}" style="width: 374px;height: 200px;" alt="alt"/>
                     </div>
 
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="backCMND">Ảnh CMND mặt sau</label>
                         <input type="text" id="backCMND" name="backCMND" class="form-control" required/>
-                        <img src="${su.backCMND}" width="100px" height="100px" alt="alt"/>
+                        <img src="${pageContext.request.contextPath}/${su.backCMND}" style="width: 374px;height: 200px;" alt="alt"/>
                     </div>
                 </div>
 
@@ -117,7 +117,8 @@
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="businessRegis">Ảnh giấy chứng nhận đăng ký kinh doanh</label>
                         <input type="text" name="businessRegis" class="form-control" required/>
-                        <img src="${su.businessRegis}" width="100px" height="100px" alt="alt"/>
+                        <img src="${pageContext.request.contextPath}/${su.businessRegis}" style="width: 374px;height: 200px;" alt="alt"/>
+
                     </div>
                 </div>
 
@@ -125,13 +126,13 @@
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="taxCertificate">Ảnh giấy chứng nhận thuế</label>
                         <input type="text" id="taxCertificate" name="taxCertificate" class="form-control" required/>
-                        <img src="${su.taxCertificate}" width="100px" height="100px" alt="alt"/>
+                        <img src="${pageContext.request.contextPath}/${su.taxCertificate}" style="width: 374px;height: 200px;" alt="alt"/>
                     </div>
 
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="taxPayment">Ảnh giấy việc xác nhận đóng thuế</label>
                         <input type="text" id="taxPayment" name="taxPayment" class="form-control" required/>
-                        <img src="${su.taxPayment}" width="100px" height="100px" alt="alt"/>
+                        <img src="${pageContext.request.contextPath}/${su.taxPayment}" style="width: 374px;height: 200px;" alt="alt"/>
                     </div>
                 </div>
 

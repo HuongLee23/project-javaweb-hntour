@@ -1718,6 +1718,8 @@ public class DAO extends DBContext {
         } catch (SQLException e) {
         }
     }
+    
+    
 
     public static void main(String[] args) {
         DAO d = new DAO();
