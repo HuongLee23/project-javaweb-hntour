@@ -5,6 +5,7 @@
 package controllerAdmin;
 
 import dal.AdminDAO;
+import dal.DAO;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,15 +14,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Account;
+import model.Feedback;
+import model.FeedbackWeb;
 
 /**
  *
  * @author hello
  */
-@WebServlet(name = "ManagerAccSupplierServlet", urlPatterns = {"/manageraccsupplier"})
-public class ManagerAccSupplierServlet extends HttpServlet {
+@WebServlet(name = "ManagerFeedbackServlet", urlPatterns = {"/managerfeedback"})
+public class ManagerFeedbackServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +43,10 @@ public class ManagerAccSupplierServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManagerAccSupplierServlet</title>");
+            out.println("<title>Servlet ManagerFeedbackServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManagerAccSupplierServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ManagerFeedbackServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,51 +64,41 @@ public class ManagerAccSupplierServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Phần show feedback của user
+
         String pageStr = request.getParameter("page");
-        String role_raw = request.getParameter("role");
         int currentPage = (pageStr != null) ? Integer.parseInt(pageStr) : 1;
         int itemsPerPage = 10;
-        AdminDAO mnAccount = new AdminDAO();
 
-        int role = Integer.parseInt(role_raw);
         // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
-        List<Account> listAccounts = getAllAccountsFromDatabase(role);
+        List<FeedbackWeb> listFeedbacks = getAllFeedbacksFromDatabase();
+        int totalFeedback = listFeedbacks.size();
         // Tính toán số trang
-        int totalPages = (int) Math.ceil((double) listAccounts.size() / itemsPerPage);
+        int totalPages = (int) Math.ceil((double) listFeedbacks.size() / itemsPerPage);
         // Lấy sublist của danh sách để hiển thị trên trang hiện tại
-        List<Account> currentPageData = getCurrentPageData(listAccounts, currentPage, itemsPerPage);
-        int totalAccountCustomer = mnAccount.countAccountCustomer();
-        int totalAccountSupplier = mnAccount.countAccountSupplier();
-        String totalPrice = mnAccount.totalPrice();
-        int totalBanned = mnAccount.totalAccountBanned();
-        // Gán danh sách tài khoản vào request để truy cập từ trang JSP
+        List<FeedbackWeb> currentPageData = getCurrentPageData(listFeedbacks, currentPage, itemsPerPage);
         request.setAttribute("currentPageData", currentPageData);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("currentPage", currentPage);
-        request.setAttribute("totalcustomer", totalAccountCustomer);
-        request.setAttribute("totalsupplier", totalAccountSupplier);
-        request.setAttribute("totalPrice", totalPrice);
-        request.setAttribute("totalBanned", totalBanned);
+        request.setAttribute("totalFeedback", totalFeedback);
 
-        // Chuyển hướng (forward) request và response đến trang JSP
-        RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/manageraccsupplier.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/managerfeedback.jsp");
         dispatcher.forward(request, response);
-        processRequest(request, response);
     }
-    
-    private List<Account> getAllAccountsFromDatabase(int role) {
-        AdminDAO mnacc = new AdminDAO();
-        List<Account> listAccounts = mnacc.getListAccount(role);
-        return listAccounts;
+
+    private List<FeedbackWeb> getAllFeedbacksFromDatabase() {
+        DAO dao = new DAO();
+        List<FeedbackWeb> listFeedbacks = dao.getListFeedbackWeb();
+        return listFeedbacks;
     }
-    
-    private List<Account> getCurrentPageData(List<Account> listAccounts, int currentPage, int itemsPerPage) {
+
+    private List<FeedbackWeb> getCurrentPageData(List<FeedbackWeb> listFeedbacks, int currentPage, int itemsPerPage) {
         // Tính vị trí bắt đầu và kết thúc của sublist
         int start = (currentPage - 1) * itemsPerPage;
-        int end = Math.min(start + itemsPerPage, listAccounts.size());
+        int end = Math.min(start + itemsPerPage, listFeedbacks.size());
 
         // Lấy sublist từ danh sách account
-        return listAccounts.subList(start, end);
+        return listFeedbacks.subList(start, end);
     }
 
     /**
@@ -119,7 +112,22 @@ public class ManagerAccSupplierServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //Phần delete feedback của user
+        String id_raw = request.getParameter("id");
+        AdminDAO adDao = new AdminDAO();
+        HttpSession session = request.getSession();
+        try {
+            int id = Integer.parseInt(id_raw);
+            boolean result = adDao.deleteFeedbackWeb(id);
+            if (result) {
+                session.setAttribute("msDeleteFeedback", "Xóa feedback thành công");
+            } else {
+                session.setAttribute("msDeleteFeedback", "Xóa feedback thất bại!");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+        response.sendRedirect("managerfeedback");
     }
 
     /**

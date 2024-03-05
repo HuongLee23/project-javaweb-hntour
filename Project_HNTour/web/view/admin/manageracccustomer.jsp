@@ -16,6 +16,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Hà Nội Tour</title>
+        <link rel="shortcut icon" type="image/png" href="../assets/img/test.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/styles.css"/>
         <link rel="stylesheet" href="../view/css/main.css"/>
@@ -84,6 +85,7 @@
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Accounts
+                            <span style="margin-left: 400px; color: red">${requestScope.msUpdateCustomer}</span>
                         </div>
                         <div  class="card-body">
                             <table id="datatablesSimple">
@@ -142,7 +144,7 @@
 
                     <input type="hidden" id="id" name="id" >
                     <input type="hidden" id="role" name="role" >
-                    
+
                     <input type="text" id="name" name="username" class="form-control" required />
                     <label class="form-label" for="name">Họ và tên</label>
 

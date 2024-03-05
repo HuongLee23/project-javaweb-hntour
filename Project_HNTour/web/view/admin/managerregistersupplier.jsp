@@ -16,6 +16,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Hà Nội Tour</title>
+        <link rel="shortcut icon" type="image/png" href="../assets/img/test.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/styles.css"/>
         <!--<link rel="stylesheet" href="../css/main.css"/>-->
@@ -49,7 +50,6 @@
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Dashboard</h1>
-                    <h2>${requestScope.ms}</h2>
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-success text-white mb-4">
@@ -85,6 +85,7 @@
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Accounts
+                            <span style="margin-left: 400px; color: red">${requestScope.msRegisterSupplier}</span>
                         </div>
                         <div  class="card-body">
                             <table id="datatablesSimple">

@@ -16,6 +16,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Hà Nội Tour</title>
+        <link rel="shortcut icon" type="image/png" href="../assets/img/test.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/styles.css"/>
         <link rel="stylesheet" href="../css/main.css"/>
@@ -85,7 +86,8 @@
                             <div class="card bg-danger text-white mb-4">
                                 <div class="card-body">Feedback</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <p>0</p>
+                                    <p>${requestScope.totalFeedback}</p>
+                                    <div class="small text-white"><a href="managerfeedback" style="color: white"><i class="fas fa-angle-right"></i></a></div>
                                 </div>
                             </div>
                         </div>

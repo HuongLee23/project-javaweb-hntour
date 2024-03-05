@@ -247,18 +247,18 @@
                                     </div>
 
                                     <!-- CTA Slider Item -->
-<!--                                    <div class="owl-item cta_item text-center">
-                                        <div class="cta_title">maldives deluxe package</div>
-                                        <div class="rating_r rating_r_4">
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                            <i></i>
-                                        </div>
-                                        <p class="cta_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec. Proin bibendum, augue faucibus tincidunt ultrices, tortor augue gravida lectus, et efficitur enim justo vel ligula.</p>
-                                        <div class="button cta_button"><div class="button_bcg"></div><a href="#">book now<span></span><span></span><span></span></a></div>
-                                    </div>-->
+                                    <!--                                    <div class="owl-item cta_item text-center">
+                                                                            <div class="cta_title">maldives deluxe package</div>
+                                                                            <div class="rating_r rating_r_4">
+                                                                                <i></i>
+                                                                                <i></i>
+                                                                                <i></i>
+                                                                                <i></i>
+                                                                                <i></i>
+                                                                            </div>
+                                                                            <p class="cta_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec. Proin bibendum, augue faucibus tincidunt ultrices, tortor augue gravida lectus, et efficitur enim justo vel ligula.</p>
+                                                                            <div class="button cta_button"><div class="button_bcg"></div><a href="#">book now<span></span><span></span><span></span></a></div>
+                                                                        </div>-->
 
 
 
@@ -393,95 +393,27 @@
                                                                         </div>
                                     -->
 
-                                    <!-- Testimonial Item -->
-                                    <div class="owl-item">
-                                        <div class="test_item">
-                                            <div class="test_image"><img src="images/test_2.jpg" alt="https://unsplash.com/@tschax"></div>
-                                            <div class="test_icon"><img src="images/island_t.png" alt=""></div>
-                                            <div class="test_content_container">
-                                                <div class="test_content">
-                                                    <div class="test_item_info">
-                                                        <div class="test_name">carla smith</div>
-                                                        <div class="test_date">May 24, 2017</div>
+                                    <c:forEach items="${requestScope.listFeedbacks}" var="list">
+                                        <c:set value="${list.account}" var="a"/>
+                                        <!-- Testimonial Item -->
+                                        <div class="owl-item">
+                                            <div class="test_item">
+                                                <!--<div class="test_image"><img src="images/test_3.jpg" alt="https://unsplash.com/@seefromthesky"></div>-->
+                                                <div class="test_image"><img src="${a.avatar}" style="height: 400px;" alt="https://unsplash.com/@seefromthesky"></div>
+                                                <div class="test_icon"><img src="images/kayak.png" alt=""></div>
+                                                <div class="test_content_container">
+                                                    <div class="test_content">
+                                                        <div class="test_item_info">
+                                                            <div class="test_name">${a.username}</div>
+                                                            <div class="test_date">${list.date}</div>
+                                                        </div>
+                                                        <div class="test_quote_title">" ${list.subject} "</div>
+                                                        <p class="test_quote_text">${list.message}</p>
                                                     </div>
-                                                    <div class="test_quote_title">" Best holliday ever "</div>
-                                                    <p class="test_quote_text">Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec.</p>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Testimonial Item -->
-                                    <div class="owl-item">
-                                        <div class="test_item">
-                                            <div class="test_image"><img src="images/test_3.jpg" alt="https://unsplash.com/@seefromthesky"></div>
-                                            <div class="test_icon"><img src="images/kayak.png" alt=""></div>
-                                            <div class="test_content_container">
-                                                <div class="test_content">
-                                                    <div class="test_item_info">
-                                                        <div class="test_name">carla smith</div>
-                                                        <div class="test_date">May 24, 2017</div>
-                                                    </div>
-                                                    <div class="test_quote_title">" Best holliday ever "</div>
-                                                    <p class="test_quote_text">Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Testimonial Item -->
-                                    <div class="owl-item">
-                                        <div class="test_item">
-                                            <div class="test_image"><img src="images/test_2.jpg" alt=""></div>
-                                            <div class="test_icon"><img src="images/island_t.png" alt=""></div>
-                                            <div class="test_content_container">
-                                                <div class="test_content">
-                                                    <div class="test_item_info">
-                                                        <div class="test_name">carla smith</div>
-                                                        <div class="test_date">May 24, 2017</div>
-                                                    </div>
-                                                    <div class="test_quote_title">" Best holliday ever "</div>
-                                                    <p class="test_quote_text">Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Testimonial Item -->
-                                    <div class="owl-item">
-                                        <div class="test_item">
-                                            <div class="test_image"><img src="images/test_1.jpg" alt=""></div>
-                                            <div class="test_icon"><img src="images/backpack.png" alt=""></div>
-                                            <div class="test_content_container">
-                                                <div class="test_content">
-                                                    <div class="test_item_info">
-                                                        <div class="test_name">carla smith</div>
-                                                        <div class="test_date">May 24, 2017</div>
-                                                    </div>
-                                                    <div class="test_quote_title">" Best holliday ever "</div>
-                                                    <p class="test_quote_text">Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Testimonial Item -->
-                                    <div class="owl-item">
-                                        <div class="test_item">
-                                            <div class="test_image"><img src="images/test_3.jpg" alt=""></div>
-                                            <div class="test_icon"><img src="images/kayak.png" alt=""></div>
-                                            <div class="test_content_container">
-                                                <div class="test_content">
-                                                    <div class="test_item_info">
-                                                        <div class="test_name">carla smith</div>
-                                                        <div class="test_date">May 24, 2017</div>
-                                                    </div>
-                                                    <div class="test_quote_title">" Best holliday ever "</div>
-                                                    <p class="test_quote_text">Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        </div>        
+                                    </c:forEach>
 
                                 </div>
 
@@ -566,13 +498,11 @@
                         </div>
                         <div class="col-lg-7">
                             <div class="contact_form_container">
-                                <div class="contact_title">get in touch</div>
-                                <form action="#" id="contact_form" class="contact_form">
-                                    <input type="text" id="contact_form_name" class="contact_form_name input_field" placeholder="Name" required="required" data-error="Name is required.">
-                                    <input type="text" id="contact_form_email" class="contact_form_email input_field" placeholder="E-mail" required="required" data-error="Email is required.">
-                                    <input type="text" id="contact_form_subject" class="contact_form_subject input_field" placeholder="Subject" required="required" data-error="Subject is required.">
-                                    <textarea id="contact_form_message" class="text_field contact_form_message" name="message" rows="4" placeholder="Message" required="required" data-error="Please, write us a message."></textarea>
-                                    <button type="submit" id="form_submit_button" class="form_submit_button button">send message<span></span><span></span><span></span></button>
+                                <div class="contact_title">Nhận xét về Hà Nội Tour</div>
+                                <form action="sendfeedbackweb" id="contact_form" class="contact_form">
+                                    <input type="text" id="contact_form_subject" class="contact_form_subject input_field" name="subject" placeholder="Chủ đề" required="required" data-error="Subject is required." maxlength="50">
+                                    <textarea id="contact_form_message" class="text_field contact_form_message" name="message" rows="4" placeholder="Nội dung" required="required" data-error="Please, write us a message." maxlength="150"></textarea>
+                                    <button type="submit" id="form_submit_button" class="form_submit_button button">Gửi ngay<span></span><span></span><span></span></button>
                                 </form>
                             </div>
                         </div>
@@ -627,6 +557,18 @@
 //            -----------------------------------------------------------------------
 
 
+            // Phần kiểm tra đầu vào phản hồi về web
+            document.getElementById('contact_form_subject').addEventListener('input', function () {
+                if (this.value.length > 50) {
+                    this.value = this.value.slice(0, 50);
+                }
+            });
+
+            document.getElementById('contact_form_message').addEventListener('input', function () {
+                if (this.value.length > 150) {
+                    this.value = this.value.slice(0, 150);
+                }
+            });
         </script>
 
 

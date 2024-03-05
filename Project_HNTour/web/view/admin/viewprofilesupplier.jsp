@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Hà Nội Tour</title>
+        <link rel="shortcut icon" type="image/png" href="../assets/img/test.png">
         <link rel="stylesheet" type="text/css" href="../view/css/base.css">
         <!--<link rel="stylesheet" type="text/css" href="../../view/css/main.css">-->
         <!--<link rel="stylesheet" type="text/css" href="../../view/admin/viewprofilesupplier.jsp">-->

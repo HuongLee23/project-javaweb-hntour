@@ -19,6 +19,7 @@ import model.Account;
 import model.Cart;
 import model.Category;
 import model.Feedback;
+import model.FeedbackWeb;
 
 import model.InformationAccount;
 import model.Item;
@@ -1260,7 +1261,6 @@ public class DAO extends DBContext {
 //        }
 //
 //    }
-
 // Xử lý checkout các sản phẩm trong giỏ hàng
     public boolean addOrderForCart(Account a, int idInforAcc, Cart cart, Voucher v) {
         LocalDate curDate = LocalDate.now();
@@ -1314,8 +1314,6 @@ public class DAO extends DBContext {
         return false;
     }
 
-    
-    
     public Feedback getFeedbackByID(int id) {
         String sql = "SELECT F.[id], F.[accId], A.[username] AS [accName], \n"
                 + "                           F.[tourId], F.[versionId], F.[comment], F.[rating] , A.[avatar] as [avatarAc]\n"
@@ -1718,8 +1716,84 @@ public class DAO extends DBContext {
         } catch (SQLException e) {
         }
     }
-    
-    
+
+    public void insertFeedbackWeb(Account acc, String subject, String message
+    ) {
+        LocalDate curDate = LocalDate.now();
+        String date = curDate.toString();
+        String sql = "INSERT INTO [dbo].[FeedbackWeb]\n"
+                + "           ([accId]\n"
+                + "           ,[date]\n"
+                + "           ,[subject]\n"
+                + "           ,[message])\n"
+                + "     VALUES\n"
+                + "           ( ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setInt(1, acc.getId());
+            ps.setString(2, date);
+            ps.setString(3, subject);
+            ps.setString(4, message);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public Account getAccountByID(int id) {
+        String sql = "SELECT * FROM Account WHERE id = ?";
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, id);
+            try ( ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    return new Account(
+                            rs.getInt("id"),
+                            rs.getString("email"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getInt("role"),
+                            rs.getString("address"),
+                            rs.getString("avatar"),
+                            rs.getString("phoneNumber"),
+                            rs.getBoolean("status")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //Lấy list feedback của customer về Web
+    public List<FeedbackWeb> getListFeedbackWeb() {
+        List<FeedbackWeb> list = new ArrayList<>();
+        DAO dao = new DAO();
+        String sql = "SELECT [id]\n"
+                + "      ,[accId]\n"
+                + "      ,[date]\n"
+                + "      ,[subject]\n"
+                + "      ,[message]\n"
+                + "  FROM [dbo].[FeedbackWeb]";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account acc = dao.getAccountByID(rs.getInt("accId"));
+                list.add(new FeedbackWeb(
+                        rs.getInt("id"),
+                        acc, rs.getString("date"),
+                        rs.getString("subject"),
+                        rs.getString("message")));
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         DAO d = new DAO();

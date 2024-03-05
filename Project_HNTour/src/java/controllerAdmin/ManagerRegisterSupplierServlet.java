@@ -132,9 +132,9 @@ public class ManagerRegisterSupplierServlet extends HttpServlet {
 
             boolean result = mnAccount.confirmRegisterSupplier(idAcc);
             if (result) {
-                request.setAttribute("ms", "Xác nhận chuyển đổi role thành công.");
+                request.setAttribute("msRegisterSupplier", "Xác nhận chuyển đổi role thành công.");
             } else {
-                request.setAttribute("ms", "Xác nhận chuyển đổi role thất bại!");
+                request.setAttribute("msRegisterSupplier", "Xác nhận chuyển đổi role thất bại!");
             }
 
             // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu

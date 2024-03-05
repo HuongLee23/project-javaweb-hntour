@@ -19,7 +19,8 @@
         <link rel="shortcut icon" type="image/png" href="../assets/img/test.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/styles.css"/>
-        <link rel="stylesheet" href="../css/main.css"/>
+        <!--<link rel="stylesheet" href="../css/main.css"/>-->
+        <link rel="stylesheet" type="text/css" href="../view/css/base.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -49,18 +50,17 @@
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Dashboard</h1>
+                    <h2>${requestScope.ms}</h2>
                     <div class="row">
-
                         <div class="col-xl-3 col-md-6">
-                            <div class="card bg-warning text-white mb-4">
-                                <div class="card-body">Supplier Account</div>
+                            <div class="card bg-success text-white mb-4">
+                                <div class="card-body">Feedback</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <p>${requestScope.totalsupplier}</p>
-                                    <div class="small text-white"><a href="manageraccsupplier?role=2" style="color: white"><i class="fas fa-angle-right"></i></a></div>
+                                    <p>${requestScope.totalFeedback}</p>
+                                    <div class="small text-white"><a href="managerfeedback" style="color: white"><i class="fas fa-angle-right"></i></a></div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-xl-6">
@@ -85,28 +85,35 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Accounts
+                            Feedbacks
+                            <span style="margin-left: 400px; color: red">${sessionScope.msDeleteFeedback}</span>
                         </div>
                         <div  class="card-body">
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
                                         <th>Username</th>
-                                        <th>Password</th>
                                         <th>Email</th>
-                                        <th>Address</th>
-                                        <th style="text-align: center">Profile information</th>
+                                        <th>Date</th>
+                                        <th style="text-align: center">Subject</th>
+                                        <th style="text-align: center">Message</th>
+                                        <th style="text-align: center">Active</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <c:forEach items="${requestScope.currentPageData}" var="a">
+                                        <c:forEach items="${requestScope.currentPageData}" var="f">
+                                            <c:set value="${f.account}" var="a"/>
                                             <td>${a.username}</td>
-                                            <td>${a.password}</td>
                                             <td>${a.email}</td>
-                                            <td>${a.address}</td>
-                                            <td>
-                                                <a href="viewprofilesupplier?idAcc=${a.id}">View detail</a>
+                                            <td>${f.date}</td>
+                                            <td>${f.subject}</td>
+                                            <td>${f.message}</td>
+                                            <td style="text-align: center;">
+                                                <form action="managerfeedback" method="post" onsubmit="return confirmDelete();">
+                                                    <input  type="hidden" name="id" value="${f.id}"/>
+                                                    <input style="background-color: #da251d;" class="confirm-btn" type="submit" value="Delete"/>
+                                                </form>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -115,7 +122,7 @@
                             <%-- Hiển thị nút phân trang --%>
                             <div>
                                 <c:forEach begin="1" end="${requestScope.totalPages}" var="page">
-                                    <a href="manageraccsupplier?page=${page}">${page}</a>
+                                    <a href="managerfeedback?page=${page}">${page}</a>
                                 </c:forEach>
                             </div>
                         </div>
@@ -153,6 +160,14 @@
             }
         </style>
         <script>
+            function confirmDelete() {
+                // Hiển thị hộp thoại xác nhận và lưu kết quả vào biến
+                var userConfirmed = confirm('Bạn chắc chắn muốn xóa feedback?');
+
+                // Trả về true hoặc false tùy thuộc vào sự chọn của người dùng
+                return userConfirmed;
+            }
+
             function banAccount() {
                 // Hiển thị hộp thoại xác nhận
                 var userConfirmed = confirm('Are you sure lock this account?');

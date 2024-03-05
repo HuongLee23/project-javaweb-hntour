@@ -6,6 +6,7 @@ package controllerAdmin;
 
 import controller.*;
 import dal.AdminDAO;
+import dal.DAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import model.Account;
+import model.FeedbackWeb;
 import model.Supplier;
 
 /**
@@ -86,7 +88,11 @@ public class ManagerAccountServlet extends HttpServlet {
         request.setAttribute("totalsupplier", totalAccountSupplier);
         List<Supplier> listResgisterSupplier = mnAccount.getListRegisterSupplier();
         int totalRegisterSupplier = listResgisterSupplier.size();
+        DAO dao = new DAO();
+        List<FeedbackWeb> listFeedbacks = dao.getListFeedbackWeb();
+        int totalFeedback = listFeedbacks.size();
         request.setAttribute("totalRegisterSupplier", totalRegisterSupplier);
+        request.setAttribute("totalFeedback", totalFeedback);
         request.setAttribute("totalPrice", totalPrice);
         request.setAttribute("totalBanned", totalBanned);
 

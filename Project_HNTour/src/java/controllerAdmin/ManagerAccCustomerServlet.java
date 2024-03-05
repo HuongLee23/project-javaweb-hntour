@@ -138,9 +138,9 @@ public class ManagerAccCustomerServlet extends HttpServlet {
             int id = Integer.parseInt(id_raw);
             boolean result = mnAccount.updateInforCustomer(id, username, password, email, phoneNumber, address);
             if (result) {
-                request.setAttribute("ms", "Cập nhật thông tin khách hàng thành công");
+                request.setAttribute("msUpdateCustomer", "Cập nhật thông tin khách hàng thành công");
             } else {
-                request.setAttribute("ms", "Cập nhật thông tin khách hàng thất bại!");
+                request.setAttribute("msUpdateCustomer", "Cập nhật thông tin khách hàng thất bại!");
             }
 
             int role = Integer.parseInt(role_raw);
@@ -155,7 +155,6 @@ public class ManagerAccCustomerServlet extends HttpServlet {
             // Chuyển hướng (forward) request và response đến trang JSP
             RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/manageracccustomer.jsp");
             dispatcher.forward(request, response);
-            processRequest(request, response);
 
         } catch (NumberFormatException e) {
             System.out.println(e);
