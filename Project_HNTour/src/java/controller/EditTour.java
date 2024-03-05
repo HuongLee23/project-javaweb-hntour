@@ -77,78 +77,82 @@ public class EditTour extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    request.setCharacterEncoding("UTF-8");
 
-        String id_raw = request.getParameter("id");
-        String name = request.getParameter("name");
-        String imageMain = request.getParameter("imageMain");
-        String[] existingImageAlbumArray = request.getParameterValues("existingImageAlbum");
-        String[] additionalImages = request.getParameterValues("additionalImages");
-        String time_raw = request.getParameter("time");
-        String price = request.getParameter("price");
-        String description = request.getParameter("description");
-        String category = request.getParameter("category");
-        String rule = request.getParameter("rule");
+    String id_raw = request.getParameter("id");
 
-        // Assuming you have a DAO method to handle the edit operation
-        DAO dao = new DAO();
+    String name = request.getParameter("name");
+    String imageMain = request.getParameter("imageMain");
+    String[] existingImageAlbumArray = request.getParameterValues("existingImageAlbum");
+    String[] additionalImages = request.getParameterValues("additionalImages");
+    String time_raw = request.getParameter("time");
+    String price = request.getParameter("price");
+    String description = request.getParameter("description");
+    String category = request.getParameter("category");
+    String rule = request.getParameter("rule");
 
-        int cid = Integer.parseInt(category);
-        int id = Integer.parseInt(id_raw);
+    // Assuming you have a DAO method to handle the edit operation
+    DAO dao = new DAO();
 
-        Time time = Time.valueOf(LocalTime.parse(time_raw));
 
-        // Retrieve additional images from the request
-        List<String> allImages = new ArrayList<>();
+    int cid = Integer.parseInt(category);
+    int id = Integer.parseInt(id_raw);
 
-        // Add existing images to the list
-        if (existingImageAlbumArray != null) {
-            allImages.addAll(Arrays.asList(existingImageAlbumArray));
-        }
+    Time time = Time.valueOf(LocalTime.parse(time_raw));
 
-        // Add additional images to the list
-        if (additionalImages != null) {
-            allImages.addAll(Arrays.asList(additionalImages));
-        }
+    // Retrieve additional images from the request
+    List<String> allImages = new ArrayList<>();
 
-        // Join all images using the "/splitAlbum/" delimiter
-        String imageAlbumString = String.join("/splitAlbum/", allImages);
-
-        // Edit tour
-        dao.editTour(id, name, imageMain, Arrays.asList(imageAlbumString.split("/splitAlbum/")), time, price, description, cid, rule);
-
-        int scheduleCounter = 1; // Start with the initial counter value
-
-        while (true) {
-            String locationParam = request.getParameter("locationnew_" + scheduleCounter);
-            String dateParam = request.getParameter("datenew_" + scheduleCounter);
-            String descriptionParam = request.getParameter("descriptionSchedulesnew_" + scheduleCounter);
-
-            // Break the loop if the parameters for the current schedule do not exist
-            if (locationParam == null || dateParam == null || descriptionParam == null) {
-                break;
-            }
-
-            // Check if dateParam is not null before attempting to parse it
-            
-                
-                    Time date = Time.valueOf(LocalTime.parse(dateParam));
-
-                    // Assuming you have a DAO method to handle the insert operation
-                    dao.insertSchedule(id, locationParam, date, descriptionParam);
-                
-            
-
-            // Increment the counter for the next set of parameters
-            scheduleCounter++;
-        }
-
-// Assuming response is an instance of HttpServletResponse
-        response.sendRedirect("loadtour?tid=" + id);
-
+    // Add existing images to the list
+    if (existingImageAlbumArray != null) {
+        allImages.addAll(Arrays.asList(existingImageAlbumArray));
     }
+
+    // Add additional images to the list
+    if (additionalImages != null) {
+        allImages.addAll(Arrays.asList(additionalImages));
+    }
+
+    // Join all images using the "/splitAlbum/" delimiter
+    String imageAlbumString = String.join("/splitAlbum/", allImages);
+
+    // Edit tour
+    dao.editTour(id, name, imageMain, Arrays.asList(imageAlbumString.split("/splitAlbum/")), time, price, description, cid, rule);
+
+    // Increment version in the database
+    
+
+    int scheduleCounter = 1; // Start with the initial counter value
+
+    while (true) {
+        String locationParam = request.getParameter("locationnew_" + scheduleCounter);
+        String dateParam = request.getParameter("datenew_" + scheduleCounter);
+        String descriptionParam = request.getParameter("descriptionSchedulesnew_" + scheduleCounter);
+
+        // Break the loop if the parameters for the current schedule do not exist
+        if (locationParam == null || dateParam == null || descriptionParam == null) {
+            break;
+        }
+
+        // Check if dateParam is not null before attempting to parse it
+        Time date = Time.valueOf(LocalTime.parse(dateParam));
+
+        // Assuming you have a DAO method to handle the insert operation
+        dao.insertSchedule(id, locationParam, date, descriptionParam);
+
+        // Increment the counter for the next set of parameters
+        scheduleCounter++;
+    }
+
+    dao.incrementTourVersion(id);
+
+    // Assuming response is an instance of HttpServletResponse
+    response.sendRedirect("loadtour?tid=" + id);
+
+}
+
 
     /**
      * Returns a short description of the servlet.

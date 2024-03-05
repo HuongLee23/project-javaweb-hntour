@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="css/manager.css" rel="stylesheet" type="text/css"/>
@@ -55,6 +56,11 @@
                                     <label>ID</label>
                                     <input value="${tour.id}" name="id" type="text" class="form-control" readonly required>
                                 </div>
+                                <div class="form-group">
+    <label>Version</label>
+    <input value="${tour.version}" name="version" type="text" class="form-control" readonly required>
+</div>
+                                
                                 <div class="form-group">
                                     <label>Tên</label>
                                     <input value="${tour.name}" name="name" type="text" class="form-control" required>
@@ -108,7 +114,7 @@
 
                                         var deleteButton = document.createElement('button');
                                         deleteButton.type = 'button';
-                                        deleteButton.textContent = 'Delete';
+                                        deleteButton.textContent = 'Xóa';
                                         deleteButton.onclick = function () {
                                             deleteNewImageInput(this);
                                         };
@@ -144,13 +150,13 @@
 
 
                                 <div class="form-group">
-    <label>Tổng thời gian Tour</label>
-    <input value="${tour.intendedTime}" name="time" type="time" class="form-control" required >
-</div>
+                                    <label>Tổng thời gian Tour</label>
+                                    <input value="${tour.intendedTime}" name="time" type="time" class="form-control" required >
+                                </div>
                                 <div>
-    <label>Giá</label>
-    <input value="${tour.price}" name="price" type="number" class="form-control" required min="0">
-</div>
+                                    <label>Giá</label>
+                                    <input value="${tour.price}" name="price" type="number" class="form-control" required min="0">
+                                </div>
 
                                 <div class="form-group">
                                     <label>Miêu tả</label>
@@ -186,7 +192,6 @@
                                                 <th>Địa điểm</th>
                                                 <th>Thời gian</th>
                                                 <th>Miêu tả</th>
-                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

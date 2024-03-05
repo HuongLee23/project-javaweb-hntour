@@ -14,7 +14,7 @@
                 <div class="footer_col">
                     <div style="padding-top: 52px;" class="footer_content footer_about">
                         <div class="logo_container footer_logo">
-                            <div class="logo"><a style="font-family: serif;" href="home.jsp"><img style="margin: -185px 0px 0px -60px; width: 250px;" src="./assets/img/logo.png" alt=""></a></div>
+                            <div class="logo"><a style="font-family: serif;" href="home.jsp"><img style="margin: -150px 0px 0px -60px;width: 200px;" src="./assets/img/logo.png" alt=""></a></div>
                         </div>
                         <p class="footer_about_text">Khám phá vẻ đẹp lịch sử và văn hóa của Thủ đô Hà Nội với chúng tôi - HaNoi Tour. Chuyên tổ chức các hành trình du lịch độc đáo, chúng tôi mang đến trải nghiệm tuyệt vời với những điểm đến độc đáo, ẩm thực đặc sắc và hành trình đầy ý nghĩa. Hãy đồng hành cùng chúng tôi để khám phá những góc cảnh tuyệt vời nhất của Hà Nội - nơi mà câu chuyện lịch sử và văn hóa được tái hiện mỗi bước chân của bạn. Đặt ngay để bắt đầu hành trình khám phá!</p>
                     </div>

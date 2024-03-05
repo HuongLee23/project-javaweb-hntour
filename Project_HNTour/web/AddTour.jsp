@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="css/manager.css" rel="stylesheet" type="text/css"/>
@@ -68,27 +69,26 @@
                                     <label>Tên</label>
                                     <input name="name" type="text" class="form-control" required>
                                 </div>
+                                
                                 <div class="form-group">
-                                    <label>Ảnh chính</label>
-
-                                    <input name="imageMain" type="text" class="form-control" required>
-                                </div>
+    <label>Ảnh chính</label>
+    <input name="imageMain" type="text" class="form-control" pattern="https?://.*\.(png|jpg|jpeg|gif|bmp)" required>
+    <small class="form-text text-muted">Please enter a valid image link (URL).</small>
+</div>
 
                                 <div id="imageInputs">
-                                    <label>Album Ảnh</label>
-                                    <br>
-                                    <!-- Display existing imageAlbum values -->
-
-
-                                    <!-- Dynamic input for adding more imageAlbum values -->
-                                    <div class="new-image">
-                                        <img src="" alt="" width="100" />
-                                        <input name="additionalImages" type="text" class="form-control" placeholder="New Image URL">
-                                        <button type="button" onclick="deleteNewImageInput(this)">Xóa</button>
-                                    </div>
-                                    <button type="button" onclick="addNewImageInput()">+</button>
-                                </div>
-
+    <label>Album Ảnh</label>
+    <br>
+    <!-- Display existing imageAlbum values -->
+    
+    <!-- Dynamic input for adding more imageAlbum values -->
+    <div class="new-image">
+        <img src="" alt="" width="100" />
+        <input name="additionalImages" type="text" class="form-control" pattern="https?://.*\.(png|jpg|jpeg|gif|bmp)" placeholder="New Image URL" required>
+        <button type="button" onclick="deleteNewImageInput(this)">Xóa</button>
+    </div>
+    <button type="button" onclick="addNewImageInput()">+</button>
+</div>
 
 
                                 <script>
@@ -111,7 +111,7 @@
 
                                         var deleteButton = document.createElement('button');
                                         deleteButton.type = 'button';
-                                        deleteButton.textContent = 'Delete';
+                                        deleteButton.textContent = 'Xóa';
                                         deleteButton.onclick = function () {
                                             deleteNewImageInput(this);
                                         };
@@ -151,9 +151,9 @@
                                     <input name="time" type="time" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-    <label>Giá</label>
-    <input name="price" type="number" class="form-control" required min="0">
-</div>
+                                    <label>Giá</label>
+                                    <input name="price" type="number" class="form-control" required min="0">
+                                </div>
 
                                 <div class="form-group">
                                     <label>Miêu tả</label>

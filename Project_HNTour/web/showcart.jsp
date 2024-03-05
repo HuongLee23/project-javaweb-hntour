@@ -1,4 +1,8 @@
-
+<%-- 
+    Document   : showcart
+    Created on : Feb 2, 2024, 9:36:41 AM
+    Author     : hello
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -98,9 +102,10 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col" class="h5">Sản phẩm trong giỏ hàng</th>
-                                                            <th scope="col">Số lượng</th>
+                                                            <th scope="col" style="width: 56%;;" class="h6">Sản phẩm trong giỏ hàng</th>
                                                             <th scope="col">Giá</th>
+                                                            <th scope="col">Số lượng</th>
+                                                            <th scope="col">Đơn giá</th>
                                                             <th scope="col">Thao tác</th>
                                                         </tr>
                                                     </thead>
@@ -110,14 +115,20 @@
                                                             <tr>
                                                                 <th scope="row" class="border-bottom-0">
                                                                     <div style="justify-content: space-evenly" class="d-flex align-items-center">
-                                                                        <img src="${i.tour.imageMain}" class="img-fluid rounded-3"
-                                                                             style="width: 120px;" alt="${i.tour.name}">
-                                                                        <div class="flex-column ms-4">
-                                                                            <p class="mb-2">${i.tour.name}</p>
-                                                                            <!--<p class="mb-0">Yuval Noah Harari</p>-->
+                                                                        <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                                                                            <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                                                                <img src="${i.tour.imageMain}"
+                                                                                     class="w-100" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="fby-show-product-information col-md-6 col-lg-6 col-xl-6">
+                                                                            <h5>${i.tour.name}</h5>
                                                                         </div>
                                                                     </div>
                                                                 </th>
+                                                                <td class="align-middle border-bottom-0">
+                                                                    <p class="mb-0" style="font-weight: 500;"><fmt:formatNumber value="${i.tour.price}" pattern="###,###"/> VNÐ</p>
+                                                                </td>
                                                                 <td class="align-middle border-bottom-0">
                                                                     <div class="d-flex flex-row">
                                                                         <a href="processcart?num=-1&id=${i.tour.id}">
@@ -141,8 +152,16 @@
                                                                 </td>
                                                                 <td class="align-middle border-bottom-0" style="text-align: center;">
                                                                     <form id="myForm${loop.index}" action="processcart" method="post">
-                                                                        <input type="hidden" name="id" value="${i.tour.id}">
-                                                                        <i class="fa-solid fa-trash-can" style="color: #ff0000; cursor: pointer;" onclick="submitForm(${loop.index})"></i>
+                                                                        <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                                                                            <div class="d-flex flex-row align-items-center mb-1">
+                                                                                <!--<h4 class="mb-1 me-1">$13.99</h4>-->
+                                                                                <span class="text-danger"><div class="text-danger mb-1 me-2">
+                                                                                        <input type="hidden" name="id" value="${i.tour.id}">
+                                                                                        <i class="fa-solid fa-trash-can" style="color: #ff0000; cursor: pointer;" onclick="submitForm(${loop.index})"></i>
+                                                                                    </div>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
                                                                     </form>
                                                                 </td>
                                                             </tr>
@@ -151,6 +170,8 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+
+
 
                                             <div  class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;width: 500px;margin-left: 30%;">
                                                 <div class="card-body p-4">
@@ -169,20 +190,16 @@
 
                                                             <hr class="my-4">
 
-
-                                                            <!--<form action="fillinformation" method="post">-->
-                                                            <a href="fillinformation">
-                                                                <button class="btn btn-primary btn-block btn-lg">
-
+                                                            <form action="fillinformationbuyer" method="post">
+                                                                <!--<a href="fillinformationbuyer">-->
+                                                                <button style="cursor: pointer;border: none;background-color: #ff5b00;" class="btn btn-primary btn-block btn-lg">
                                                                     <div class="d-flex justify-content-between">
                                                                         <span style="margin-left: 40%;">Đặt ngay</span>
                                                                         <!--<span>$26.48</span>-->
                                                                     </div>
-                                                                </button>
-
-                                                            </a>
-                                                            <!--</form>-->
-
+                                                                    <!--</button>-->
+                                                                    </a>
+                                                            </form>
                                                         </div>
                                                     </div>
 
@@ -193,6 +210,16 @@
                                     </div>
                                 </div>
                             </section>
+
+
+
+
+
+
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -255,4 +282,3 @@
 
     </body>
 </html>
-

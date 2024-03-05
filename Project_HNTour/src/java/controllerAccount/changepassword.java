@@ -20,13 +20,10 @@ import model.Account;
  *
  * @author hello
  */
-//<<<<<<<< HEAD:Project_HNTour/src/java/controller/changepassword.java
+
 @WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
 public class ChangePassword extends HttpServlet {
-//========
-//@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/forgotpassword"})
-//public class ForgotPasswordServlet extends HttpServlet {
-//>>>>>>>> 26f35089ca04ac2ffd07d30b16125c6d35ef410f:Project_HNTour/src/java/controller/ForgotPasswordServlet.java
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
