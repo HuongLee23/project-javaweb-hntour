@@ -115,7 +115,7 @@
                                                 <form action="manageraccsupplier" method="post" onsubmit="return confirmDelete();">
                                                     <input  type="hidden" name="idAcc" value="${a.id}"/>
                                                     <input  type="hidden" name="role" value="${a.role}"/>
-                                                    <input style="background-color: #da251d;" class="confirm-btn" type="submit" value="Delete"/>
+                                                    <input style="background-color: #da251d;" class="confirm-btn" type="submit" value="Cancel"/>
                                                 </form>
                                             </td>
                                         </tr>

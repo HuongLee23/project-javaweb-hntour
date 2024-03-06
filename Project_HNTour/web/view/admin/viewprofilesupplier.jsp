@@ -22,17 +22,21 @@
         <!--<div class="fib-add-form">-->
         <div class="fib-add-form">
             <h1>Thông tin hồ sơ</h1>
-            <form action="resgistersupplier" method="post">
+            <span style="color: red">${sessionScope.msUpdateProfileSupplier}</span>
+            <form action="viewprofilesupplier" method="post" enctype="multipart/form-data">
                 <!--Phần thông tin của chủ doanh nghiệp-->
                 <h2 class="ups-section-title">
                     <span>
                         Điền thông tin người đại diện doanh nghiệp
                     </span>
-                    <div class="ups-section-tips"></div>
+                    <div class="ups-section-tips">
+                    </div>
                 </h2>
                 <!-- Nội dung của form ở đây -->
                 <div class="ups-register-form-infor">
                     <c:set value="${requestScope.supplier}" var="su" />
+                    <input type="hidden" id="idAcc" value="${su.idAcc}" name="idAcc" class="form-control"/>
+
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="fullName">Họ và tên</label>
                         <input type="text" id="fullName" value="${su.fullName}" name="fullName" class="form-control" required />
@@ -59,13 +63,13 @@
                 <div class="ups-register-form-infor">
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="frontCMND">Ảnh CMND mặt trước</label>
-                        <input type="text" id="frontCMND" name="frontCMND" class="form-control" required/>
+                        <input type="file" id="frontCMND" name="frontCMND" class="form-control" required/>
                         <img src="${pageContext.request.contextPath}/${su.frontCMND}" style="width: 374px;height: 200px;" alt="alt"/>
                     </div>
 
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="backCMND">Ảnh CMND mặt sau</label>
-                        <input type="text" id="backCMND" name="backCMND" class="form-control" required/>
+                        <input type="file" id="backCMND" name="backCMND" class="form-control" required/>
                         <img src="${pageContext.request.contextPath}/${su.backCMND}" style="width: 374px;height: 200px;" alt="alt"/>
                     </div>
                 </div>
@@ -117,7 +121,7 @@
 
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="businessRegis">Ảnh giấy chứng nhận đăng ký kinh doanh</label>
-                        <input type="text" name="businessRegis" class="form-control" required/>
+                        <input type="file" name="businessRegis" class="form-control" required/>
                         <img src="${pageContext.request.contextPath}/${su.businessRegis}" style="width: 374px;height: 200px;" alt="alt"/>
 
                     </div>
@@ -126,18 +130,18 @@
                 <div class="ups-register-form-infor">
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="taxCertificate">Ảnh giấy chứng nhận thuế</label>
-                        <input type="text" id="taxCertificate" name="taxCertificate" class="form-control" required/>
+                        <input type="file" id="taxCertificate" name="taxCertificate" class="form-control" required/>
                         <img src="${pageContext.request.contextPath}/${su.taxCertificate}" style="width: 374px;height: 200px;" alt="alt"/>
                     </div>
 
                     <div class="ups-register-form-infor-pers">
                         <label class="form-label" for="taxPayment">Ảnh giấy việc xác nhận đóng thuế</label>
-                        <input type="text" id="taxPayment" name="taxPayment" class="form-control" required/>
+                        <input type="file" id="taxPayment" name="taxPayment" class="form-control" required/>
                         <img src="${pageContext.request.contextPath}/${su.taxPayment}" style="width: 374px;height: 200px;" alt="alt"/>
                     </div>
                 </div>
 
-                <!--<input class="btn-submit" type="submit" value="Xác nhận" />-->
+                <input class="btn-submit" type="submit" value="Cập nhật" />
                 <!--<button type="button" onclick="closeForm()">Hủy bỏ</button>-->
             </form>
         </div>

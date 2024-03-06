@@ -95,7 +95,7 @@
                                         <th>Phone number</th>
                                         <th style="text-align: center">Email</th>
                                         <th style="text-align: center">Profile information</th>
-                                        <th style="text-align: center">Active</th>
+                                        <th style="text-align: center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>

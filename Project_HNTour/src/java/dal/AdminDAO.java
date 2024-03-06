@@ -405,7 +405,52 @@ public class AdminDAO extends DBContext {
         }
         return false;
     }
-    
+
+    public boolean updateProfileSupplier(int idAcc, String fullName, Date birthday,
+            String email, String phoneNumber, String frontCMND, String backCMND, String nameCompany,
+            String addressCompany, String emailCompany, String phoneNumberCompany,
+            String businessCode, String businessRegis, String taxCertificate, String taxPayment
+    ) {
+        String sql = "UPDATE [dbo].[Supplier]\n"
+                + "   SET [fullName] = ?\n"
+                + "      ,[birthday] = ?\n"
+                + "      ,[email] = ?\n"
+                + "      ,[phoneNumber] = ?\n"
+                + "      ,[frontCMND] = ?\n"
+                + "      ,[backCMND] = ?\n"
+                + "      ,[nameCompany] = ?\n"
+                + "      ,[addressCompany] = ?\n"
+                + "      ,[emailCompany] = ?\n"
+                + "      ,[phoneNumberCompany] = ?\n"
+                + "      ,[businessCode] = ?\n"
+                + "      ,[businessRegis] = ?\n"
+                + "      ,[taxCertificate] = ?\n"
+                + "      ,[taxPayment] = ?\n"
+                + " WHERE accId = ?";
+        try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setString(1, fullName);
+            stm.setDate(2, birthday);
+            stm.setString(3, email);
+            stm.setString(4, phoneNumber);
+            stm.setString(5, frontCMND);
+            stm.setString(6, backCMND);
+            stm.setString(7, nameCompany);
+            stm.setString(8, addressCompany);
+            stm.setString(9, emailCompany);
+            stm.setString(10, phoneNumberCompany);
+            stm.setString(11, businessCode);
+            stm.setString(12, businessRegis);
+            stm.setString(13, taxCertificate);
+            stm.setString(14, taxPayment);
+            stm.setInt(15, idAcc);
+            int result = stm.executeUpdate();
+            return result > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         AdminDAO d = new AdminDAO();
         Supplier s = d.getInforSupplierByID(1);
