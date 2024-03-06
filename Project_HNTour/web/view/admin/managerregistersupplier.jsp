@@ -85,7 +85,7 @@
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Accounts
-                            <span style="margin-left: 400px; color: red">${requestScope.msRegisterSupplier}</span>
+                            <span style="margin-left: 400px; color: red">${sessionScope.msRegisterSupplier}</span>
                         </div>
                         <div  class="card-body">
                             <table id="datatablesSimple">

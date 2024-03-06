@@ -53,7 +53,7 @@
                     <h2>${requestScope.ms}</h2>
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
-                            <div class="card bg-success text-white mb-4">
+                            <div class="card bg-danger text-white mb-4">
                                 <div class="card-body">Feedback</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <p>${requestScope.totalFeedback}</p>
@@ -97,7 +97,7 @@
                                         <th>Date</th>
                                         <th style="text-align: center">Subject</th>
                                         <th style="text-align: center">Message</th>
-                                        <th style="text-align: center">Active</th>
+                                        <th style="text-align: center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>

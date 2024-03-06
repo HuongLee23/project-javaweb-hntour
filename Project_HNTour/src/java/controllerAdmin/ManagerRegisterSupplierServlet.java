@@ -121,50 +121,63 @@ public class ManagerRegisterSupplierServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Phần phê duyệt đơn đăng ký supplier 
         String idAcc_raw = request.getParameter("idAcc");
-        String pageStr = request.getParameter("page");
+//        String pageStr = request.getParameter("page");
         AdminDAO mnAccount = new AdminDAO();
-
+        HttpSession session = request.getSession();
         try {
-            int currentPage = (pageStr != null) ? Integer.parseInt(pageStr) : 1;
-            int idAcc = Integer.parseInt(idAcc_raw);
-            int itemsPerPage = 10;
-
-            boolean result = mnAccount.confirmRegisterSupplier(idAcc);
+            int id = Integer.parseInt(idAcc_raw);
+            boolean result = mnAccount.confirmRegisterSupplier(id);
             if (result) {
-                request.setAttribute("msRegisterSupplier", "Xác nhận chuyển đổi role thành công.");
+                session.setAttribute("msRegisterSupplier", "Xét đơn đăng ký hợp tác thành công");
             } else {
-                request.setAttribute("msRegisterSupplier", "Xác nhận chuyển đổi role thất bại!");
+                session.setAttribute("msRegisterSupplier", "Xét đơn đăng ký hợp tác thất bại!");
             }
-
-            // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
-            List<Supplier> listAccounts = getAllAccountsFromDatabase();
-
-            // Tính toán số trang
-            int totalPages = (int) Math.ceil((double) listAccounts.size() / itemsPerPage);
-            // Lấy sublist của danh sách để hiển thị trên trang hiện tại
-            List<Supplier> currentPageData = getCurrentPageData(listAccounts, currentPage, itemsPerPage);
-            int totalAccountCustomer = mnAccount.countAccountCustomer();
-            int totalAccountSupplier = mnAccount.countAccountSupplier();
-            String totalPrice = mnAccount.totalPrice();
-            int totalBanned = mnAccount.totalAccountBanned();
-
-            // Gán danh sách tài khoản vào request để truy cập từ trang JSP
-            request.setAttribute("currentPageData", currentPageData);
-            request.setAttribute("totalPages", totalPages);
-            request.setAttribute("currentPage", currentPage);
-            request.setAttribute("totalcustomer", totalAccountCustomer);
-            request.setAttribute("totalsupplier", totalAccountSupplier);
-            request.setAttribute("totalPrice", totalPrice);
-            request.setAttribute("totalBanned", totalBanned);
-
-            // Chuyển hướng (forward) request và response đến trang JSP
-            RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/managerregistersupplier.jsp");
-            dispatcher.forward(request, response);
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
+        response.sendRedirect("managerregistersupplier");
 
+//        try {
+//            int currentPage = (pageStr != null) ? Integer.parseInt(pageStr) : 1;
+//            int idAcc = Integer.parseInt(idAcc_raw);
+//            int itemsPerPage = 10;
+//
+//            boolean result = mnAccount.confirmRegisterSupplier(idAcc);
+//            if (result) {
+//                request.setAttribute("msRegisterSupplier", "Xác nhận chuyển đổi role thành công.");
+//            } else {
+//                request.setAttribute("msRegisterSupplier", "Xác nhận chuyển đổi role thất bại!");
+//            }
+//
+//            // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
+//            List<Supplier> listAccounts = getAllAccountsFromDatabase();
+//
+//            // Tính toán số trang
+//            int totalPages = (int) Math.ceil((double) listAccounts.size() / itemsPerPage);
+//            // Lấy sublist của danh sách để hiển thị trên trang hiện tại
+//            List<Supplier> currentPageData = getCurrentPageData(listAccounts, currentPage, itemsPerPage);
+//            int totalAccountCustomer = mnAccount.countAccountCustomer();
+//            int totalAccountSupplier = mnAccount.countAccountSupplier();
+//            String totalPrice = mnAccount.totalPrice();
+//            int totalBanned = mnAccount.totalAccountBanned();
+//
+//            // Gán danh sách tài khoản vào request để truy cập từ trang JSP
+//            request.setAttribute("currentPageData", currentPageData);
+//            request.setAttribute("totalPages", totalPages);
+//            request.setAttribute("currentPage", currentPage);
+//            request.setAttribute("totalcustomer", totalAccountCustomer);
+//            request.setAttribute("totalsupplier", totalAccountSupplier);
+//            request.setAttribute("totalPrice", totalPrice);
+//            request.setAttribute("totalBanned", totalBanned);
+//
+//            // Chuyển hướng (forward) request và response đến trang JSP
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/managerregistersupplier.jsp");
+//            dispatcher.forward(request, response);
+//        } catch (NumberFormatException e) {
+//            System.out.println(e);
+//        }
     }
 
     /**

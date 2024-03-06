@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Account;
 
@@ -61,13 +62,15 @@ public class ManagerAccSupplierServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Phần show danh sách của supplier
+        HttpSession session = request.getSession();
         String pageStr = request.getParameter("page");
         String role_raw = request.getParameter("role");
         int currentPage = (pageStr != null) ? Integer.parseInt(pageStr) : 1;
         int itemsPerPage = 10;
         AdminDAO mnAccount = new AdminDAO();
 
-        int role = Integer.parseInt(role_raw);
+        int role = role_raw != null ? Integer.parseInt(role_raw) : (int) session.getAttribute("role");
         // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
         List<Account> listAccounts = getAllAccountsFromDatabase(role);
         // Tính toán số trang
@@ -92,13 +95,13 @@ public class ManagerAccSupplierServlet extends HttpServlet {
         dispatcher.forward(request, response);
         processRequest(request, response);
     }
-    
+
     private List<Account> getAllAccountsFromDatabase(int role) {
         AdminDAO mnacc = new AdminDAO();
         List<Account> listAccounts = mnacc.getListAccount(role);
         return listAccounts;
     }
-    
+
     private List<Account> getCurrentPageData(List<Account> listAccounts, int currentPage, int itemsPerPage) {
         // Tính vị trí bắt đầu và kết thúc của sublist
         int start = (currentPage - 1) * itemsPerPage;
@@ -119,7 +122,27 @@ public class ManagerAccSupplierServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //Phần hủy hợp tác với supplier 
+        AdminDAO adDao = new AdminDAO();
+        HttpSession session = request.getSession();
+        String idAcc_raw = request.getParameter("idAcc");
+        String role_raw = request.getParameter("role");
+
+        int id, role = 0;
+        try {
+            id = Integer.parseInt(idAcc_raw);
+            role = Integer.parseInt(role_raw);
+            boolean result = adDao.cancelCooperationSupplier(id);
+            if (result) {
+                session.setAttribute("msCancelSupplier", "Hủy hợp tác thành công");
+            } else {
+                session.setAttribute("msCancelSupplier", "Hủy hợp tác thất bại!");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+        session.setAttribute("role", role);
+        response.sendRedirect("manageraccsupplier");
     }
 
     /**

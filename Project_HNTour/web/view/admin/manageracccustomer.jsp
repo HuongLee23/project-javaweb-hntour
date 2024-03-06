@@ -85,7 +85,7 @@
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Accounts
-                            <span style="margin-left: 400px; color: red">${requestScope.msUpdateCustomer}</span>
+                            <span style="margin-left: 400px; color: red">${sessionScope.msUpdateCustomer}</span>
                         </div>
                         <div  class="card-body">
                             <table id="datatablesSimple">
@@ -96,7 +96,7 @@
                                         <th>Email</th>
                                         <th>Address</th>
                                         <th>Phone number</th>
-                                        <th style="text-align: center">Active</th>
+                                        <th style="text-align: center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>

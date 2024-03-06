@@ -20,6 +20,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/styles.css"/>
         <link rel="stylesheet" href="../css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="../view/css/base.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -86,6 +87,7 @@
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Accounts
+                            <span style="margin-left: 400px; color: red">${sessionScope.msCancelSupplier}</span>
                         </div>
                         <div  class="card-body">
                             <table id="datatablesSimple">
@@ -96,6 +98,7 @@
                                         <th>Email</th>
                                         <th>Address</th>
                                         <th style="text-align: center">Profile information</th>
+                                        <th style="text-align: center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,8 +108,15 @@
                                             <td>${a.password}</td>
                                             <td>${a.email}</td>
                                             <td>${a.address}</td>
-                                            <td>
+                                            <td style="text-align: center;">
                                                 <a href="viewprofilesupplier?idAcc=${a.id}">View detail</a>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <form action="manageraccsupplier" method="post" onsubmit="return confirmDelete();">
+                                                    <input  type="hidden" name="idAcc" value="${a.id}"/>
+                                                    <input  type="hidden" name="role" value="${a.role}"/>
+                                                    <input style="background-color: #da251d;" class="confirm-btn" type="submit" value="Delete"/>
+                                                </form>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -153,6 +163,14 @@
             }
         </style>
         <script>
+            function confirmDelete() {
+                // Hiển thị hộp thoại xác nhận và lưu kết quả vào biến
+                var userConfirmed = confirm('Bạn chắc chắn muốn hủy hợp tác với nhà cung cấp này?');
+
+                // Trả về true hoặc false tùy thuộc vào sự chọn của người dùng
+                return userConfirmed;
+            }
+
             function banAccount() {
                 // Hiển thị hộp thoại xác nhận
                 var userConfirmed = confirm('Are you sure lock this account?');

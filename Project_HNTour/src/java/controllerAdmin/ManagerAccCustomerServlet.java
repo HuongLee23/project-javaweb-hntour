@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Account;
 
@@ -61,13 +62,14 @@ public class ManagerAccCustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String pageStr = request.getParameter("page");
         String role_raw = request.getParameter("role");
         int currentPage = (pageStr != null) ? Integer.parseInt(pageStr) : 1;
         int itemsPerPage = 10;
         AdminDAO mnAccount = new AdminDAO();
 
-        int role = Integer.parseInt(role_raw);
+        int role = role_raw != null ? Integer.parseInt(role_raw) : (int) session.getAttribute("role");
         // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
         List<Account> listAccounts = getAllAccountsFromDatabase(role);
         // Tính toán số trang
@@ -120,13 +122,11 @@ public class ManagerAccCustomerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        String pageStr = request.getParameter("page");
-        String role_raw = request.getParameter("role");
-//        int currentPage = (pageStr != null) ? Integer.parseInt(pageStr) : 1;
-//        int itemsPerPage = 10;
-        AdminDAO mnAccount = new AdminDAO();
-
         //Phần cập nhật thông tin khách hàng của admin
+        AdminDAO mnAccount = new AdminDAO();
+        HttpSession session = request.getSession();
+
+        String role_raw = request.getParameter("role");
         String id_raw = request.getParameter("id");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -134,31 +134,46 @@ public class ManagerAccCustomerServlet extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String address = request.getParameter("address");
 
+        int id, role = 0;
         try {
-            int id = Integer.parseInt(id_raw);
+            id = Integer.parseInt(id_raw);
+            role = Integer.parseInt(role_raw);
             boolean result = mnAccount.updateInforCustomer(id, username, password, email, phoneNumber, address);
             if (result) {
-                request.setAttribute("msUpdateCustomer", "Cập nhật thông tin khách hàng thành công");
+                session.setAttribute("msUpdateCustomer", "Cập nhật thông tin khách hàng thành công");
             } else {
-                request.setAttribute("msUpdateCustomer", "Cập nhật thông tin khách hàng thất bại!");
+                session.setAttribute("msUpdateCustomer", "Cập nhật thông tin khách hàng thất bại!");
             }
-
-            int role = Integer.parseInt(role_raw);
-            // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
-            List<Account> listAccounts = getAllAccountsFromDatabase(role);
-            int totalAccountCustomer = mnAccount.countAccountCustomer();
-
-            // Gán danh sách tài khoản vào request để truy cập từ trang JSP
-            request.setAttribute("currentPageData", listAccounts);
-            request.setAttribute("totalcustomer", totalAccountCustomer);
-
-            // Chuyển hướng (forward) request và response đến trang JSP
-            RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/manageracccustomer.jsp");
-            dispatcher.forward(request, response);
-
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
+        session.setAttribute("role", role);
+        response.sendRedirect("manageracccustomer");
+//        try {
+//            int id = Integer.parseInt(id_raw);
+//            boolean result = mnAccount.updateInforCustomer(id, username, password, email, phoneNumber, address);
+//            if (result) {
+//                request.setAttribute("msUpdateCustomer", "Cập nhật thông tin khách hàng thành công");
+//            } else {
+//                request.setAttribute("msUpdateCustomer", "Cập nhật thông tin khách hàng thất bại!");
+//            }
+//
+//            int role = Integer.parseInt(role_raw);
+//            // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
+//            List<Account> listAccounts = getAllAccountsFromDatabase(role);
+//            int totalAccountCustomer = mnAccount.countAccountCustomer();
+//
+//            // Gán danh sách tài khoản vào request để truy cập từ trang JSP
+//            request.setAttribute("currentPageData", listAccounts);
+//            request.setAttribute("totalcustomer", totalAccountCustomer);
+//
+//            // Chuyển hướng (forward) request và response đến trang JSP
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/manageracccustomer.jsp");
+//            dispatcher.forward(request, response);
+//
+//        } catch (NumberFormatException e) {
+//            System.out.println(e);
+//        }
     }
 
     /**

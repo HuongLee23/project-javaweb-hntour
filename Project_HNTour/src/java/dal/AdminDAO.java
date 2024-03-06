@@ -392,6 +392,20 @@ public class AdminDAO extends DBContext {
         return false;
     }
 
+    public boolean cancelCooperationSupplier(int id) {
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "   SET [role] = 3\n"
+                + " WHERE id = ?";
+        try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, id);
+            int result = stm.executeUpdate();
+            return result > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
     public static void main(String[] args) {
         AdminDAO d = new AdminDAO();
         Supplier s = d.getInforSupplierByID(1);
