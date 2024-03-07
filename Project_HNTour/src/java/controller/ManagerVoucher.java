@@ -82,6 +82,7 @@ public class ManagerVoucher extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+         HttpSession session = request.getSession();
     // Retrieve form parameters
     String code = request.getParameter("code");
     int discountPercentage = Integer.parseInt(request.getParameter("discountPercentage"));
@@ -96,25 +97,25 @@ public class ManagerVoucher extends HttpServlet {
         try {
             // Assuming you have a method to insert a new voucher in DAO
             dao.insertVoucher(code, discountPercentage, status, supplierId);
-            request.setAttribute("error", "Thêm Voucher thành công !");
+            session.setAttribute("tbvoucher", "Thêm Voucher thành công !");
             
         } catch (Exception e) {
             
-            request.setAttribute("error", "Lỗi khi thêm voucher. Vui lòng thử lại!");
+            session.setAttribute("tbvoucher", "Lỗi khi thêm voucher. Vui lòng thử lại!");
             
         }
     } else {
-        request.setAttribute("error", "Mã code Voucher đã tồn tại trước đó. Vui lòng thử lại !");
+        session.setAttribute("tbvoucher", "Mã code Voucher đã tồn tại trước đó. Vui lòng thử lại !");
  
     }
 
-     HttpSession session = request.getSession();
+    
         Account account = (Account) session.getAttribute("account");
     List<Voucher> voucherList = dao.getVoucherBySupllierID(account.getId());
 
         request.setAttribute("voucher", voucherList);
  
-     request.getRequestDispatcher("ManagerVoucher.jsp").forward(request, response);
+     response.sendRedirect("managervoucher");
 }
 
 

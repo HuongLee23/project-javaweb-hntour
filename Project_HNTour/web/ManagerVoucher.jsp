@@ -57,11 +57,11 @@
 </head>
 <body>
 
-     <c:set value="${requestScope.account}" var="a"/>
+
 
     <h2>Add New Voucher</h2>
     <form action="managervoucher" method="post" >
-        
+             <c:set value="${requestScope.account}" var="a"/>
         <label for="code">Voucher Code:</label>
         <input type="text" name="code" required>
         <br>
@@ -80,7 +80,7 @@
         <input type="submit" value="Add Voucher">
     
 
-   <h3 style="color: red">${requestScope.error}</h3>
+        <h3 style="color: red">${sessionScope.tbvoucher}</h3>
 
     <hr>
 
