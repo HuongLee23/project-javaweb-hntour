@@ -228,7 +228,7 @@ public class DAO extends DBContext {
                 + "T.[rule], "
                 + "T.[supplierId], "
                 + "T.[status] "
-                + "FROM [HaNoiTour].[dbo].[Tour] T ";
+                + "FROM [HaNoiTour].[dbo].[Tour] T where status=1";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -1441,7 +1441,7 @@ public class DAO extends DBContext {
 
     //add tour
     public void insertTourWithSchedule(String name, String imageMain, List<String> imageAlbum, Time intendedTime,
-            String price, String description, int categoryId, String rule, int supplierId,
+            String price, String description, int categoryId, String rule, int supplierId,boolean status,
             List<Schedules> schedules) {
 
         String tourSql = "INSERT INTO [dbo].[Tour]\n"
@@ -1477,7 +1477,7 @@ public class DAO extends DBContext {
                 tourStatement.setInt(8, 1);
                 tourStatement.setString(9, rule);
                 tourStatement.setInt(10, supplierId);
-                tourStatement.setInt(11, 1);
+                tourStatement.setBoolean(11, status);
 
                 tourStatement.executeUpdate();
 
@@ -1803,6 +1803,51 @@ public class DAO extends DBContext {
 }
 
      
+      public boolean getTourStatus(int TourId) {
+    boolean status = false; // Default to false if not found or other logic
+
+    // Your SQL query to retrieve the status from the database
+    String sql = "SELECT status FROM Tour WHERE id = ?";
+
+    try (PreparedStatement st = connection.prepareStatement(sql)) {
+        st.setInt(1, TourId);
+        ResultSet rs = st.executeQuery();
+
+        if (rs.next()) {
+            status = rs.getBoolean("status");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); 
+    }
+
+    return status;
+}
+     
+      
+      public void banTour(int id) {
+        String sql = "Update Tour\n"
+                + "Set [status] = '0'\n"
+                + "Where id = ?;";
+        try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+          
+        }
+    }
+
+    public void unbanTour(int id) {
+        String sql = "Update Tour\n"
+                + "Set [status] = '1'\n"
+                + "Where id = ?;";
+        try ( PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            
+        }
+    }
+      
     public static void main(String[] args) {
         DAO d = new DAO();
         Feedback feedback = d.getFeedbackByID(1);

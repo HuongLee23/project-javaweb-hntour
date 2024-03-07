@@ -35,6 +35,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="css/manager.css" rel="stylesheet" type="text/css"/>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
+
+
     </head>
 
     <body>
@@ -54,9 +56,15 @@
                             <a href="addtour?supplierID=${a.id}" class="btn btn-success">
                                 <i class="material-icons">&#xE147;</i> <span>Tạo Tour Mới</span>
                             </a>
-                            <a href="#deleteProductModal" class="btn btn-danger" data-toggle="modal">
+                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProductModal" onclick="prepareDeleteForm()">
                                 <i class="material-icons">&#xE15C;</i> <span>Xóa</span>
                             </a>
+                            <script>
+                                function submitForm() {
+                                    document.getElementById("deleteForm").submit();
+                                }
+                            </script>
+
 
                             <form action="managertourlist" method="post">
                                 <div class="search_item">
@@ -88,55 +96,72 @@
                     <th>Miêu tả</th>
 
                     <th>Version</th>
-
+                    <th>Trạng thái</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach items="${requestScope.tour}" var="c">
                     <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox${c.id}" name="options[]" value="${c.id}">
-                                <label for="checkbox${c.id}"></label>
-                            </span>
-                        </td>
-                        <td>${c.name}</td>
-                        <td>
-                            <img src="${c.imageMain}" alt="${c.name}" width="200"/>
-                        </td>
-                        <td>${c.intendedTime}</td>
-                        <td>${c.price}</td>
-                        <td>${c.description}</td>
+               
+                    <td>
 
-                        <td>${c.version}</td>
+                        <span class="custom-checkbox">
+                            <input type="checkbox">
+                           
+                        </span>
+                    </td>
+                <td>${c.name}</td>
+                <td>
+                    <img src="${c.imageMain}" alt="${c.name}" width="200"/>
+                </td>
+                <td>${c.intendedTime}</td>
+                <td>${c.price}</td>
+                <td>${c.description}</td>
 
-                        <td>
-                            <a href="loadtour?tid=${c.id}" class="edit" data-toggle="modal">
-                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                            </a>
-                            <a href="delete?tid=${c.id}" class="delete" data-toggle="modal">
-                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                            </a>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-        <!--                <div class="clearfix">
-                            <div class="hint-text">Showing Product</div>
-                            <ul class="pagination">
-        <c:if test="${page>1}">
-        <li class="page-item"><a href="managerproduct?index=${page-1}">Previous</a></li>
-        </c:if>
-        <c:forEach begin="1" end="${endP}" var="i">
-        <li class="page-item ${page == i?"active":""}"><a href="managerproduct?index=${i}" class="page-link">${i}</a></li>
-        </c:forEach>  
-        <c:if test="${page<endP}">
-        <li class="page-item"><a href="managerproduct?index=${page+1}" class="page-link">Next</a></li>
-        </c:if>
-            </ul>
-    </div>-->
-    </div>
+                <td>${c.version}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${c.status}">
+                            <div class="button-edit">
+                                <i class="fa-solid fa-lock-open"></i> 
+                                <a id="button-edit-customer" href="statustour?id=${c.id}" style="text-decoration: none; color: greenyellow">Active</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="button-edit">
+                                <i class="fa-solid fa-lock-open"></i>
+                                <a id="button-edit-customer" href="statustour?id=${c.id}" style="text-decoration: none; color: red">Inactive</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </td>           
+                <td>
+                    <a href="loadtour?tid=${c.id}" class="edit" data-toggle="modal">
+                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </a>
+                    <a href="delete?tid=${c.id}" class="delete" data-toggle="modal">
+                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+<!--                <div class="clearfix">
+                    <div class="hint-text">Showing Product</div>
+                    <ul class="pagination">
+<c:if test="${page>1}">
+<li class="page-item"><a href="managerproduct?index=${page-1}">Previous</a></li>
+</c:if>
+<c:forEach begin="1" end="${endP}" var="i">
+<li class="page-item ${page == i?"active":""}"><a href="managerproduct?index=${i}" class="page-link">${i}</a></li>
+</c:forEach>  
+<c:if test="${page<endP}">
+<li class="page-item"><a href="managerproduct?index=${page+1}" class="page-link">Next</a></li>
+</c:if>
+    </ul>
+</div>-->
+</div>
 </div>
 <!-- Edit Modal HTML -->
 <div id="addEmployeeModal" class="modal fade">
@@ -189,6 +214,9 @@
                         </select>
                     </div>
 
+
+
+
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -201,29 +229,35 @@
 <!-- Edit Modal HTML -->
 
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+<div id="deleteProductModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
-                <div class="modal-header">						
-                    <h4 class="modal-title">Delete Product</h4>
+            <form action="deleteselect" method="post" id="deleteForm">
+                <div class="modal-header">
+                    <h4 class="modal-title">Xóa Tour</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
-                <div class="modal-body">					
-                    <p>Are you sure you want to delete these Records?</p>
-                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa các Tour đã chọn không?</p>
+                    <p class="text-warning"><small>Hành động này không thể hoàn tác.</small></p>
                 </div>
                 <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-danger" value="Delete">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+                    <button type="button" class="btn btn-danger" onclick="submitForm()">
+                        Xóa
+                    </button>
                 </div>
+                <!-- Hidden input fields to store selected tour IDs -->
+                <c:forEach items="${requestScope.tour}" var="c">
+                    <input type="hidden" name="options[]" value="${c.id}">
+                </c:forEach>
             </form>
         </div>
     </div>
 </div>
 <script src="js/manager.js" type="text/javascript"></script>
 <script>
-            CKEDITOR.replace('describe');
+                        CKEDITOR.replace('describe');
 </script>
 </body>
 </html>

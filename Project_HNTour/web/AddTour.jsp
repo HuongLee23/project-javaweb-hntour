@@ -175,9 +175,16 @@
                                     </select>
                                 </div>
 
+        <label for="status">Status:</label>
+        <select name="status" required>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+        </select>
                                 <div class="schedules">
                                     <label>Lịch trình</label>
 
+                                     
+                                    
                                     <table class="table" id="schedulesTable">
                                         <thead>
                                             <tr>

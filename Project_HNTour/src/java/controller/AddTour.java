@@ -107,7 +107,8 @@ public class AddTour extends HttpServlet {
         String description = request.getParameter("description");
         String category = request.getParameter("category");
         String rule = request.getParameter("rule");
-
+        boolean status = "1".equals(request.getParameter("status"));
+        
         // Validate form parameters (add your validation logic here)
         // (e.g., check if required fields are not empty, validate numeric values, etc.)
         // Convert String values to appropriate types
@@ -166,7 +167,7 @@ public class AddTour extends HttpServlet {
         DAO dao = new DAO();
 
         // Call the combined insertTourWithSchedule method with the list of schedules
-        dao.insertTourWithSchedule(name, imageMain, Arrays.asList(imageAlbumString.split("/splitAlbum/")), time, price, description, cid, rule, supplierId, schedulesList);
+        dao.insertTourWithSchedule(name, imageMain, Arrays.asList(imageAlbumString.split("/splitAlbum/")), time, price, description, cid, rule, supplierId,status, schedulesList);
 
         // Redirect to the tour list page
         response.sendRedirect("managertourlist");
