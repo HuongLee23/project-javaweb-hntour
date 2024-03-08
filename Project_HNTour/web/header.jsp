@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col main_nav_col d-flex flex-row align-items-center justify-content-start">
                     <div class="logo_container">
-                        <div class="logo"><a style="font-family: serif;" href="home.jsp"><img style="margin: -139px 0px 0px -60px; width: 250px;" src="./assets/img/logo.png" alt=""></a></div>
+                        <div class="logo"><a style="font-family: serif;" href="home"><img style="margin: -139px 0px 0px -60px; width: 250px;" src="./assets/img/logo.png" alt=""></a></div>
                     </div>
                     <div class="main_nav_container ml-auto">
                         <ul class="main_nav_list">

@@ -88,9 +88,9 @@
                         </div>
                     </div>
                 </div>
-                
-                
-                
+
+
+
                 <!--Show sản phẩm trong giỏ hàng-->
                 <div class="checkout blog">
                     <div class="container">
@@ -227,7 +227,6 @@
                                                                     </form>
                                                                 </td>
                                                             </tr>
-
                                                         </c:forEach>
                                                     </tbody>
                                                 </table>
@@ -272,15 +271,6 @@
                                     </div>
                                 </div>
                             </section>
-
-
-
-
-
-
-
-
-
 
                         </div>
                     </div>

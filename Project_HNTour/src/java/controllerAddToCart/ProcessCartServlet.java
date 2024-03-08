@@ -103,6 +103,7 @@ public class ProcessCartServlet extends HttpServlet {
             }
 
         } catch (NumberFormatException e) {
+            System.out.println(e);
         }
 
         List<Item> items = cart.getItems();
