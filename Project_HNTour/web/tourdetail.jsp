@@ -420,37 +420,27 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="be-comment-block">
-                                            <c:if test="${sessionScope.account != null }">
-                                                <form class="form-block" action="addFeedback"
-                                                      method="post">
-                                                    <input type="hidden" name="accId"
-                                                           value="${account.id}">
-                                                    <input type="hidden" name="tourId"
-                                                           value="${detail.id}">
-                                                    <input type="hidden" name="versionId"
-                                                           value="${detail.version}">
+                                            <c:set value="${sessionScope.account}" var="a" />
+                                            <c:if test="${not empty a and not empty a.id and a.role == 3}">
+                                                <form class="form-block" action="addFeedback" method="post">
+                                                    <input type="hidden" name="accId" value="${a.id}">
+                                                    <input type="hidden" name="tourId" value="${detail.id}">
+                                                    <input type="hidden" name="versionId" value="${detail.version}">
                                                     <div class="form-group">
                                                         <label for="username">Username:</label>
-                                                        <input class="form-control" type="text"
-                                                               id="username"
-                                                               placeholder="${account.username}" disabled>
+                                                        <input class="form-control" type="text" id="username" placeholder="${a.username}" disabled>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="email">Email:</label>
-                                                        <input class="form-control" type="email"
-                                                               id="email" placeholder="${account.email}"
-                                                               disabled>
+                                                        <input class="form-control" type="email" id="email" placeholder="${a.email}" disabled>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="comment">Comment:</label>
-                                                        <textarea class="form-control" name="comment"
-                                                                  id="describe" required
-                                                                  placeholder="Your text"></textarea>
+                                                        <textarea class="form-control" name="comment" id="describe" required placeholder="Your text"></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="rating">Your Rating:</label>
-                                                        <select class="form-control" id="rating"
-                                                                name="rating">
+                                                        <select class="form-control" id="rating" name="rating">
                                                             <option value="1">1 star</option>
                                                             <option value="2">2 stars</option>
                                                             <option value="3">3 stars</option>
@@ -458,11 +448,11 @@
                                                             <option value="5">5 stars</option>
                                                         </select>
                                                     </div>
-                                                    <button type="submit"
-                                                            class="btn btn-primary btn-block"
-                                                            style="background: #fa9e1b; border:0px;">Submit</button>
+                                                    <button type="submit" class="btn btn-primary btn-block" style="background: #fa9e1b; border:0px;">Submit</button>
                                                 </form>
                                             </c:if>
+
+
                                         </div>
                                     </div>
                                 </div>

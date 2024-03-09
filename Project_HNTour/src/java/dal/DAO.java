@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import model.Account;
+import model.Blog;
+import model.BlogComment;
 import model.Cart;
 import model.Category;
 import model.Feedback;
@@ -1664,15 +1666,231 @@ public class DAO extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        DAO d = new DAO();
-        Feedback feedback = d.getFeedbackByID(1);
-        if (feedback != null) {
-            System.out.println(feedback);
-        } else {
-            System.out.println("Feedback not found or an error occurred.");
+    public List<Blog> getBlog(String status) {
+        List<Blog> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000)\n"
+                + "    B.[id],\n"
+                + "    B.[title],\n"
+                + "    B.[content],\n"
+                + "    B.[image],\n"
+                + "    B.[publishDate],\n"
+                + "    B.[accountId],B.[status],"
+                + "    A.[username] as [accountName]\n"
+                + "FROM [HaNoiTour].[dbo].[Blog] B JOIN [dbo].[Account] A ON B.[accountId]=A.[id] where B.[status]=?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Blog blogs = new Blog();
+                blogs.setBid(rs.getInt("id"));
+                blogs.setTitle(rs.getString("title"));
+                blogs.setContent(rs.getString("content"));
+                blogs.setImage(rs.getString("image"));
+                blogs.setPublishDate(rs.getDate("publishDate"));
+                blogs.setAccountId(rs.getInt("accountId"));
+                blogs.setStatus(rs.getString("status"));
+                blogs.setAccountName(rs.getString("accountName"));
+                list.add(blogs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public Blog getDetailBlog(int idB) {
+        String sql = "SELECT TOP (1000)\n"
+                + "    B.[id],\n"
+                + "    B.[title],\n"
+                + "    B.[content],\n"
+                + "    B.[image],\n"
+                + "    B.[publishDate],\n"
+                + "    B.[accountId], B.[status],"
+                + "    A.[username] as [accountName]\n"
+                + "FROM [HaNoiTour].[dbo].[Blog] B JOIN [dbo].[Account] A ON B.[accountId]=A.[id] WHERE B.[id]=?";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, idB);
+            try ( ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    return new Blog(
+                            rs.getInt("id"),
+                            rs.getString("title"),
+                            rs.getString("content"),
+                            rs.getString("image"),
+                            rs.getDate("publishDate"),
+                            rs.getInt("accountId"),
+                            rs.getString("accountName"),
+                            rs.getString("status")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<BlogComment> getBlogComment(int bid) {
+        List<BlogComment> list = new ArrayList<>();
+        String sql = "SELECT B.[id]\n"
+                + "      ,B.[blogId]\n"
+                + "      ,B.[accountId]\n"
+                + "      ,B.[comment]\n"
+                + "      ,B.[commentDate]\n"
+                + "	  ,A.[username] as [accName]\n"
+                + "	  ,A.[avatar] as [accAvatar]\n"
+                + "  FROM [dbo].[BlogComment] B JOIN [Account] A\n"
+                + "  ON B.[accountId]= A.[id] ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                BlogComment blogcm = new BlogComment();
+                blogcm.setPid(rs.getInt("id"));
+                blogcm.setIdblog(rs.getInt("blogId"));
+                blogcm.setAccBlog(rs.getInt("accountId"));
+                blogcm.setComment(rs.getString("comment"));
+                blogcm.setCommentDate(rs.getDate("commentDate"));
+                blogcm.setAccName(rs.getString("accName"));
+                blogcm.setAccAvatar(rs.getString("accAvatar"));
+                list.add(blogcm);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Blog> getBlogBySellId(int idsell) {
+        List<Blog> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000)\n"
+                + "                  B.[id],\n"
+                + "                 B.[title],\n"
+                + "              B.[content],\n"
+                + "                B.[image],\n"
+                + "                   B.[publishDate],\n"
+                + "                   B.[accountId],B.[status]\n"
+                + "               FROM [HaNoiTour].[dbo].[Blog] B WHERE B.[accountId]=? ;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, idsell);
+           
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Blog blogs = new Blog();
+                blogs.setBid(rs.getInt("id"));
+                blogs.setTitle(rs.getString("title"));
+                blogs.setContent(rs.getString("content"));
+                blogs.setImage(rs.getString("image"));
+                blogs.setPublishDate(rs.getDate("publishDate"));
+                blogs.setStatus(rs.getString("status"));
+                blogs.setAccountId(rs.getInt("accountId"));
+
+                list.add(blogs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Blog> getBlogLasted(String status) {
+        List<Blog> list = new ArrayList<>();
+        String sql = "SELECT TOP (4)\n"
+                + "    B.[id],\n"
+                + "    B.[title],\n"
+                + "    B.[content],\n"
+                + "    B.[image],\n"
+                + "    B.[publishDate],\n"
+                + "    B.[accountId],B.[status],\n"
+                + "    A.[username] AS [accountName]\n"
+                + "FROM [HaNoiTour].[dbo].[Blog] B\n"
+                + "JOIN [HaNoiTour].[dbo].[Account] A ON B.[accountId] = A.[id]\n"
+                + "where B.[status]= ?\n"
+                + "ORDER BY ABS(DATEDIFF(SECOND, GETDATE(), B.[publishDate])) ASC;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Blog blogs = new Blog();
+                blogs.setBid(rs.getInt("id"));
+                blogs.setTitle(rs.getString("title"));
+                blogs.setContent(rs.getString("content"));
+                blogs.setImage(rs.getString("image"));
+                blogs.setPublishDate(rs.getDate("publishDate"));
+                blogs.setAccountId(rs.getInt("accountId"));
+                blogs.setStatus(rs.getString("status"));
+                blogs.setAccountName(rs.getString("accountName"));
+                list.add(blogs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public void updateBlog( String title, String content, String image, String status,int bid) {
+        String sql = "UPDATE [dbo].[Blog]\n"
+                + "   SET [title] = ?\n"
+                + "      ,[content] = ?\n"
+                + "      ,[image] = ?\n"
+                
+                + "      ,[status] = ?\n"
+                + " WHERE  [id] =?;";
+        try {
+            PreparedStatement rs = connection.prepareStatement(sql);
+
+            rs.setString(1, title);
+            rs.setString(2, content);
+            rs.setString(3, image);
+            
+           
+            rs.setString(4, status);
+            rs.setInt(5, bid);
+            rs.executeUpdate();
+
+        } catch (SQLException e) {
         }
     }
+public void deleteBlog(String id) {
+        String sql = "delete from blog where id =?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+        }
+    }
+public void insertBlog(String title, String content, String image, Date publishDate, int accountId, String status) {
+    String sql = "INSERT INTO [dbo].[Blog] " +
+                 "([title], [content], [image], [publishDate], [accountId], [status]) " +
+                 "VALUES (?, ?, ?, ?, ?, ?)";
+    try (PreparedStatement rs = connection.prepareStatement(sql)) {
+        rs.setString(1, title);
+        rs.setString(2, content);
+        rs.setString(3, image);
+        rs.setDate(4, publishDate);
+        rs.setInt(5, accountId);
+        rs.setString(6, status);
+        
+        rs.executeUpdate();
+    } catch (SQLException e) {
+        // Xử lý ngoại lệ
+        e.printStackTrace();
+    }
+}
+
+public static void main(String[] args) {
+    DAO d = new DAO();
+    d.deleteBlog("6");
+}
+
 //        if (!tourList.isEmpty()) {
 //            for (Tour tour : tourList) {
 //                System.out.println(tour);

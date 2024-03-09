@@ -58,7 +58,7 @@
                             <li class="main_nav_item"><a href="home">home</a></li>
                             <li class="main_nav_item"><a href="tourlist">Tour</a></li>
                             <li class="main_nav_item"><a href="aboutUs.jsp">about us</a></li>
-                            <li class="main_nav_item"><a href="blogs.jsp">news</a></li>
+                            <li class="main_nav_item"><a href="blog">news</a></li>
                             <li class="main_nav_item"><a href="contact.jsp">contact</a></li>
 
                         </ul>

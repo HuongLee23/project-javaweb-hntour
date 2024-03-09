@@ -14,7 +14,7 @@
             <li class="nav-item"><a class="nav-link px-2" href="home"><i class="fa fa-fw fa-th mr-1"></i><span>Trang chủ</span></a></li>
             <li class="nav-item"><a class="nav-link px-2" href="changepassword"><i class="fa fa-fw fa-cog mr-1"></i><span>Đổi mật khẩu</span></a></li>
             <li class="nav-item"><a class="nav-link px-2" href="managertourlist"><i class="fa fa-fw fa-cog mr-1"></i><span>Quản lý Tour</span></a></li>
-
+             <li class="nav-item"><a class="nav-link px-2" href="managerblogs"><i class="fa fa-fw fa-cog mr-1"></i><span>Quản lý Blogs</span></a></li>
         </ul>
     </body>
 </html>
