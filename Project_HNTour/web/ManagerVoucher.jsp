@@ -59,19 +59,19 @@
 
 
 
-    <h2>Add New Voucher</h2>
+    <h2>Tạo voucher mới</h2>
     <form action="managervoucher" method="post" >
              <c:set value="${requestScope.account}" var="a"/>
-        <label for="code">Voucher Code:</label>
+        <label for="code">Mã Code:</label>
         <input type="text" name="code" required>
         <br>
-        <label for="discountPercentage">Discount Percentage:</label>
+        <label for="discountPercentage">Phần trăm giảm giá:</label>
         <input type="number" name="discountPercentage" required min="1" max="100">
         <br>
-        <label for="status">Status:</label>
+        <label for="status">Trạng thái:</label>
         <select name="status" required>
-            <option value="1">Active</option>
-            <option value="0">Inactive</option>
+            <option value="1">Hoạt động</option>
+            <option value="0">Không hoạt động</option>
         </select>
         <br>
   
@@ -87,10 +87,10 @@
     <h2>Existing Vouchers</h2>
     <table>
         <tr>
-            <th>Voucher Code</th>
-            <th>Discount Percentage</th>
-            <th>Status</th>
-            <th>Remove</th>
+            <th>Mã Code</th>
+            <th>Phần trăm giảm giá</th>
+            <th>Trạng thái</th>
+            <th>Xóa</th>
         </tr>
     <c:forEach items="${requestScope.voucher}" var="c">     
         <tr>
@@ -101,13 +101,13 @@
     <c:when test="${c.status}">
         <div class="button-edit">
             <i class="fa-solid fa-lock"></i> 
-            <a id="button-edit-customer" href="statusvoucher?id=${c.id}" style="text-decoration: none; color: greenyellow">Active</a>
+            <a id="button-edit-customer" href="statusvoucher?id=${c.id}" style="text-decoration: none; color: greenyellow">Hoạt động</a>
         </div>
     </c:when>
     <c:otherwise>
         <div class="button-edit">
             <i class="fa-solid fa-lock-open"></i>
-            <a id="button-edit-customer" href="statusvoucher?id=${c.id}" style="text-decoration: none; color: red">Inactive</a>
+            <a id="button-edit-customer" href="statusvoucher?id=${c.id}" style="text-decoration: none; color: red">Không hoạt động</a>
         </div>
     </c:otherwise>
 </c:choose>
@@ -123,7 +123,7 @@
     
     
     <a href="home" class="delete" data-toggle="modal">
-        <i class="material-icons" data-toggle="tooltip" title="Delete" style="color: blue">Back</i>
+        <i class="material-icons" data-toggle="tooltip" title="Delete" style="color: blue">Trở về</i>
     </a>
 </form>
 </body>

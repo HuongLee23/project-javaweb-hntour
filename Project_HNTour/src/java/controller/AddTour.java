@@ -100,7 +100,7 @@ public class AddTour extends HttpServlet {
         String id_raw = request.getParameter("supplierID");
         String name = request.getParameter("name");
         String imageMain = request.getParameter("imageMain");
-        String[] existingImageAlbumArray = request.getParameterValues("existingImageAlbum");
+        
         String[] additionalImages = request.getParameterValues("additionalImages");
         String time_raw = request.getParameter("time");
         String price = request.getParameter("price");
@@ -119,11 +119,6 @@ public class AddTour extends HttpServlet {
 
         // Retrieve additional images from the request
         List<String> allImages = new ArrayList<>();
-
-        // Add existing images to the list
-        if (existingImageAlbumArray != null) {
-            allImages.addAll(Arrays.asList(existingImageAlbumArray));
-        }
 
         // Add additional images to the list
         if (additionalImages != null) {

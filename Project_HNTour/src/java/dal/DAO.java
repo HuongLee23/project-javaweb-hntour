@@ -25,8 +25,13 @@ import model.Feedback;
 
 import model.InformationAccount;
 import model.Item;
+import model.Order;
+import model.OrderDetail;
 
 import model.Schedules;
+import model.TopProduct;
+
+import model.TotalInvoiceOfCategory;
 import model.Tour;
 import model.Voucher;
 
@@ -1123,8 +1128,6 @@ public class DAO extends DBContext {
         }
     }
 
-  
-
     public List<Schedules> getSchedukesById(int Sid) {
         List<Schedules> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) S.[tourId]\n"
@@ -1441,7 +1444,7 @@ public class DAO extends DBContext {
 
     //add tour
     public void insertTourWithSchedule(String name, String imageMain, List<String> imageAlbum, Time intendedTime,
-            String price, String description, int categoryId, String rule, int supplierId,boolean status,
+            String price, String description, int categoryId, String rule, int supplierId, boolean status,
             List<Schedules> schedules) {
 
         String tourSql = "INSERT INTO [dbo].[Tour]\n"
@@ -1635,72 +1638,67 @@ public class DAO extends DBContext {
         }
     }
 
-     public void incrementTourVersion(int tourId) {
-    
+    public void incrementTourVersion(int tourId) {
+
         // Update the tour version
         String sql = "UPDATE Tour SET version = version + 1 WHERE id = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        try ( PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, tourId);
 
             // Execute the update
             ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately (log or throw)
         }
-     catch (SQLException e) {
-        e.printStackTrace(); // Handle the exception appropriately (log or throw)
     }
-}
 
-    
-     public void insertVoucher(String code, int discount, boolean status, int supplierId) {
-    String sql = "INSERT INTO [dbo].[Voucher]\n" +
-                 "   ([code]\n" +
-                 "   ,[discountPercentage]\n" +
-                 "   ,[status]\n" +
-                 "   ,[supplierId])\n" +
-                 "VALUES (?, ?, ?, ?)";
+    public void insertVoucher(String code, int discount, boolean status, int supplierId) {
+        String sql = "INSERT INTO [dbo].[Voucher]\n"
+                + "   ([code]\n"
+                + "   ,[discountPercentage]\n"
+                + "   ,[status]\n"
+                + "   ,[supplierId])\n"
+                + "VALUES (?, ?, ?, ?)";
 
-    try (PreparedStatement st = connection.prepareStatement(sql)) {
-        // Set values for the parameters
-        st.setString(1, code);
-        st.setInt(2, discount);
-        st.setBoolean(3, status); // Use the actual status value
-        st.setInt(4, supplierId);
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            // Set values for the parameters
+            st.setString(1, code);
+            st.setInt(2, discount);
+            st.setBoolean(3, status); // Use the actual status value
+            st.setInt(4, supplierId);
 
-        // Execute the update
-        st.executeUpdate();
-    } catch (SQLException e) {
-        // Log or print the exception for debugging purposes
-        e.printStackTrace();
-    }
-}
-
-     
-    
-     public List<Voucher> getVoucherBySupllierID(int supplierId) {
-    List<Voucher> list = new ArrayList<>();
-    String sql = "SELECT [id], [code], [discountPercentage], [status], [supplierId] FROM [HaNoiTour].[dbo].[Voucher] WHERE supplierId=?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setInt(1, supplierId);
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            Voucher voucher = new Voucher(
-                    rs.getInt("id"),
-                    rs.getString("code"),
-                    rs.getInt("discountPercentage"),
-                    rs.getBoolean("status"),
-                    rs.getInt("supplierId")
-            );
-            list.add(voucher);
+            // Execute the update
+            st.executeUpdate();
+        } catch (SQLException e) {
+            // Log or print the exception for debugging purposes
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
     }
-    return list;
-}
 
-     
-     public void banVoucher(int id) {
+    public List<Voucher> getVoucherBySupllierID(int supplierId) {
+        List<Voucher> list = new ArrayList<>();
+        String sql = "SELECT [id], [code], [discountPercentage], [status], [supplierId] FROM [HaNoiTour].[dbo].[Voucher] WHERE supplierId=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, supplierId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Voucher voucher = new Voucher(
+                        rs.getInt("id"),
+                        rs.getString("code"),
+                        rs.getInt("discountPercentage"),
+                        rs.getBoolean("status"),
+                        rs.getInt("supplierId")
+                );
+                list.add(voucher);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public void banVoucher(int id) {
         String sql = "Update Voucher\n"
                 + "Set [status] = '0'\n"
                 + "Where id = ?;";
@@ -1708,7 +1706,7 @@ public class DAO extends DBContext {
             stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
-          
+
         }
     }
 
@@ -1720,12 +1718,11 @@ public class DAO extends DBContext {
             stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
-            
+
         }
     }
-     
-    
-     public Voucher getVoucherByID(int id) {
+
+    public Voucher getVoucherByID(int id) {
         String sql = "select * from Voucher\n"
                 + "                where id = ?";
         try {
@@ -1733,21 +1730,21 @@ public class DAO extends DBContext {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-              
+
                 return new Voucher(
                         rs.getInt("id"),
-                    rs.getString("code"),
-                    rs.getInt("discountPercentage"),
-                    rs.getBoolean("status"),
-                    rs.getInt("supplierId")
+                        rs.getString("code"),
+                        rs.getInt("discountPercentage"),
+                        rs.getBoolean("status"),
+                        rs.getInt("supplierId")
                 );
             }
         } catch (SQLException e) {
         }
         return null;
     }
-    
-     public void deleteVoucher(String vid) {
+
+    public void deleteVoucher(String vid) {
         String sql = "DELETE FROM Voucher WHERE id = ?";
 
         try {
@@ -1759,72 +1756,68 @@ public class DAO extends DBContext {
 
         }
     }
-     
-     
-     public boolean getVoucherStatus(int voucherId) {
-    boolean status = false; // Default to false if not found or other logic
 
-    // Your SQL query to retrieve the status from the database
-    String sql = "SELECT status FROM Voucher WHERE id = ?";
+    public boolean getVoucherStatus(int voucherId) {
+        boolean status = false; // Default to false if not found or other logic
 
-    try (PreparedStatement st = connection.prepareStatement(sql)) {
-        st.setInt(1, voucherId);
-        ResultSet rs = st.executeQuery();
+        // Your SQL query to retrieve the status from the database
+        String sql = "SELECT status FROM Voucher WHERE id = ?";
 
-        if (rs.next()) {
-            status = rs.getBoolean("status");
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, voucherId);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                status = rs.getBoolean("status");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace(); 
+
+        return status;
     }
 
-    return status;
-}
-     
-     
-     public boolean isVoucherCodeExists(String voucherCode) {
-    boolean exists = false;
+    public boolean isVoucherCodeExists(String voucherCode) {
+        boolean exists = false;
 
-    String sql = "SELECT COUNT(*) FROM Voucher WHERE code = ?";
+        String sql = "SELECT COUNT(*) FROM Voucher WHERE code = ?";
 
-    try (PreparedStatement st = connection.prepareStatement(sql)) {
-        st.setString(1, voucherCode);
-        ResultSet rs = st.executeQuery();
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, voucherCode);
+            ResultSet rs = st.executeQuery();
 
-        if (rs.next()) {
-            int count = rs.getInt(1);
-            exists = count > 0;
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                exists = count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý lỗi tùy theo yêu cầu
         }
-    } catch (SQLException e) {
-        e.printStackTrace(); // Xử lý lỗi tùy theo yêu cầu
+
+        return exists;
     }
 
-    return exists;
-}
+    public boolean getTourStatus(int TourId) {
+        boolean status = false; // Default to false if not found or other logic
 
-     
-      public boolean getTourStatus(int TourId) {
-    boolean status = false; // Default to false if not found or other logic
+        // Your SQL query to retrieve the status from the database
+        String sql = "SELECT status FROM Tour WHERE id = ?";
 
-    // Your SQL query to retrieve the status from the database
-    String sql = "SELECT status FROM Tour WHERE id = ?";
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, TourId);
+            ResultSet rs = st.executeQuery();
 
-    try (PreparedStatement st = connection.prepareStatement(sql)) {
-        st.setInt(1, TourId);
-        ResultSet rs = st.executeQuery();
-
-        if (rs.next()) {
-            status = rs.getBoolean("status");
+            if (rs.next()) {
+                status = rs.getBoolean("status");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace(); 
+
+        return status;
     }
 
-    return status;
-}
-     
-      
-      public void banTour(int id) {
+    public void banTour(int id) {
         String sql = "Update Tour\n"
                 + "Set [status] = '0'\n"
                 + "Where id = ?;";
@@ -1832,7 +1825,7 @@ public class DAO extends DBContext {
             stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
-          
+
         }
     }
 
@@ -1844,19 +1837,238 @@ public class DAO extends DBContext {
             stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
-            
+
         }
     }
-      
-    public static void main(String[] args) {
+
+    public List<OrderDetail> getCustomerForSupplier(int supplierId) {
+        List<OrderDetail> list = new ArrayList<>();
+
+        String sql = "SELECT "
+                + "OD.[orderId], "
+                + "OD.[tourId], "
+                + "OD.[quantity], "
+                + "OD.[price], "
+                + "OD.[versionId], "
+                + "O.[date], "
+                + "O.[totalPrice], "
+                + "T.[name] AS TourName "
+                + "FROM "
+                + "[HaNoiTour].[dbo].[OrderDetail] OD "
+                + "JOIN "
+                + "[HaNoiTour].[dbo].[Order] O ON OD.[orderId] = O.[id] "
+                + "JOIN "
+                + "[HaNoiTour].[dbo].[Tour] T ON OD.[tourId] = T.[id] "
+                + "WHERE "
+                + "T.[supplierId] = ? "
+                + "ORDER BY "
+                + "O.[date] DESC;";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, supplierId); // Set the supplierId parameter
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
+    public TotalInvoiceOfCategory getTotalInvoiceCate(int supplierId) {
+        String sql = "SELECT\n"
+                + "   SUM(CASE WHEN p.categoryId = 1 THEN i.price ELSE 0 END) AS totalCate1,\n"
+                + "   SUM(CASE WHEN p.categoryId = 2 THEN i.price ELSE 0 END) AS totalCate2,\n"
+                + "   SUM(CASE WHEN p.categoryId = 3 THEN i.price ELSE 0 END) AS totalCate3,\n"
+                + "   SUM(CASE WHEN p.categoryId = 4 THEN i.price ELSE 0 END) AS totalCate4\n"
+                + "FROM\n"
+                + "   [HaNoiTour].[dbo].[OrderDetail] i\n"
+                + "   JOIN [HaNoiTour].[dbo].[Tour] p ON i.tourId = p.id\n"
+                + "WHERE\n"
+                + "   p.categoryId IN (1, 2, 3, 4) AND supplierId = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, supplierId);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                TotalInvoiceOfCategory t = new TotalInvoiceOfCategory(
+                        rs.getDouble("totalCate1"),
+                        rs.getDouble("totalCate2"),
+                        rs.getDouble("totalCate3"),
+                        rs.getDouble("totalCate4")
+                );
+                return t;
+            }
+        } catch (SQLException e) {
+            // Handle exception
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public OrderDetail getOrderDetailByID(int orderDetailId) {
+        OrderDetail orderDetail = null;
+        String sql = "SELECT * FROM [HaNoiTour].[dbo].[OrderDetail] WHERE id = ?";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, orderDetailId);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                // Assuming your OrderDetail class has a constructor to initialize its properties
+                orderDetail = new OrderDetail(
+                        rs.getInt("orderId"),
+                        rs.getInt("tourId"),
+                        rs.getInt("quantity"),
+                        rs.getDouble("price"),
+                        rs.getInt("versionId")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+
+        return orderDetail;
+    }
+
+    public List<TopProduct> listTopProduct(int supplierId) {
+        List<TopProduct> list = new ArrayList();
+        String sql = "SELECT TOP 3\n"
+                + "        t.id AS TourId,\n"
+                + "        t.name AS TourName,\n"
+                + "        t.price,\n"
+                + "        SUM(od.quantity) AS TotalQuantity\n"
+                + "    FROM\n"
+                + "        [HaNoiTour].[dbo].[Tour] t\n"
+                + "    INNER JOIN\n"
+                + "        [HaNoiTour].[dbo].[OrderDetail] od ON t.id = od.tourId\n"
+                + "    INNER JOIN\n"
+                + "        [HaNoiTour].[dbo].[Order] o ON od.orderId = o.id\n"
+                + "    WHERE\n"
+                + "        t.supplierId = ?\n"
+                + "    GROUP BY\n"
+                + "        t.id, t.name, t.price\n"
+                + "    ORDER BY\n"
+                + "        TotalQuantity DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, supplierId);
+            ResultSet rs = st.executeQuery();
+            DAO d = new DAO();
+            while (rs.next()) {
+                TopProduct tp = new TopProduct();
+                Tour p = d.getTourByID(rs.getInt("TourId"));
+                tp.setTotalquantity(rs.getInt("TotalQuantity"));
+                tp.setTour(p);
+
+                list.add(tp);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+        return list;
+    }
+
+    
+    public Account getAccountByID(int accountId) {
+    Account account = null;
+    String sql = "SELECT * FROM [HaNoiTour].[dbo].[Account] WHERE [id] = ?";
+
+    try (PreparedStatement st = connection.prepareStatement(sql)) {
+        st.setInt(1, accountId);
+        ResultSet rs = st.executeQuery();
+
+        if (rs.next()) {
+            int id = rs.getInt("id");
+            String email = rs.getString("email");
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            int role = rs.getInt("role");
+            String address = rs.getString("address");
+            String avatar = rs.getString("avatar");
+            String phoneNumber = rs.getString("phoneNumber");
+            boolean status = rs.getBoolean("status");
+
+            account = new Account(id, email, username, password, role, address, avatar, phoneNumber, status);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // Handle the exception appropriately
+    }
+
+    return account;
+}
+
+    
+    public List<TopProduct> listTopAccounts(int supplierId) {
+    List<TopProduct> list = new ArrayList<>();
+    String sql = "SELECT TOP 3\n" +
+"    O.[accId] AS AccountId,\n" +
+"    A.[username] AS Username,\n" +
+"    A.[email] AS Email,\n" +
+"\n" +
+"    COUNT(OD.[orderId]) AS PurchaseCount\n" +
+"FROM\n" +
+"    [HaNoiTour].[dbo].[Order] O\n" +
+"JOIN\n" +
+"    [HaNoiTour].[dbo].[OrderDetail] OD ON O.[id] = OD.[orderId]\n" +
+"JOIN\n" +
+"    [HaNoiTour].[dbo].[Account] A ON O.[accId] = A.[id]\n" +
+"JOIN\n" +
+"    [HaNoiTour].[dbo].[Tour] T ON OD.[tourId] = T.[id]  \n" +
+"WHERE\n" +
+"    T.[supplierId] = ?\n" +
+"GROUP BY\n" +
+"    O.[accId], A.[username], A.[email]\n" +
+"ORDER BY\n" +
+"    PurchaseCount DESC;";
+
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, supplierId);
+        ResultSet rs = st.executeQuery();
         DAO d = new DAO();
-        Feedback feedback = d.getFeedbackByID(1);
-        if (feedback != null) {
-            System.out.println(feedback);
-        } else {
-            System.out.println("Feedback not found or an error occurred.");
+        while (rs.next()) {
+            TopProduct tp = new TopProduct();
+            Account a = d.getAccountByID(rs.getInt("AccountId"));
+            tp.setAccount(a);
+            list.add(tp);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // Handle the exception appropriately
+    }
+    return list;
+}
+
+
+    public static void main(String[] args) {
+        // Assuming you have a DAO instance and a database connection
+        // Replace the following line with your actual DAO instantiation and connection logic
+        DAO dao = new DAO();
+
+        // Replace 2 with the actual supplierId you want to query
+        int supplierId = 2;
+
+        // Call the listTopProduct method and print the results
+        List<TopProduct> topProducts = dao.listTopProduct(supplierId);
+
+        // Print the results
+        for (TopProduct topProduct : topProducts) {
+            System.out.println("Tour ID: " + topProduct.getTour().getId());
+            System.out.println("Tour Name: " + topProduct.getTour().getName());
+            System.out.println("Tour Price: " + topProduct.getTour().getPrice());
+            System.out.println("OrderDetail Quantity: " + (topProduct.getOrderdetail() != null ? topProduct.getOrderdetail().getQuantity() : "null"));
+            System.out.println("----------------------------------");
         }
     }
+
 //        if (!tourList.isEmpty()) {
 //            for (Tour tour : tourList) {
 //                System.out.println(tour);
