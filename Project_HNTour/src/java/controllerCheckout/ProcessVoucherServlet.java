@@ -96,12 +96,6 @@ public class ProcessVoucherServlet extends HttpServlet {
 
         if (voucher != null) {
             double priceSale = calculateVoucher(itemTour, voucher);
-//
-//            PrintWriter out = response.getWriter();
-//            out.println("idVoucher " + idVoucher_raw);
-//            out.println("mã voucher " + voucher.getCode());
-//            out.println("giá tiền sau khi áp voucher " + priceSale);
-
             Item itemTourCheckout = new Item(
                     itemTour.getTour(), itemTour.getQuantity(),
                     itemTour.getPrice(), idVoucher, voucher.getDiscount(), priceSale

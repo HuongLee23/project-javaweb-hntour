@@ -60,6 +60,7 @@ public class CheckoutDAO extends DBContext {
         LocalDate curDate = LocalDate.now();
         String date = curDate.toString();
         try {
+            //Insert giá trị vào Order
             String sql = "INSERT INTO [dbo].[Order]\n"
                     + "           ([accId]\n"
                     + "           ,[idInforAcc]\n"
@@ -74,6 +75,7 @@ public class CheckoutDAO extends DBContext {
             st.setDouble(4, item.getPriceSale() != 0 ? item.getPriceSale() : item.getPrice());
             st.executeUpdate();
 
+            //Lấy giá trị của Order vừa mới Insert cho vào OrderDetail
             String sql1 = "SELECT top(1) [id]\n"
                     + "      ,[accId]\n"
                     + "      ,[idInforAcc]\n"
@@ -88,6 +90,7 @@ public class CheckoutDAO extends DBContext {
 
             if (rs.next()) {
                 int oid = rs.getInt("id");
+                //Insert giá trị vào OrderDetail
                 String sql2 = "INSERT INTO [dbo].[OrderDetail]\n"
                         + "           ([orderId]\n"
                         + "           ,[tourId]\n"
@@ -106,6 +109,16 @@ public class CheckoutDAO extends DBContext {
                 st2.setInt(6, item.getIdVoucher());
                 st2.executeUpdate();
             }
+            if (item.getIdVoucher() != 0) {
+                //Nếu có áp mã voucher thì xóa cái voucher mà Account này có
+                String sql3 = "UPDATE Voucher\n"
+                        + "SET idAcc = NULL\n"
+                        + "WHERE id = ?;";
+                PreparedStatement st3 = connection.prepareStatement(sql3);
+                st3.setInt(1, item.getIdVoucher());
+                st3.executeUpdate();
+            }
+
             return true;
         } catch (SQLException e) {
             Logger.getLogger(CheckoutDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -164,6 +177,7 @@ public class CheckoutDAO extends DBContext {
                     st2.executeUpdate();
                 }
             }
+
             return true;
         } catch (SQLException e) {
             System.out.println(e);

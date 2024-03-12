@@ -133,18 +133,15 @@ public class CheckoutServlet extends HttpServlet {
 
             if (selectCheckout != 0) {
                 Item itemTour = (Item) session.getAttribute("itemTour");
-//                int idTour = selectCheckout;
-//                Tour tour = dao.getTourByID(idTour);
-
-//                PrintWriter out = response.getWriter();
-//                out.print("mã voucher "+ itemTour.getIdVoucher());
-//                
-//                
                 boolean result = checkoutDao.addOrderForBuyNow(itemTour, account, idInfor);
                 if (result) {
-                    request.setAttribute("mess", "Mua hàng trong cart thành công");
+                    session.removeAttribute("listVoucher");
+                    session.removeAttribute("itemTour");
+                    session.removeAttribute("selectCheckout");
+                    session.removeAttribute("idInfor");
+                    request.setAttribute("messBuy", "Mua hàng trong cart thành công");
                 } else {
-                    request.setAttribute("mess", "Mua hàng trong cart thất bại");
+                    request.setAttribute("messBuy", "Mua hàng trong cart thất bại");
                 }
 
             } else {
@@ -156,9 +153,9 @@ public class CheckoutServlet extends HttpServlet {
 
                     session.setAttribute("sizeCart", 0);
                     session.removeAttribute("cart");
-                    request.setAttribute("mess", "Mua hàng trong cart thành công");
+                    request.setAttribute("messBuy", "Mua hàng trong cart thành công");
                 } else {
-                    request.setAttribute("mess", "Mua hàng trong cart thất bại");
+                    request.setAttribute("messBuy", "Mua hàng trong cart thất bại");
                 }
             }
 //            request.setAttribute("mess", "Mua hàng thành công");

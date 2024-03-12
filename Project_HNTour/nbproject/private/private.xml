@@ -5,12 +5,12 @@
         <group>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/fillInformationBuyer.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/AdminDAO.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/home.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerCheckout/CheckoutServlet.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/checkout.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerCheckout/ProccessSelectServlet.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerCheckout/ProcessVoucherServlet.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Item.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerCheckout/FillInformationBuyerServlet.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/assets/css/main.css</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/CheckoutDAO.java</file>
         </group>
     </open-files>

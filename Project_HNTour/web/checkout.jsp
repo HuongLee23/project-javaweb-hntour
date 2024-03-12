@@ -46,7 +46,9 @@
                 </div>
 
 
-                <!-- Slider-top-step-bar -->
+                <!-- Slider-top-step-bar (khi chưa thanh toán)-->
+            <c:if test="${requestScope.messBuy == null}">
+
                 <div class="top-step-bar desktop" id="top-step-bar">
                     <div class="klk-steps klk-steps-horizontal">
                         <div class="klk-step" id="step1">
@@ -91,9 +93,57 @@
                     </div>
                 </div>
 
+            </c:if>
+
+            <!-- Slider-top-step-bar (khi đã thanh toán)-->
+            <c:if test="${requestScope.messBuy != null}">
+
+                <div class="top-step-bar desktop" id="top-step-bar">
+                    <div class="klk-steps klk-steps-horizontal">
+                        <div class="klk-step" id="step1">
+                            <div class="klk-step-line-track" style="background-color: rgb(224, 224, 224);">
+                                <div class="klk-step-line" style="background-color: #08b371;"></div>
+                            </div>
+                            <div class="klk-step-head">
+                                <div style="background-color: #08b371;" class="klk-step-icon">
+                                    <i style="color: white;" class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="klk-step-main">
+                                <div class="klk-step-title">Chọn đơn hàng</div>
+                            </div>
+                        </div>
+                        <div class="klk-step" id="step2">
+                            <div class="klk-step-line-track" style="background-color: rgb(224, 224, 224);">
+                                <div class="klk-step-line" style="background-color: #08b371;"></div>
+                            </div>
+                            <div class="klk-step-head">
+                                <div style="background-color: #08b371;" class="klk-step-icon">
+                                    <i style="color: white;" class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="klk-step-main">
+                                <div class="klk-step-title">Điền thông tin</div>
+                            </div>
+                        </div>
+                        <div class="klk-step" id="step3">
+                            <div class="klk-step-head">
+                                <div style="background-color: #08b371;" class="klk-step-icon">
+                                    <i style="color: white;" class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="klk-step-main">
+                                <div class="klk-step-title">Thanh toán</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </c:if>
 
 
-
+            <!--Khi chưa mua hàng thì nó sẽ hiện màn hình trên(các sản phẩm muốn thanh toán) --> 
+            <c:if test="${requestScope.messBuy == null}">
                 <!--Show thông tin đơn hàng-->
                 <section class="fby-show-product">
                     <div class="container py-5">
@@ -106,77 +156,8 @@
                         </h2>
 
                         <!--Show thông tin của tour muốn mua ngay-->
-                    <c:if test="${sessionScope.selectCheckout != 0}">
-                        <c:set value="${sessionScope.itemTour}" var="i"/>
-                        <div class="row justify-content-center mb-3">
-                            <div class="col-md-12 col-xl-10">
-                                <div class="card shadow-0 border rounded-3">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
-                                                <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                                    <img src="${i.tour.imageMain}"
-                                                         class="w-100" />
-                                                    <a href="#!">
-                                                        <div class="hover-overlay">
-                                                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="fby-show-product-information col-md-6 col-lg-6 col-xl-6">
-                                                <h5>${i.tour.name}</h5>
-                                                <c:if test="${i.idVoucher == 0}">
-                                                    <div class="fby-show-product-information-price d-flex flex-row">
-                                                        <span><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</span>
-                                                    </div>
-                                                </c:if>
-
-
-                                                <c:if test="${i.idVoucher != 0}">
-                                                    <div class="fby-show-product-information-price d-flex flex-row">
-                                                        <span style="color: #757582; text-decoration: line-through;"><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</span>
-                                                    </div>
-                                                    <span></span>
-                                                    <div class="fby-show-product-information-price d-flex flex-row">
-                                                        <span>Áp mã giảm giá: <fmt:formatNumber value="${i.priceSale}" pattern="###,###"/> VNÐ</span>
-                                                    </div>
-                                                </c:if>
-
-
-                                                <div class="mt-1 mb-0 text-muted small">
-                                                    <span class="text-primary">Số lượng bạn đặt: ${i.quantity} vé</span>
-                                                </div>
-                                                <p class="text-truncate mb-4 mb-md-0">
-                                                    ${i.tour.description}
-                                                </p>
-                                            </div>
-                                            <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                                                <div class="d-flex flex-row align-items-center mb-1">
-                                                    <form id="formProccessVoucher" action="proccessvoucher" method="post">
-                                                        <select id="proccessVoucher"  class="selectVoucher form-control-lg" name="selectVoucher" required>
-                                                            <option value="0" disabled selected hidden>Chọn mã giảm giá</option>
-                                                            <c:forEach items="${sessionScope.listVoucher}" var="v">
-                                                                <option <c:if test="${v.id eq i.idVoucher}">selected</c:if>  value="${v.id}">${v.code} - ${v.discount}%</option>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </form>
-                                                </div>
-                                            </div>
-
-                                        </div>   
-
-                                    </div>   
-                                </div>
-                            </div>
-                        </div>
-
-                    </c:if>
-
-                    <!--Show thông tin của các tour trong cart-->
-                    <c:if test="${sessionScope.selectCheckout == 0}">
-                        <c:set value="${sessionScope.cart}" var="o"/>
-                        <c:forEach items="${o.items}" var="i" varStatus="loop">
+                        <c:if test="${sessionScope.selectCheckout != 0}">
+                            <c:set value="${sessionScope.itemTour}" var="i"/>
                             <div class="row justify-content-center mb-3">
                                 <div class="col-md-12 col-xl-10">
                                     <div class="card shadow-0 border rounded-3">
@@ -195,11 +176,25 @@
                                                 </div>
                                                 <div class="fby-show-product-information col-md-6 col-lg-6 col-xl-6">
                                                     <h5>${i.tour.name}</h5>
-                                                    <div class="fby-show-product-information-price d-flex flex-row">
-                                                        <span><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</span>
-                                                    </div>
-                                                    <div class="mt-1 mb-0 text-muted small">
+                                                    <c:if test="${i.idVoucher == 0}">
+                                                        <div class="fby-show-product-information-price d-flex flex-row">
+                                                            <span><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</span>
+                                                        </div>
+                                                    </c:if>
+
+
+                                                    <c:if test="${i.idVoucher != 0}">
+                                                        <div class="fby-show-product-information-price d-flex flex-row">
+                                                            <span style="color: #757582; text-decoration: line-through;"><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</span>
+                                                        </div>
                                                         <span></span>
+                                                        <div class="fby-show-product-information-price d-flex flex-row">
+                                                            <span>Áp mã giảm giá: <fmt:formatNumber value="${i.priceSale}" pattern="###,###"/> VNÐ</span>
+                                                        </div>
+                                                    </c:if>
+
+
+                                                    <div class="mt-1 mb-0 text-muted small">
                                                         <span class="text-primary">Số lượng bạn đặt: ${i.quantity} vé</span>
                                                     </div>
                                                     <p class="text-truncate mb-4 mb-md-0">
@@ -208,31 +203,90 @@
                                                 </div>
                                                 <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                                                     <div class="d-flex flex-row align-items-center mb-1">
-                                                        <!--<h4 class="mb-1 me-1">$13.99</h4>-->
-                                                        <span class="text-danger">
-                                                            <div class="text-danger mb-1 me-2">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                            </div>
-                                                        </span>
+                                                        <form id="formProccessVoucher" action="proccessvoucher" method="post">
+                                                            <select id="proccessVoucher"  class="selectVoucher form-control-lg" name="selectVoucher" required>
+                                                                <option value="0" disabled selected hidden>Chọn mã giảm giá</option>
+                                                                <c:forEach items="${sessionScope.listVoucher}" var="v">
+                                                                    <c:if test="${v.supplierId eq i.tour.supplierId}">
+                                                                        <option <c:if test="${v.id eq i.idVoucher}">selected</c:if>  value="${v.id}">${v.code} - ${v.discount}%</option>
+                                                                    </c:if> 
+                                                                </c:forEach>
+                                                            </select>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                            </div>   
+
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>
+
+                        </c:if>
+
+                        <!--Show thông tin của các tour trong cart-->
+                        <c:if test="${sessionScope.selectCheckout == 0}">
+                            <c:set value="${sessionScope.cart}" var="o"/>
+                            <c:forEach items="${o.items}" var="i" varStatus="loop">
+                                <div class="row justify-content-center mb-3">
+                                    <div class="col-md-12 col-xl-10">
+                                        <div class="card shadow-0 border rounded-3">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                                                        <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                                            <img src="${i.tour.imageMain}"
+                                                                 class="w-100" />
+                                                            <a href="#!">
+                                                                <div class="hover-overlay">
+                                                                    <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fby-show-product-information col-md-6 col-lg-6 col-xl-6">
+                                                        <h5>${i.tour.name}</h5>
+                                                        <div class="fby-show-product-information-price d-flex flex-row">
+                                                            <span><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</span>
+                                                        </div>
+                                                        <div class="mt-1 mb-0 text-muted small">
+                                                            <span></span>
+                                                            <span class="text-primary">Số lượng bạn đặt: ${i.quantity} vé</span>
+                                                        </div>
+                                                        <p class="text-truncate mb-4 mb-md-0">
+                                                            ${i.tour.description}
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                                                        <div class="d-flex flex-row align-items-center mb-1">
+                                                            <!--<h4 class="mb-1 me-1">$13.99</h4>-->
+                                                            <span class="text-danger">
+                                                                <div class="text-danger mb-1 me-2">
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                </div>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </c:forEach>
-                    </c:if>
+                            </c:forEach>
+                        </c:if>
 
+                    </div>
+                </section>
+            </c:if>
 
+            <!--Khi mua hàng xong thì nó sẽ hiện màn hình trên(màn hình chúc mừng khi mua thành công)--> 
+            <c:if test="${requestScope.messBuy != null}">
 
-                </div>
-            </section>
-
-
+            </c:if>
 
 
             <div class="checkout blog">
@@ -316,7 +370,7 @@
                                                     <!--Show thông tin của tour muốn mua ngay-->
                                                     <c:if test="${sessionScope.selectCheckout != 0}">
                                                         <div style="width: 1200px" class="col-lg-4 col-xl-3">
-                                                            <h3 style="color: red">${requestScope.mess}</h3>
+                                                            <h3 style="color: red">${requestScope.messBuy}</h3>
                                                             <div class="d-flex justify-content-between" style="font-weight: 500;">
                                                                 <p class="mb-2">Tổng tiền</p>
                                                                 <p class="mb-2"><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</p>
@@ -342,16 +396,13 @@
                                                                 </button>
                                                             </form>
                                                         </div>
-
                                                     </c:if>
-
-
 
                                                     <!--Show thông tin của các tour trong cart-->
                                                     <c:if test="${sessionScope.selectCheckout == 0}">
                                                         <c:set value="${sessionScope.itemTour}" var="i"/>
                                                         <div style="width: 1200px" class="col-lg-4 col-xl-3">
-                                                            <h3 style="color: red">${requestScope.mess}</h3>
+                                                            <h3 style="color: red">${requestScope.messBuy}</h3>
                                                             <div class="d-flex justify-content-between" style="font-weight: 500;">
                                                                 <p class="mb-2">Tổng tiền</p>
                                                                 <p class="mb-2">$23.49</p>
