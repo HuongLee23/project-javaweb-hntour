@@ -535,5 +535,54 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 /*---------------------------------*/
 
+
+
+
+
+/*----------- phần select voucher -----------*/
+/* Style cho phần select */
+.selectVoucher {
+  width: 100%; /* Chiều rộng tùy chỉnh */
+  padding: 10px; /* Khoảng cách giữa nội dung và viền */
+  border: 1px solid #ced4da; /* Viền xung quanh select */
+  border-radius: 5px; /* Độ cong của góc */
+  background-color: #fff; /* Màu nền của select */
+  color: #495057; /* Màu chữ */
+  font-size: 16px; /* Cỡ chữ */
+}
+
+/* Style cho phần option */
+.selectVoucher option {
+  padding: 10px; /* Khoảng cách giữa nội dung và viền */
+}
+
+/* Style cho phần select khi được focus */
+.selectVoucher:focus {
+  outline: none; /* Loại bỏ đường viền khi focus */
+  border-color: #80bdff; /* Màu viền khi focus */
+}
+
+/* Style cho phần select khi được hover */
+.selectVoucher:hover {
+  border-color: #6c757d; /* Màu viền khi hover */
+}
+
+/* Style cho phần select khi được active */
+.selectVoucher:active {
+  border-color: #007bff; /* Màu viền khi active */
+}
+/*---------------------------------*/
+
+
+
+
+.fby-show-product-information-price-voucher{
+    
+}
+
+
+
+
+
 /*--------------------------------------------------------*/
 

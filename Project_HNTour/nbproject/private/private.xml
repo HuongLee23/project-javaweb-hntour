@@ -3,16 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/upsupplier.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/fillInformationBuyer.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/AdminDAO.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Supplier.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/view/admin/managerfeedback.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controller/ResgisterSupplierServlet.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerAdmin/ViewProfileSupplierServlet.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/view/admin/manageraccount.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/view/admin/viewprofilesupplier.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/view/admin/managerregistersupplier.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/view/admin/manageraccsupplier.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/home.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerCheckout/CheckoutServlet.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/checkout.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerCheckout/ProccessSelectServlet.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerCheckout/ProcessVoucherServlet.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Item.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/CheckoutDAO.java</file>
         </group>
     </open-files>
 </project-private>

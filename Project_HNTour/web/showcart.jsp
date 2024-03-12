@@ -101,65 +101,6 @@
                                 <div class="container h-100 py-5">
                                     <div class="row d-flex justify-content-center align-items-center h-100">
                                         <div class="col">
-
-                                            <!--                                            <div class="table-responsive">
-                                                                                            <table class="table">
-                                                                                                <thead>
-                                                                                                    <tr>
-                                                                                                        <th scope="col" class="h5">Sản phẩm trong giỏ hàng</th>
-                                                                                                        <th scope="col">Số lượng</th>
-                                                                                                        <th scope="col">Giá</th>
-                                                                                                        <th scope="col">Thao tác</th>
-                                                                                                    </tr>
-                                                                                                </thead>
-                                                                                                <tbody>
-                                            <c:set value="${requestScope.cart}" var="o"/>
-                                            <c:forEach items="${o.items}" var="i" varStatus="loop">
-                                                <tr>
-                                                    <th scope="row" class="border-bottom-0">
-                                                        <div style="justify-content: space-evenly" class="d-flex align-items-center">
-                                                            <img src="${i.tour.imageMain}" class="img-fluid rounded-3"
-                                                                 style="width: 120px;" alt="${i.tour.name}">
-                                                            <div class="flex-column ms-4">
-                                                                <p class="mb-2">${i.tour.name}</p>
-                                                                <p class="mb-0">Yuval Noah Harari</p>
-                                                            </div>
-                                                        </div>
-                                                    </th>
-                                                    <td class="align-middle border-bottom-0">
-                                                        <div class="d-flex flex-row">
-                                                            <a href="processcart?num=-1&id=${i.tour.id}">
-                                                                <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                                    <i class="fas fa-minus"></i>
-                                                                </button>
-                                                            </a>
-
-                                                            <input id="form1" min="0" name="quantity" value="${i.quantity}" type="number"
-                                                                   class="form-control form-control-sm" style="width: 50px;" />
-
-                                                            <a href="processcart?num=1&id=${i.tour.id}">
-                                                                <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                                    <i class="fas fa-plus"></i>
-                                                                </button>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                    <td class="align-middle border-bottom-0">
-                                                        <p class="mb-0" style="font-weight: 500;"><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</p>
-                                                    </td>
-                                                    <td class="align-middle border-bottom-0" style="text-align: center;">
-                                                        <form id="myForm${loop.index}" action="processcart" method="post">
-                                                            <input type="hidden" name="id" value="${i.tour.id}">
-                                                            <i class="fa-solid fa-trash-can" style="color: #ff0000; cursor: pointer;" onclick="submitForm(${loop.index})"></i>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>-->
-
                                             <div class="table-responsive">
                                                 <table class="table">
                                                     <thead>

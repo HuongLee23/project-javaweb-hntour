@@ -95,15 +95,11 @@ public class AddItemServlet extends HttpServlet {
 
         Cart cart = new Cart(txt, list);
         List<Item> listItem = cart.getItems();
-        int size;
-        if (listItem != null) {
-            size = listItem.size();
-        } else {
-            size = 0;
-        }
+        int size = (listItem != null) ? listItem.size() : 0;
 
         session.setAttribute("sizeCart", size);
         session.setAttribute("listItem", listItem);
+
         request.getRequestDispatcher("tourlist").forward(request, response);
 
     }
@@ -150,12 +146,7 @@ public class AddItemServlet extends HttpServlet {
 
         Cart cart = new Cart(txt, list);
         List<Item> listItem = cart.getItems();
-        int size;
-        if (listItem != null) {
-            size = listItem.size();
-        } else {
-            size = 0;
-        }
+        int size = (listItem != null) ? listItem.size() : 0;
 
         session.setAttribute("sizeCart", size);
         session.setAttribute("listItem", listItem);

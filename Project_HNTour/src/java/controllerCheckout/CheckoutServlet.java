@@ -4,6 +4,7 @@
  */
 package controllerCheckout;
 
+import dal.CheckoutDAO;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -68,15 +69,25 @@ public class CheckoutServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
+        CheckoutDAO checkoutDao = new CheckoutDAO();
+        Account account = (Account) session.getAttribute("account");
+        Tour tour = (Tour) session.getAttribute("tourFill");
 
         String selectCheckout_raw = request.getParameter("selectCheckout");
         String idInfor_raw = request.getParameter("idInfor");
 
         int selectCheckout, idInfor;
         try {
-            selectCheckout = Integer.parseInt(selectCheckout_raw);
-            idInfor = Integer.parseInt(idInfor_raw);
+            //nhận dữ liệu được giử từ fillInformation.jsp
+            selectCheckout = selectCheckout_raw != null ? Integer.parseInt(selectCheckout_raw) : (int) session.getAttribute("selectCheckout");
+            idInfor = idInfor_raw != null ? Integer.parseInt(idInfor_raw) : (int) session.getAttribute("idInfor");
+            List<Voucher> listVoucher = checkoutDao.listVoucherByIdAcc(account.getId());
 
+            //Giử itemTour lên checkout.jsp
+            Item itemTour = new Item(tour, 1, tour.getPrice());
+
+            session.setAttribute("listVoucher", listVoucher);
+            session.setAttribute("itemTour", itemTour);
             session.setAttribute("selectCheckout", selectCheckout);
             session.setAttribute("idInfor", idInfor);
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
@@ -96,6 +107,7 @@ public class CheckoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        CheckoutDAO checkoutDao = new CheckoutDAO();
         DAO dao = new DAO();
 
         List<Tour> list = dao.getAllTour();
@@ -114,25 +126,30 @@ public class CheckoutServlet extends HttpServlet {
         int selectCheckout = (int) session.getAttribute("selectCheckout");
         Account account = (Account) session.getAttribute("account");
 
-//        PrintWriter out = response.getWriter();
-//        out.println("idInfor:" + idInfor);
-//        out.println("selectCheckout:" + selectCheckout);
-//        out.println("account:" + account.getUsername());
-//        out.println("cart:" + cart.getItems().get(1).getTour().getName());
         Voucher v = null;
         if (account == null) {
             response.sendRedirect("login.jsp");
         } else {
 
             if (selectCheckout != 0) {
-                int idTour = selectCheckout;
-                Tour tour = dao.getTourByID(idTour);
+                Item itemTour = (Item) session.getAttribute("itemTour");
+//                int idTour = selectCheckout;
+//                Tour tour = dao.getTourByID(idTour);
 
-//                dao.addOrderForBuyNow(tour, account, idInfor, cart, v);
+//                PrintWriter out = response.getWriter();
+//                out.print("mã voucher "+ itemTour.getIdVoucher());
+//                
+//                
+                boolean result = checkoutDao.addOrderForBuyNow(itemTour, account, idInfor);
+                if (result) {
+                    request.setAttribute("mess", "Mua hàng trong cart thành công");
+                } else {
+                    request.setAttribute("mess", "Mua hàng trong cart thất bại");
+                }
+
             } else {
-                boolean ressult = dao.addOrderForCart(account, idInfor, cart, v);
-
-                if (ressult) {
+                boolean result = checkoutDao.addOrderForCart(account, idInfor, cart, 0);
+                if (result) {
                     Cookie c = new Cookie("cart", "");
                     c.setMaxAge(0);
                     response.addCookie(c);

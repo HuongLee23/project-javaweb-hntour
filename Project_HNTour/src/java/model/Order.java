@@ -16,66 +16,56 @@ public class Order {
             idInforAcc;
     private String date;
     private double totalPrice;
-    private int voucherId;
 
     public Order() {
     }
 
-    public Order(int id, int accountId, int idInforAcc, String date, double totalPrice, int voucherId) {
+    public Order(int id, int accountId, int idInforAcc, String date, double totalPrice) {
         this.id = id;
         this.accountId = accountId;
         this.idInforAcc = idInforAcc;
         this.date = date;
         this.totalPrice = totalPrice;
-        this.voucherId = voucherId;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getAccountId() {
-        return accountId;
-    }
-
-    public int getIdInforAcc() {
-        return idInforAcc;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public int getVoucherId() {
-        return voucherId;
-    }
-
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getAccountId() {
+        return accountId;
     }
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
 
+    public int getIdInforAcc() {
+        return idInforAcc;
+    }
+
     public void setIdInforAcc(int idInforAcc) {
         this.idInforAcc = idInforAcc;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public void setDate(String date) {
         this.date = date;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setVoucherId(int voucherId) {
-        this.voucherId = voucherId;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     

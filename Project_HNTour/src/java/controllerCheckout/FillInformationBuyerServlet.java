@@ -70,33 +70,45 @@ public class FillInformationBuyerServlet extends HttpServlet {
         DAO dao = new DAO();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
-        if (account == null) {
-            request.setAttribute("error", "Bạn chưa đăng nhập!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        String typeFill = (String) session.getAttribute("typeFill");
+        if (typeFill != null && typeFill.equals("post")) {
+            session.removeAttribute("typeFill");
+            doPost(request, response);
         } else {
-            List<Tour> list = dao.getAllTour();
             String id_raw = request.getParameter("id");
-            int id;
-            Tour tour = null;
-            try {
-                id = Integer.parseInt(id_raw);
-                for (Tour tour1 : list) {
-                    if (tour1.getId() == id) {
-                        tour = tour1;
-                        break;
+            int id = id_raw != null ? Integer.parseInt(id_raw) : (int) session.getAttribute("idFill");
+
+            if (account == null) {
+                request.setAttribute("error", "Bạn chưa đăng nhập!");
+                session.setAttribute("idFill", id);
+                session.setAttribute("typeFill", "get");
+                session.setAttribute("lastVisitedPage", "fillinformationbuyer");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
+                List<Tour> list = dao.getAllTour();
+                Tour tour = null;
+                try {
+//                id = Integer.parseInt(id_raw);
+                    for (Tour tour1 : list) {
+                        if (tour1.getId() == id) {
+                            tour = tour1;
+                            break;
+                        }
                     }
+
+                    List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(account.getId());
+
+                    session.setAttribute("tourFill", tour);
+                    session.setAttribute("idSelectOne", id);
+                    request.setAttribute("listInforAcc", listInformationAccount);
+                    request.getRequestDispatcher("fillInformationBuyer.jsp").forward(request, response);
+                } catch (NumberFormatException e) {
+                    System.out.println(e);
                 }
-
-                List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(account.getId());
-
-                session.setAttribute("tourFill", tour);
-                session.setAttribute("idSelectOne", id);
-                request.setAttribute("listInforAcc", listInformationAccount);
-                request.getRequestDispatcher("fillInformationBuyer.jsp").forward(request, response);
-            } catch (NumberFormatException e) {
-                System.out.println(e);
             }
+
         }
+
     }
 
     /**
@@ -131,6 +143,8 @@ public class FillInformationBuyerServlet extends HttpServlet {
         Account account = (Account) session.getAttribute("account");
         if (account == null) {
             request.setAttribute("error", "Bạn chưa đăng nhập!");
+            session.setAttribute("typeFill", "post");
+            session.setAttribute("lastVisitedPage", "fillinformationbuyer");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(account.getId());
