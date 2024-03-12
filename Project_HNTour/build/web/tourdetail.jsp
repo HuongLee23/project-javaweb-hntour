@@ -291,6 +291,23 @@
                                 <div class="hotel_info_text">
                                     <p>${detail.description}</p>
                                 </div>
+                                 <div class="hotel_info_text">
+                                     <table>
+                                          <thead>
+                                            <tr>
+                                                <th>Quy định</th>
+                                            </tr>
+                                        </thead>
+                                         <tbody>
+                                                <tr>
+                                                
+                                                    <td style="text-align: justify;">${detail.rule}</td>
+                                                </tr>
+                                                <!-- Add more rows as needed -->
+                                            </tbody>
+                                     </table>
+                                    
+                                </div>
 
                                 <!-- Schedules Section -->
                                 <div class="schedules">
@@ -421,7 +438,8 @@
                                     <div class="col-md-4">
                                         <div class="be-comment-block">
                                             <c:set value="${sessionScope.account}" var="a" />
-                                            <c:if test="${not empty a and not empty a.id and a.role == 3}">
+                                            <c:if test="${not empty a and not empty a.id and a.role == 3 and checkuser}">
+                                                <c:if test="${numberFB <= 2}">
                                                 <form class="form-block" action="addFeedback" method="post">
                                                     <input type="hidden" name="accId" value="${a.id}">
                                                     <input type="hidden" name="tourId" value="${detail.id}">
@@ -436,7 +454,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="comment">Comment:</label>
-                                                        <textarea class="form-control" name="comment" id="describe" required placeholder="Your text"></textarea>
+                                                        <textarea class="form-control" name="comment"  required placeholder="Your text"></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="rating">Your Rating:</label>
@@ -450,6 +468,7 @@
                                                     </div>
                                                     <button type="submit" class="btn btn-primary btn-block" style="background: #fa9e1b; border:0px;">Submit</button>
                                                 </form>
+                                                    </c:if>
                                             </c:if>
 
 

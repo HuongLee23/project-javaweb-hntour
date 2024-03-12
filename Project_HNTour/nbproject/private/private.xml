@@ -3,18 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/Delete.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/addblog.jsp</file>
             <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/blog.jsp</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/AddBlogServlet.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/ManagerBlogs.jsp</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/EditFeedback.jsp</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controllerAccount/ProfileAccount.java</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/AddFeedbackServlet.java</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/role3.jsp</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/TourDetailServlet.java</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/historyorderdetail.jsp</file>
             <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/dal/DAO.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/DeleteBlogServlet.java</file>
             <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/EditTour.jsp</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/editblog.jsp</file>
             <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/ManagerTourList.java</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/HistoryOrderDetailOfCustomerServlet.java</file>
+            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/tourdetail.jsp</file>
         </group>
     </open-files>
 </project-private>

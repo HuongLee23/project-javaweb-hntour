@@ -24,6 +24,8 @@ import model.Feedback;
 
 import model.InformationAccount;
 import model.Item;
+import model.Order;
+import model.OrderDetail;
 
 import model.Schedules;
 import model.Tour;
@@ -1777,7 +1779,7 @@ public class DAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, idsell);
-           
+
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Blog blogs = new Blog();
@@ -1833,12 +1835,11 @@ public class DAO extends DBContext {
         return list;
     }
 
-    public void updateBlog( String title, String content, String image, String status,int bid) {
+    public void updateBlog(String title, String content, String image, String status, int bid) {
         String sql = "UPDATE [dbo].[Blog]\n"
                 + "   SET [title] = ?\n"
                 + "      ,[content] = ?\n"
                 + "      ,[image] = ?\n"
-                
                 + "      ,[status] = ?\n"
                 + " WHERE  [id] =?;";
         try {
@@ -1847,8 +1848,7 @@ public class DAO extends DBContext {
             rs.setString(1, title);
             rs.setString(2, content);
             rs.setString(3, image);
-            
-           
+
             rs.setString(4, status);
             rs.setInt(5, bid);
             rs.executeUpdate();
@@ -1856,7 +1856,8 @@ public class DAO extends DBContext {
         } catch (SQLException e) {
         }
     }
-public void deleteBlog(String id) {
+
+    public void deleteBlog(String id) {
         String sql = "delete from blog where id =?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -1867,29 +1868,158 @@ public void deleteBlog(String id) {
         } catch (SQLException e) {
         }
     }
-public void insertBlog(String title, String content, String image, Date publishDate, int accountId, String status) {
-    String sql = "INSERT INTO [dbo].[Blog] " +
-                 "([title], [content], [image], [publishDate], [accountId], [status]) " +
-                 "VALUES (?, ?, ?, ?, ?, ?)";
-    try (PreparedStatement rs = connection.prepareStatement(sql)) {
-        rs.setString(1, title);
-        rs.setString(2, content);
-        rs.setString(3, image);
-        rs.setDate(4, publishDate);
-        rs.setInt(5, accountId);
-        rs.setString(6, status);
-        
-        rs.executeUpdate();
-    } catch (SQLException e) {
-        // Xử lý ngoại lệ
-        e.printStackTrace();
-    }
-}
 
-public static void main(String[] args) {
-    DAO d = new DAO();
-    d.deleteBlog("6");
-}
+    public void insertBlog(String title, String content, String image, Date publishDate, int accountId, String status) {
+        String sql = "INSERT INTO [dbo].[Blog] "
+                + "([title], [content], [image], [publishDate], [accountId], [status]) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+        try ( PreparedStatement rs = connection.prepareStatement(sql)) {
+            rs.setString(1, title);
+            rs.setString(2, content);
+            rs.setString(3, image);
+            rs.setDate(4, publishDate);
+            rs.setInt(5, accountId);
+            rs.setString(6, status);
+
+            rs.executeUpdate();
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ
+            e.printStackTrace();
+        }
+    }
+
+    public List<OrderDetail> getHistoryOrder(int idAcc) {
+        List<OrderDetail> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000) OD.[orderId]\n"
+                + "      ,OD.[tourId]\n"
+                + "      ,OD.[quantity]\n"
+                + "      ,OD.[price] AS [ORDER PRICE]\n"
+                + "      ,OD.[versionId],\n"
+                + "	  T.[name],\n"
+                + "	  T.[imageMain],\n"
+                + "	  T.[price], O.[accId],O.[date]\n"
+                + "  FROM [HaNoiTour].[dbo].[OrderDetail] OD JOIN [Tour] T ON OD.[tourId] = T.[id]\n"
+                + "    JOIN [Order] O ON OD.[orderId] = O.[id] WHERE O.[accId]= ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, idAcc);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                OrderDetail orderdetail = new OrderDetail();
+                orderdetail.setOrderId(rs.getInt("orderId"));
+                orderdetail.setTourId(rs.getInt("tourId"));
+                orderdetail.setQuantity(rs.getInt("quantity"));
+                orderdetail.setPrice(rs.getInt("ORDER PRICE"));
+                orderdetail.setVersionId(rs.getInt("versionId"));
+                orderdetail.setNameTour(rs.getString("name"));
+                orderdetail.setImageTour(rs.getString("imageMain"));
+                orderdetail.setPriceTour(rs.getInt("price"));
+                orderdetail.setAccId(rs.getInt("accId"));
+                orderdetail.setDateOrder(rs.getDate("date"));
+                list.add(orderdetail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public boolean checkUserOrder(int accId, int tourId) {
+        boolean userHasPurchased = false;
+        String sql = "SELECT TOP (1000)\n"
+                + "      OD.[tourId]\n"
+                + "	   ,O.[accId]\n"
+                + "  FROM [HaNoiTour].[dbo].[OrderDetail] OD \n"
+                + "    JOIN [Order] O ON OD.[orderId] = O.[id] WHERE O.[accId]= ? and OD.[tourId]=?;";
+
+        try ( PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accId);
+            ps.setInt(2, tourId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                userHasPurchased = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userHasPurchased;
+    }
+ public int countUserFeedback(int accountId, int tourId) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS num_feedback FROM Feedback WHERE accId = ? and tourId= ?;";
+        
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accountId);
+            ps.setInt(2, tourId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("num_feedback");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return count;
+    }
+ public List<Blog> searchBlogByName(String txtSearch) {
+        List<Blog> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000)\n"
+                + "    B.[id],\n"
+                + "    B.[title],\n"
+                + "    B.[content],\n"
+                + "    B.[image],\n"
+                + "    B.[publishDate],\n"
+                + "    B.[accountId],B.[status],"
+                + "    A.[username] as [accountName]\n"
+                + "FROM [HaNoiTour].[dbo].[Blog] B JOIN [dbo].[Account] A ON B.[accountId]=A.[id] where B.[title] like ?;";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%" + txtSearch + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(
+                        new Blog(
+                       rs.getInt("id"),
+                            rs.getString("title"),
+                            rs.getString("content"),
+                            rs.getString("image"),
+                            rs.getDate("publishDate"),
+                            rs.getInt("accountId"),
+                            rs.getString("accountName"),
+                            rs.getString("status")
+                // Add missing commas and complete the constructor parameters as needed
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+  public void addBlogCommen(int accBlog, String comment, Date commentDate) {
+        String sql = "INSERT INTO Feedback (accId, tourId, versionId, comment, rating) VALUES (?, ?, ?, ?, ?)";
+
+        try {
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, accBlog);
+            statement.setString(4, comment);
+            statement.setDate(5, commentDate);
+            statement.executeUpdate();
+
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) {
+        DAO d = new DAO();
+        List<OrderDetail> list = d.getHistoryOrder(5);
+        System.out.println(list);
+    }
 
 //        if (!tourList.isEmpty()) {
 //            for (Tour tour : tourList) {
