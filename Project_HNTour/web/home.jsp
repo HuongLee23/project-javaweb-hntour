@@ -22,8 +22,9 @@
         <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
 
         <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
-        <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+       
         <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+        <link rel="stylesheet" href="./assets/css/main.css"/>
         <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
     </head>
 

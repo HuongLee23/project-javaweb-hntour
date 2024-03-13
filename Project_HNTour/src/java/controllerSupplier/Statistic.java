@@ -72,10 +72,11 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     TotalInvoiceOfCategory totalCate = dao.getTotalInvoiceCate(supplierId);
 List<TopProduct> listTopProduct = dao.listTopProduct(supplierId);
 List<TopProduct> listTopAcc = dao.listTopAccounts(supplierId);
-   
+   List<TopProduct> listInvoice = dao.listInvoice(supplierId);
     request.setAttribute("totalCate", totalCate);
  request.setAttribute("listTopPro", listTopProduct);
  request.setAttribute("listTopAcc", listTopAcc);
+  request.setAttribute("listInvoice", listInvoice);
     // Forward the request to the "DashboardSupplier.jsp" page
     request.getRequestDispatcher("DashboardSupplier.jsp").forward(request, response);
 }

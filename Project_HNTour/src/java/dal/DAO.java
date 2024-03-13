@@ -2047,27 +2047,105 @@ public class DAO extends DBContext {
     return list;
 }
 
+    
+    public Order getOrderByID(int orderId) {
+        Order order = null;
+        String sql = "SELECT * FROM [HaNoiTour].[dbo].[Order] WHERE id = ?;";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, orderId);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                order = new Order();
+                order.setId(rs.getInt("id"));
+                order.setAccountId(rs.getInt("accId"));
+           
+                order.setDate(rs.getString("date"));
+                order.setTotalPrice(rs.getDouble("totalPrice"));
+                order.setVoucherId(rs.getInt("voucherId"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+
+        return order;
+    }
+    
+     public List<TopProduct> listInvoice(int supplierId) {
+    List<TopProduct> list = new ArrayList<>();
+    String sql = " SELECT \n" +
+        "    [Order].id AS InvoiceNumber,\n" +
+        "    Tour.id AS TourId,\n" +
+        "    Tour.name AS TourName,\n" +
+        "    Tour.price AS TourPrice,\n" +
+        "    Account.id AS AccountId,\n" +
+        "    Account.username AS CustomerName,\n" +
+        "    Account.phoneNumber AS CustomerPhone,\n" +
+        "    Account.address AS CustomerAddress,\n" +
+        "    [Order].date AS PurchaseDate\n" +
+        "FROM \n" +
+        "    [HaNoiTour].[dbo].[Tour] AS Tour\n" +
+        "JOIN \n" +
+        "    [HaNoiTour].[dbo].[OrderDetail] AS OrderDetail ON Tour.id = OrderDetail.tourId\n" +
+        "JOIN \n" +
+        "    [HaNoiTour].[dbo].[Order] AS [Order] ON OrderDetail.orderId = [Order].id\n" +
+        "JOIN \n" +
+        "    [HaNoiTour].[dbo].[Account] AS Account ON [Order].accId = Account.id \n" +
+        "WHERE \n" +
+        "    supplierId = ?;";
+
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, supplierId);
+        ResultSet rs = st.executeQuery();
+        DAO d = new DAO();
+        while (rs.next()) {
+            TopProduct tp = new TopProduct();
+            Order order = d.getOrderByID(rs.getInt("InvoiceNumber"));
+            Tour tour = d.getTourByID(rs.getInt("TourId"));
+            Account account = d.getAccountByID(rs.getInt("AccountId"));
+            tp.setOrder(order);
+            tp.setTour(tour);
+            tp.setAccount(account);
+            list.add(tp);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // Handle the exception appropriately
+    }
+    return list;
+}
+
+
+
 
     public static void main(String[] args) {
-        // Assuming you have a DAO instance and a database connection
-        // Replace the following line with your actual DAO instantiation and connection logic
-        DAO dao = new DAO();
+    // Assuming you have a DAO instance
+    DAO dao = new DAO();
 
-        // Replace 2 with the actual supplierId you want to query
-        int supplierId = 2;
+    // Replace 2 with the actual supplierId you want to query
+    int supplierId = 2;
 
-        // Call the listTopProduct method and print the results
-        List<TopProduct> topProducts = dao.listTopProduct(supplierId);
+    // Call the listInvoice method and print the results
+    List<TopProduct> topProducts = dao.listInvoice(supplierId);
 
-        // Print the results
-        for (TopProduct topProduct : topProducts) {
-            System.out.println("Tour ID: " + topProduct.getTour().getId());
+    // Print the results
+    for (TopProduct topProduct : topProducts) {
+        System.out.println("Invoice Number: " + (topProduct.getOrder() != null ? topProduct.getOrder().getId() : "N/A"));
+        
+        if (topProduct.getTour() != null) {
             System.out.println("Tour Name: " + topProduct.getTour().getName());
-            System.out.println("Tour Price: " + topProduct.getTour().getPrice());
-            System.out.println("OrderDetail Quantity: " + (topProduct.getOrderdetail() != null ? topProduct.getOrderdetail().getQuantity() : "null"));
-            System.out.println("----------------------------------");
+            // Print other tour details if needed
+        } else {
+            System.out.println("Tour Name: N/A");
         }
+
+        System.out.println("-----");
     }
+}
+
+}
+
 
 //        if (!tourList.isEmpty()) {
 //            for (Tour tour : tourList) {
@@ -2076,4 +2154,4 @@ public class DAO extends DBContext {
 //        } else {
 //            System.out.println("No tours found.");
 //        }
-}
+

@@ -61,9 +61,9 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="role2.jsp">
+                            <a class="nav-link" href="home">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Điều khiển
+                                Trang Chủ
                             </a>
 
                             <a class="nav-link" href="managertourlist">
@@ -184,6 +184,7 @@
                                                     <th>Tên khách hàng</th>
                                                     <th>Số điện thoại</th>
                                                     <th>Địa chỉ</th>
+                                                    <th>Voucher</th> 
                                                 </tr>
                                             </thead>
 
@@ -194,6 +195,11 @@
                                                         <td>${listTA.account.username}</td>
                                                         <td>${listTA.account.phoneNumber}</td>
                                                         <td>${listTA.account.address}</td>
+                                                        <td>
+                                
+                                                           <a href="" class="btn btn-primary">Tặng Voucher</a>
+                                
+                            </td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
@@ -223,15 +229,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${sessionScope.data}" var="o">
+                                        <c:forEach items="${requestScope.listInvoice}" var="o">
                                             <tr>
-                                                <td>${o.invoice.id}</td>
-                                                <td>${o.product.name}</td>
-                                                <td><fmt:formatNumber value="${o.invoice.orderTotal}" pattern="###,###"/> VND</td>
+                                                <td>${o.order.id}</td>
+                                                <td>${o.tour.name}</td>
+                                                <td><fmt:formatNumber value="${o.tour.price}" pattern="###,###"/> VND</td>
                                                 <td>${o.account.username}</td>
                                                 <td>${o.account.phoneNumber}</td>
                                                 <td>${o.account.address}</td>
-                                                <td>${o.invoice.purchaseDate}</td>
+                                                <td>${o.order.date}</td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
