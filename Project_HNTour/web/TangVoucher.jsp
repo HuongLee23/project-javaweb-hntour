@@ -1,6 +1,6 @@
 <%-- 
-    Document   : ManagerVoucher
-    Created on : Mar 5, 2024, 9:31:42 PM
+    Document   : TangVoucher
+    Created on : Mar 13, 2024, 11:03:27 PM
     Author     : Admin
 --%>
 
@@ -14,13 +14,15 @@
     <title>Manage Vouchers</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
-        }
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 20px;
+        background-image: url(''); /* Replace 'your-image-url.jpg' with the path to your background image */
+        background-size: cover;
+        color: #333;
+    }
 
         h2 {
-            color: #333;
+            color: #3498db;
         }
 
         form {
@@ -35,6 +37,7 @@
             display: block;
             margin-bottom: 10px;
             font-weight: bold;
+            color: #333;
         }
 
         input, select {
@@ -48,13 +51,13 @@
         }
 
         input[type="submit"] {
-            background-color: #4caf50;
+            background-color: #2ecc71;
             color: #fff;
             cursor: pointer;
         }
 
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #27ae60;
         }
 
         table {
@@ -70,7 +73,8 @@
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #3498db;
+            color: #fff;
         }
 
         .button-edit a {
@@ -101,18 +105,32 @@
         }
 
         a.delete i {
-            color: blue;
+            color: #3498db;
             cursor: pointer;
         }
 
         a.delete i:hover {
-            color: darkblue;
+            color: #2980b9;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
-<h2>Tạo voucher mới</h2>
-<form action="managervoucher" method="post">
+<h2>Tặng voucher mới</h2>
+<form action="tangvoucher" method="post">
     <c:set value="${requestScope.account}" var="a" />
 
     <label for="code">Mã Code:</label>
@@ -130,7 +148,6 @@
     <!-- Add a dropdown for selecting the user to whom the voucher will be given -->
     <label for="nguoinhan">Người nhận voucher:</label>
     <select name="nguoinhan">
-        <option value="">-- Chọn người nhận --</option>
         <c:forEach items="${requestScope.users}" var="user">
             <option value="${user.account.id}">${user.account.username}</option>
         </c:forEach>
@@ -139,52 +156,11 @@
     <input type="hidden" name="supplierId" value="${a.id}">
 
     <input type="submit" value="Add Voucher">
-    <h3 style="color: red">${sessionScope.tbvoucher}</h3>
+    <h3 style="color: red">${sessionScope.tangvoucher}</h3>
     <hr>
 
-    <h2>Existing Vouchers</h2>
-    <table>
-        <tr>
-            <th>Mã Code</th>
-            <th>Phần trăm giảm giá</th>
-            <th>Trạng thái</th>
-            <th>Đối tượng nhận</th>
-            <th>Xóa</th>
-        </tr>
-        <c:forEach items="${requestScope.voucher}" var="c">
-            <tr>
-                <td>${c.voucher.code}</td>
-                <td>${c.voucher.discount}</td>
-                <td style="color: #00adef">
-                    <c:choose>
-                        <c:when test="${c.voucher.status}">
-                            <div class="button-edit">
-                                <i class="fa-solid fa-lock"></i>
-                                <a id="button-edit-customer" href="statusvoucher?id=${c.voucher.id}"
-                                   style="text-decoration: none; color: greenyellow">Hoạt động</a>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="button-edit">
-                                <i class="fa-solid fa-lock-open"></i>
-                                <a id="button-edit-customer" href="statusvoucher?id=${c.voucher.id}"
-                                   style="text-decoration: none; color: red">Không hoạt động</a>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-                <td>${c.account.username}</td>
-                <td>
-                    <a href="deletevoucher?vid=${c.voucher.id}" class="delete" data-toggle="modal">
-                        <i class="material-icons" data-toggle="tooltip" title="Delete" style="color: red">Delete</i>
-                    </a>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-
-    <a href="statistic?supplierId=${a.id}" class="delete" data-toggle="modal">
-        <i class="material-icons" data-toggle="tooltip" title="Delete" style="color: blue">Trở về</i>
+    <a href="statistic?supplierId=${a.id}" class="back-btn">
+        <i class="material-icons"></i> Trở về
     </a>
 </form>
 </body>

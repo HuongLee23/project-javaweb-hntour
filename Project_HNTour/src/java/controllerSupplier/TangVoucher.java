@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controllerSupplier;
 
 import dal.DAO;
 import java.io.IOException;
@@ -14,20 +14,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.sql.SQLException;
 import java.util.List;
 import model.Account;
 import model.AccountVoucher;
 import model.TopProduct;
-import model.Tour;
-import model.Voucher;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name="ManagerVoucher", urlPatterns={"/managervoucher"})
-public class ManagerVoucher extends HttpServlet {
+@WebServlet(name="TangVoucher", urlPatterns={"/tangvoucher"})
+public class TangVoucher extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -44,10 +41,10 @@ public class ManagerVoucher extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManagerVoucher</title>");  
+            out.println("<title>Servlet TangVoucher</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManagerVoucher at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet TangVoucher at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,18 +61,20 @@ public class ManagerVoucher extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-  
+       
          HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
+          String aid_raw = request.getParameter("aid");
+          int aid=Integer.parseInt(aid_raw);
         DAO dao = new DAO();
         request.setAttribute("account", account);
          List<AccountVoucher> voucherofaccount = dao.voucherOfAccount(account.getId());
         request.setAttribute("voucher", voucherofaccount);
 
-         List<TopProduct> listAccVoucher = dao.listAccountsVoucher(account.getId());
+         List<TopProduct> listAccVoucher = dao.AccountIdVoucher(account.getId(),aid);
     request.setAttribute("users", listAccVoucher);
        
-        request.getRequestDispatcher("ManagerVoucher.jsp").forward(request, response);
+        request.getRequestDispatcher("TangVoucher.jsp").forward(request, response);
     } 
 
     /** 
@@ -89,7 +88,7 @@ public class ManagerVoucher extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     HttpSession session = request.getSession();
-
+   
     // Retrieve form parameters
     String code = request.getParameter("code");
     int discountPercentage = Integer.parseInt(request.getParameter("discountPercentage"));
@@ -100,22 +99,23 @@ public class ManagerVoucher extends HttpServlet {
     boolean isCodeExists = dao.isVoucherCodeExists(code,supplierId); // Check if the code already exists
 
     String nguoinhan_raw = request.getParameter("nguoinhan");
-
-try {
-    // Check if nguoinhan_raw is empty or null
+// Check if nguoinhan_raw is empty or null
     int nguoinhan = (nguoinhan_raw != null && !nguoinhan_raw.isEmpty()) ? Integer.parseInt(nguoinhan_raw) : 0;
+try {
+  
+
 
     // Validate and insert into the database
     if (!isCodeExists) {
         // Assuming you have a method to insert a new voucher in DAO
         dao.insertVoucher(code, discountPercentage, status, supplierId, nguoinhan);
-        session.setAttribute("tbvoucher", "Thêm Voucher thành công!");
+        session.setAttribute("tangvoucher", "Tặng Voucher thành công!");
     } else {
-        session.setAttribute("tbvoucher", "Mã code Voucher đã tồn tại trước đó. Vui lòng thử lại!");
+        session.setAttribute("tangvoucher", "Mã code Voucher đã tồn tại trước đó. Vui lòng thử lại!");
     }
 } catch (NumberFormatException e) {
     // Handle the case where nguoinhan_raw is not a valid integer
-    session.setAttribute("tbvoucher", "Lỗi khi xử lý người nhận. Vui lòng chọn lại!");
+    session.setAttribute("tangvoucher", "Lỗi khi xử lý người nhận. Vui lòng chọn lại!");
 }
 
    
@@ -129,14 +129,9 @@ try {
     request.setAttribute("users", listAccVoucher);
 
 // Redirect to the manager voucher page
-response.sendRedirect("managervoucher");
+ response.sendRedirect("tangvoucher?aid=" + nguoinhan);
 
 }
-
-
-
-
-    
 
     /** 
      * Returns a short description of the servlet.

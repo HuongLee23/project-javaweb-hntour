@@ -76,7 +76,7 @@
                             </div>
 
                             <div class="transfer__form">
-                                <a class="transfer__form-link2" href="home.jsp">
+                                <a class="transfer__form-link2" href="home">
                                     Trở lại
                                 </a>
                             </div>

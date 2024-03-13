@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.AccountVoucher;
 import model.Cart;
 import model.Category;
 import model.Feedback;
@@ -1652,51 +1653,33 @@ public class DAO extends DBContext {
         }
     }
 
-    public void insertVoucher(String code, int discount, boolean status, int supplierId) {
-        String sql = "INSERT INTO [dbo].[Voucher]\n"
-                + "   ([code]\n"
-                + "   ,[discountPercentage]\n"
-                + "   ,[status]\n"
-                + "   ,[supplierId])\n"
-                + "VALUES (?, ?, ?, ?)";
+    public void insertVoucher(String code, int discount, boolean status, int supplierId, int idAcc) {
+    String sql = "INSERT INTO [dbo].[Voucher]\n"
+            + "   ([code]\n"
+            + "   ,[discountPercentage]\n"
+            + "   ,[status]\n"
+            + "   ,[supplierId]\n"
+            + "   ,[idAcc])\n"
+            + "VALUES (?, ?, ?, ?, ?)";
 
-        try ( PreparedStatement st = connection.prepareStatement(sql)) {
-            // Set values for the parameters
-            st.setString(1, code);
-            st.setInt(2, discount);
-            st.setBoolean(3, status); // Use the actual status value
-            st.setInt(4, supplierId);
+    try (PreparedStatement st = connection.prepareStatement(sql)) {
+        // Set values for the parameters
+        st.setString(1, code);
+        st.setInt(2, discount);
+        st.setBoolean(3, status);
+        st.setInt(4, supplierId);
+        st.setInt(5, idAcc);
 
-            // Execute the update
-            st.executeUpdate();
-        } catch (SQLException e) {
-            // Log or print the exception for debugging purposes
-            e.printStackTrace();
-        }
+        // Execute the update
+        st.executeUpdate();
+    } catch (SQLException e) {
+      
+        e.printStackTrace();
+       
     }
+}
 
-    public List<Voucher> getVoucherBySupllierID(int supplierId) {
-        List<Voucher> list = new ArrayList<>();
-        String sql = "SELECT [id], [code], [discountPercentage], [status], [supplierId] FROM [HaNoiTour].[dbo].[Voucher] WHERE supplierId=?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, supplierId);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Voucher voucher = new Voucher(
-                        rs.getInt("id"),
-                        rs.getString("code"),
-                        rs.getInt("discountPercentage"),
-                        rs.getBoolean("status"),
-                        rs.getInt("supplierId")
-                );
-                list.add(voucher);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
+    
 
     public void banVoucher(int id) {
         String sql = "Update Voucher\n"
@@ -1736,7 +1719,8 @@ public class DAO extends DBContext {
                         rs.getString("code"),
                         rs.getInt("discountPercentage"),
                         rs.getBoolean("status"),
-                        rs.getInt("supplierId")
+                        rs.getInt("supplierId"),
+                        rs.getInt("idAcc")
                 );
             }
         } catch (SQLException e) {
@@ -1777,13 +1761,17 @@ public class DAO extends DBContext {
         return status;
     }
 
-    public boolean isVoucherCodeExists(String voucherCode) {
+    public boolean isVoucherCodeExists(String voucherCode,int supplierId) {
         boolean exists = false;
 
-        String sql = "SELECT COUNT(*) FROM Voucher WHERE code = ?";
+        String sql = "SELECT COUNT(distinct V.code)\n" +
+"FROM Voucher V\n" +
+"INNER JOIN Tour T ON V.supplierId = T.supplierId\n" +
+"WHERE V.code = ? AND V.supplierId = ?;";
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, voucherCode);
+            st.setInt(2, supplierId);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
@@ -2048,6 +2036,8 @@ public class DAO extends DBContext {
 }
 
     
+    
+    
     public Order getOrderByID(int orderId) {
         Order order = null;
         String sql = "SELECT * FROM [HaNoiTour].[dbo].[Order] WHERE id = ?;";
@@ -2117,34 +2107,117 @@ public class DAO extends DBContext {
 }
 
 
+    
+//list ra các account de nhan voucher
+    public List<TopProduct> listAccountsVoucher(int supplierId) {
+        List<TopProduct> list = new ArrayList<>();
+        String sql = "SELECT A.id AS AccountId, A.[username] AS AccountUsername " +
+                "FROM [HaNoiTour].[dbo].[Account] A " +
+                "INNER JOIN [HaNoiTour].[dbo].[Order] O ON A.[id] = O.[accId] " +
+                "INNER JOIN [HaNoiTour].[dbo].[OrderDetail] OD ON O.[id] = OD.[orderId] " +
+                "INNER JOIN [HaNoiTour].[dbo].[Tour] T ON OD.[tourId] = T.[id] " +
+                "WHERE T.[supplierId] = ?";
 
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, supplierId);
+            ResultSet rs = st.executeQuery();
+            DAO d = new DAO();
+            while (rs.next()) {
+                TopProduct tp = new TopProduct();
+                Account a = d.getAccountByID(rs.getInt("AccountId"));
+                tp.setAccount(a);
+                list.add(tp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+        return list;
+    }
+    
+    
+    
 
-    public static void main(String[] args) {
+    //list ra các voucher
+    public List<AccountVoucher> voucherOfAccount(int supplierId) {
+        List<AccountVoucher> list = new ArrayList<>();
+        String sql = " SELECT A.id AS AccountId,\n" +
+"    A.[username] AS AccountUsername,O.id AS VoucherId\n" +
+"FROM\n" +
+"    [HaNoiTour].[dbo].[Account] A\n" +
+"INNER JOIN\n" +
+"    [HaNoiTour].[dbo].[Voucher] O ON A.[id] = O.[idAcc] where supplierId=?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, supplierId);
+            ResultSet rs = st.executeQuery();
+            DAO d = new DAO();
+            while (rs.next()) {
+                AccountVoucher tp = new AccountVoucher();
+                Account a = d.getAccountByID(rs.getInt("AccountId"));
+                Voucher vc = d.getVoucherByID(rs.getInt("VoucherId"));
+                tp.setAccount(a);
+                tp.setVoucher(vc);
+                list.add(tp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+        return list;
+    }
+    
+    public List<TopProduct> AccountIdVoucher(int supplierId, int accountId) {
+    List<TopProduct> list = new ArrayList<>();
+    String sql = "SELECT A.id AS AccountId, A.[username] AS AccountUsername\n" +
+            "FROM [HaNoiTour].[dbo].[Account] A\n" +
+            "INNER JOIN [HaNoiTour].[dbo].[Order] O ON A.[id] = O.[accId]\n" +
+            "INNER JOIN [HaNoiTour].[dbo].[OrderDetail] OD ON O.[id] = OD.[orderId]\n" +
+            "INNER JOIN [HaNoiTour].[dbo].[Tour] T ON OD.[tourId] = T.[id]\n" +
+            "WHERE T.[supplierId] = ? and A.id=?\n" +
+            "GROUP BY A.id, A.[username]";
+
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, supplierId);
+        st.setInt(2, accountId);  // Corrected parameter index
+        ResultSet rs = st.executeQuery();
+        DAO d = new DAO();
+        while (rs.next()) {
+            TopProduct tp = new TopProduct();
+            Account a = d.getAccountByID(rs.getInt("AccountId"));
+            tp.setAccount(a);
+            list.add(tp);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // Handle the exception appropriately
+    }
+    return list;
+}
+
+public static void main(String[] args) {
     // Assuming you have a DAO instance
     DAO dao = new DAO();
 
-    // Replace 2 with the actual supplierId you want to query
+    // Replace 2 and 5 with the actual supplierId and accountId you want to query
     int supplierId = 2;
+    int accountId = 7;
 
-    // Call the listInvoice method and print the results
-    List<TopProduct> topProducts = dao.listInvoice(supplierId);
+    // Call the AccountIdVoucher method and print the results
+    List<TopProduct> topProducts = dao.AccountIdVoucher(supplierId, accountId);
 
     // Print the results
     for (TopProduct topProduct : topProducts) {
-        System.out.println("Invoice Number: " + (topProduct.getOrder() != null ? topProduct.getOrder().getId() : "N/A"));
-        
-        if (topProduct.getTour() != null) {
-            System.out.println("Tour Name: " + topProduct.getTour().getName());
-            // Print other tour details if needed
-        } else {
-            System.out.println("Tour Name: N/A");
-        }
-
+        System.out.println("Account ID: " + topProduct.getAccount().getId());
+        System.out.println("Username: " + topProduct.getAccount().getUsername());
         System.out.println("-----");
     }
 }
 
 }
+
+
+
 
 
 //        if (!tourList.isEmpty()) {

@@ -197,7 +197,7 @@
                                                         <td>${listTA.account.address}</td>
                                                         <td>
                                 
-                                                           <a href="" class="btn btn-primary">Tặng Voucher</a>
+                                                           <a href="tangvoucher?aid=${listTA.account.id}" class="btn btn-primary">Tặng Voucher</a>
                                 
                             </td>
                                                     </tr>
