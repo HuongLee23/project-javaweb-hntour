@@ -462,187 +462,6 @@ public class DAO extends DBContext {
         return list;
     }
 
-//<<<<<<< HEAD
-//    public List<Tour> getTourBySortPrice(String typeSort) {
-//        List<Tour> list = new ArrayList<>();
-//        String sql = "SELECT TOP (1000) "
-//                + "T.[id], "
-//                + "T.[name],"
-//                + " T.[imageMain],"
-//                + " T.[imageAlbum],"
-//                + " T.[intendedTime], "
-//                + "T.[price], "
-//                + "T.[description], "
-//                + "T.[categoryId], "
-//                + "T.[version], "
-//                + "T.[rule], "
-//                + "T.[supplierId], "
-//                + "T.[status] "
-//                + "FROM [HaNoiTour].[dbo].[Tour] T "
-//                + " ORDER BY T.[price]";
-//        if (typeSort.equals("asc")) {
-//            sql += " ASC";
-//        } else if (typeSort.equals("desc")) {
-//            sql += " DESC";
-//        }
-//        try {
-//            PreparedStatement st;
-//            st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                String imageAlbumString = rs.getString("imageAlbum");
-//                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
-//                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
-//
-//                Tour tour = new Tour(
-//                        rs.getInt("id"),
-//                        rs.getString("name"),
-//                        rs.getString("imageMain"),
-//                        imageAlbumList,
-//                        rs.getTime("intendedTime"),
-//                        rs.getDouble("price"),
-//                        rs.getString("description"),
-//                        rs.getInt("categoryId"),
-//                        rs.getInt("version"),
-//                        rs.getString("rule"),
-//                        rs.getInt("supplierId"),
-//                        rs.getBoolean("status")
-//                );
-//
-//                list.add(tour);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return list;
-//    }
-//=======
-//>>>>>>> Namcthe171385
-//    public List<Tour> searchPriceUnder500() {
-//        List<Tour> list = new ArrayList<>();
-//        String sql = "SELECT T.[id]\n"
-//                + "      ,T.[name]\n"
-//                + "      ,T.[imageId]\n"
-//                + "      ,T.[intendedTime]\n"
-//                + "      ,T.[price]\n"
-//                + "      ,T.[description]\n"
-//                + "      ,T.[categoryId]\n"
-//                + "      ,T.[version]\n"
-//                + "      ,T.[rule]\n"
-//                + "      ,T.[feedbackID]\n"
-//                + "      ,T.[supplierId]\n"
-//                + "      ,T.[status]\n"
-//                + "	 ,IA.imgMain\n"
-//                + "     FROM [dbo].[Tour] T JOIN [dbo].[ImageAlbum] IA "
-//                + "     ON T.imageId = IA.id\n"
-//                + "     WHERE T.[price] < 500000";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                list.add(new Tour(rs.getInt("id"),
-//                        rs.getString("name"),
-//                        rs.getInt("imageId"),
-//                        rs.getTime("intendedTime"),
-//                        rs.getDouble("price"),
-//                        rs.getString("description"),
-//                        rs.getInt("categoryId"),
-//                        rs.getInt("version"),
-//                        rs.getString("rule"),
-//                        rs.getInt("feedbackID"),
-//                        rs.getInt("supplierId"),
-//                        rs.getBoolean("status"),
-//                        rs.getString("imgMain")));
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return list;
-//    }
-//
-//    public List<Tour> searchPrice500To1000() {
-//        List<Tour> list = new ArrayList<>();
-//        String sql = "SELECT T.[id]\n"
-//                + "      ,T.[name]\n"
-//                + "      ,T.[imageId]\n"
-//                + "      ,T.[intendedTime]\n"
-//                + "      ,T.[price]\n"
-//                + "      ,T.[description]\n"
-//                + "      ,T.[categoryId]\n"
-//                + "      ,T.[version]\n"
-//                + "      ,T.[rule]\n"
-//                + "      ,T.[feedbackID]\n"
-//                + "      ,T.[supplierId]\n"
-//                + "      ,T.[status]\n"
-//                + "	 ,IA.imgMain\n"
-//                + "     FROM [dbo].[Tour] T JOIN [dbo].[ImageAlbum] IA "
-//                + "     ON T.imageId = IA.id\n"
-//                + "     WHERE T.[price] >= 500000 and T.[price] <= 1000000";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                list.add(new Tour(rs.getInt("id"),
-//                        rs.getString("name"),
-//                        rs.getInt("imageId"),
-//                        rs.getTime("intendedTime"),
-//                        rs.getDouble("price"),
-//                        rs.getString("description"),
-//                        rs.getInt("categoryId"),
-//                        rs.getInt("version"),
-//                        rs.getString("rule"),
-//                        rs.getInt("feedbackID"),
-//                        rs.getInt("supplierId"),
-//                        rs.getBoolean("status"),
-//                        rs.getString("imgMain")));
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return list;
-//    }
-//
-//    public List<Tour> searchPriceAbove1000() {
-//        List<Tour> list = new ArrayList<>();
-//        String sql = "SELECT T.[id]\n"
-//                + "      ,T.[name]\n"
-//                + "      ,T.[imageId]\n"
-//                + "      ,T.[intendedTime]\n"
-//                + "      ,T.[price]\n"
-//                + "      ,T.[description]\n"
-//                + "      ,T.[categoryId]\n"
-//                + "      ,T.[version]\n"
-//                + "      ,T.[rule]\n"
-//                + "      ,T.[feedbackID]\n"
-//                + "      ,T.[supplierId]\n"
-//                + "      ,T.[status]\n"
-//                + "	 ,IA.imgMain\n"
-//                + "     FROM [dbo].[Tour] T JOIN [dbo].[ImageAlbum] IA "
-//                + "     ON T.imageId = IA.id\n"
-//                + "     WHERE T.[price] > 1000000";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                list.add(new Tour(rs.getInt("id"),
-//                        rs.getString("name"),
-//                        rs.getInt("imageId"),
-//                        rs.getTime("intendedTime"),
-//                        rs.getDouble("price"),
-//                        rs.getString("description"),
-//                        rs.getInt("categoryId"),
-//                        rs.getInt("version"),
-//                        rs.getString("rule"),
-//                        rs.getInt("feedbackID"),
-//                        rs.getInt("supplierId"),
-//                        rs.getBoolean("status"),
-//                        rs.getString("imgMain")));
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return list;
-//    }
     public List<Category> getListCategory() {
         List<Category> list = new ArrayList<>();
         String sql = "Select * from Category";
@@ -874,77 +693,7 @@ public class DAO extends DBContext {
         return list;
     }
 
-//
-//    public List<Tour> getTourBySortRating(String typeSort) {
-//        List<Tour> list = new ArrayList<>();
-//        String sql = "SELECT TOP (1000) T.[id],T.[name], \n"
-//                + "				T.[imageMain], \n"
-//                + "				T.[imageAlbum], \n"
-//                + "				T.[intendedTime], \n"
-//                + "				T.[price], \n"
-//                + "                T.[description], \n"
-//                + "                T.[categoryId], \n"
-//                + "                T.[version], \n"
-//                + "                T.[rule], \n"
-//                + "                T.[supplierId], \n"
-//                + "                T.[status],\n"
-//                + "				F.rating\n"
-//                + "                 FROM [HaNoiTour].[dbo].[Tour] T  JOIN [HaNoiTour].[dbo].[Feedback] F \n"
-//                + "				 ON T.[id] = F.[id]\n"
-//                + "                 ORDER BY F.[rating]";
-//        if (typeSort.equals("asc")) {
-//            sql += " ASC";
-//        } else if (typeSort.equals("desc")) {
-//            sql += " DESC";
-//        }
-//        try {
-//            PreparedStatement st;
-//            st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                String imageAlbumString = rs.getString("imageAlbum");
-//                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
-//                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
-//
-//                Tour tour = new Tour(
-//                        rs.getInt("id"),
-//                        rs.getString("name"),
-//                        rs.getString("imageMain"),
-//                        imageAlbumList,
-//                        rs.getTime("intendedTime"),
-//                        rs.getDouble("price"),
-//                        rs.getString("description"),
-//                        rs.getInt("categoryId"),
-//                        rs.getInt("version"),
-//                        rs.getString("rule"),
-//                        rs.getInt("supplierId"),
-//                        rs.getBoolean("status")
-//                );
-//
-//                list.add(tour);
-//                 == == == = e.printStackTrace(); // Print stack trace for debugging
-//            }finally {
-//                        // Close the ResultSet, PreparedStatement, and Connection
-//                        if (rs != null) {
-//                            try {
-//                                rs.close();
-//                            } catch (SQLException e) {
-//                                e.printStackTrace();
-//                            }
-//                             >>> >>> > Namcthe171385
-//                        }
-//            if (st != null) {
-//                            try {
-//                                st.close();
-//                            } catch (SQLException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//        }
-//            return list;
-//        }
-//
-//    }
+
     public List<Tour> searchByCategory(String categoryId) {
         List<Tour> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) "
@@ -1869,16 +1618,18 @@ public class DAO extends DBContext {
     }
 
     public TotalInvoiceOfCategory getTotalInvoiceCate(int supplierId) {
-        String sql = "SELECT\n"
-                + "   SUM(CASE WHEN p.categoryId = 1 THEN i.price ELSE 0 END) AS totalCate1,\n"
-                + "   SUM(CASE WHEN p.categoryId = 2 THEN i.price ELSE 0 END) AS totalCate2,\n"
-                + "   SUM(CASE WHEN p.categoryId = 3 THEN i.price ELSE 0 END) AS totalCate3,\n"
-                + "   SUM(CASE WHEN p.categoryId = 4 THEN i.price ELSE 0 END) AS totalCate4\n"
-                + "FROM\n"
-                + "   [HaNoiTour].[dbo].[OrderDetail] i\n"
-                + "   JOIN [HaNoiTour].[dbo].[Tour] p ON i.tourId = p.id\n"
-                + "WHERE\n"
-                + "   p.categoryId IN (1, 2, 3, 4) AND supplierId = ?";
+        String sql = "SELECT\n" +
+"    SUM(CASE WHEN p.categoryId = 1 THEN i.quantity * i.price ELSE 0 END) AS totalCate1,\n" +
+"    SUM(CASE WHEN p.categoryId = 2 THEN i.quantity * i.price ELSE 0 END) AS totalCate2,\n" +
+"    SUM(CASE WHEN p.categoryId = 3 THEN i.quantity * i.price ELSE 0 END) AS totalCate3,\n" +
+"    SUM(CASE WHEN p.categoryId = 4 THEN i.quantity * i.price ELSE 0 END) AS totalCate4\n" +
+"FROM\n" +
+"    [HaNoiTour].[dbo].[OrderDetail] i\n" +
+"JOIN\n" +
+"    [HaNoiTour].[dbo].[Tour] p ON i.tourId = p.id\n" +
+"WHERE\n" +
+"    p.categoryId IN (1, 2, 3, 4) AND\n" +
+"    p.supplierId = ?;";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
