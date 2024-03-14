@@ -14,35 +14,38 @@
 <header class="header">
 
     <!-- Top Bar -->
-
-    <div class="top_bar">
-        <div class="container">
-            <div class="row">
-                <div class="col d-flex flex-row">
-                    <div class="phone">+84 928 008 008</div>
-                    <div class="user_box ml-auto">
-                        <c:set value="${sessionScope.account}" var="a"/>
-                        <c:if test="${a == null}">
-                            <div class="user_box_login user_box_link"><a href="login.jsp">Đăng nhập</a></div>
-                            <div class="user_box_register user_box_link"><a href="register.jsp">Đăng ký</a></div>
+<div class="top_bar">
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex flex-row">
+                <div class="phone">+84 928 008 008</div>
+                <div class="user_box ml-auto d-flex align-items-center">
+                    <c:set value="${sessionScope.account}" var="a"/>
+                    <c:if test="${a == null}">
+                        <div class="user_box_login user_box_link"><a href="login.jsp">Đăng nhập</a></div>
+                        <div class="user_box_register user_box_link"><a href="register.jsp">Đăng ký</a></div>
+                    </c:if>
+                    <c:if test="${a != null}">
+                        <c:if test="${a.role == 1}">
+                            <a href="admin/manageraccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
                         </c:if>
-                        <c:if test="${a != null}">
-                            <c:if test="${a.role == 1}">
-                                <a href="admin/manageraccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
-                                </c:if>
-                                <c:if test="${a.role == 2}">
-                                <a href="statistic?supplierId=${a.id}"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
-                                </c:if>
-                                <c:if test="${a.role == 3}">
-                                <a href="profileaccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
-                                </c:if>
-                            <!--</li>-->
+                        <c:if test="${a.role == 2}">
+                            <a href="statistic?supplierId=${a.id}"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
                         </c:if>
-                    </div>
+                        <c:if test="${a.role == 3}">
+                            <a href="profileaccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
+                        </c:if>
+                        <!-- Thêm thông báo sau đây -->
+                        <div class="notification_icon ml-2">
+                            <a href="vouchercustomer" id="notification_button" class="d-flex align-items-center"><i class="fa-solid fa-bell" style="color: #ffffff; font-size: 20px;"></i></a>
+                        </div>
+                    </c:if>
                 </div>
             </div>
-        </div>		
-    </div>
+        </div>
+    </div>      
+</div>
+
 
     <!-- Main Navigation -->
 

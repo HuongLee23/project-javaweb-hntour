@@ -117,18 +117,7 @@
                     </div>
                 </div>
             </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -141,7 +130,7 @@
     data: {
         labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
         datasets: [{
-            label: "Doanh thu $",
+            label: "Doanh thu VNÐ",
             data: [${totalMonth.month1}, ${totalMonth.month2}, ${totalMonth.month3}, ${totalMonth.month4}, ${totalMonth.month5}, ${totalMonth.month6}, ${totalMonth.month7}, ${totalMonth.month8}, ${totalMonth.month9}, ${totalMonth.month10}, ${totalMonth.month11}, ${totalMonth.month12}],
             backgroundColor: [
                 // Đổi các màu ở đây, ví dụ:
@@ -170,51 +159,52 @@
 });
 
         //Charts-bar-demo
-        var ctx = document.getElementById("myBarChart");
-        var myLineChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Quý I", "Quý II", "Quý III", "Quý IV"],
-                datasets: [{
-                        label: "Revenue",
-                        backgroundColor: "rgba(2,117,216,1)",
-                        borderColor: "rgba(2,117,216,1)",
-                        data: [
-        ${totalQuater.quater1},
-        ${totalQuater.quater2},
-        ${totalQuater.quater3},
-        ${totalQuater.quater4}],
-                    }],
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                            time: {
-                                unit: 'quarter'
-                            },
-                            gridLines: {
-                                display: false
-                            },
-                            ticks: {
-                                maxTicksLimit: 4
-                            }
-                        }],
-                    yAxes: [{
-                            ticks: {
-                                min: 0,
-                                max: 50000000000,
-                                maxTicksLimit: 10
-                            },
-                            gridLines: {
-                                display: true
-                            }
-                        }],
+var ctx = document.getElementById("myBarChart");
+var myBarChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Quý I", "Quý II", "Quý III", "Quý IV"],
+        datasets: [{
+            label: "Revenue",
+            backgroundColor: "rgba(2,117,216,1)",
+            borderColor: "rgba(2,117,216,1)",
+            data: [
+                ${totalQuater.quater1},
+                ${totalQuater.quater2},
+                ${totalQuater.quater3},
+                ${totalQuater.quater4}
+            ]
+        }]
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'quarter'
                 },
-                legend: {
+                gridLines: {
                     display: false
+                },
+                ticks: {
+                    maxTicksLimit: 4
                 }
-            }
-        });
+            }],
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 5000000000,
+                    maxTicksLimit: 10
+                },
+                gridLines: {
+                    display: true
+                }
+            }]
+        },
+        legend: {
+            display: false
+        }
+    }
+});
 
 
         // Pie Chart Example
@@ -223,12 +213,13 @@
         var myPieChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ["Xe ô tô xăng", "Xe máy điện", "Xe ô tô điện"],
+                labels: ["Tour lịch sử", "Tour văn hóa", "Tour ẩm thực", "Tour nghỉ dưỡng"],
                 datasets: [{
                         data: [
+        ${requestScope.totalCate1},
         ${requestScope.totalCate2},
         ${requestScope.totalCate3},
-        ${requestScope.totalCate1}],
+                    ${requestScope.totalCate4}],
                         backgroundColor: ['#007bff', '#ffc107', '#28a745'],
                     }],
             },

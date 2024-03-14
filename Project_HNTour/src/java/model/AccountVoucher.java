@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.function.Supplier;
+
 /**
  *
  * @author Admin
@@ -11,13 +13,15 @@ package model;
 public class AccountVoucher {
     private Account account;
     private Voucher voucher;
+    private Supplier supplier;
 
     public AccountVoucher() {
     }
 
-    public AccountVoucher(Account account, Voucher voucher) {
+    public AccountVoucher(Account account, Voucher voucher, Supplier supplier) {
         this.account = account;
         this.voucher = voucher;
+        this.supplier = supplier;
     }
 
     public Account getAccount() {
@@ -35,6 +39,15 @@ public class AccountVoucher {
     public void setVoucher(Voucher voucher) {
         this.voucher = voucher;
     }
-    
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+   
     
 }
