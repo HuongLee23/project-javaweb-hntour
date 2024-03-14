@@ -71,7 +71,6 @@ public class CheckoutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         CheckoutDAO checkoutDao = new CheckoutDAO();
         Account account = (Account) session.getAttribute("account");
-        
 
         String selectCheckout_raw = request.getParameter("selectCheckout");
         String idInfor_raw = request.getParameter("idInfor");
@@ -88,7 +87,7 @@ public class CheckoutServlet extends HttpServlet {
                 Tour tour = (Tour) session.getAttribute("tourFill");
                 Item itemTour = new Item(tour, 1, tour.getPrice());
                 session.setAttribute("itemTour", itemTour);
-            }else{
+            } else {
                 //Gửi danh sách itemTour của giỏ hàng lên checkout.jsp
                 Cart cartItem = (Cart) session.getAttribute("cartFill");
                 session.setAttribute("cartItem", cartItem);
@@ -115,25 +114,11 @@ public class CheckoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         CheckoutDAO checkoutDao = new CheckoutDAO();
-        DAO dao = new DAO();
-
-        List<Tour> list = dao.getAllTour();
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
-                }
-            }
-        }
-        Cart cart = new Cart(txt, list);
 
         int idInfor = (int) session.getAttribute("idInfor");
         int selectCheckout = (int) session.getAttribute("selectCheckout");
         Account account = (Account) session.getAttribute("account");
 
-//        Voucher v = null;
         if (account == null) {
             response.sendRedirect("login.jsp");
         } else {
@@ -146,24 +131,31 @@ public class CheckoutServlet extends HttpServlet {
                     session.removeAttribute("itemTour");
                     session.removeAttribute("selectCheckout");
                     session.removeAttribute("idInfor");
-                    request.setAttribute("messBuy", "Mua hàng trong cart thành công");
+                    request.setAttribute("messBuy", "Mua hàng thành công");
                 } else {
-                    request.setAttribute("messBuy", "Mua hàng trong cart thất bại");
+                    request.setAttribute("messBuy", "Mua hàng thất bại");
                 }
 
             } else {
-              
-                boolean result = checkoutDao.addOrderForCart(account, idInfor, cart, 0);
+                Cart cartItem = (Cart) session.getAttribute("cartFill");
+                boolean result = checkoutDao.addOrderForCart(cartItem, account, idInfor);
                 if (result) {
                     Cookie c = new Cookie("cart", "");
                     c.setMaxAge(0);
                     response.addCookie(c);
 
                     session.setAttribute("sizeCart", 0);
+                    //Cart ở cookies
                     session.removeAttribute("cart");
-                    request.setAttribute("messBuy", "Mua hàng trong cart thành công");
+                    //Cart ở thanh toán trang fillinformationAcc
+                    session.removeAttribute("cartFill");
+                    //Cart ở thanh toán trang checkout
+                    session.removeAttribute("cartItem");
+
+                    session.removeAttribute("selectCheckout");
+                    request.setAttribute("messBuy", "Mua hàng thành công");
                 } else {
-                    request.setAttribute("messBuy", "Mua hàng trong cart thất bại");
+                    request.setAttribute("messBuy", "Mua hàng thất bại");
                 }
             }
 //            request.setAttribute("mess", "Mua hàng thành công");

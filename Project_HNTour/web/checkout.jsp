@@ -404,7 +404,7 @@
                                                     <!--Show phần thanh toán của tour muốn mua ngay-->
                                                     <c:if test="${sessionScope.selectCheckout != 0}">
                                                         <div style="width: 1200px" class="col-lg-4 col-xl-3">
-                                                            <h3 style="color: red">${requestScope.messBuy}</h3>
+                                                            <h3 style="color: red;font-size: 23px;">${requestScope.messBuy}</h3>
                                                             <div class="d-flex justify-content-between" style="font-weight: 500;">
                                                                 <p class="mb-2">Tổng tiền</p>
                                                                 <p class="mb-2"><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</p>
@@ -424,7 +424,7 @@
                                                                 <p class="mb-2"><fmt:formatNumber value="${i.priceSale != 0 ? i.priceSale : i.price}" pattern="###,###"/> VNÐ</p>
                                                             </div>
 
-                                                            <form action="checkout" method="post">
+                                                            <form id="checkoutForm" action="checkout" method="post">
                                                                 <button type="submit" class="btn btn-primary btn-block btn-lg" style=" cursor: pointer;border: none;background-color: #ff5b00;">
                                                                     <span>Thanh toán</span>
                                                                 </button>
@@ -436,7 +436,7 @@
                                                     <c:if test="${sessionScope.selectCheckout == 0}">
                                                         <c:set value="${sessionScope.cartItem}" var="i"/>
                                                         <div style="width: 1200px" class="col-lg-4 col-xl-3">
-                                                            <h3 style="color: red">${requestScope.messBuy}</h3>
+                                                            <h4 style="color: red;font-size: 23px;">${requestScope.messBuy}</h4>
                                                             <div class="d-flex justify-content-between" style="font-weight: 500;">
                                                                 <p class="mb-2">Tổng tiền</p>
                                                                 <p class="mb-2"><fmt:formatNumber value="${i.getTotalMoney()}" pattern="###,###"/> VNÐ</p>
@@ -454,8 +454,7 @@
                                                                 <p class="mb-2"><fmt:formatNumber value="${i.getTotalMoneyUseVoucher() != 0 ?i.getTotalMoneyUseVoucher() :i.getTotalMoney()}" pattern="###,###"/> VNÐ</p>
                                                             </div>
 
-                                                            <form action="checkout" method="post">
-                                                                <!--<input type="hidden" value="${sessionScope.selectCheckout}" name="selectCheckout">-->
+                                                            <form id="checkoutForm" action="checkout" method="post">
                                                                 <button type="submit" class="btn btn-primary btn-block btn-lg" style=" cursor: pointer;border: none;background-color: #ff5b00;">
                                                                     <span>Thanh toán</span>
                                                                 </button>
@@ -480,73 +479,87 @@
 
             <!-- Footer -->
             <jsp:include page="footer.jsp"></jsp:include>
-        </div>
+            </div>
 
-        <script>
+            <script>
 
-            document.querySelectorAll('.selectVoucher').forEach(function (selectElement) {
-                selectElement.onchange = function () {
-                    var form = selectElement.closest('form');
-                    var tourId = form.querySelector('input[name="idTour"]').value;
-                    var selectedVoucherId = selectElement.value;
-
-                    // 1. Xác định supplierId của tour và voucher
-                    var tourSupplierId = form.querySelector('input[name="tourSupplierId"]').value;
-                    var voucherSupplierId = form.querySelector('option:selected').getAttribute('data-supplier-id');
-
-                    // 2. Kiểm tra các tour khác và cập nhật danh sách voucher
-                    document.querySelectorAll('.selectVoucher').forEach(function (otherSelectElement) {
-                        var otherTourSupplierId = otherSelectElement.closest('form').querySelector('input[name="tourSupplierId"]').value;
-                        var otherVoucherSupplierId = otherSelectElement.querySelector('option:selected').getAttribute('data-supplier-id');
-                        var otherVoucherId = otherSelectElement.value;
-
-                        // Nếu supplierId của tour và voucher khớp với tour đã chọn và voucher đã sử dụng, ẩn voucher đó
-                        if (otherTourSupplierId === tourSupplierId && otherVoucherSupplierId === voucherSupplierId && otherVoucherId !== selectedVoucherId) {
-                            otherSelectElement.querySelector('option[value="' + selectedVoucherId + '"]').disabled = true;
-                        }
-                    });
-                };
-            });
-
-
-            // Lặp qua tất cả các phần tử select và gán sự kiện onchange cho mỗi select
-            document.querySelectorAll('.selectVoucher').forEach(function (selectElement) {
-                selectElement.onchange = function () {
-                    // Tìm form cha của selectElement và submit form đó
-                    selectElement.closest('form').submit();
-                };
-            });
-//            document.getElementById('proccessVoucher').onchange = function () {
-//                document.getElementById('formProccessVoucher').submit();
-//            };
-
-
-            document.addEventListener("DOMContentLoaded", function () {
-                // Xóa trạng thái của các bước trước
-                document.getElementById("step1").classList.remove("klk-step-status-process");
-                document.getElementById("step2").classList.remove("klk-step-status-process");
-                document.getElementById("step1").classList.add("klk-step-status-finish");
-                document.getElementById("step2").classList.add("klk-step-status-finish");
-                // Thêm trạng thái mới cho bước hiện tại
-                document.getElementById("step3").classList.add("klk-step-status-process");
-            });
-
-            document.addEventListener("DOMContentLoaded", function () {
-                // Lấy danh sách tất cả các bước
-                var steps = document.querySelectorAll('.klk-step');
-
-                // Lặp qua từng bước để xác định bước hiện tại
-                steps.forEach(function (step) {
-                    if (step.classList.contains('klk-step-status-process')) {
-                        // Tìm biểu tượng của bước hiện tại và thay đổi nó thành dấu ba chấm
-                        var icon = step.querySelector('.klk-step-icon i');
-                        if (icon) {
-                            icon.classList.remove('fa-check'); // Xóa biểu tượng check
-                            icon.classList.add('fa-ellipsis'); // Thêm biểu tượng ba chấm
-                        }
+                //Khi thanh toán xong mà ko còn sản phẩm nào mà cố tình thanh toán tiếp
+                document.getElementById("checkoutForm").addEventListener("submit", function (event) {
+                    // Kiểm tra xem sessionScope.selectCheckout có giá trị là null hay không
+                    if (<%= session.getAttribute("selectCheckout") %> === null) {
+                        // Ngăn chặn hành động gửi biểu mẫu mặc định
+                        event.preventDefault();
+                        // Hiển thị thông báo cho người dùng
+                        alert("Không có sản phẩm nào để thanh toán.");
                     }
                 });
-            });
+
+                //Phần xử lý select voucher
+                document.querySelectorAll('.selectVoucher').forEach(function (selectElement) {
+                    selectElement.onchange = function () {
+                        var form = selectElement.closest('form');
+                        var tourId = form.querySelector('input[name="idTour"]').value;
+                        var selectedVoucherId = selectElement.value;
+
+                        // 1. Xác định supplierId của tour và voucher
+                        var tourSupplierId = form.querySelector('input[name="tourSupplierId"]').value;
+                        var voucherSupplierId = form.querySelector('option:selected').getAttribute('data-supplier-id');
+
+                        // 2. Kiểm tra các tour khác và cập nhật danh sách voucher
+                        document.querySelectorAll('.selectVoucher').forEach(function (otherSelectElement) {
+                            var otherTourSupplierId = otherSelectElement.closest('form').querySelector('input[name="tourSupplierId"]').value;
+                            var otherVoucherSupplierId = otherSelectElement.querySelector('option:selected').getAttribute('data-supplier-id');
+                            var otherVoucherId = otherSelectElement.value;
+
+                            // Nếu supplierId của tour và voucher khớp với tour đã chọn và voucher đã sử dụng, ẩn voucher đó
+                            if (otherTourSupplierId === tourSupplierId && otherVoucherSupplierId === voucherSupplierId && otherVoucherId !== selectedVoucherId) {
+                                otherSelectElement.querySelector('option[value="' + selectedVoucherId + '"]').disabled = true;
+                            }
+                        });
+                    };
+                });
+
+
+                // Lặp qua tất cả các phần tử select và gán sự kiện onchange cho mỗi select
+                document.querySelectorAll('.selectVoucher').forEach(function (selectElement) {
+                    selectElement.onchange = function () {
+                        // Tìm form cha của selectElement và submit form đó
+                        selectElement.closest('form').submit();
+                    };
+                });
+
+
+                document.addEventListener("DOMContentLoaded", function () {
+                    // Xóa trạng thái của các bước trước
+                    document.getElementById("step1").classList.remove("klk-step-status-process");
+                    document.getElementById("step2").classList.remove("klk-step-status-process");
+                    document.getElementById("step1").classList.add("klk-step-status-finish");
+                    document.getElementById("step2").classList.add("klk-step-status-finish");
+                    // Kiểm tra nếu messBuy khác null thì thêm trạng thái mới cho bước hiện tại
+            <c:if test="${requestScope.messBuy == null}">
+                    document.getElementById("step3").classList.add("klk-step-status-process");
+            </c:if>
+            <c:if test="${requestScope.messBuy != null}">
+                    document.getElementById("step3").classList.add("klk-step-status-finish");
+            </c:if>
+                });
+
+                document.addEventListener("DOMContentLoaded", function () {
+                    // Lấy danh sách tất cả các bước
+                    var steps = document.querySelectorAll('.klk-step');
+
+                    // Lặp qua từng bước để xác định bước hiện tại
+                    steps.forEach(function (step) {
+                        if (step.classList.contains('klk-step-status-process')) {
+                            // Tìm biểu tượng của bước hiện tại và thay đổi nó thành dấu ba chấm
+                            var icon = step.querySelector('.klk-step-icon i');
+                            if (icon) {
+                                icon.classList.remove('fa-check'); // Xóa biểu tượng check
+                                icon.classList.add('fa-ellipsis'); // Thêm biểu tượng ba chấm
+                            }
+                        }
+                    });
+                });
         </script>
 
 

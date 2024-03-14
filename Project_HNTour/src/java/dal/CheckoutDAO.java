@@ -127,7 +127,7 @@ public class CheckoutDAO extends DBContext {
     }
 
 // Xử lý checkout các sản phẩm trong giỏ hàng
-    public boolean addOrderForCart(Account a, int idInforAcc, Cart cart, int idVoucher) {
+    public boolean addOrderForCart(Cart cart, Account a, int idInforAcc) {
         LocalDate curDate = LocalDate.now();
         String date = curDate.toString();
         try {
@@ -142,7 +142,7 @@ public class CheckoutDAO extends DBContext {
             st.setInt(1, a.getId());
             st.setInt(2, idInforAcc);
             st.setString(3, date);
-            st.setDouble(4, cart.getTotalMoney());
+            st.setDouble(4, cart.getTotalMoneyUseVoucher() != 0 ? cart.getTotalMoneyUseVoucher() : cart.getTotalMoney());
             st.executeUpdate();
 
             String sql1 = "SELECT top(1) [id]\n"
@@ -171,10 +171,24 @@ public class CheckoutDAO extends DBContext {
                     st2.setInt(1, oid);
                     st2.setInt(2, i.getTour().getId());
                     st2.setInt(3, i.getQuantity());
-                    st2.setDouble(4, i.getPrice());
+                    st2.setDouble(4, i.getPriceSale() != 0 ? i.getPriceSale() : i.getPrice());
                     st2.setInt(5, i.getTour().getVersion());
-                    st2.setInt(6, idVoucher);
+                    st2.setInt(6, i.getIdVoucher());
                     st2.executeUpdate();
+
+                }
+            }
+            
+            //Kiểm tra xem item nào dùng voucher
+            for (Item i : cart.getItems()) {
+                if (i.getIdVoucher() != 0) {
+                    //Nếu có áp mã voucher thì xóa cái voucher mà Account này có
+                    String sql3 = "UPDATE Voucher\n"
+                            + "SET idAcc = NULL\n"
+                            + "WHERE id = ?;";
+                    PreparedStatement st3 = connection.prepareStatement(sql3);
+                    st3.setInt(1, i.getIdVoucher());
+                    st3.executeUpdate();
                 }
             }
 

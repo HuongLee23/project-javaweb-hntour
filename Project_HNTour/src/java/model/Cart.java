@@ -15,21 +15,21 @@ import java.util.Map;
  * @author hello
  */
 public class Cart {
-    
+
     private List<Item> items;
-    
+
     public Cart() {
         items = new ArrayList<>();
     }
-    
+
     public List<Item> getItems() {
         return items;
     }
-    
+
     public int getQuantityById(int id) {
         return getItemById(id).getQuantity();
     }
-    
+
     public Item getItemById(int id) {
         for (Item item : items) {
             if (item.getTour().getId() == id) {
@@ -38,7 +38,7 @@ public class Cart {
         }
         return null;
     }
-    
+
     public void addItem(Item item) {
         if (getItemById(item.getTour().getId()) != null) {
             Item existingItem = getItemById(item.getTour().getId());
@@ -49,13 +49,13 @@ public class Cart {
             items.add(item);
         }
     }
-    
+
     public void removeItem(int id) {
         if (getItemById(id) != null) {
             items.remove(getItemById(id));
         }
     }
-    
+
     public double getTotalMoney() {
         double total = 0;
         for (Item item : items) {
@@ -63,15 +63,19 @@ public class Cart {
         }
         return total;
     }
-    
+
     public double getTotalMoneyUseVoucher() {
         double total = 0;
         for (Item item : items) {
-            total += item.getPriceSale(); // Thay vì item.getQuantity() * item.getPrice()
+            if (item.getPriceSale() != 0) {
+                total += item.getPriceSale(); // Thay vì item.getQuantity() * item.getPrice()
+            } else {
+                total += item.getPrice();
+            }
         }
         return total;
     }
-    
+
     private Tour getTourById(int id, List<Tour> list) {
         for (Tour p : list) {
             if (p.getId() == id) {
@@ -80,7 +84,7 @@ public class Cart {
         }
         return null;
     }
-    
+
     public Cart(String txt, List<Tour> list) {
         items = new ArrayList<>();
         int id, quantity;
