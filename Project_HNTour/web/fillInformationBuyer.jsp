@@ -155,7 +155,7 @@
 
                     <!--Show thông tin của các tour trong cart-->
                     <c:if test="${sessionScope.idSelectOne == 0}">
-                        <c:set value="${sessionScope.cart}" var="o"/>
+                        <c:set value="${sessionScope.cartFill}" var="o"/>
                         <c:forEach items="${o.items}" var="i" varStatus="loop">
                             <div class="row justify-content-center mb-3">
                                 <div class="col-md-12 col-xl-10">
@@ -451,7 +451,7 @@
 
                                                 <!--Show thông tin thanh toán của các tour trong cart-->
                                                 <c:if test="${sessionScope.idSelectOne == 0}">
-                                                    <c:set value="${sessionScope.cart}" var="o"/>
+                                                    <c:set value="${sessionScope.cartFill}" var="o"/>
                                                     <div style="display: block" class="row">
                                                         <div style="max-width: 100%;" class="col-12 col-xl-6">
                                                             <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">

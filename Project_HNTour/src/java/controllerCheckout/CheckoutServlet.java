@@ -71,23 +71,30 @@ public class CheckoutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         CheckoutDAO checkoutDao = new CheckoutDAO();
         Account account = (Account) session.getAttribute("account");
-        Tour tour = (Tour) session.getAttribute("tourFill");
+        
 
         String selectCheckout_raw = request.getParameter("selectCheckout");
         String idInfor_raw = request.getParameter("idInfor");
 
         int selectCheckout, idInfor;
         try {
-            //nhận dữ liệu được giử từ fillInformation.jsp
+            //nhận dữ liệu được gửi từ fillInformation.jsp(nếu có)
             selectCheckout = selectCheckout_raw != null ? Integer.parseInt(selectCheckout_raw) : (int) session.getAttribute("selectCheckout");
             idInfor = idInfor_raw != null ? Integer.parseInt(idInfor_raw) : (int) session.getAttribute("idInfor");
             List<Voucher> listVoucher = checkoutDao.listVoucherByIdAcc(account.getId());
 
-            //Giử itemTour lên checkout.jsp
-            Item itemTour = new Item(tour, 1, tour.getPrice());
+            if (selectCheckout != 0) {
+                //Gửi itemTour lên checkout.
+                Tour tour = (Tour) session.getAttribute("tourFill");
+                Item itemTour = new Item(tour, 1, tour.getPrice());
+                session.setAttribute("itemTour", itemTour);
+            }else{
+                //Gửi danh sách itemTour của giỏ hàng lên checkout.jsp
+                Cart cartItem = (Cart) session.getAttribute("cartFill");
+                session.setAttribute("cartItem", cartItem);
+            }
 
             session.setAttribute("listVoucher", listVoucher);
-            session.setAttribute("itemTour", itemTour);
             session.setAttribute("selectCheckout", selectCheckout);
             session.setAttribute("idInfor", idInfor);
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
@@ -126,7 +133,7 @@ public class CheckoutServlet extends HttpServlet {
         int selectCheckout = (int) session.getAttribute("selectCheckout");
         Account account = (Account) session.getAttribute("account");
 
-        Voucher v = null;
+//        Voucher v = null;
         if (account == null) {
             response.sendRedirect("login.jsp");
         } else {
@@ -145,6 +152,7 @@ public class CheckoutServlet extends HttpServlet {
                 }
 
             } else {
+              
                 boolean result = checkoutDao.addOrderForCart(account, idInfor, cart, 0);
                 if (result) {
                     Cookie c = new Cookie("cart", "");

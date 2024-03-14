@@ -227,7 +227,7 @@
 
                         <!--Show thông tin của các tour trong cart-->
                         <c:if test="${sessionScope.selectCheckout == 0}">
-                            <c:set value="${sessionScope.cart}" var="o"/>
+                            <c:set value="${sessionScope.cartItem}" var="o"/>
                             <c:forEach items="${o.items}" var="i" varStatus="loop">
                                 <div class="row justify-content-center mb-3">
                                     <div class="col-md-12 col-xl-10">
@@ -247,11 +247,22 @@
                                                     </div>
                                                     <div class="fby-show-product-information col-md-6 col-lg-6 col-xl-6">
                                                         <h5>${i.tour.name}</h5>
-                                                        <div class="fby-show-product-information-price d-flex flex-row">
-                                                            <span><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</span>
-                                                        </div>
-                                                        <div class="mt-1 mb-0 text-muted small">
+                                                        <c:if test="${i.idVoucher == 0}">
+                                                            <div class="fby-show-product-information-price d-flex flex-row">
+                                                                <span><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</span>
+                                                            </div>
+                                                        </c:if>
+                                                        <c:if test="${i.idVoucher != 0}">
+                                                            <div class="fby-show-product-information-price d-flex flex-row">
+                                                                <span style="color: #757582; text-decoration: line-through;"><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</span>
+                                                            </div>
                                                             <span></span>
+                                                            <div class="fby-show-product-information-price d-flex flex-row">
+                                                                <span>Áp mã giảm giá: <fmt:formatNumber value="${i.priceSale}" pattern="###,###"/> VNÐ</span>
+                                                            </div>
+                                                        </c:if>
+
+                                                        <div class="mt-1 mb-0 text-muted small">
                                                             <span class="text-primary">Số lượng bạn đặt: ${i.quantity} vé</span>
                                                         </div>
                                                         <p class="text-truncate mb-4 mb-md-0">
@@ -260,17 +271,39 @@
                                                     </div>
                                                     <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                                                         <div class="d-flex flex-row align-items-center mb-1">
-                                                            <!--<h4 class="mb-1 me-1">$13.99</h4>-->
-                                                            <span class="text-danger">
-                                                                <div class="text-danger mb-1 me-2">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                </div>
-                                                            </span>
+                                                            <form id="formProccessVoucher" action="proccessvoucher" method="post">
+                                                                <input type="text" hidden value="${i.tour.id}" name="idTour">
+                                                                <select id="proccessVoucher"  class="selectVoucher form-control-lg" name="selectVoucher" required>
+                                                                    <option value="0" disabled selected hidden>Chọn mã giảm giá</option>
+
+                                                                    <!--Hiển thị voucher-->
+                                                                    <c:forEach items="${sessionScope.listVoucher}" var="v">
+
+                                                                        <!--Câu if này đảm bảo tour này sẽ hiện đúng voucher của cùng nhà cung cấp tạo ra-->
+                                                                        <c:if test="${v.supplierId eq i.tour.supplierId}">
+
+                                                                            <c:set var="isUsed" value="false"/>
+                                                                            <!-- Kiểm tra xem voucher đã được sử dụng chưa trong foreach-->
+                                                                            <c:forEach items="${o.items}" var="it" varStatus="loop">
+                                                                                <c:if test="${it.idVoucher eq v.id}">
+                                                                                    <c:set var="isUsed" value="true"/>
+                                                                                    <!-- Nếu voucher đã được sử dụng, không cần hiển thị nó -->
+                                                                                </c:if>
+                                                                            </c:forEach>
+                                                                            <!-- Nếu voucher chưa được sử dụng, hiển thị nó -->
+                                                                            <c:if test="${not isUsed}">
+                                                                                <option <c:if test="${v.id eq (i.idVoucher != 0 ? i.idVoucher : 0)}">selected</c:if>  value="${v.id}">${v.code} - ${v.discount}%</option>
+                                                                            </c:if>
+
+                                                                        </c:if> 
+
+                                                                    </c:forEach>
+
+                                                                </select>
+                                                            </form>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -289,6 +322,7 @@
             </c:if>
 
 
+            <!--Phần thanh toán sản phẩm-->
             <div class="checkout blog">
                 <div class="container">
                     <div class="row">
@@ -367,7 +401,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!--Show thông tin của tour muốn mua ngay-->
+                                                    <!--Show phần thanh toán của tour muốn mua ngay-->
                                                     <c:if test="${sessionScope.selectCheckout != 0}">
                                                         <div style="width: 1200px" class="col-lg-4 col-xl-3">
                                                             <h3 style="color: red">${requestScope.messBuy}</h3>
@@ -398,26 +432,26 @@
                                                         </div>
                                                     </c:if>
 
-                                                    <!--Show thông tin của các tour trong cart-->
+                                                    <!--Show phần thanh toán của các tour trong cart-->
                                                     <c:if test="${sessionScope.selectCheckout == 0}">
-                                                        <c:set value="${sessionScope.itemTour}" var="i"/>
+                                                        <c:set value="${sessionScope.cartItem}" var="i"/>
                                                         <div style="width: 1200px" class="col-lg-4 col-xl-3">
                                                             <h3 style="color: red">${requestScope.messBuy}</h3>
                                                             <div class="d-flex justify-content-between" style="font-weight: 500;">
                                                                 <p class="mb-2">Tổng tiền</p>
-                                                                <p class="mb-2">$23.49</p>
+                                                                <p class="mb-2"><fmt:formatNumber value="${i.getTotalMoney()}" pattern="###,###"/> VNÐ</p>
                                                             </div>
 
                                                             <div class="d-flex justify-content-between" style="font-weight: 500;">
                                                                 <p class="mb-0">Tiết kiệm</p>
-                                                                <p class="mb-0">$2.99</p>
+                                                                <p class="mb-0"><fmt:formatNumber value="${i.getTotalMoneyUseVoucher() != 0 ? i.getTotalMoney() - i.getTotalMoneyUseVoucher() : 0}" pattern="###,###"/> VNÐ</p>
                                                             </div>
 
                                                             <hr class="my-4">
 
                                                             <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
                                                                 <p class="mb-2">Tổng thanh toán</p>
-                                                                <p class="mb-2">$26.48</p>
+                                                                <p class="mb-2"><fmt:formatNumber value="${i.getTotalMoneyUseVoucher() != 0 ?i.getTotalMoneyUseVoucher() :i.getTotalMoney()}" pattern="###,###"/> VNÐ</p>
                                                             </div>
 
                                                             <form action="checkout" method="post">
@@ -449,9 +483,42 @@
         </div>
 
         <script>
-            document.getElementById('proccessVoucher').onchange = function () {
-                document.getElementById('formProccessVoucher').submit();
-            };
+
+            document.querySelectorAll('.selectVoucher').forEach(function (selectElement) {
+                selectElement.onchange = function () {
+                    var form = selectElement.closest('form');
+                    var tourId = form.querySelector('input[name="idTour"]').value;
+                    var selectedVoucherId = selectElement.value;
+
+                    // 1. Xác định supplierId của tour và voucher
+                    var tourSupplierId = form.querySelector('input[name="tourSupplierId"]').value;
+                    var voucherSupplierId = form.querySelector('option:selected').getAttribute('data-supplier-id');
+
+                    // 2. Kiểm tra các tour khác và cập nhật danh sách voucher
+                    document.querySelectorAll('.selectVoucher').forEach(function (otherSelectElement) {
+                        var otherTourSupplierId = otherSelectElement.closest('form').querySelector('input[name="tourSupplierId"]').value;
+                        var otherVoucherSupplierId = otherSelectElement.querySelector('option:selected').getAttribute('data-supplier-id');
+                        var otherVoucherId = otherSelectElement.value;
+
+                        // Nếu supplierId của tour và voucher khớp với tour đã chọn và voucher đã sử dụng, ẩn voucher đó
+                        if (otherTourSupplierId === tourSupplierId && otherVoucherSupplierId === voucherSupplierId && otherVoucherId !== selectedVoucherId) {
+                            otherSelectElement.querySelector('option[value="' + selectedVoucherId + '"]').disabled = true;
+                        }
+                    });
+                };
+            });
+
+
+            // Lặp qua tất cả các phần tử select và gán sự kiện onchange cho mỗi select
+            document.querySelectorAll('.selectVoucher').forEach(function (selectElement) {
+                selectElement.onchange = function () {
+                    // Tìm form cha của selectElement và submit form đó
+                    selectElement.closest('form').submit();
+                };
+            });
+//            document.getElementById('proccessVoucher').onchange = function () {
+//                document.getElementById('formProccessVoucher').submit();
+//            };
 
 
             document.addEventListener("DOMContentLoaded", function () {

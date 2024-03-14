@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Account;
+import model.Cart;
 import model.Item;
 import model.Tour;
 import model.Voucher;
@@ -82,7 +83,6 @@ public class ProcessVoucherServlet extends HttpServlet {
         HttpSession session = request.getSession();
         CheckoutDAO checkoutDao = new CheckoutDAO();
         Account account = (Account) session.getAttribute("account");
-        Item itemTour = (Item) session.getAttribute("itemTour");
 
         String idVoucher_raw = request.getParameter("selectVoucher");
         List<Voucher> listVoucher = checkoutDao.listVoucherByIdAcc(account.getId());
@@ -95,14 +95,37 @@ public class ProcessVoucherServlet extends HttpServlet {
         }
 
         if (voucher != null) {
-            double priceSale = calculateVoucher(itemTour, voucher);
-            Item itemTourCheckout = new Item(
-                    itemTour.getTour(), itemTour.getQuantity(),
-                    itemTour.getPrice(), idVoucher, voucher.getDiscount(), priceSale
-            );
-            session.setAttribute("itemTour", itemTourCheckout);
+            int selectCheckout = (int) session.getAttribute("selectCheckout");
+            if (selectCheckout != 0) {
+                Item itemTour = (Item) session.getAttribute("itemTour");
+                double priceSale = calculateVoucher(itemTour, voucher);
+                Item itemTourCheckout = new Item(
+                        itemTour.getTour(), itemTour.getQuantity(),
+                        itemTour.getPrice(), idVoucher, voucher.getDiscount(), priceSale
+                );
+                session.setAttribute("itemTour", itemTourCheckout);
+            } else {
+                String id_tour = request.getParameter("idTour");
+                int idTour = Integer.parseInt(id_tour);
+                Cart cartItem = (Cart) session.getAttribute("cartItem");
+                Cart cartItemCheckout = getItemForCartByIdTour(cartItem, idTour, voucher);
+                session.setAttribute("cartItem", cartItemCheckout);
+            }
         }
         request.getRequestDispatcher("checkout.jsp").forward(request, response);
+    }
+
+    private Cart getItemForCartByIdTour(Cart cart, int idTour, Voucher v) {
+        for (Item i : cart.getItems()) {
+            if (i.getTour().getId() == idTour) {
+                double priceSale = calculateVoucher(i, v);
+                i.setIdVoucher(v.getId());
+                i.setDiscount(v.getDiscount());
+                i.setPriceSale(priceSale);
+                break;
+            }
+        }
+        return cart;
     }
 
     private double calculateVoucher(Item item, Voucher v) {

@@ -148,7 +148,7 @@ public class FillInformationBuyerServlet extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             List<InformationAccount> listInformationAccount = dao.getListInformationByIdAcc(account.getId());
-            session.setAttribute("cart", cart);
+            session.setAttribute("cartFill", cart);
             session.setAttribute("idSelectOne", 0);
             request.setAttribute("listInforAcc", listInformationAccount);
             request.getRequestDispatcher("fillInformationBuyer.jsp").forward(request, response);
