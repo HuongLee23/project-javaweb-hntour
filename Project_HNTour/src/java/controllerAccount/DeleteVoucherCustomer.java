@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controllerAccount;
 
 import dal.DAO;
 import java.io.IOException;
@@ -13,15 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Schedules;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name="loadschedule", urlPatterns={"/loadschedule"})
-public class loadschedule extends HttpServlet {
+@WebServlet(name="DeleteVoucherCustomer", urlPatterns={"/deletevouchercustomer"})
+public class DeleteVoucherCustomer extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +36,10 @@ public class loadschedule extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loadschedule</title>");  
+            out.println("<title>Servlet DeleteVoucherCustomer</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loadschedule at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet DeleteVoucherCustomer at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,14 +56,10 @@ public class loadschedule extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-//         DAO dao=new DAO();
-//     String id=request.getParameter("sid");
-//     int idi=Integer.parseInt(id);
-//       List<Schedules> schedules=dao.getSchedukesById1(idi);
-//       request.setAttribute("schedules", schedules);
-//       
-//
-//        request.getRequestDispatcher("EditSchedules.jsp").forward(request, response);
+         String vid = request.getParameter("vid");
+        DAO dao = new DAO();
+        dao.deleteVoucher(vid);
+        response.sendRedirect("vouchercustomer");
     } 
 
     /** 

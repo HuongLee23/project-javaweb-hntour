@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controllerTour;
 
 import dal.DAO;
 import java.io.IOException;
@@ -14,15 +14,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.Category;
-import model.Schedules;
 import model.Tour;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "LoadTour", urlPatterns = {"/loadtour"})
-public class LoadTour extends HttpServlet {
+@WebServlet(name = "tourlist", urlPatterns = {"/tourlist"})
+public class TourListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +40,10 @@ public class LoadTour extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoadTour</title>");
+            out.println("<title>Servlet tourlist</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoadTour at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet tourlist at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,20 +61,14 @@ public class LoadTour extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         DAO dao = new DAO();
-        String id = request.getParameter("tid");
-        int idi = Integer.parseInt(id);
-        List<Schedules> schedules = dao.getSchedukesById(idi);
-        request.setAttribute("schedules", schedules);
-
-        Tour p = dao.getDetail(idi);
-        request.setAttribute("tour", p);
-
-        List<Category> listC = dao.getListCategory();
-        request.setAttribute("listC", listC);
-
-        request.getRequestDispatcher("EditTour.jsp").forward(request, response);
+        List<Category> listCategory = dao.getListCategory();
+        List<Tour> tourlist = dao.getAllTour();
+        request.setAttribute("tour", tourlist);
+        request.setAttribute("listCategory", listCategory);
+        request.getRequestDispatcher("tour.jsp").forward(request, response);
     }
 
     /**
@@ -89,7 +82,7 @@ public class LoadTour extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**

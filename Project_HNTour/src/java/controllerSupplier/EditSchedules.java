@@ -1,9 +1,8 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controllerSupplier;
 
 import dal.DAO;
 import java.io.IOException;
@@ -13,16 +12,20 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Time;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import model.Category;
+import model.Schedules;
 import model.Tour;
 
 /**
  *
- * @author Asus
+ * @author Admin
  */
-@WebServlet(name = "SearchByCategoryServlet", urlPatterns = {"/searchcategory"})
-public class SearchByCategoryServlet extends HttpServlet {
+@WebServlet(name = "EditSchedules", urlPatterns = {"/editschedule"})
+public class EditSchedules extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +44,10 @@ public class SearchByCategoryServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SearchByCategoryServlet</title>");
+            out.println("<title>Servlet EditSchedules</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SearchByCategoryServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet EditSchedules at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,15 +66,12 @@ public class SearchByCategoryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
-        String cid = request.getParameter("cid");
+        String id = request.getParameter("sid");
+        int idi = Integer.parseInt(id);
+        List<Schedules> schedules = dao.getSchedukesById1(idi);
+        request.setAttribute("schedules", schedules);
 
-        // Validate and parse the category ID
-        List<Tour> category = dao.searchByCategory(cid);
-        List<Category> listCategory = dao.getListCategory();
-        request.setAttribute("listCategory", listCategory);
-        request.setAttribute("tour", category);
-        request.getRequestDispatcher("tour.jsp").forward(request, response);
-
+        request.getRequestDispatcher("EditSchedules.jsp").forward(request, response);
     }
 
     /**
@@ -85,7 +85,23 @@ public class SearchByCategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String id_raw = request.getParameter("sid");
+        String tid_raw = request.getParameter("tourId");
+        String location = request.getParameter("location");
+        String date_raw = request.getParameter("date");
+        String des = request.getParameter("descriptionSchedules");
+
+        int id = Integer.parseInt(id_raw);
+        int tid = Integer.parseInt(tid_raw);
+        // Validation: Check if the date format is correct before parsing
+        Time time = Time.valueOf(LocalTime.parse(date_raw));
+
+        DAO dao = new DAO();
+        dao.editTourSchedules(id, location, time, des);
+
+        // Include the schedule ID in the redirect URL
+        response.sendRedirect("loadtour?tid=" + tid);
+
     }
 
     /**

@@ -36,9 +36,13 @@
                             <a href="profileaccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
                         </c:if>
                         <!-- Thêm thông báo sau đây -->
-                        <div class="notification_icon ml-2">
-                            <a href="vouchercustomer" id="notification_button" class="d-flex align-items-center"><i class="fa-solid fa-bell" style="color: #ffffff; font-size: 20px;"></i></a>
-                        </div>
+                        <div class="notification_icon ml-4">
+    <a href="vouchercustomer" id="notification_button" class="d-flex align-items-center">
+        <i class="fa-solid fa-ticket" style="color: #ffffff; font-size: 20px;"></i>
+    </a>
+</div>
+
+
                     </c:if>
                 </div>
             </div>

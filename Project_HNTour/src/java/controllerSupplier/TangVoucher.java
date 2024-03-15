@@ -18,6 +18,7 @@ import java.util.List;
 import model.Account;
 import model.AccountVoucher;
 import model.TopProduct;
+import model.Voucher;
 
 /**
  *
@@ -61,16 +62,17 @@ public class TangVoucher extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       
+       DAO dao = new DAO();
          HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
           String aid_raw = request.getParameter("aid");
+                
           int aid=Integer.parseInt(aid_raw);
-        DAO dao = new DAO();
+        
         request.setAttribute("account", account);
-         List<AccountVoucher> voucherofaccount = dao.voucherOfAccount(account.getId());
+         List<AccountVoucher> voucherofaccount = dao.voucherNoIdAcc(account.getId());
         request.setAttribute("voucher", voucherofaccount);
-
+       
          List<TopProduct> listAccVoucher = dao.AccountIdVoucher(account.getId(),aid);
     request.setAttribute("users", listAccVoucher);
        
@@ -94,44 +96,34 @@ public class TangVoucher extends HttpServlet {
     int discountPercentage = Integer.parseInt(request.getParameter("discountPercentage"));
     boolean status = "1".equals(request.getParameter("status")); // Convert "1" to true, "0" to false
     int supplierId = Integer.parseInt(request.getParameter("supplierId"));
-    
+    int codeId = Integer.parseInt(code);
     DAO dao = new DAO();
-    boolean isCodeExists = dao.isVoucherCodeExists(code,supplierId); // Check if the code already exists
+    boolean isCodeExists = dao.isVoucherCodeExists(code, supplierId); // Check if the code already exists
 
     String nguoinhan_raw = request.getParameter("nguoinhan");
-// Check if nguoinhan_raw is empty or null
-    int nguoinhan = (nguoinhan_raw != null && !nguoinhan_raw.isEmpty()) ? Integer.parseInt(nguoinhan_raw) : 0;
-try {
-  
+    int nguoinhan = Integer.parseInt(nguoinhan_raw);
 
+    try {
+     
+        if (!isCodeExists) {
+      
+            dao.updateVoucher(codeId,discountPercentage, status, nguoinhan);
+            session.setAttribute("tangvoucher", "Tặng Voucher thành công!");
 
-    // Validate and insert into the database
-    if (!isCodeExists) {
-        // Assuming you have a method to insert a new voucher in DAO
-        dao.insertVoucher(code, discountPercentage, status, supplierId, nguoinhan);
-        session.setAttribute("tangvoucher", "Tặng Voucher thành công!");
-    } else {
-        session.setAttribute("tangvoucher", "Mã code Voucher đã tồn tại trước đó. Vui lòng thử lại!");
+        } else {
+            session.setAttribute("tangvoucher", "Mã code Voucher đã tồn tại trước đó. Vui lòng thử lại!");
+        }
+    } catch (NumberFormatException e) {
+        // Handle the case where nguoinhan_raw is not a valid integer
+        session.setAttribute("tangvoucher", "Lỗi khi xử lý người nhận. Vui lòng chọn lại!");
     }
-} catch (NumberFormatException e) {
-    // Handle the case where nguoinhan_raw is not a valid integer
-    session.setAttribute("tangvoucher", "Lỗi khi xử lý người nhận. Vui lòng chọn lại!");
+
+    // Redirect to the manager voucher page
+    response.sendRedirect("tangvoucher?aid=" + nguoinhan);
 }
 
-   
-        Account account = (Account) session.getAttribute("account");
-       
-        request.setAttribute("account", account);
-         List<AccountVoucher> voucherofaccount = dao.voucherOfAccount(account.getId());
-        request.setAttribute("voucher", voucherofaccount);
 
-         List<TopProduct> listAccVoucher = dao.listAccountsVoucher(account.getId());
-    request.setAttribute("users", listAccVoucher);
 
-// Redirect to the manager voucher page
- response.sendRedirect("tangvoucher?aid=" + nguoinhan);
-
-}
 
     /** 
      * Returns a short description of the servlet.

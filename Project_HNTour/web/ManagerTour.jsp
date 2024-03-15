@@ -54,11 +54,11 @@
                         <div class="col-sm-6">
                             <a href="home" class="btn btn-primary">Trở lại trang Home</a>
                             <a href="addtour?supplierID=${a.id}" class="btn btn-success">
-                                <i class="material-icons">&#xE147;</i> <span>Tạo Tour Mới</span>
+                                Tạo Tour Mới
                             </a>
-                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProductModal" onclick="prepareDeleteForm()">
+<!--                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProductModal" onclick="prepareDeleteForm()">
                                 <i class="material-icons">&#xE15C;</i> <span>Xóa</span>
-                            </a>
+                            </a>-->
                             <script>
                                 function submitForm() {
                                     document.getElementById("deleteForm").submit();
@@ -71,7 +71,7 @@
                                     <div>Tìm kiếm Tour</div>
                                     <input type="text" name="txt" class="destination search_input" >
                                 </div>
-                                <button class="button search_button">Tìm kiếm<span></span><span></span><span></span></button>
+                                <button class="btn btn-dark">Tìm kiếm<span></span><span></span><span></span></button>
                             </form>
                         </div>
                     </div>
@@ -124,13 +124,13 @@
                         <c:when test="${c.status}">
                             <div class="button-edit">
                                 <i class="fa-solid fa-lock-open"></i> 
-                                <a id="button-edit-customer" href="statustour?id=${c.id}" style="text-decoration: none; color: greenyellow">Active</a>
+                                <a id="button-edit-customer" href="statustour?id=${c.id}" style="text-decoration: none; color: greenyellow">Hoạt động</a>
                             </div>
                         </c:when>
                         <c:otherwise>
                             <div class="button-edit">
                                 <i class="fa-solid fa-lock-open"></i>
-                                <a id="button-edit-customer" href="statustour?id=${c.id}" style="text-decoration: none; color: red">Inactive</a>
+                                <a id="button-edit-customer" href="statustour?id=${c.id}" style="text-decoration: none; color: red">Không hoạt động</a>
                             </div>
                         </c:otherwise>
                     </c:choose>
@@ -139,9 +139,9 @@
                     <a href="loadtour?tid=${c.id}" class="edit" data-toggle="modal">
                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                     </a>
-                    <a href="delete?tid=${c.id}" class="delete" data-toggle="modal">
+<!--                    <a href="delete?tid=${c.id}" class="delete" data-toggle="modal">
                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                    </a>
+                    </a>-->
                 </td>
             </tr>
         </c:forEach>

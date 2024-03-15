@@ -2,8 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
-package controllerAccount;
+package controllerSupplier;
 
 import dal.DAO;
 import java.io.IOException;
@@ -13,47 +12,48 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Account;
-import model.AccountVoucher;
-import model.TopProduct;
-import model.Voucher;
+import model.Category;
+import model.Schedules;
+import model.Tour;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name="ManagerVoucherOfCustomer", urlPatterns={"/vouchercustomer"})
-public class ManagerVoucherOfCustomer extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+@WebServlet(name = "LoadTour", urlPatterns = {"/loadtour"})
+public class LoadTour extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManagerVoucherOfCustomer</title>");  
+            out.println("<title>Servlet LoadTour</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManagerVoucherOfCustomer at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet LoadTour at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -61,22 +61,26 @@ public class ManagerVoucherOfCustomer extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
+            throws ServletException, IOException {
+
         DAO dao = new DAO();
-        request.setAttribute("account", account);
-         List<Voucher> voucherofaccount = dao.getVouchersByAccountId(account.getId());
-        request.setAttribute("voucher", voucherofaccount);
+        String id = request.getParameter("tid");
+        int idi = Integer.parseInt(id);
+        List<Schedules> schedules = dao.getSchedukesById(idi);
+        request.setAttribute("schedules", schedules);
 
-         List<TopProduct> listAccVoucher = dao.listAccountsVoucher(account.getId());
-    request.setAttribute("users", listAccVoucher);
-       
-        request.getRequestDispatcher("VoucherOfCustomer.jsp").forward(request, response);
-    } 
+        Tour p = dao.getDetail(idi);
+        request.setAttribute("tour", p);
 
-    /** 
+        List<Category> listC = dao.getListCategory();
+        request.setAttribute("listC", listC);
+
+        request.getRequestDispatcher("EditTour.jsp").forward(request, response);
+    }
+
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -84,12 +88,13 @@ public class ManagerVoucherOfCustomer extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

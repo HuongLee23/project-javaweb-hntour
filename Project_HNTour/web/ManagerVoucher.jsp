@@ -132,7 +132,7 @@
     <select name="nguoinhan">
         <option value="">-- Chọn người nhận --</option>
         <c:forEach items="${requestScope.users}" var="user">
-            <option value="${user.account.id}">${user.account.username}</option>
+            <option value="${user.account.id}">${user.account.email}</option>
         </c:forEach>
     </select>
 
@@ -142,7 +142,7 @@
     <h3 style="color: red">${sessionScope.tbvoucher}</h3>
     <hr>
 
-    <h2>Existing Vouchers</h2>
+    <h2>Voucher hiện có</h2>
     <table>
         <tr>
             <th>Mã Code</th>
@@ -173,7 +173,7 @@
                         </c:otherwise>
                     </c:choose>
                 </td>
-                <td>${c.account.username}</td>
+                <td>${c.account.email}</td>
                 <td>
                     <a href="deletevoucher?vid=${c.voucher.id}" class="delete" data-toggle="modal">
                         <i class="material-icons" data-toggle="tooltip" title="Delete" style="color: red">Delete</i>

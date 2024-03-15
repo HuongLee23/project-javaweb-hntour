@@ -11,7 +11,7 @@
 <head>
     <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
     <meta charset="UTF-8">
-    <title>Manage Vouchers</title>
+    <title>Quản lý Voucher</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -23,44 +23,13 @@
             color: #333;
         }
 
-        form {
-            margin-bottom: 20px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        input[type="submit"] {
-            background-color: #4caf50;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 8px;
         }
 
         th, td {
@@ -73,92 +42,86 @@
             background-color: #f2f2f2;
         }
 
-        .button-edit a {
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: #fff;
+        }
+
+        .active {
+            background-color: greenyellow;
+        }
+
+        .inactive {
+            background-color: red;
+        }
+
+        .button-link {
             text-decoration: none;
             color: inherit;
         }
 
-        .button-edit i {
-            margin-right: 5px;
+        .material-icons {
+            vertical-align: middle;
         }
 
-        .delete i {
+        .delete-icon {
             color: red;
-            cursor: pointer;
         }
 
-        .delete i:hover {
+        .delete-icon:hover {
             color: darkred;
         }
 
-        hr {
-            margin-top: 20px;
-            border: 1px solid #ddd;
-        }
-
-        a.delete {
-            text-decoration: none;
-        }
-
-        a.delete i {
+        .back-icon {
             color: blue;
-            cursor: pointer;
         }
 
-        a.delete i:hover {
+        .back-icon:hover {
             color: darkblue;
         }
     </style>
 </head>
 <body>
 
-    <h3 style="color: red">${sessionScope.tbvoucher}</h3>
-    
+<h3 style="color: red">${sessionScope.tbvoucher}</h3>
 
-    <h2>Existing Vouchers</h2>
-    <table>
+<h2>Voucher hiện có</h2>
+<table>
+    <tr>
+        <th>Mã Code</th>
+        <th>Phần trăm giảm giá</th>
+        <th>Trạng thái</th>
+        <th>Tour của Supplier được áp dụng</th>
+        <th>Xóa</th>
+    </tr>
+    <c:forEach items="${requestScope.voucher}" var="c">
         <tr>
-            <th>Mã Code</th>
-            <th>Phần trăm giảm giá</th>
-            <th>Trạng thái</th>
-            <th>Tour của Supplier được áp dụng</th>
-            <th>Xóa</th>
-        </tr>
-        <c:forEach items="${requestScope.voucher}" var="c">
-            <tr>
-                <td>${c.voucher.code}</td>
-                <td>${c.voucher.discount}</td>
-                <td style="color: #00adef">
-                    <c:choose>
-                        <c:when test="${c.voucher.status}">
-                            <div class="button-edit">
-                                <i class="fa-solid fa-lock"></i>
-                                <a id="button-edit-customer" href="statusvoucher?id=${c.voucher.id}"
-                                   style="text-decoration: none; color: greenyellow">Hoạt động</a>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="button-edit">
-                                <i class="fa-solid fa-lock-open"></i>
-                                <a id="button-edit-customer" href="statusvoucher?id=${c.voucher.id}"
-                                   style="text-decoration: none; color: red">Không hoạt động</a>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-                <td>${c.account.username}</td>
-                <td>
-                    <a href="deletevoucher?vid=${c.voucher.id}" class="delete" data-toggle="modal">
-                        <i class="material-icons" data-toggle="tooltip" title="Delete" style="color: red">Delete</i>
-                    </a>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-
-    <a href="statistic?supplierId=${a.id}" class="delete" data-toggle="modal">
-        <i class="material-icons" data-toggle="tooltip" title="Delete" style="color: blue">Trở về</i>
+            <td>${c.code}</td>
+            <td>${c.discount}</td>
+            <td>
+                <span class="status ${c.status ? 'active' : 'inactive'}">
+                    ${c.status ? 'Hoạt động' : 'Không hoạt động'}
+                </span>
+            </td>
+            <td>
+    <a href="tourlistsupplier?sid=${c.supplierId}" class="button-link" style="color: blue;">
+        <span class="material-icons"></span> Áp dụng cho các Tour
     </a>
-</form>
+</td>
+            <td>
+                <a href="deletevouchercustomer?vid=${c.id}" class="button-link delete-icon">
+                    <span class="material-icons"></span> Xóa
+                </a>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+
+<a href="home" class="button-link back-icon">
+    <span class="material-icons"></span> Trở về
+</a>
+
 </body>
 </html>

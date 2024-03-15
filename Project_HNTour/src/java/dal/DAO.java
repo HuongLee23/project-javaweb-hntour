@@ -1402,8 +1402,12 @@ public class DAO extends DBContext {
         }
     }
 
-    public void insertVoucher(String code, int discount, boolean status, int supplierId, int idAcc) {
-        String sql = "INSERT INTO [dbo].[Voucher]\n"
+    public void insertVoucher(String code, int discount, boolean status, int supplierId, String idAcc_raw) {
+    String sql;
+    try {
+        if (idAcc_raw != null && !idAcc_raw.isEmpty()) {
+            int idAcc = Integer.parseInt(idAcc_raw);
+            sql = "INSERT INTO [dbo].[Voucher]\n"
                 + "   ([code]\n"
                 + "   ,[discountPercentage]\n"
                 + "   ,[status]\n"
@@ -1411,22 +1415,70 @@ public class DAO extends DBContext {
                 + "   ,[idAcc])\n"
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        try ( PreparedStatement st = connection.prepareStatement(sql)) {
-            // Set values for the parameters
-            st.setString(1, code);
-            st.setInt(2, discount);
-            st.setBoolean(3, status);
-            st.setInt(4, supplierId);
-            st.setInt(5, idAcc);
+            try (PreparedStatement st = connection.prepareStatement(sql)) {
+                // Set values for the parameters
+                st.setString(1, code);
+                st.setInt(2, discount);
+                st.setBoolean(3, status);
+                st.setInt(4, supplierId);
+                st.setInt(5, idAcc);
 
-            // Execute the update
-            st.executeUpdate();
+                // Execute the update
+                st.executeUpdate();
+                
+            }
+        } else {
+            sql = "INSERT INTO [dbo].[Voucher]\n"
+                + "   ([code]\n"
+                + "   ,[discountPercentage]\n"
+                + "   ,[status]\n"
+                + "   ,[supplierId])\n"
+                + "VALUES (?, ?, ?, ?)";
+
+            try (PreparedStatement st = connection.prepareStatement(sql)) {
+                // Set values for the parameters
+                st.setString(1, code);
+                st.setInt(2, discount);
+                st.setBoolean(3, status);
+                st.setInt(4, supplierId);
+
+                // Execute the update
+                st.executeUpdate();
+                
+            }
+        }
+    } catch (SQLException | NumberFormatException e) {
+        e.printStackTrace();
+    }
+    
+}
+    
+     public void updateVoucher(int voucherId, int discountPercentage, boolean status, int accountId) {
+        try {
+            String sql = "UPDATE Voucher SET discountPercentage = ?, status = ?, idAcc = ? WHERE id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+ 
+            statement.setInt(1, discountPercentage);
+            statement.setBoolean(2, status);
+            statement.setInt(3, accountId);
+            statement.setInt(4, voucherId);
+            
+            // Thực thi câu lệnh SQL
+            statement.executeUpdate();
+            
+            // Đóng kết nối và tài nguyên
+            statement.close();
+            // Đóng kết nối
+            
         } catch (SQLException e) {
-
             e.printStackTrace();
-
+            // Xử lý ngoại lệ
         }
     }
+
+
+    
 
     public void banVoucher(int id) {
         String sql = "Update Voucher\n"
@@ -1473,6 +1525,41 @@ public class DAO extends DBContext {
         } catch (SQLException e) {
         }
         return null;
+    }
+    
+    //lay cac thong tin cua voucher ma idAcc do dang co
+   public List<Voucher> getVouchersByAccountId(int accountId) {
+        List<Voucher> vouchers = new ArrayList<>();
+        try {
+           
+
+            String sql = "SELECT id, code, discountPercentage, status, supplierId, idAcc " +
+                         "FROM Voucher " +
+                         "WHERE idAcc = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, accountId);
+
+            // Thực thi câu lệnh SQL và lấy kết quả
+            ResultSet resultSet = statement.executeQuery();
+
+            // Lặp qua các dòng kết quả và thêm voucher vào danh sách
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String code = resultSet.getString("code");
+                int discountPercentage = resultSet.getInt("discountPercentage");
+                boolean status = resultSet.getBoolean("status");
+                int supplierId = resultSet.getInt("supplierId");
+                int idAcc = resultSet.getInt("idAcc");
+
+                // Tạo một đối tượng voucher từ dữ liệu kết quả và thêm vào danh sách
+                Voucher voucher = new Voucher(id, code, discountPercentage, status, supplierId, idAcc);
+                vouchers.add(voucher);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Xử lý ngoại lệ
+        }
+        return vouchers;
     }
 
     public void deleteVoucher(String vid) {
@@ -1877,19 +1964,25 @@ public class DAO extends DBContext {
         return list;
     }
 
+    
     //list ra các voucher
     public List<AccountVoucher> voucherOfAccount(int supplierId) {
         List<AccountVoucher> list = new ArrayList<>();
-        String sql = " SELECT A.id AS AccountId,\n"
-                + "    A.[username] AS AccountUsername,O.id AS VoucherId\n"
-                + "FROM\n"
-                + "    [HaNoiTour].[dbo].[Account] A\n"
-                + "INNER JOIN\n"
-                + "    [HaNoiTour].[dbo].[Voucher] O ON A.[id] = O.[idAcc] where supplierId=?";
+        String sql = "SELECT A.id AS AccountId, A.[username] AS AccountUsername, O.id AS VoucherId\n"
+                + "FROM [HaNoiTour].[dbo].[Account] A\n"
+                + "INNER JOIN [HaNoiTour].[dbo].[Voucher] O ON A.[id] = O.[idAcc]\n"
+                + "WHERE O.supplierId = ?\n"
+                + "\n"
+                + "UNION\n"
+                + "\n"
+                + "SELECT NULL AS AccountId, NULL AS AccountUsername, O.id AS VoucherId\n"
+                + "FROM [HaNoiTour].[dbo].[Voucher] O\n"
+                + "WHERE O.idAcc IS NULL AND O.supplierId = ?;";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, supplierId);
+            st.setInt(2, supplierId);
             ResultSet rs = st.executeQuery();
             DAO d = new DAO();
             while (rs.next()) {
@@ -1905,6 +1998,33 @@ public class DAO extends DBContext {
         }
         return list;
     }
+    
+    //hien ra cac ma code chua co idAcc
+   public List<AccountVoucher> voucherNoIdAcc(int supplierId) {
+    List<AccountVoucher> list = new ArrayList<>();
+    String sql = "SELECT NULL AS AccountId, NULL AS AccountUsername, O.id AS VoucherId\n" +
+                 "FROM [HaNoiTour].[dbo].[Voucher] O\n" +
+                 "WHERE O.idAcc IS NULL AND O.supplierId = ?;";
+
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, supplierId);
+        ResultSet rs = st.executeQuery();
+        DAO d = new DAO();
+        while (rs.next()) {
+            AccountVoucher tp = new AccountVoucher();
+            // Không cần truy cập vào cột AccountId vì đã là NULL
+            Voucher vc = d.getVoucherByID(rs.getInt("VoucherId"));
+            tp.setVoucher(vc);
+            list.add(tp);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // Xử lý ngoại lệ một cách thích hợp
+    }
+    return list;
+}
+
+   
 
     public List<TopProduct> AccountIdVoucher(int supplierId, int accountId) {
         List<TopProduct> list = new ArrayList<>();
@@ -1934,92 +2054,64 @@ public class DAO extends DBContext {
         return list;
     }
 
-     public boolean checkNewVoucherForAccount(int accountId) throws SQLException {
-    String sql = "SELECT COUNT(Voucher.code) FROM [HaNoiTour].[dbo].[Voucher] WHERE idAcc = ?";
-    try (PreparedStatement statement = connection.prepareStatement(sql)) {
-        statement.setInt(1, accountId);
-        try (ResultSet rs = statement.executeQuery()) {
-            if (rs.next()) {
-                int voucherCount = rs.getInt(1);
-                return voucherCount > 0;
+
+
+ public List<Tour> showTourBySupplier(int supplierId) {
+        List<Tour> list = new ArrayList<>();
+
+        String sql = "SELECT TOP (1000) \n" +
+"                T.[id], \n" +
+"                T.[name],\n" +
+"                 T.[imageMain],\n" +
+"                 T.[imageAlbum],\n" +
+"                 T.[intendedTime], \n" +
+"                T.[price], \n" +
+"                T.[description], \n" +
+"                T.[categoryId], \n" +
+"                T.[version], \n" +
+"                T.[rule], \n" +
+"                T.[supplierId], \n" +
+"                T.[status] \n" +
+"                FROM [HaNoiTour].[dbo].[Tour] T where status=1 and supplierId=?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, supplierId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                String imageAlbumString = rs.getString("imageAlbum");
+
+                // Chia chuỗi thành mảng các chuỗi con bằng cách sử dụng phương thức split
+                List<String> imageAlbumList = Arrays.asList(imageAlbumString.split("/splitAlbum/"));
+
+                Tour tour = new Tour(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("imageMain"),
+                        imageAlbumList,
+                        rs.getTime("intendedTime"),
+                        rs.getDouble("price"),
+                        rs.getString("description"),
+                        rs.getInt("categoryId"),
+                        rs.getInt("version"),
+                        rs.getString("rule"),
+                        rs.getInt("supplierId"),
+                        rs.getBoolean("status")
+                );
+
+                list.add(tour);
             }
+
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-    } catch (SQLException e) {
-        // Xử lý ngoại lệ SQL
-        e.printStackTrace();
-        throw e;
+
+        return list;
     }
-    return false;
-}
 
-     
-//    public Supplier getInforSupplierByID(int id) {
-//    String sql = "SELECT [fullName], [birthday], [email], [phoneNumber], [frontCMND], [backCMND], [nameCompany], [addressCompany], [emailCompany], [phoneNumberCompany], [businessCode], [businessRegis], [taxCertificate], [taxPayment] FROM [dbo].[Supplier] WHERE accId = ?";
-//    
-//    try (PreparedStatement stm = connection.prepareStatement(sql)) {
-//        stm.setInt(1, id);
-//        ResultSet rs = stm.executeQuery();
-//        if (rs.next()) {
-//            return new Supplier(
-//                id,
-//                rs.getString("fullName"),
-//                rs.getDate("birthday"),
-//                rs.getString("email"),
-//                rs.getString("phoneNumber"),
-//                rs.getString("frontCMND"),
-//                rs.getString("backCMND"),
-//                rs.getString("nameCompany"),
-//                rs.getString("addressCompany"),
-//                rs.getString("emailCompany"),
-//                rs.getString("phoneNumberCompany"),
-//                rs.getString("businessCode"),
-//                rs.getString("businessRegis"),
-//                rs.getString("taxCertificate"),
-//                rs.getString("taxPayment")
-//            );
-//        }
-//    } catch (SQLException ex) {
-//        // Handle SQLException
-//        ex.printStackTrace();
-//    }
-//    return null;
-//}
-//
-//
-//
-//     
-//    public List<AccountVoucher> getVoucherByCustomerID(int idAcc) {
-//    List<AccountVoucher> vouchers = new ArrayList<>(); // Tạo một danh sách để lưu trữ các voucher
-//
-//    String sql = "SELECT V.*, A.id AS accountId, A.username AS accountUsername, " +
-//                 "S.id AS supplierId, S.name AS supplierName " +
-//                 "FROM Voucher V " +
-//                 "INNER JOIN Account A ON V.idAcc = A.id " +
-//                 "INNER JOIN Supplier S ON V.supplierId = S.id " +
-//                 "WHERE V.idAcc = ?";
-//    try {
-//        PreparedStatement st = connection.prepareStatement(sql);
-//        st.setInt(1, idAcc);
-//        ResultSet rs = st.executeQuery();
-//        while (rs.next()) {
-//           DAO d = new DAO();
-//            AccountVoucher tp = new AccountVoucher();
-//                Account a = d.getAccountByID(rs.getInt("AccountId"));
-//                Voucher vc = d.getVoucherByID(rs.getInt("VoucherId"));
-//                Supplier sp=d.getInforSupplierByID(idAcc);
-//                tp.setAccount(a);
-//                tp.setVoucher(vc);
-//                vouchers.add(tp);
-//        }
-//    } catch (SQLException e) {
-//        // Xử lý ngoại lệ nếu có
-//        e.printStackTrace();
-//    }
-//    
-//    return vouchers; 
-//}
-
-
+    
+    
     
     public static void main(String[] args) {
         // Assuming you have a DAO instance

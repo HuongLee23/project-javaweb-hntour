@@ -1,8 +1,9 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controllerTour;
 
 import dal.DAO;
 import java.io.IOException;
@@ -12,13 +13,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Category;
+import model.Tour;
 
 /**
  *
- * @author Admin
+ * @author Asus
  */
-@WebServlet(name = "Delete", urlPatterns = {"/delete"})
-public class Delete extends HttpServlet {
+@WebServlet(name = "SearchByCategoryServlet", urlPatterns = {"/searchcategory"})
+public class SearchByCategoryServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +41,10 @@ public class Delete extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Delete</title>");
+            out.println("<title>Servlet SearchByCategoryServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Delete at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SearchByCategoryServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,10 +62,16 @@ public class Delete extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String tid = request.getParameter("tid");
         DAO dao = new DAO();
-        dao.deleteTour(tid);
-        response.sendRedirect("managertourlist");
+        String cid = request.getParameter("cid");
+
+        // Validate and parse the category ID
+        List<Tour> category = dao.searchByCategory(cid);
+        List<Category> listCategory = dao.getListCategory();
+        request.setAttribute("listCategory", listCategory);
+        request.setAttribute("tour", category);
+        request.getRequestDispatcher("tour.jsp").forward(request, response);
+
     }
 
     /**

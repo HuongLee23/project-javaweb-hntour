@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controllerSupplier;
 
 import dal.DAO;
 import java.io.IOException;
@@ -18,8 +18,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name="StatusTour", urlPatterns={"/statustour"})
-public class StatusTour extends HttpServlet {
+@WebServlet(name="StatusVoucher", urlPatterns={"/statusvoucher"})
+public class StatusVoucher extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +36,10 @@ public class StatusTour extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet StatusTour</title>");  
+            out.println("<title>Servlet LockVoucher</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet StatusTour at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet LockVoucher at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,24 +56,24 @@ public class StatusTour extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        DAO dao = new DAO();
+    DAO dao = new DAO();
     int id = Integer.parseInt(request.getParameter("id"));
 
     // Get the current status of the voucher
-    boolean currentStatus = dao.getTourStatus(id);
+    boolean currentStatus = dao.getVoucherStatus(id);
 
     // Toggle the status
     boolean newStatus = !currentStatus;
 
     // Update the voucher status based on the new status
     if (newStatus) {
-        dao.unbanTour(id); // Assuming unbanVoucher method sets status to true
+        dao.unbanVoucher(id); // Assuming unbanVoucher method sets status to true
     } else {
-        dao.banTour(id); // Assuming banVoucher method sets status to false
+        dao.banVoucher(id); // Assuming banVoucher method sets status to false
     }
 
-    response.sendRedirect("managertourlist");
-    } 
+    response.sendRedirect("managervoucher");
+}
 
     /** 
      * Handles the HTTP <code>POST</code> method.
