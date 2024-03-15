@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
 import dal.DAO;
@@ -15,42 +14,44 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.Blog;
-import model.BlogComment;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="BlogServlet", urlPatterns={"/blog"})
+@WebServlet(name = "BlogServlet", urlPatterns = {"/blog"})
 public class BlogServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BlogServlet</title>");  
+            out.println("<title>Servlet BlogServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BlogServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet BlogServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -58,18 +59,42 @@ public class BlogServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        DAO dao= new DAO();
-        List<Blog> list= dao.getBlog("Public");
-        request.setAttribute("blog", list);
-        ///lasted
-        List<Blog> list_lasted=dao.getBlogLasted("Public");
-        request.setAttribute("lasted", list_lasted);
-        request.getRequestDispatcher("blog.jsp").forward(request, response);
-    } 
+            throws ServletException, IOException {
+        DAO dao = new DAO();
 
-    /** 
+        // Lấy danh sách blog
+        List<Blog> list_Blog = dao.getBlog(1);
+
+        // Phân trang
+        int page = 1;
+        int recordsPerPage = 2; // Số lượng phản hồi trên mỗi trang
+
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+
+        int startIndex = (page - 1) * recordsPerPage;
+        int endIndex = Math.min(startIndex + recordsPerPage, list_Blog.size());
+
+        List<Blog> pagedBlog = list_Blog.subList(startIndex, endIndex);
+        int totalPages = (int) Math.ceil((double) list_Blog.size() / recordsPerPage);
+
+        // Lấy danh sách blog mới nhất
+        List<Blog> list_lasted = dao.getBlogLasted(1);
+
+        // Gán các thuộc tính vào request để chuyển đến trang JSP
+        request.setAttribute("blog", pagedBlog);
+        request.setAttribute("lasted", list_lasted);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", page);
+
+        // Chuyển đến trang JSP
+        request.getRequestDispatcher("blog.jsp").forward(request, response);
+    }
+
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -77,12 +102,13 @@ public class BlogServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

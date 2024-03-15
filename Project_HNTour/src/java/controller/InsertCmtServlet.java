@@ -13,14 +13,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Blog;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="LoadBlogServlet", urlPatterns={"/loadblog"})
-public class LoadBlogServlet extends HttpServlet {
+@WebServlet(name="InsertCmtServlet", urlPatterns={"/addcmt"})
+public class InsertCmtServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,10 +38,10 @@ public class LoadBlogServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoadBlogServlet</title>");  
+            out.println("<title>Servlet InsertCmtServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoadBlogServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet InsertCmtServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,12 +58,7 @@ public class LoadBlogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         DAO dao = new DAO();
-        String id_raw = request.getParameter("tid");
-        int id = Integer.parseInt(id_raw);
-        Blog blogs= dao.getDetailBlog(id);
-        request.setAttribute("blog", blogs);
-        request.getRequestDispatcher("editblog.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -75,7 +71,18 @@ public class LoadBlogServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        Date currentDate = new Date(System.currentTimeMillis());
+    String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDate);
+    request.setAttribute("currentDate", formattedDate);
+     
+   int accId = Integer.parseInt(request.getParameter("accountId"));
+    String comment = request.getParameter("comment");
+     int idBlog = Integer.parseInt(request.getParameter("idblog"));
+    
+    
+     DAO d = new DAO();
+    d.addBlogCommen(accId, idBlog, comment, currentDate);
+     response.sendRedirect("blogdetail?id=" +idBlog );
     }
 
     /** 

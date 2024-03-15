@@ -1668,7 +1668,7 @@ public class DAO extends DBContext {
         }
     }
 
-    public List<Blog> getBlog(String status) {
+    public List<Blog> getBlog(int status) {
         List<Blog> list = new ArrayList<>();
         String sql = "SELECT TOP (1000)\n"
                 + "    B.[id],\n"
@@ -1681,7 +1681,7 @@ public class DAO extends DBContext {
                 + "FROM [HaNoiTour].[dbo].[Blog] B JOIN [dbo].[Account] A ON B.[accountId]=A.[id] where B.[status]=?;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, status);
+            st.setInt(1, status);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Blog blogs = new Blog();
@@ -1691,7 +1691,7 @@ public class DAO extends DBContext {
                 blogs.setImage(rs.getString("image"));
                 blogs.setPublishDate(rs.getDate("publishDate"));
                 blogs.setAccountId(rs.getInt("accountId"));
-                blogs.setStatus(rs.getString("status"));
+                blogs.setStatus(rs.getInt("status"));
                 blogs.setAccountName(rs.getString("accountName"));
                 list.add(blogs);
             }
@@ -1724,7 +1724,7 @@ public class DAO extends DBContext {
                             rs.getDate("publishDate"),
                             rs.getInt("accountId"),
                             rs.getString("accountName"),
-                            rs.getString("status")
+                            rs.getInt("status")
                     );
                 }
             }
@@ -1744,10 +1744,10 @@ public class DAO extends DBContext {
                 + "	  ,A.[username] as [accName]\n"
                 + "	  ,A.[avatar] as [accAvatar]\n"
                 + "  FROM [dbo].[BlogComment] B JOIN [Account] A\n"
-                + "  ON B.[accountId]= A.[id] ";
+                + "  ON B.[accountId]= A.[id] where B.[blogId]=? ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-
+                       st.setInt(1, bid);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 BlogComment blogcm = new BlogComment();
@@ -1788,7 +1788,7 @@ public class DAO extends DBContext {
                 blogs.setContent(rs.getString("content"));
                 blogs.setImage(rs.getString("image"));
                 blogs.setPublishDate(rs.getDate("publishDate"));
-                blogs.setStatus(rs.getString("status"));
+                blogs.setStatus(rs.getInt("status"));
                 blogs.setAccountId(rs.getInt("accountId"));
 
                 list.add(blogs);
@@ -1799,9 +1799,9 @@ public class DAO extends DBContext {
         return list;
     }
 
-    public List<Blog> getBlogLasted(String status) {
+    public List<Blog> getBlogLasted(int status) {
         List<Blog> list = new ArrayList<>();
-        String sql = "SELECT TOP (4)\n"
+        String sql = "SELECT TOP (3)\n"
                 + "    B.[id],\n"
                 + "    B.[title],\n"
                 + "    B.[content],\n"
@@ -1815,7 +1815,7 @@ public class DAO extends DBContext {
                 + "ORDER BY ABS(DATEDIFF(SECOND, GETDATE(), B.[publishDate])) ASC;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, status);
+            st.setInt(1, status);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Blog blogs = new Blog();
@@ -1825,7 +1825,7 @@ public class DAO extends DBContext {
                 blogs.setImage(rs.getString("image"));
                 blogs.setPublishDate(rs.getDate("publishDate"));
                 blogs.setAccountId(rs.getInt("accountId"));
-                blogs.setStatus(rs.getString("status"));
+                blogs.setStatus(rs.getInt("status"));
                 blogs.setAccountName(rs.getString("accountName"));
                 list.add(blogs);
             }
@@ -1835,7 +1835,7 @@ public class DAO extends DBContext {
         return list;
     }
 
-    public void updateBlog(String title, String content, String image, String status, int bid) {
+    public void updateBlog(String title, String content, String image, int status, int bid) {
         String sql = "UPDATE [dbo].[Blog]\n"
                 + "   SET [title] = ?\n"
                 + "      ,[content] = ?\n"
@@ -1849,7 +1849,7 @@ public class DAO extends DBContext {
             rs.setString(2, content);
             rs.setString(3, image);
 
-            rs.setString(4, status);
+            rs.setInt(4, status);
             rs.setInt(5, bid);
             rs.executeUpdate();
 
@@ -1869,7 +1869,7 @@ public class DAO extends DBContext {
         }
     }
 
-    public void insertBlog(String title, String content, String image, Date publishDate, int accountId, String status) {
+    public void insertBlog(String title, String content, String image, Date publishDate, int accountId, int status) {
         String sql = "INSERT INTO [dbo].[Blog] "
                 + "([title], [content], [image], [publishDate], [accountId], [status]) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
@@ -1879,7 +1879,7 @@ public class DAO extends DBContext {
             rs.setString(3, image);
             rs.setDate(4, publishDate);
             rs.setInt(5, accountId);
-            rs.setString(6, status);
+            rs.setInt(6, status);
 
             rs.executeUpdate();
         } catch (SQLException e) {
@@ -1891,21 +1891,16 @@ public class DAO extends DBContext {
     public List<OrderDetail> getHistoryOrder(int idAcc) {
         List<OrderDetail> list = new ArrayList<>();
         String sql = "SELECT TOP (1000) OD.[orderId]\n"
-                + "      ,OD.[tourId]\n"
-                + "      ,OD.[quantity]\n"
-                + "      ,OD.[price] AS [ORDER PRICE]\n"
-                + "      ,OD.[versionId],\n"
-                + "	  T.[name],\n"
-                + "	  T.[imageMain],\n"
-                + "	  T.[price], O.[accId],O.[date]\n"
+                + "      ,OD.[tourId] ,OD.[quantity]  ,OD.[price] as [ORDER PRICE] ,OD.[versionId] ,OD.[voucherId],\n"
+                + "	  T.[name],T.[imageMain],T.[price], O.[accId],O.[date], T.[status]\n"
                 + "  FROM [HaNoiTour].[dbo].[OrderDetail] OD JOIN [Tour] T ON OD.[tourId] = T.[id]\n"
-                + "    JOIN [Order] O ON OD.[orderId] = O.[id] WHERE O.[accId]= ?;";
+                + "                  JOIN [Order] O ON OD.[orderId] = O.[id] WHERE O.[accId]= ?;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, idAcc);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-
+                 
                 OrderDetail orderdetail = new OrderDetail();
                 orderdetail.setOrderId(rs.getInt("orderId"));
                 orderdetail.setTourId(rs.getInt("tourId"));
@@ -1917,6 +1912,7 @@ public class DAO extends DBContext {
                 orderdetail.setPriceTour(rs.getInt("price"));
                 orderdetail.setAccId(rs.getInt("accId"));
                 orderdetail.setDateOrder(rs.getDate("date"));
+                orderdetail.setStatusTour(rs.getBoolean("status"));
                 list.add(orderdetail);
             }
         } catch (SQLException e) {
@@ -1946,11 +1942,12 @@ public class DAO extends DBContext {
 
         return userHasPurchased;
     }
- public int countUserFeedback(int accountId, int tourId) {
+
+    public int countUserFeedback(int accountId, int tourId) {
         int count = 0;
         String sql = "SELECT COUNT(*) AS num_feedback FROM Feedback WHERE accId = ? and tourId= ?;";
-        
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+        try ( PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, accountId);
             ps.setInt(2, tourId);
             ResultSet rs = ps.executeQuery();
@@ -1960,10 +1957,11 @@ public class DAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return count;
     }
- public List<Blog> searchBlogByName(String txtSearch) {
+
+    public List<Blog> searchBlogByName(String txtSearch) {
         List<Blog> list = new ArrayList<>();
         String sql = "SELECT TOP (1000)\n"
                 + "    B.[id],\n"
@@ -1982,16 +1980,16 @@ public class DAO extends DBContext {
             while (rs.next()) {
                 list.add(
                         new Blog(
-                       rs.getInt("id"),
-                            rs.getString("title"),
-                            rs.getString("content"),
-                            rs.getString("image"),
-                            rs.getDate("publishDate"),
-                            rs.getInt("accountId"),
-                            rs.getString("accountName"),
-                            rs.getString("status")
-                // Add missing commas and complete the constructor parameters as needed
-                ));
+                                rs.getInt("id"),
+                                rs.getString("title"),
+                                rs.getString("content"),
+                                rs.getString("image"),
+                                rs.getDate("publishDate"),
+                                rs.getInt("accountId"),
+                                rs.getString("accountName"),
+                                rs.getInt("status")
+                        // Add missing commas and complete the constructor parameters as needed
+                        ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1999,15 +1997,17 @@ public class DAO extends DBContext {
 
         return list;
     }
-  public void addBlogCommen(int accBlog, String comment, Date commentDate) {
-        String sql = "INSERT INTO Feedback (accId, tourId, versionId, comment, rating) VALUES (?, ?, ?, ?, ?)";
+
+    public void addBlogCommen(int accBlog, int idblog, String comment, Date commentDate) {
+        String sql = "INSERT INTO BlogComment (accountId,blogId, comment,commentDate) VALUES (?, ?,?, ?)";
 
         try {
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, accBlog);
-            statement.setString(4, comment);
-            statement.setDate(5, commentDate);
+            statement.setInt(2, idblog);
+            statement.setString(3, comment);
+            statement.setDate(4, commentDate);
             statement.executeUpdate();
 
             statement.close();
@@ -2015,10 +2015,106 @@ public class DAO extends DBContext {
             e.printStackTrace();
         }
     }
+     public int countUserCMT(int accBlog, int idblog) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS num_feedback FROM BlogComment WHERE accountId = ? and blogId= ?;";
+
+        try ( PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accBlog);
+            ps.setInt(2, idblog);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("num_feedback");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+     public void updatecmt(int pid, int accBlog, int idblog, String comment) {
+        String sql = " UPDATE [BlogComment]\n"
+                + "SET \n"
+                + "    [accountId] = ?,\n"
+                + "    [blogId] = ?,\n"
+                + "    [comment] = ?\n"
+                + "WHERE\n"
+                + "    [id] = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setInt(1, accBlog);
+            ps.setInt(2, idblog);
+            ps.setString(3, comment);
+            
+            ps.setInt(4, pid);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+        }
+    }
+    public BlogComment getCommentByID(int id) {
+    String sql = "SELECT B.[id]\n"
+                + "      ,B.[blogId]\n"
+                + "      ,B.[accountId]\n"
+                + "      ,B.[comment]\n"
+                + "      ,B.[commentDate]\n"
+                + "	  ,A.[username] as [accName]\n"
+                + "	  ,A.[avatar] as [accAvatar]\n"
+                + "  FROM [dbo].[BlogComment] B JOIN [Account] A\n"
+                + "  ON B.[accountId]= A.[id] where B.[id]=? ";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, id);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            return new BlogComment(
+                        rs.getInt("id"),
+                        rs.getInt("blogId"), // Thay đổi từ accId thành blogId
+                        rs.getInt("accountId"),
+                        rs.getString("comment"),
+                        rs.getDate("commentDate"),
+                        rs.getString("accName"),
+                        rs.getString("accAvatar")); // Thay đổi từ avatarAc thành accAvatar
+        }
+    } catch (SQLException e) {
+        // Xử lý lỗi
+        e.printStackTrace();
+    }
+    return null;
+}
+
+     public void deleteCmt(String id) {
+        String sql = "delete from BlogComment where id =?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+        }
+    }
+     public void hideBlog(int bid, int status) {
+    String sql = "UPDATE Blog SET status = ? WHERE bid = ?";
+    try {
+        PreparedStatement ps = connection.prepareStatement(sql);
+        // Chuyển chuỗi id thành một số nguyên trước khi đặt giá trị cho tham số trong câu lệnh SQL
+        
+        ps.setInt(1, status);
+        ps.setInt(2, bid);
+        ps.executeUpdate();
+    } catch (SQLException e) {
+    } catch (NumberFormatException e) {
+    }
+}
+
     public static void main(String[] args) {
         DAO d = new DAO();
-        List<OrderDetail> list = d.getHistoryOrder(5);
+        List<OrderDetail> list= d.getHistoryOrder(5);
         System.out.println(list);
+       
     }
 
 //        if (!tourList.isEmpty()) {

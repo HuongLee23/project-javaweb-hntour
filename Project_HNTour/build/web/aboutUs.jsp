@@ -67,12 +67,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
-                                <div class="section_title">years statistics</div>
+                                <div class="section_title">Hà Nội Tour</div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-10 offset-lg-1 text-center">
-                                <p class="stats_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis vulputate eros, iaculis consequat nisl. Nunc et suscipit urna. Integer elementum orci eu vehicula pretium. Donec bibendum tristique condimentum. Aenean in lacus ligula. </p>
+                                <p class="stats_text">Hà Nội Tour là trang web uy tín, mang trong mình một sứ mệnh đặc biệt.Truyền tải và giới thiệu với tất cả mọi người những chuyến di tích lịch sử ở Hà Nội. </p>
                             </div>
                         </div>
                         <div class="row">

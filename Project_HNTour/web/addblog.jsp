@@ -88,8 +88,8 @@
                                     <label class="col-md-4 control-label" for="status">Status</label>  
                                     <div class="col-md-4">
                                         <select name="status" class="form-control input-md" required="">
-                                            <option value="Public" selected>Public</option>
-                                            <option value="Private">Private</option>
+                                            <option value="1" selected>Công Khai</option>
+                                            <option value="0">Ẩn</option>
                                         </select>
                                     </div>
                                     <div class="modal-footer">

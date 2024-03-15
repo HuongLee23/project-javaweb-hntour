@@ -295,20 +295,20 @@
                                      <table>
                                           <thead>
                                             <tr>
-                                                <th>Quy định</th>
+                                                <th style="text-align: justify; color: black;  text-align: left; padding: 8px;">Quy định</th>
                                             </tr>
                                         </thead>
                                          <tbody>
                                                 <tr>
                                                 
-                                                    <td style="text-align: justify;">${detail.rule}</td>
+                                                    <td style="text-align: justify; color: black; text-align: left; padding: 8px; background-color: #fefbd8">${detail.rule}</td>
                                                 </tr>
                                                 <!-- Add more rows as needed -->
                                             </tbody>
                                      </table>
                                     
                                 </div>
-
+                                                <br/>
                                 <!-- Schedules Section -->
                                 <div class="schedules">
                                     <h2>Lịch trình chuyến đi</h2>

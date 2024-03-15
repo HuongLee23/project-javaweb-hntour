@@ -22,11 +22,12 @@ public class OrderDetail {
     private int priceTour;
     private int accId;
     private Date dateOrder;
+    private Boolean statusTour;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int orderId, int tourId, int quantity, double price, int versionId, String nameTour, String imageTour, int priceTour, int accId, Date dateOrder) {
+    public OrderDetail(int orderId, int tourId, int quantity, double price, int versionId, String nameTour, String imageTour, int priceTour, int accId, Date dateOrder, Boolean statusTour) {
         this.orderId = orderId;
         this.tourId = tourId;
         this.quantity = quantity;
@@ -37,6 +38,7 @@ public class OrderDetail {
         this.priceTour = priceTour;
         this.accId = accId;
         this.dateOrder = dateOrder;
+        this.statusTour = statusTour;
     }
 
     public int getOrderId() {
@@ -119,10 +121,19 @@ public class OrderDetail {
         this.dateOrder = dateOrder;
     }
 
-    @Override
-    public String toString() {
-        return "OrderDetail{" + "orderId=" + orderId + ", tourId=" + tourId + ", quantity=" + quantity + ", price=" + price + ", versionId=" + versionId + ", nameTour=" + nameTour + ", imageTour=" + imageTour + ", priceTour=" + priceTour + ", accId=" + accId + ", dateOrder=" + dateOrder + '}';
+    public Boolean getStatusTour() {
+        return statusTour;
     }
 
+    public void setStatusTour(Boolean statusTour) {
+        this.statusTour = statusTour;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" + "orderId=" + orderId + ", tourId=" + tourId + ", quantity=" + quantity + ", price=" + price + ", versionId=" + versionId + ", nameTour=" + nameTour + ", imageTour=" + imageTour + ", priceTour=" + priceTour + ", accId=" + accId + ", dateOrder=" + dateOrder + ", statusTour=" + statusTour + '}';
+    }
+
+   
 }
 

@@ -53,47 +53,47 @@
         }
 
     </style>
-     <style type="text/css">
+    <style type="text/css">
 
-            .card {
-                border: none;
-                margin-bottom: 24px;
-                -webkit-box-shadow: 0 0 13px 0 rgba(236,236,241,.44);
-                box-shadow: 0 0 13px 0 rgba(236,236,241,.44);
-            }
+        .card {
+            border: none;
+            margin-bottom: 24px;
+            -webkit-box-shadow: 0 0 13px 0 rgba(236,236,241,.44);
+            box-shadow: 0 0 13px 0 rgba(236,236,241,.44);
+        }
 
-            .avatar-xs {
-                height: 2.3rem;
-                width: 2.3rem;
-            }
+        .avatar-xs {
+            height: 2.3rem;
+            width: 2.3rem;
+        }
 
-            .card {
-                background: #fff;
-                transition: .5s;
-                border: 0;
-                margin-bottom: 30px;
-                border-radius: .55rem;
-                position: relative;
-                width: 100%;
-                box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
-            }
-            .card .body {
-                color: #444;
-                padding: 20px;
-                font-weight: 400;
-            }
+        .card {
+            background: #fff;
+            transition: .5s;
+            border: 0;
+            margin-bottom: 30px;
+            border-radius: .55rem;
+            position: relative;
+            width: 100%;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+        }
+        .card .body {
+            color: #444;
+            padding: 20px;
+            font-weight: 400;
+        }
 
-            .container .addnewblog{
-                margin-top: 45px;
-            }
+        .container .addnewblog{
+            margin-top: 45px;
+        }
 
-            .container .searchblog{
-                width: 0;
-            }
-            tr , th , td {
-                padding: 5px;
-            }
-        </style>
+        .container .searchblog{
+            width: 0;
+        }
+        tr , th , td {
+            padding: 5px;
+        }
+    </style>
 </head>
 
 
@@ -153,7 +153,7 @@
 
                                 <!-- Search Panel -->
 
-                                 <div class="search_panel active">
+                                <div class="search_panel active">
 
                                     <form action="searchname" id="search_form_1" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
                                         <div class="search_item">
@@ -223,44 +223,54 @@
             <!-- Single Listing -->
 
             <div class="container">
-              <div class="table-responsive">
-                            <div class="card">
-                                
-                                <div class="card-body row">
-                                    <table class="table project-table table-centered table-nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">STT</th>
-                                                <th scope="col">Ảnh</th>
-                                                <th scope="col">Tên Tour</th>
-                                                <th scope="col">Giá</th>
-                                                <th scope="col">Số lượng</th>
-                                                <th scope="col">Tổng đơn giá</th>
-                                                <th>Trạng thái</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach items="${listOrder}" var="od" varStatus="loop1">
-                                                <tr>
-                                                    <th scope="row">${loop1.index+1}</th>
-                                                    <td style="width: 30%">
-                                                        <img style="width: 35%" class="d-block img-fluid" src="${od.imageTour}" alt="">
-                                                    </td>
-                                                    <td>${od.nameTour}</td>
-                                                    <td>${od.priceTour}</td>
-                                                    <td>${od.quantity}</td>
-                                                    <td>${od.price}</td>
-                                                    <td>  <a style="background: #fa9e1b " href="detail?tid=${od.tourId}" class="btn btn-primary">Mua lại</a></td>
-                                                </tr>    
-                                            </c:forEach>
+                <div class="table-responsive">
+                    <div class="card">
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <div class="card-body row">
+                            <table class="table project-table table-centered table-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Ảnh</th>
+                                        <th scope="col">Tên Tour</th>
+                                        <th scope="col">Giá</th>
+                                        <th scope="col">Số lượng</th>
+                                        <th scope="col">Tổng đơn giá</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${listOrder}" var="od" varStatus="loop1">
+                                        <tr>
+                                            <th scope="row">${loop1.index+1}</th>
+                                            <td style="width: 30%">
+                                                <img style="width: 35%" class="d-block img-fluid" src="${od.imageTour}" alt="">
+                                            </td>
+                                            <td>${od.nameTour}</td>
+                                            <td>${od.priceTour}</td>
+                                            <td>${od.quantity}</td>
+                                            <td>${od.price}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${od.statusTour == true}">
+                                                        <a style="background: #fa9e1b " href="detail?tid=${od.tourId}" class="btn btn-primary">Mua lại</a>
+                                                    </c:when>
+                                                    <c:when test="${od.statusTour == false}">
+                                                        <span>Tour này đã bị ẩn</span>
+                                                    </c:when>
+                                                </c:choose>
+                                            </td>
+                                        </tr>    
+                                    </c:forEach>
 
-                            </div>
 
+                                </tbody>
+                            </table>
                         </div>
+
+                    </div>
+
+                </div>
             </div>		
         </div>
         <!-- Footer -->

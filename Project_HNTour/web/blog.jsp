@@ -48,7 +48,7 @@
 
                             <div class="col-lg-8">
 
-                                <div class="blog_post_container">
+                                <div class="blog_post_container" id="offers_blog">
 
                                     <!-- Blog Post -->
                                 <c:forEach items="${blog}" var="blog" >
@@ -81,13 +81,16 @@
 
                             </div>
 
-                            <div class="blog_navigation">
-                                <ul>
-                                    <li class="blog_dot active"><div></div>01.</li>
-                                    <li class="blog_dot"><div></div>02.</li>
-                                    <li class="blog_dot"><div></div>03.</li>
-                                </ul>
+                            <div class="blog_navigation"> 
+                                <c:forEach begin="1" end="${totalPages}" varStatus="loop">
+                                    <ul>
+                                        <li class="blog_dot active ${loop.index == currentPage ? 'active' : ''}"> 
+                                            <a class="page-link" href="blog?page=${loop.index}">${loop.index}</a>
+                                        </li>
+                                    </ul>
+                                </c:forEach>
                             </div>
+
                         </div>
 
                         <!-- Blog Sidebar -->
@@ -96,8 +99,8 @@
 
                             <!-- Sidebar Search -->
                             <div class="sidebar_search">
-                                <form action="#">
-                                    <input id="sidebar_search_input" type="search" class="sidebar_search_input" placeholder="" required="required">
+                                <form action="searchblog">
+                                    <input oninput="searchBlog(this)" type="text" name="txt" class="sidebar_search_input" placeholder="Nhập bài viết" required="required">
                                     <button id="sidebar_search_button" type="submit" class="sidebar_search_button trans_300" value="Submit">
                                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                              width="17px" height="17px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
@@ -121,6 +124,7 @@
                                         </g>
                                         </svg>
                                     </button>
+
                                 </form>
                             </div>
 
@@ -137,29 +141,29 @@
                             </div>
 
                             <!-- Sidebar Archives -->
-                            
+
 
                             <!-- Sidebar Latest Posts -->
 
                             <div class="sidebar_latest_posts">
                                 <div class="sidebar_title">Latest Posts</div>
                                 <div class="latest_posts_container">
-                                <c:forEach items="${lasted}" var="l">
-                                    <ul>
-                                        <!-- Latest Post -->
-                                        <li class="latest_post clearfix">
-                                            <div class="latest_post_image">
-                                                <a href="blogdetail?id=${l.bid}"><img style="height: 55px;width: 85px;" src="${l.image}" alt=""></a>
-                                            </div>
-                                            <div class="latest_post_content">
-                                                <div class="latest_post_title trans_200"><a href="blogdetail?id=${l.bid}">${l.title}</a></div>
-                                                <div class="latest_post_meta">
-                                                    <div class="latest_post_author trans_200"><a href="blogdetail?id=${l.bid}">${l.accountName}</a></div>
-                                                    <div class="latest_post_date trans_200"><a href="blogdetail?id=${l.bid}">${l.publishDate}</a></div>
+                                    <c:forEach items="${lasted}" var="l">
+                                        <ul>
+                                            <!-- Latest Post -->
+                                            <li class="latest_post clearfix">
+                                                <div class="latest_post_image">
+                                                    <a href="blogdetail?id=${l.bid}"><img style="height: 55px;width: 85px;" src="${l.image}" alt=""></a>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                                <div class="latest_post_content">
+                                                    <div class="latest_post_title trans_200"><a href="blogdetail?id=${l.bid}">${l.title}</a></div>
+                                                    <div class="latest_post_meta">
+                                                        <div class="latest_post_author trans_200"><a href="blogdetail?id=${l.bid}">${l.accountName}</a></div>
+                                                        <div class="latest_post_date trans_200"><a href="blogdetail?id=${l.bid}">${l.publishDate}</a></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </c:forEach>
                                 </div>
                             </div>
@@ -170,7 +174,26 @@
                     </div>
                 </div>
             </div>
+            <script>
+                function searchBlog(param) {
+                    var searchAll = param.value;
+                    $.ajax({
+                        url: "/VNTravel/searchajax",
+                        type: "get",
+                        data: {
+                            txt: searchAll
+                        },
+                        success: function (data) {
+                            var row = document.getElementById("offers_blog");
+                            row.innerHTML = data;
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("An error occurred:", error);
+                        }
+                    }); // Add closing bracket here
+                }
 
+            </script>
             <!-- Footer -->
             <jsp:include page="footer.jsp"></jsp:include>
 

@@ -18,12 +18,12 @@ public class Blog {
     private Date publishDate;
     private int accountId;
     private String accountName;
-    private String status;
+    private int status;
 
     public Blog() {
     }
 
-    public Blog(int bid, String title, String content, String image, Date publishDate, int accountId, String accountName, String status) {
+    public Blog(int bid, String title, String content, String image, Date publishDate, int accountId, String accountName, int status) {
         this.bid = bid;
         this.title = title;
         this.content = content;
@@ -90,11 +90,11 @@ public class Blog {
         this.accountName = accountName;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -102,5 +102,7 @@ public class Blog {
     public String toString() {
         return "Blog{" + "bid=" + bid + ", title=" + title + ", content=" + content + ", image=" + image + ", publishDate=" + publishDate + ", accountId=" + accountId + ", accountName=" + accountName + ", status=" + status + '}';
     }
+
+   
 
 }

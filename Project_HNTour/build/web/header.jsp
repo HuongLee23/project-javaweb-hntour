@@ -55,10 +55,10 @@
                     </div>
                     <div class="main_nav_container ml-auto">
                         <ul class="main_nav_list">
-                            <li class="main_nav_item"><a href="home">home</a></li>
+                            <li class="main_nav_item"><a href="home">Trang chủ</a></li>
                             <li class="main_nav_item"><a href="tourlist">Tour</a></li>
-                            <li class="main_nav_item"><a href="aboutUs.jsp">about us</a></li>
-                            <li class="main_nav_item"><a href="blog">news</a></li>
+                            <li class="main_nav_item"><a href="aboutUs.jsp">Hà Nội Tour</a></li>
+                            <li class="main_nav_item"><a href="blog">Tin tức</a></li>
                             <li class="main_nav_item"><a href="contact.jsp">contact</a></li>
 
                         </ul>

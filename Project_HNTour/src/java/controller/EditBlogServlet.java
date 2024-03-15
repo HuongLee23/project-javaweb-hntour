@@ -13,14 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.Account;
-import model.Blog;
+
 
 /**
  *
@@ -84,7 +77,8 @@ public class EditBlogServlet extends HttpServlet {
         String image = request.getParameter("image");
         
         
-        String status = request.getParameter("status");
+        String status_r = request.getParameter("status");
+        int status =Integer.parseInt(status_r);
         
      
            

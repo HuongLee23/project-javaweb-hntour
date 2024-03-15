@@ -10,9 +10,9 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Blog</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quản lý Blog</title>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -41,7 +41,7 @@
     <body>
 
 
- <c:set value="${requestScope.account}" var="a"/>
+        <c:set value="${requestScope.account}" var="a"/>
         <div class="container">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -49,13 +49,12 @@
                         <div class="col-sm-6">
                             <h2>Manage <b>Blogs</b></h2>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6"> 
+                            <a href="home" class="btn btn-primary">Trở lại trang Home</a>	
                             <a href="addblog?id=${a.id}" class="btn btn-success" data-toggle="modal">
                                 <i class="material-icons">&#xE147;</i> <span>Add New Blogs</span>
                             </a>
-                            <a href="#deleteProductModal" class="btn btn-danger" data-toggle="modal">
-                                <i class="material-icons">&#xE15C;</i> <span>Delete</span>
-                            </a>					
+
                         </div>
                     </div>
                 </div>
@@ -92,13 +91,18 @@
                                 <td>${b.content}</td>
                                 <td>${b.publishDate}</td>
                                 <td>
-                                    <c:if test="${b.status eq 'Public'}">
-                                        <button type="button" class="btn btn-success">${b.status}</button>
-                                    </c:if>
-                                    <c:if test="${b.status eq 'Private'}">
-                                        <button type="button" class="btn btn-danger">${b.status}</button>
-                                    </c:if>
+                                   <c:choose>
+                                        <c:when test="${b.status eq 1}">
+                                            <button type="button" class="btn btn-success">Công Khai</button>
+                                        </c:when>
+                                        <c:when test="${b.status eq 0}">
+                                            <button type="button" class="btn btn-danger">Ẩn</button>
+                                        </c:when>
+
+                                    </c:choose>
                                 </td>
+
+
 
                                 <td>
                                     <a href="loadblog?tid=${b.bid}" class="edit" data-toggle="modal">
@@ -107,6 +111,11 @@
                                     <a href="deleteblog?tid=${b.bid}" class="delete" data-toggle="modal">
                                         <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                                     </a>
+                                    <script >
+                                        function editBlog(blogId) {
+                                            window.location.href = "loadblog?id=" + blogId;
+                                        }
+                                    </script>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -200,7 +209,10 @@
         </div>
         <script src="js/manager.js" type="text/javascript"></script>
         <script>
-            CKEDITOR.replace('describe');
+                                        CKEDITOR.replace('describe');
         </script>
+        <script>
+   
+</script>
     </body>
 </html>
