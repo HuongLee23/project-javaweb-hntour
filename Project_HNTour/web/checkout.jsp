@@ -318,7 +318,6 @@
 
             <!--Khi mua hàng xong thì nó sẽ hiện màn hình trên(màn hình chúc mừng khi mua thành công)--> 
             <c:if test="${requestScope.messBuy != null}">
-
             </c:if>
 
 
