@@ -17,28 +17,17 @@ public class OrderDetail {
     private int quantity;
     private double price;
     private int versionId;
-    private String nameTour;
-    private String imageTour;
-    private int priceTour;
-    private int accId;
-    private Date dateOrder;
-    private Boolean statusTour;
-
+    private  int voucherId;
     public OrderDetail() {
     }
 
-    public OrderDetail(int orderId, int tourId, int quantity, double price, int versionId, String nameTour, String imageTour, int priceTour, int accId, Date dateOrder, Boolean statusTour) {
+    public OrderDetail(int orderId, int tourId, int quantity, double price, int versionId, int voucherId) {
         this.orderId = orderId;
         this.tourId = tourId;
         this.quantity = quantity;
         this.price = price;
         this.versionId = versionId;
-        this.nameTour = nameTour;
-        this.imageTour = imageTour;
-        this.priceTour = priceTour;
-        this.accId = accId;
-        this.dateOrder = dateOrder;
-        this.statusTour = statusTour;
+        this.voucherId = voucherId;
     }
 
     public int getOrderId() {
@@ -81,59 +70,18 @@ public class OrderDetail {
         this.versionId = versionId;
     }
 
-    public String getNameTour() {
-        return nameTour;
+    public int getVoucherId() {
+        return voucherId;
     }
 
-    public void setNameTour(String nameTour) {
-        this.nameTour = nameTour;
-    }
-
-    public String getImageTour() {
-        return imageTour;
-    }
-
-    public void setImageTour(String imageTour) {
-        this.imageTour = imageTour;
-    }
-
-    public int getPriceTour() {
-        return priceTour;
-    }
-
-    public void setPriceTour(int priceTour) {
-        this.priceTour = priceTour;
-    }
-
-    public int getAccId() {
-        return accId;
-    }
-
-    public void setAccId(int accId) {
-        this.accId = accId;
-    }
-
-    public Date getDateOrder() {
-        return dateOrder;
-    }
-
-    public void setDateOrder(Date dateOrder) {
-        this.dateOrder = dateOrder;
-    }
-
-    public Boolean getStatusTour() {
-        return statusTour;
-    }
-
-    public void setStatusTour(Boolean statusTour) {
-        this.statusTour = statusTour;
+    public void setVoucherId(int voucherId) {
+        this.voucherId = voucherId;
     }
 
     @Override
     public String toString() {
-        return "OrderDetail{" + "orderId=" + orderId + ", tourId=" + tourId + ", quantity=" + quantity + ", price=" + price + ", versionId=" + versionId + ", nameTour=" + nameTour + ", imageTour=" + imageTour + ", priceTour=" + priceTour + ", accId=" + accId + ", dateOrder=" + dateOrder + ", statusTour=" + statusTour + '}';
+        return "OrderDetail{" + "orderId=" + orderId + ", tourId=" + tourId + ", quantity=" + quantity + ", price=" + price + ", versionId=" + versionId + ", voucherId=" + voucherId + '}';
     }
-
-   
+  
 }
 

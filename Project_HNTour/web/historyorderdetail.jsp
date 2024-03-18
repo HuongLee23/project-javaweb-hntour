@@ -126,94 +126,7 @@
 
                         <!-- Search Contents -->
 
-                        <div class="container fill_height no-padding">
-                            <div class="row fill_height no-margin">
-                                <div class="col fill_height no-padding">
-
-                                    <!-- Search Tabs -->
-
-                                    <div class="search_tabs_container">
-                                        <div class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-                                        <c:forEach items="${listCategory}" var="c">
-                                            <a class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start" href="searchcategory?cid=${c.id}">
-                                                <!--<div class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start">-->
-                                                <c:if test="${c.id == 1}"><div class="icon-history"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-landmark"></i></div></c:if>
-                                                <c:if test="${c.id == 2}"><div class="icon-culture"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-flag"></i></div></c:if>
-                                                <c:if test="${c.id == 3}"><div class="icon-food"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-utensils"></i></div></c:if>
-                                                <c:if test="${c.id == 4}"><div class="icon-vacation"><i style="font-size: x-large; position: absolute; top: -14px;font-weight: 900; left: -40px;" class="fa-solid fa-tower-observation"></i></div></c:if>
-                                                <span>${c.getName()}</span>
-                                                <!--</div>-->
-                                            </a>
-                                        </c:forEach>    
-                                    </div>	
-                                </div>
-
-                                <!-- Search Panel -->
-
-                                <div class="search_panel active">
-
-                                    <form action="searchname" id="search_form_1" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-                                        <div class="search_item">
-                                            <div>destination</div>
-                                            <input type="text" name="txt" class="destination search_input" required="required">
-                                        </div>
-                                        <div class="search_item">
-                                            <div>check in</div>
-                                            <input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
-                                        </div>
-                                        <div class="search_item">
-                                            <div>check out</div>
-                                            <input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
-                                        </div>
-                                        <div class="search_item">
-                                            <div>adults</div>
-                                            <select name="adults" id="adults_1" class="dropdown_item_select search_input">
-                                                <option>01</option>
-                                                <option>02</option>
-                                                <option>03</option>
-                                            </select>
-                                        </div>
-                                        <div class="search_item">
-                                            <div>children</div>
-                                            <select name="children" id="children_1" class="dropdown_item_select search_input">
-                                                <option>0</option>
-                                                <option>02</option>
-                                                <option>03</option>
-                                            </select>
-                                        </div>
-                                        <div class="more_options">
-                                            <div class="more_options_trigger">
-                                                <a href="#">load more options</a>
-                                            </div>
-                                            <ul class="more_options_list clearfix">
-                                                <li class="more_options_item">
-                                                    <div class="clearfix">
-                                                        <input type="checkbox" id="more_options_1" class="search_extras_cb">
-                                                        <label for="more_options_1">Price Under 500</label>
-                                                    </div>
-                                                </li>
-                                                <li class="more_options_item">
-                                                    <div class="clearfix">
-                                                        <input type="checkbox" id="more_options_2" class="search_extras_cb">
-                                                        <label for="more_options_2">Price Between 500 and 1000</label>
-                                                    </div>
-                                                </li>
-                                                <li class="more_options_item">
-                                                    <div class="clearfix">
-                                                        <input type="checkbox" id="more_options_3" class="search_extras_cb">
-                                                        <label for="more_options_3">Price Above 1000</label>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <button class="button search_button">tìm kiếm<span></span><span></span><span></span></button>
-                                    </form>
-
-                                </div> 
-
-                            </div>
-                        </div>
-                    </div>	
+                        	
                 </div>	
             </div>
 
@@ -237,22 +150,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${listOrder}" var="od" varStatus="loop1">
+                                <c:forEach items="${requestScope.listOrder}" var="od" varStatus="loop1">
                                         <tr>
                                             <th scope="row">${loop1.index+1}</th>
                                             <td style="width: 30%">
-                                                <img style="width: 35%" class="d-block img-fluid" src="${od.imageTour}" alt="">
+                                                <img style="width: 35%" class="d-block img-fluid" src="${od.tour.imageMain}" alt="">
                                             </td>
-                                            <td>${od.nameTour}</td>
-                                            <td>${od.priceTour}</td>
-                                            <td>${od.quantity}</td>
-                                            <td>${od.price}</td>
+                                            <td>${od.tour.name}</td>
+                                            <td>${od.tour.price}</td>
+                                            <td>${od.orderdetail.quantity}</td>
+                                            <td>${od.orderdetail.price}</td>
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${od.statusTour == true}">
-                                                        <a style="background: #fa9e1b " href="detail?tid=${od.tourId}" class="btn btn-primary">Mua lại</a>
+                                                    <c:when test="${od.tour.status == true}">
+                                                        <a style="background: #fa9e1b " href="detail?tid=${od.tour.id}" class="btn btn-primary">Mua lại</a>
                                                     </c:when>
-                                                    <c:when test="${od.statusTour == false}">
+                                                    <c:when test="${od.tour.status == false}">
                                                         <span>Tour này đã bị ẩn</span>
                                                     </c:when>
                                                 </c:choose>

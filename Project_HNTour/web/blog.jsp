@@ -187,7 +187,7 @@
                             var row = document.getElementById("offers_blog");
                             row.innerHTML = data;
                         },
-                        error: function (xhr, status, error) {
+                        error: function ( error) {
                             console.log("An error occurred:", error);
                         }
                     }); // Add closing bracket here

@@ -13,7 +13,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Account;
+import model.HistoryOrder;
 import model.OrderDetail;
 
 /**
@@ -58,10 +61,12 @@ public class HistoryOrderDetailOfCustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         DAO dao = new DAO();
+        DAO dao = new DAO();
+      
+
         String id_raw = request.getParameter("tid");
         int id = Integer.parseInt(id_raw);
-        List<OrderDetail> listOrder= dao.getHistoryOrder(id);
+        List<HistoryOrder> listOrder= dao.getHistoryOrder(id);
         request.setAttribute("listOrder", listOrder);
         request.getRequestDispatcher("historyorderdetail.jsp").forward(request, response);
     } 
