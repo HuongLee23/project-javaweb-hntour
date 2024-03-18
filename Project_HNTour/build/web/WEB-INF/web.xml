@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>controller.AccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Manage Account</servlet-name>
+        <servlet-class>controllerAdmin.ManagerAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerAccountEditServlet</servlet-name>
+        <servlet-class>controllerAdmin.ManagerAccountBlockServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerAccountUnlockServlet</servlet-name>
+        <servlet-class>controllerAdmin.ManagerAccountUnlockServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerAccSupplierServlet</servlet-name>
+        <servlet-class>controllerAdmin.ManagerAccSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerAccCustomerServlet</servlet-name>
+        <servlet-class>controllerAdmin.ManagerAccCustomerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewProfileSupplierServlet</servlet-name>
+        <servlet-class>controllerAdmin.ViewProfileSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerRegisterSupplierServlet</servlet-name>
+        <servlet-class>controllerAdmin.ManagerRegisterSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchAjaxAccServlet</servlet-name>
+        <servlet-class>controllerAdmin.SearchAjaxAccServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerFeedbackServlet</servlet-name>
+        <servlet-class>controllerAdmin.ManagerFeedbackServlet</servlet-class>
+    </servlet>
+    
+    
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Manage Account</servlet-name>
+        <url-pattern>/admin/manageraccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerAccountUnlockServlet</servlet-name>
+        <url-pattern>/admin/unlock</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerAccountEditServlet</servlet-name>
+        <url-pattern>/admin/lock</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ManagerAccSupplierServlet</servlet-name>
+        <url-pattern>/admin/manageraccsupplier</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ManagerAccCustomerServlet</servlet-name>
+        <url-pattern>/admin/manageracccustomer</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ViewProfileSupplierServlet</servlet-name>
+        <url-pattern>/admin/viewprofilesupplier</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ManagerRegisterSupplierServlet</servlet-name>
+        <url-pattern>/admin/managerregistersupplier</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>SearchAjaxAccServlet</servlet-name>
+        <url-pattern>/admin/searchajaxacc</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ManagerFeedbackServlet</servlet-name>
+        <url-pattern>/admin/managerfeedback</url-pattern>
+    </servlet-mapping>
+    
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

@@ -272,7 +272,7 @@
 
                 <!-- Footer -->
             <jsp:include page="footer.jsp"></jsp:include>
-            
+
         </div>
 
         <script src="js/jquery-3.2.1.min.js"></script>

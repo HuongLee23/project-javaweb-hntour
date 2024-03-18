@@ -57,6 +57,11 @@
                                     <input value="${tour.id}" name="id" type="text" class="form-control" readonly required>
                                 </div>
                                 <div class="form-group">
+                                    <label>Version</label>
+                                    <input value="${tour.version}" name="version" type="text" class="form-control" readonly required>
+                                </div>
+
+                                <div class="form-group">
                                     <label>Tên</label>
                                     <input value="${tour.name}" name="name" type="text" class="form-control" required>
                                 </div>
@@ -109,7 +114,7 @@
 
                                         var deleteButton = document.createElement('button');
                                         deleteButton.type = 'button';
-                                        deleteButton.textContent = 'Delete';
+                                        deleteButton.textContent = 'Xóa';
                                         deleteButton.onclick = function () {
                                             deleteNewImageInput(this);
                                         };
@@ -157,10 +162,13 @@
                                     <label>Miêu tả</label>
                                     <textarea id="describe" name="description" class="form-control" required>${tour.description}</textarea>
                                 </div>
+
                                 <div class="form-group">
                                     <label>Quy Định</label>
-                                    <input value="${tour.rule}" name="rule" type="text" class="form-control" required>
+                                    <textarea id="describe1" name="description" class="form-control" required>${tour.rule}</textarea>
                                 </div>
+
+
 
                                 <div class="form-group">
                                     <label>Thể loại</label>
@@ -269,6 +277,7 @@
         <script src="js/manager.js" type="text/javascript"></script>
         <script>
                                     CKEDITOR.replace('describe');
+                                    CKEDITOR.replace('describe1');
         </script>
     </body>
 </html>

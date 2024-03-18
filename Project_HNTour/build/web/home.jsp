@@ -22,8 +22,9 @@
         <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
 
         <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
-        <link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+
         <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+        <link rel="stylesheet" href="./assets/css/main.css"/>
         <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
     </head>
 
@@ -245,23 +246,6 @@
                                         <p class="cta_text">Chào mừng bạn đến với Hà Nội Tour - nơi tận hưởng hành trình khám phá văn hóa và lịch sử tuyệt vời. Hà Nội, thành phố lâu dài và truyền thống, đang chờ đón bạn với những con phố phấn khích, những di tích lịch sử độc đáo và ẩm thực ngon lành. Hãy cùng chúng tôi bắt đầu cuộc phiêu lưu, nơi mỗi góc phố là một câu chuyện, và mỗi bữa ăn là một trải nghiệm đậm chất Việt. Đặt vali và hãy để chúng tôi làm hướng dẫn cho chuyến hành trình đáng nhớ của bạn tại Hà Nội!</p>
                                         <div class="button cta_button"><div class="button_bcg"></div><a href="tourlist">khám phá ngay<span></span><span></span><span></span></a></div>
                                     </div>
-
-                                    <!-- CTA Slider Item -->
-                                    <!--                                    <div class="owl-item cta_item text-center">
-                                                                            <div class="cta_title">maldives deluxe package</div>
-                                                                            <div class="rating_r rating_r_4">
-                                                                                <i></i>
-                                                                                <i></i>
-                                                                                <i></i>
-                                                                                <i></i>
-                                                                                <i></i>
-                                                                            </div>
-                                                                            <p class="cta_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa arcu, vitae cursus mi hendrerit nec. Proin bibendum, augue faucibus tincidunt ultrices, tortor augue gravida lectus, et efficitur enim justo vel ligula.</p>
-                                                                            <div class="button cta_button"><div class="button_bcg"></div><a href="#">book now<span></span><span></span><span></span></a></div>
-                                                                        </div>-->
-
-
-
                                 </div>
 
                                 <!-- CTA Slider Nav - Prev -->

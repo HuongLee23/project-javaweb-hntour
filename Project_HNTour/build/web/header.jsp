@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : header
     Created on : Jan 14, 2024, 8:23:43 PM
     Author     : hello
@@ -14,13 +14,12 @@
 <header class="header">
 
     <!-- Top Bar -->
-
     <div class="top_bar">
         <div class="container">
             <div class="row">
                 <div class="col d-flex flex-row">
                     <div class="phone">+84 928 008 008</div>
-                    <div class="user_box ml-auto">
+                    <div class="user_box ml-auto d-flex align-items-center">
                         <c:set value="${sessionScope.account}" var="a"/>
                         <c:if test="${a == null}">
                             <div class="user_box_login user_box_link"><a href="login.jsp">Đăng nhập</a></div>
@@ -31,18 +30,26 @@
                                 <a href="admin/manageraccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
                                 </c:if>
                                 <c:if test="${a.role == 2}">
-                                <a href="profileaccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
+                                <a href="statistic?supplierId=${a.id}"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
                                 </c:if>
                                 <c:if test="${a.role == 3}">
                                 <a href="profileaccount"><i class="fa-solid fa-user" style="color: #ffffff;"></i></a>
                                 </c:if>
-                            <!--</li>-->
+                            <!-- Thêm thông báo sau đây -->
+                            <div class="notification_icon ml-4">
+                                <a href="vouchercustomer" id="notification_button" class="d-flex align-items-center">
+                                    <i class="fa-solid fa-ticket" style="color: #ffffff; font-size: 20px;"></i>
+                                </a>
+                            </div>
+
+
                         </c:if>
                     </div>
                 </div>
             </div>
-        </div>		
+        </div>      
     </div>
+
 
     <!-- Main Navigation -->
 

@@ -335,7 +335,7 @@ public class AdminDAO extends DBContext {
         return false;
     }
 
-    public List<Account> searchAccount(String txt) {
+    public List<Account> searchAccount(String txt, int role) {
         List<Account> listAccounts = new ArrayList<>();
         try {
             String sql = "SELECT [id]\n"
@@ -351,6 +351,10 @@ public class AdminDAO extends DBContext {
                     + "where [role] != 1 and "
                     + "([email] LIKE ? or [username] LIKE ? "
                     + "or [address] LIKE ? or [phoneNumber] LIKE ? )";
+
+            if (role != 0) {
+                sql += " and [role] = " + role;
+            }
 
             try ( PreparedStatement stm = connection.prepareStatement(sql)) {
                 stm.setString(1, "%" + txt + "%");

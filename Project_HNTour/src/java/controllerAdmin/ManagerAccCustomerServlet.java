@@ -82,6 +82,7 @@ public class ManagerAccCustomerServlet extends HttpServlet {
         int totalBanned = mnAccount.totalAccountBanned();
 
         // Gán danh sách tài khoản vào request để truy cập từ trang JSP
+        session.setAttribute("role", role);
         request.setAttribute("currentPageData", currentPageData);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("currentPage", currentPage);

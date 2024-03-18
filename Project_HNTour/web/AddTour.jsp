@@ -69,10 +69,11 @@
                                     <label>Tên</label>
                                     <input name="name" type="text" class="form-control" required>
                                 </div>
+
                                 <div class="form-group">
                                     <label>Ảnh chính</label>
-
-                                    <input name="imageMain" type="text" class="form-control" required>
+                                    <input name="imageMain" type="text" class="form-control" pattern="https?://.*\.(png|jpg|jpeg|gif|bmp)" required>
+                                    <small class="form-text text-muted">Please enter a valid image link (URL).</small>
                                 </div>
 
                                 <div id="imageInputs">
@@ -80,16 +81,14 @@
                                     <br>
                                     <!-- Display existing imageAlbum values -->
 
-
                                     <!-- Dynamic input for adding more imageAlbum values -->
                                     <div class="new-image">
                                         <img src="" alt="" width="100" />
-                                        <input name="additionalImages" type="text" class="form-control" placeholder="New Image URL">
+                                        <input name="additionalImages" type="text" class="form-control" pattern="https?://.*\.(png|jpg|jpeg|gif|bmp)" placeholder="New Image URL" required>
                                         <button type="button" onclick="deleteNewImageInput(this)">Xóa</button>
                                     </div>
                                     <button type="button" onclick="addNewImageInput()">+</button>
                                 </div>
-
 
 
                                 <script>
@@ -112,7 +111,7 @@
 
                                         var deleteButton = document.createElement('button');
                                         deleteButton.type = 'button';
-                                        deleteButton.textContent = 'Delete';
+                                        deleteButton.textContent = 'Xóa';
                                         deleteButton.onclick = function () {
                                             deleteNewImageInput(this);
                                         };
@@ -162,7 +161,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Quy Định</label>
-                                    <input name="rule" type="text" class="form-control" required>
+                                    <textarea id="describe1" name="rule" class="form-control" required></textarea>
                                 </div>
 
 
@@ -176,8 +175,15 @@
                                     </select>
                                 </div>
 
+                                <label for="status">Status:</label>
+                                <select name="status" required>
+                                    <option value="1">Hoạt động</option>
+                                    <option value="0">Không hoạt động</option>
+                                </select>
                                 <div class="schedules">
                                     <label>Lịch trình</label>
+
+
 
                                     <table class="table" id="schedulesTable">
                                         <thead>
@@ -189,13 +195,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${requestScope.schedules}" var="s">
-                                                <tr>
-                                                    <td><input type="text" name="location" value="${s.location}" readonly /></td>
-                                                    <td><input type="time" name="date" value="${s.date}" readonly /></td>
-                                                    <td><input type="text" name="descriptionSchedules" value="${s.descriptionSchedules}" readonly /></td>
-                                                </tr>
-                                            </c:forEach>
+
                                         </tbody>
                                     </table>
 
@@ -253,6 +253,7 @@
         <script src="js/manager.js" type="text/javascript"></script>
         <script>
                                     CKEDITOR.replace('describe');
+                                    CKEDITOR.replace('describe1');
         </script>
     </body>
 </html>

@@ -22,6 +22,8 @@
         <link rel="stylesheet" href="../css/main.css"/>
         <link rel="stylesheet" type="text/css" href="../view/css/base.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background: linear-gradient(to right, #fa9e1b, #8d4fff, #fa9e1b);">
@@ -29,7 +31,7 @@
             <a class="navbar-brand ps-3" href="manageraccount">Start Bootstrap</a>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <input class="form-control" type="text" oninput="searchAccountOfSupplier(this)" data-role="2" name="txt" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
             </form>
@@ -102,8 +104,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <c:forEach items="${requestScope.currentPageData}" var="a">
+                                    <c:forEach items="${requestScope.currentPageData}" var="a">
+                                        <tr>
                                             <td>${a.username}</td>
                                             <td>${a.password}</td>
                                             <td>${a.email}</td>
@@ -149,6 +151,8 @@
 
         </div>
         <style>
+
+
             #banAccount {
                 display: none;
                 position: fixed;
@@ -163,6 +167,27 @@
             }
         </style>
         <script>
+
+            function searchAccountOfSupplier(param) {
+                var searchAll = param.value;
+                var role = param.getAttribute("data-role");
+                $.ajax({
+                    url: "/VNTravel/admin/searchajaxacc",
+                    type: "get",
+                    data: {
+                        txt: searchAll,
+                        roleAcc: role
+                    },
+                    success: function (data) {
+                        var row = document.getElementById("datatablesSimple");
+                        row.innerHTML = data;
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("An error occurred:", error);
+                    }
+                }); // Add closing bracket here
+            }
+
             function confirmDelete() {
                 // Hiển thị hộp thoại xác nhận và lưu kết quả vào biến
                 var userConfirmed = confirm('Bạn chắc chắn muốn hủy hợp tác với nhà cung cấp này?');

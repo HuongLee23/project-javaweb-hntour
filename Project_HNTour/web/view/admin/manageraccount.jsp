@@ -29,7 +29,7 @@
             <a class="navbar-brand ps-3" href="manageraccount">Start Bootstrap</a>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <input class="form-control" type="text" oninput="searchAccountByAll(this)" name="txt" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <input class="form-control" type="text" oninput="searchAccountByAll(this)" data-role="0" name="txt" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
             </form>
@@ -212,11 +212,13 @@
 
             function searchAccountByAll(param) {
                 var searchAll = param.value;
+                var role = param.getAttribute("data-role");
                 $.ajax({
                     url: "/VNTravel/admin/searchajaxacc",
                     type: "get",
                     data: {
-                        txt: searchAll
+                        txt: searchAll,
+                        roleAcc:  role
                     },
                     success: function (data) {
                         var row = document.getElementById("datatablesSimple");
