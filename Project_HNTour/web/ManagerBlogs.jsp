@@ -20,7 +20,6 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <script src="./lib/ckeditor/ckeditor.js" >
-
         </script>
     </head>
     <head>
@@ -39,8 +38,6 @@
     </head>
 
     <body>
-
-
         <c:set value="${requestScope.account}" var="a"/>
         <div class="container">
             <div class="table-wrapper">
@@ -98,12 +95,8 @@
                                         <c:when test="${b.status eq 0}">
                                             <button type="button" class="btn btn-danger">Ẩn</button>
                                         </c:when>
-
                                     </c:choose>
                                 </td>
-
-
-
                                 <td>
                                     <a href="loadblog?tid=${b.bid}" class="edit" data-toggle="modal">
                                         <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>

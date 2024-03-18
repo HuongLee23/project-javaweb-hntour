@@ -104,9 +104,6 @@
         <!-- Header -->
         <jsp:include page="header.jsp"></jsp:include>
             <!-- Header -->
-
-
-
             <!-- Home -->
 
             <div class="home">
@@ -236,7 +233,7 @@
                                         <th scope="col">Giá</th>
                                         <th scope="col">Số lượng</th>
                                         <th scope="col">Tổng đơn giá</th>
-                                        <th>Trạng thái</th>
+                                        <th>...</th>
                                     </tr>
                                 </thead>
                                 <tbody>
