@@ -66,19 +66,15 @@ public class BlogDetailServlet extends HttpServlet {
         String id_raw= request.getParameter("id");
         int id= Integer.parseInt(id_raw);
         DAO dao= new DAO();
-        /////detail
         Blog blogs= dao.getDetailBlog(id);
         request.setAttribute("detailblog", blogs);
-        /////comment
         List<BlogComment> list_BM=dao.getBlogComment(id);
         request.setAttribute("blogcomment", list_BM);
-        ////
-         int numFeedback = 0; // Mặc định số lượng feedback là 0 nếu không có tài khoản
-        if (account != null) { // Kiểm tra nếu có tài khoản
-            numFeedback = dao.countUserCMT(account.getId(), id); // Đếm số lượng comment của người dùng
+         int numFeedback = 0; 
+        if (account != null) { 
+            numFeedback = dao.countUserCMT(account.getId(), id);
         }
         request.setAttribute("numberFB", numFeedback);
-        ///
          List<Blog> list_lasted = dao.getBlogLasted(1);
            request.setAttribute("lasted", list_lasted);
         request.getRequestDispatcher("blogdetail.jsp").forward(request, response);

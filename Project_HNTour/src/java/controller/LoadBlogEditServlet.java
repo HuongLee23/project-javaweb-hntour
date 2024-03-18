@@ -61,7 +61,6 @@ public class LoadBlogEditServlet extends HttpServlet {
         String id_raw = request.getParameter("tid");
         int id = Integer.parseInt(id_raw);
         Blog blogs= dao.getDetailBlog(id);
-        
         request.setAttribute("blog", blogs);
         request.getRequestDispatcher("editblog.jsp").forward(request, response);
     } 

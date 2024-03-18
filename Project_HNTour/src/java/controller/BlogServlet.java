@@ -61,34 +61,21 @@ public class BlogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
-
-        // Lấy danh sách blog
         List<Blog> list_Blog = dao.getBlog(1);
-
-        // Phân trang
         int page = 1;
-        int recordsPerPage = 2; // Số lượng phản hồi trên mỗi trang
-
+        int recordsPerPage = 2; 
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
-
         int startIndex = (page - 1) * recordsPerPage;
         int endIndex = Math.min(startIndex + recordsPerPage, list_Blog.size());
-
         List<Blog> pagedBlog = list_Blog.subList(startIndex, endIndex);
         int totalPages = (int) Math.ceil((double) list_Blog.size() / recordsPerPage);
-
-        // Lấy danh sách blog mới nhất
         List<Blog> list_lasted = dao.getBlogLasted(1);
-
-        // Gán các thuộc tính vào request để chuyển đến trang JSP
         request.setAttribute("blog", pagedBlog);
         request.setAttribute("lasted", list_lasted);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("currentPage", page);
-
-        // Chuyển đến trang JSP
         request.getRequestDispatcher("blog.jsp").forward(request, response);
     }
 
