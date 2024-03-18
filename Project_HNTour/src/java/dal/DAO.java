@@ -21,6 +21,7 @@ import model.BlogComment;
 import model.Cart;
 import model.Category;
 import model.Feedback;
+import model.HistoryOrder;
 
 import model.InformationAccount;
 import model.Item;
@@ -1887,39 +1888,55 @@ public class DAO extends DBContext {
             e.printStackTrace();
         }
     }
+public Order getOrderByID(int orderId) {
+        Order order = null;
+        String sql = "SELECT * FROM [HaNoiTour].[dbo].[Order] WHERE id = ?;";
 
-    public List<OrderDetail> getHistoryOrder(int idAcc) {
-        List<OrderDetail> list = new ArrayList<>();
-        String sql = "SELECT TOP (1000) OD.[orderId]\n"
-                + "      ,OD.[tourId] ,OD.[quantity]  ,OD.[price] as [ORDER PRICE] ,OD.[versionId] ,OD.[voucherId],\n"
-                + "	  T.[name],T.[imageMain],T.[price], O.[accId],O.[date], T.[status]\n"
-                + "  FROM [HaNoiTour].[dbo].[OrderDetail] OD JOIN [Tour] T ON OD.[tourId] = T.[id]\n"
-                + "                  JOIN [Order] O ON OD.[orderId] = O.[id] WHERE O.[accId]= ?;";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, idAcc);
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, orderId);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                 
-                OrderDetail orderdetail = new OrderDetail();
-                orderdetail.setOrderId(rs.getInt("orderId"));
-                orderdetail.setTourId(rs.getInt("tourId"));
-                orderdetail.setQuantity(rs.getInt("quantity"));
-                orderdetail.setPrice(rs.getInt("ORDER PRICE"));
-                orderdetail.setVersionId(rs.getInt("versionId"));
-                orderdetail.setNameTour(rs.getString("name"));
-                orderdetail.setImageTour(rs.getString("imageMain"));
-                orderdetail.setPriceTour(rs.getInt("price"));
-                orderdetail.setAccId(rs.getInt("accId"));
-                orderdetail.setDateOrder(rs.getDate("date"));
-                orderdetail.setStatusTour(rs.getBoolean("status"));
-                list.add(orderdetail);
+
+            if (rs.next()) {
+                order = new Order();
+                order.setId(rs.getInt("id"));
+                order.setAccountId(rs.getInt("accId"));
+ 
+                order.setDate(rs.getString("date"));
+                order.setTotalPrice(rs.getDouble("totalPrice"));
+             
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Handle the exception appropriately
         }
-        return list;
+
+        return order;
     }
+  public OrderDetail getOrderDetailByID(int orderId) {
+        OrderDetail order = null;
+        String sql = "SELECT * FROM [HaNoiTour].[dbo].[OrderDetail] WHERE orderId = ?;";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, orderId);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                order = new OrderDetail();
+                order.setOrderId(rs.getInt("orderId"));
+                order.setTourId(rs.getInt("tourId"));
+ 
+                order.setQuantity(rs.getInt("quantity"));
+                order.setPrice(rs.getDouble("price"));
+                order.setVersionId(rs.getInt("versionId"));
+                order.setVoucherId(rs.getInt("voucherId"));
+             
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+
+        return order;
+    }
+
 
     public boolean checkUserOrder(int accId, int tourId) {
         boolean userHasPurchased = false;
@@ -2109,14 +2126,55 @@ public class DAO extends DBContext {
     } catch (NumberFormatException e) {
     }
 }
+     
+     
+      public List<HistoryOrder> getHistoryOrder(int idAcc) {
+    List<HistoryOrder> list = new ArrayList<>();
+    String sql = "SELECT TOP (1000) OD.[orderId], OD.[tourId], OD.[quantity], OD.[price], \n" +
+"               OD.[versionId], T.[name], T.[imageMain], O.[accId], O.[date], T.[status], \n" +
+"               O.[id] AS InvoiceNumber, T.[id] AS TourId \n" +
+"               FROM [HaNoiTour].[dbo].[OrderDetail] OD \n" +
+"               JOIN [Tour] T ON OD.[tourId] = T.[id] \n" +
+"               JOIN [Order] O ON OD.[orderId] = O.[id] \n" +
+"               WHERE O.[accId] = ?;";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, idAcc);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            HistoryOrder historyOrder = new HistoryOrder();
+            DAO dao = new DAO();
+
+            Order order = dao.getOrderByID(rs.getInt("InvoiceNumber"));
+            OrderDetail od= dao.getOrderDetailByID(rs.getInt("orderId"));
+             historyOrder.setOrderdetail(od);
+            Tour tour = dao.getTourByID(rs.getInt("TourId"));
+                     historyOrder.setOrder(order);
+            historyOrder.setTour(tour);
+ 
+            list.add(historyOrder);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); 
+    }
+    return list;
+}
 
     public static void main(String[] args) {
-        DAO d = new DAO();
-        List<OrderDetail> list= d.getHistoryOrder(5);
-        System.out.println(list);
-       
-    }
+        // Tạo một đối tượng DAO hoặc sử dụng đối tượng DAO đã có
+        DAO dao = new DAO();
 
+        // Giả sử idAcc là 1
+        int idAcc = 5;
+
+        // Gọi hàm getHistoryOrder và nhận danh sách lịch sử đơn đặt hàng
+        List<HistoryOrder> historyOrders = dao.getHistoryOrder(idAcc);
+
+        // In ra danh sách lịch sử đơn đặt hàng
+        for (HistoryOrder historyOrder : historyOrders) {
+            System.out.println(historyOrder);
+        }
+    }
 //        if (!tourList.isEmpty()) {
 //            for (Tour tour : tourList) {
 //                System.out.println(tour);
