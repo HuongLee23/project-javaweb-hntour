@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controllerSupplier;
+package controllerBlog;
 
+import controller.*;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,16 +16,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Account;
-import model.TopProduct;
-
-import model.TotalInvoiceOfCategory;
+import model.Blog;
+import model.BlogComment;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-@WebServlet(name = "Statistic", urlPatterns = {"/statistic"})
-public class Statistic extends HttpServlet {
+@WebServlet(name = "BlogDetailServlet", urlPatterns = {"/blogdetail"})
+public class BlogDetailServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +43,10 @@ public class Statistic extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Statistic</title>");
+            out.println("<title>Servlet BlogDetailServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Statistic at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BlogDetailServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,22 +65,22 @@ public class Statistic extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        // Create an instance of the DAO (Data Access Object) class
+        Account account = (Account) session.getAttribute("account");
+        String id_raw = request.getParameter("id");
+        int id = Integer.parseInt(id_raw);
         DAO dao = new DAO();
-        String id_raw = request.getParameter("supplierId");
-        int supplierId = Integer.parseInt(id_raw);
-
-        // Retrieve the total invoice for a category using the DAO
-        TotalInvoiceOfCategory totalCate = dao.getTotalInvoiceCate(supplierId);
-        List<TopProduct> listTopProduct = dao.listTopProduct(supplierId);
-        List<TopProduct> listTopAcc = dao.listTopAccounts(supplierId);
-        List<TopProduct> listInvoice = dao.listInvoice(supplierId);
-        request.setAttribute("totalCate", totalCate);
-        request.setAttribute("listTopPro", listTopProduct);
-        request.setAttribute("listTopAcc", listTopAcc);
-        request.setAttribute("listInvoice", listInvoice);
-        // Forward the request to the "DashboardSupplier.jsp" page
-        request.getRequestDispatcher("DashboardSupplier.jsp").forward(request, response);
+        Blog blogs = dao.getDetailBlog(id);
+        request.setAttribute("detailblog", blogs);
+        List<BlogComment> list_BM = dao.getBlogComment(id);
+        request.setAttribute("blogcomment", list_BM);
+        int numFeedback = 0;
+        if (account != null) {
+            numFeedback = dao.countUserCMT(account.getId(), id);
+        }
+        request.setAttribute("numberFB", numFeedback);
+        List<Blog> list_lasted = dao.getBlogLasted(1);
+        request.setAttribute("lasted", list_lasted);
+        request.getRequestDispatcher("blogdetail.jsp").forward(request, response);
     }
 
     /**

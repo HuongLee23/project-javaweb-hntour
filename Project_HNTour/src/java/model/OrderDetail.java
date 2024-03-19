@@ -5,18 +5,20 @@
  */
 package model;
 
+import java.sql.Date;
 
 /**
  *
  * @author hello
  */
 public class OrderDetail {
+
     private int orderId, tourId;
     private int quantity;
     private double price;
     private int versionId;
     private int voucherId;
-    
+
     public OrderDetail() {
     }
 
@@ -77,8 +79,9 @@ public class OrderDetail {
         this.voucherId = voucherId;
     }
 
-    
-    
-    
-}
+    @Override
+    public String toString() {
+        return "OrderDetail{" + "orderId=" + orderId + ", tourId=" + tourId + ", quantity=" + quantity + ", price=" + price + ", versionId=" + versionId + ", voucherId=" + voucherId + '}';
+    }
 
+}

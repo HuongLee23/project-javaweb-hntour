@@ -60,22 +60,26 @@
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="statistic?supplierId=${sessionScope.account.id}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
                                 Trang Chủ
                             </a>
 
                             <a class="nav-link" href="managertourlist">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-table" style="color: #ffffff;"></i></div>
                                 Quản lý Tour
+                            </a>
+                            <a class="nav-link" href="managerblogs">
+                                <div class="sb-nav-link-icon"><i class="fa-brands fa-blogger" style="color: #ffffff;"></i></div>
+                                Quản lý Blog
                             </a>
 
                             <a class="nav-link" href="managervoucher">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-ticket" style="color: #ffffff;"></i></div>
                                 Voucher
                             </a>
 
                             <a class="nav-link" href="chart">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
                                 Biểu đồ thống kê
                             </a>
                         </div>

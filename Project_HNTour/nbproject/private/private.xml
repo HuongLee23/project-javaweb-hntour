@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/nbproject/private/private.properties</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/nbproject/genfiles.properties</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/home.jsp</file>
@@ -14,6 +15,9 @@
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/nbproject/project.xml</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controller/AddFeedbackServlet.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/nbproject/project.properties</file>
+=======
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/home.jsp</file>
+>>>>>>> Namcthe171385
         </group>
     </open-files>
 </project-private>

@@ -111,6 +111,8 @@ public class TourDetailServlet extends HttpServlet {
         List<Feedback> list_Feedback = dao.getFeedbackDetailTour(id);
         List<Category> listCategory = dao.getListCategory();
         List<Schedules> list_Schedules = dao.getSchedukesById(id);
+        Account account = (Account) session.getAttribute("account");
+
         double averageRating = 0;
         if (list_Feedback != null && !list_Feedback.isEmpty()) {
             int totalRating = 0;
@@ -125,6 +127,20 @@ public class TourDetailServlet extends HttpServlet {
         }
         int totalFeedback = list_Feedback.size();
         String overallRating = convertToOverallRating(averageRating);
+        /// check nguoi mua da order chưa
+        boolean userHasPurchased = true; // Mặc định userHasPurchased là true nếu không có tài khoản
+        if (account != null) { // Kiểm tra nếu có tài khoản
+            userHasPurchased = dao.checkUserOrder(account.getId(), id); // Kiểm tra xem người dùng đã mua hàng chưa
+        }
+        request.setAttribute("checkuser", userHasPurchased); // Đặt thuộc tính checkuser để truyền vào trang JSP
+
+        /// dem so luong cmt cua user
+        int numFeedback = 0; // Mặc định số lượng feedback là 0 nếu không có tài khoản
+        if (account != null) { // Kiểm tra nếu có tài khoản
+            numFeedback = dao.countUserFeedback(account.getId(), id); // Đếm số lượng comment của người dùng
+        }
+        request.setAttribute("numberFB", numFeedback); // Đặt thuộc tính numberFB để truyền vào trang JSP
+
         request.setAttribute("overallRating", overallRating); // Phần tổng quan
 
         request.setAttribute("totalFeedback", totalFeedback);

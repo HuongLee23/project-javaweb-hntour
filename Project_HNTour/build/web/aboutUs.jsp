@@ -46,12 +46,14 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-7">
-                                <div class="intro_image"><img src="images/intro.png" alt=""></div>
+                                <div class="intro_image">
+                                    <img style=" height: 460px;
+                                         width: 725px;margin-right: 55px;" src="https://statics.vinwonders.com/du-lich-ha-noi-4-ngay-3-dem-1_1681407076.jpg" alt=""></div>
                             </div>
                             <div class="col-lg-5">
                                 <div class="intro_content">
-                                    <div class="intro_title">we have the best tours in Hanoi</div>
-                                    <p class="intro_text">Khám phá vẻ đẹp lịch sử và văn hóa của Thủ đô Hà Nội với chúng tôi - HaNoi Tour. Chuyên tổ chức các hành trình du lịch độc đáo, chúng tôi mang đến trải nghiệm tuyệt vời với những điểm đến độc đáo, ẩm thực đặc sắc và hành trình đầy ý nghĩa. Hãy đồng hành cùng chúng tôi để khám phá những góc cảnh tuyệt vời nhất của Hà Nội - nơi mà câu chuyện lịch sử và văn hóa được tái hiện mỗi bước chân của bạn. Đặt ngay để bắt đầu hành trình khám phá!</p>
+                                    <div class="intro_title">Khám Phá Hà Nội - Thủ Đô Nghìn Năm Văn Hiến</div>
+                                    <p class="intro_text" style="text-align: justify;">Khám phá vẻ đẹp lịch sử và văn hóa của Thủ đô Hà Nội với chúng tôi - HaNoi Tour. Chuyên tổ chức các hành trình du lịch độc đáo, chúng tôi mang đến trải nghiệm tuyệt vời với những điểm đến độc đáo, ẩm thực đặc sắc và hành trình đầy ý nghĩa. Hãy đồng hành cùng chúng tôi để khám phá những góc cảnh tuyệt vời nhất của Hà Nội - nơi mà câu chuyện lịch sử và văn hóa được tái hiện mỗi bước chân của bạn. Đặt ngay để bắt đầu hành trình khám phá!</p>
                                     <div class="button intro_button"><div class="button_bcg"></div><a href="#">explore now<span></span><span></span><span></span></a></div>
                                 </div>
                             </div>
@@ -65,12 +67,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
-                                <div class="section_title">years statistics</div>
+                                <div class="section_title">Hà Nội Tour</div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-10 offset-lg-1 text-center">
-                                <p class="stats_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis vulputate eros, iaculis consequat nisl. Nunc et suscipit urna. Integer elementum orci eu vehicula pretium. Donec bibendum tristique condimentum. Aenean in lacus ligula. </p>
+                                <p class="stats_text">Hà Nội Tour là trang web uy tín, mang trong mình một sứ mệnh đặc biệt.Truyền tải và giới thiệu với tất cả mọi người những chuyến di tích lịch sử ở Hà Nội. </p>
                             </div>
                         </div>
                         <div class="row">

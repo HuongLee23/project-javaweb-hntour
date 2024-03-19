@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controllerSupplier;
+package controllerBlog;
 
+import controller.*;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,19 +13,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Account;
-import model.TopProduct;
-
-import model.TotalInvoiceOfCategory;
+import model.Blog;
+import model.Tour;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-@WebServlet(name = "Statistic", urlPatterns = {"/statistic"})
-public class Statistic extends HttpServlet {
+@WebServlet(name = "SearchBlogServlet", urlPatterns = {"/searchblog"})
+public class SearchBlogServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,18 +36,36 @@ public class Statistic extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Statistic</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Statistic at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        request.setCharacterEncoding("UTF-8");
+        String search = request.getParameter("txt");
+        DAO dao = new DAO();
+        List<Blog> searchBlog = dao.searchBlogByName(search);
+
+        PrintWriter out = response.getWriter();
+        for (Blog blog : searchBlog) {
+            out.println("<div class=\"blog_post\">");
+            out.println("    <div class=\"blog_post_image\">");
+            out.println("        <img src=\"" + blog.getImage() + "\" alt=\"alt\"/>");
+            out.println("        <div class=\"blog_post_date d-flex flex-column align-items-center justify-content-center\">");
+            out.println("            <div class=\"blog_post_day\">01</div>");
+            out.println("            <div class=\"blog_post_month\">Dec, 2017</div>");
+            out.println("        </div>");
+            out.println("    </div>");
+            out.println("    <div class=\"blog_post_meta\">");
+            out.println("        <ul>");
+            out.println("            <li class=\"blog_post_meta_item\"><a href=\"\">" + blog.getAccountName() + "</a></li>");
+            out.println("            <li class=\"blog_post_meta_item\"><a href=\"\">3 Comments</a></li>");
+            out.println("        </ul>");
+            out.println("    </div>");
+            out.println("    <div class=\"blog_post_title\"><a href=\"blogdetail?id=" + blog.getBid() + "\">" + blog.getTitle() + "</a></div>");
+            out.println("    <div class=\"blog_post_text\">");
+            out.println("");
+            out.println("    </div>");
+            out.println("    <div class=\"blog_post_link\"><a href=\"blogdetail?id=" + blog.getBid() + "\">Tìm hiểu thêm</a></div>");
+            out.println("</div>");
+
         }
+        out.flush();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,23 +80,9 @@ public class Statistic extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        // Create an instance of the DAO (Data Access Object) class
-        DAO dao = new DAO();
-        String id_raw = request.getParameter("supplierId");
-        int supplierId = Integer.parseInt(id_raw);
 
-        // Retrieve the total invoice for a category using the DAO
-        TotalInvoiceOfCategory totalCate = dao.getTotalInvoiceCate(supplierId);
-        List<TopProduct> listTopProduct = dao.listTopProduct(supplierId);
-        List<TopProduct> listTopAcc = dao.listTopAccounts(supplierId);
-        List<TopProduct> listInvoice = dao.listInvoice(supplierId);
-        request.setAttribute("totalCate", totalCate);
-        request.setAttribute("listTopPro", listTopProduct);
-        request.setAttribute("listTopAcc", listTopAcc);
-        request.setAttribute("listInvoice", listInvoice);
-        // Forward the request to the "DashboardSupplier.jsp" page
-        request.getRequestDispatcher("DashboardSupplier.jsp").forward(request, response);
+        processRequest(request, response);
+
     }
 
     /**
