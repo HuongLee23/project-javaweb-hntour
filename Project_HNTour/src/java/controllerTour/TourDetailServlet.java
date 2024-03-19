@@ -111,7 +111,6 @@ public class TourDetailServlet extends HttpServlet {
         List<Feedback> list_Feedback = dao.getFeedbackDetailTour(id);
         List<Category> listCategory = dao.getListCategory();
         List<Schedules> list_Schedules = dao.getSchedukesById(id);
-        Account account = (Account) session.getAttribute("account");
         double averageRating = 0;
         if (list_Feedback != null && !list_Feedback.isEmpty()) {
             int totalRating = 0;
@@ -129,7 +128,6 @@ public class TourDetailServlet extends HttpServlet {
         request.setAttribute("overallRating", overallRating); // Phần tổng quan
 
         request.setAttribute("totalFeedback", totalFeedback);
-        request.setAttribute("account", account);
         request.setAttribute("schedules", list_Schedules);
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("feedback", list_Feedback);
