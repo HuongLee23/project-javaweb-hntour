@@ -24,7 +24,7 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.activation-jaf1.1.1.jar-3}</file>
-                    <file>${&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
                     <file>${file.reference.activation-jaf1.1.1.jar-4}</file>
