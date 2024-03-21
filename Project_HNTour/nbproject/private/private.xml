@@ -2,24 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerTour/SearchAjaxServlet.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/fillInformationBuyer.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/home.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/tourdetail.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/blog.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/DashboardSupplier.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerTour/TourDetailServlet.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/ManagerBlogs.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/tour.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/DAODoanhThu.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/header.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerBlog/SearchBlogServlet.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/ulti/SendEmail.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerSupplier/Statistic.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/OrderDetail.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerBlog/ManagerBlogsServlet.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/DAO.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

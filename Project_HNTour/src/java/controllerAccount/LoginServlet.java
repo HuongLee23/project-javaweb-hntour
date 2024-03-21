@@ -4,6 +4,7 @@
  */
 package controllerAccount;
 
+import dal.AccountDAO;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -118,7 +119,7 @@ public class LoginServlet extends HttpServlet {
 //            request.getRequestDispatcher("login.jsp").forward(request, response);
 //        }
 
-        DAO dao = new DAO();
+        AccountDAO accountDAO = new AccountDAO();
         HttpSession session = request.getSession();
 
         // Thông tin đăng nhập
@@ -131,11 +132,11 @@ public class LoginServlet extends HttpServlet {
 //        session.removeAttribute("lastVisitedPage");
 
         // Thực hiện xác thực đăng nhập
-        boolean isAuthenticated = performAuthentication(email, pass, dao);
+        boolean isAuthenticated = performAuthentication(email, pass, accountDAO);
 
         if (isAuthenticated) {
             // Lưu thông tin người dùng vào session
-            Account account = dao.loginAccount(email, pass);
+            Account account = accountDAO.loginAccount(email, pass);
             session.setAttribute("account", account);
 
             // Lưu thông tin đăng nhập vào cookie nếu người dùng chọn "ghi nhớ tài khoản"
@@ -163,8 +164,8 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    private boolean performAuthentication(String email, String pass, DAO dao) {
-        Account account = dao.loginAccount(email, pass);
+    private boolean performAuthentication(String email, String pass, AccountDAO accountDAO) {
+        Account account = accountDAO.loginAccount(email, pass);
         return account != null && account.isStatus();
     }
 

@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.AccountDAO;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -60,7 +61,7 @@ public class profilesupplier extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAO accountDAO = new DAO();
+        AccountDAO accountDAO = new AccountDAO();
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         Account acc2 = accountDAO.getAccountDetail(account.getEmail());
@@ -94,7 +95,7 @@ public class profilesupplier extends HttpServlet {
             int userId = Integer.parseInt(request.getParameter("id"));
             String email = request.getParameter("email");
 
-            DAO accountDAO = new DAO();
+            AccountDAO accountDAO = new AccountDAO();
             HttpSession session = request.getSession();
             boolean updateSuccess = accountDAO.updateProfile(userId, email, username, address, profileImage, phoneNumber);
 

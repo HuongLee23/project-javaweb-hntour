@@ -4,6 +4,7 @@
  */
 package controllerAccount;
 
+import dal.AccountDAO;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,6 +62,7 @@ public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO d = new DAO();
+        AccountDAO accountDAO = new AccountDAO();
         HttpSession session = request.getSession();
         // Thông tin for register(lỗi khi tôi đang ký xong khi sửa đường link từ home.jsp ở trang home thành login.jsp thì nó lại chạy về account mà account lại vừa là đăng ký vừa là login lên nó vẫn còn cái session của đăng lên bị lỗi tưởng là đăng ký hai lần)
         String registerEmail = (String) session.getAttribute("registerEmail");
@@ -71,9 +73,9 @@ public class RegisterServlet extends HttpServlet {
 
         if (registerEmail != null && registerUser != null && registerPass != null && registerRepass != null) {
             if (registerPass.equals(registerRepass)) {
-                boolean result = d.registerAccount(registerEmail, registerUser, registerPass, role);
+                boolean result = accountDAO.registerAccount(registerEmail, registerUser, registerPass, role);
                 if (result) {
-                    Account a = d.loginAccount(registerEmail, registerPass);
+                    Account a = accountDAO.loginAccount(registerEmail, registerPass);
                     session.setAttribute("account", a);
                     response.sendRedirect("home");
                 } else {

@@ -150,31 +150,6 @@ public class ManagerAccCustomerServlet extends HttpServlet {
         }
         session.setAttribute("role", role);
         response.sendRedirect("manageracccustomer");
-//        try {
-//            int id = Integer.parseInt(id_raw);
-//            boolean result = mnAccount.updateInforCustomer(id, username, password, email, phoneNumber, address);
-//            if (result) {
-//                request.setAttribute("msUpdateCustomer", "Cập nhật thông tin khách hàng thành công");
-//            } else {
-//                request.setAttribute("msUpdateCustomer", "Cập nhật thông tin khách hàng thất bại!");
-//            }
-//
-//            int role = Integer.parseInt(role_raw);
-//            // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
-//            List<Account> listAccounts = getAllAccountsFromDatabase(role);
-//            int totalAccountCustomer = mnAccount.countAccountCustomer();
-//
-//            // Gán danh sách tài khoản vào request để truy cập từ trang JSP
-//            request.setAttribute("currentPageData", listAccounts);
-//            request.setAttribute("totalcustomer", totalAccountCustomer);
-//
-//            // Chuyển hướng (forward) request và response đến trang JSP
-//            RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/manageracccustomer.jsp");
-//            dispatcher.forward(request, response);
-//
-//        } catch (NumberFormatException e) {
-//            System.out.println(e);
-//        }
     }
 
     /**
