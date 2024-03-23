@@ -214,6 +214,11 @@
                                                             </select>
                                                         </form>
                                                     </div>
+
+                                                    <span style="font-size: larger; color: #f2552d;">Chọn ngày đi *</span>
+                                                    <div class="d-flex flex-row align-items-center mb-1">
+                                                        <input id="startday" style="font-size: large;" type="date" name="startday">
+                                                    </div>
                                                 </div>
 
                                             </div>   
@@ -301,6 +306,11 @@
 
                                                                 </select>
                                                             </form>
+                                                        </div>
+
+                                                        <span style="font-size: larger; color: #f2552d;">Chọn ngày đi *</span>
+                                                        <div class="d-flex flex-row align-items-center mb-1">
+                                                            <input id="startday_${loop.index}" style="font-size: large;" type="date" name="startday">
                                                         </div>
                                                     </div>
 
@@ -423,7 +433,8 @@
                                                                 <p class="mb-2"><fmt:formatNumber value="${i.priceSale != 0 ? i.priceSale : i.price}" pattern="###,###"/> VNÐ</p>
                                                             </div>
 
-                                                            <form id="checkoutForm" action="checkout" method="post">
+                                                            <form id="checkoutForm" action="checkout" method="post" onsubmit="return validateForm()">
+                                                                <input type="hidden" id="selectedDate" name="selectedDate">
                                                                 <button type="submit" class="btn btn-primary btn-block btn-lg" style=" cursor: pointer;border: none;background-color: #ff5b00;">
                                                                     <span>Thanh toán</span>
                                                                 </button>
@@ -453,7 +464,8 @@
                                                                 <p class="mb-2"><fmt:formatNumber value="${i.getTotalMoneyUseVoucher() != 0 ?i.getTotalMoneyUseVoucher() :i.getTotalMoney()}" pattern="###,###"/> VNÐ</p>
                                                             </div>
 
-                                                            <form id="checkoutForm" action="checkout" method="post">
+                                                            <form id="checkoutForm" action="checkout" method="post" >
+                                                                <input type="hidden" id="selectedDate" name="selectedDate">
                                                                 <button type="submit" class="btn btn-primary btn-block btn-lg" style=" cursor: pointer;border: none;background-color: #ff5b00;">
                                                                     <span>Thanh toán</span>
                                                                 </button>
@@ -482,6 +494,66 @@
             </div>
 
             <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var checkoutForm = document.getElementById("checkoutForm");
+                    var startdayInputs = document.querySelectorAll("input[name='startday']");
+
+                    checkoutForm.addEventListener("submit", function (event) {
+                        var selectedDate = [];
+                        var currentDate = new Date();
+                        var allDatesSelected = true;
+
+                        startdayInputs.forEach(function (input, index) {
+                            var selectedTourDate = new Date(input.value);
+
+                            // Kiểm tra xem ngày đã được chọn chưa và lớn hơn ngày hiện tại
+                            if (!input.value) {
+                                alert("Vui lòng chọn thời gian cho tour số " + (index + 1) + ".");
+                                event.preventDefault();
+                                allDatesSelected = false;
+                                return;
+                            } else if (selectedTourDate <= currentDate) {
+                                alert("Vui lòng chọn ngày lớn hơn ngày hiện tại cho tour số " + (index + 1) + ".");
+                                event.preventDefault();
+                                allDatesSelected = false;
+                                return;
+                            } else {
+                                // Thêm ngày đã chọn vào mảng selectedDate
+                                selectedDate.push(input.value);
+                            }
+                        });
+
+                        if (allDatesSelected) {
+                            // Gán các ngày đã chọn vào input ẩn selectedDate để truyền cho form checkout
+                            document.getElementById("selectedDate").value = selectedDate.join(",");
+                            // Tiến hành submit form checkout
+                            checkoutForm.submit();
+                        }
+                    });
+                });
+
+
+
+
+//                function validateForm() {
+//                    var selectedDate = document.getElementById("startday").value;
+//                    if (selectedDate === "") {
+//                        alert("Vui lòng chọn ngày đi");
+//                        return false; // Ngăn chặn form submit nếu ngày chưa được chọn
+//                    }
+//
+//                    var selectedDateObj = new Date(selectedDate);
+//                    var currentDate = new Date();
+//
+//                    if (selectedDateObj < currentDate) {
+//                        alert("Vui lòng chọn ngày đi trước ngày đặt mua.");
+//                        return false; // Ngăn chặn form submit nếu ngày không hợp lệ
+//                    }
+//
+//                    document.getElementById("selectedDate").value = selectedDate;
+//                    return true; // Cho phép form submit nếu đã chọn ngày hợp lệ
+//                }
+
 
                 //Khi thanh toán xong mà ko còn sản phẩm nào mà cố tình thanh toán tiếp
                 document.getElementById("checkoutForm").addEventListener("submit", function (event) {

@@ -96,17 +96,19 @@ public class CheckoutDAO extends DBContext {
                         + "           ,[tourId]\n"
                         + "           ,[quantity]\n"
                         + "           ,[price]\n"
+                        + "           ,[dateDeparture]\n"
                         + "           ,[versionId]\n"
                         + "           ,[voucherId])\n"
                         + "     VALUES\n"
-                        + "           ( ?, ?, ?, ?, ?, ?)";
+                        + "           ( ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement st2 = connection.prepareStatement(sql2);
                 st2.setInt(1, oid);
                 st2.setInt(2, item.getTour().getId());
                 st2.setInt(3, item.getQuantity());
                 st2.setDouble(4, rs.getDouble("totalPrice"));
-                st2.setInt(5, item.getTour().getVersion());
-                st2.setInt(6, item.getIdVoucher());
+                st2.setString(5, item.getDateDeparture());
+                st2.setInt(6, item.getTour().getVersion());
+                st2.setInt(7, item.getIdVoucher());
                 st2.executeUpdate();
             }
             if (item.getIdVoucher() != 0) {

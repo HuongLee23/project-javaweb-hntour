@@ -112,6 +112,10 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        String selectDate = request.getParameter("selectedDates");
+//        PrintWriter out = response.getWriter();
+//        out.print("date: " + selectDate);
+
         HttpSession session = request.getSession();
         CheckoutDAO checkoutDao = new CheckoutDAO();
 
@@ -124,7 +128,10 @@ public class CheckoutServlet extends HttpServlet {
         } else {
 
             if (selectCheckout != 0) {
+                String selectDate = request.getParameter("selectedDate");
+
                 Item itemTour = (Item) session.getAttribute("itemTour");
+                itemTour.setDateDeparture(selectDate);
                 boolean result = checkoutDao.addOrderForBuyNow(itemTour, account, idInfor);
                 if (result) {
                     session.removeAttribute("listVoucher");
@@ -137,8 +144,10 @@ public class CheckoutServlet extends HttpServlet {
                 }
 
             } else {
+                String dateTours = request.getParameter("selectedDates");
                 Cart cartItem = (Cart) session.getAttribute("cartFill");
-                boolean result = checkoutDao.addOrderForCart(cartItem, account, idInfor);
+                Cart arragesItem = arrangeDates(cartItem, dateTours);
+                boolean result = checkoutDao.addOrderForCart(arragesItem, account, idInfor);
                 if (result) {
                     Cookie c = new Cookie("cart", "");
                     c.setMaxAge(0);
@@ -158,9 +167,21 @@ public class CheckoutServlet extends HttpServlet {
                     request.setAttribute("messBuy", "Mua hàng thất bại");
                 }
             }
-//            request.setAttribute("mess", "Mua hàng thành công");
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
         }
+    }
+
+    private Cart arrangeDates(Cart cart, String dateTours) {
+        if (dateTours != null && dateTours.length() != 0) {
+            String[] arrangeDate = dateTours.split(",");
+            int index = 0;
+            for (Item item : cart.getItems()) {
+                String dateItem = arrangeDate[index];
+                item.setDateDeparture(dateItem);
+                index++; // Di chuyển đến ngày tiếp theo trong mảng arrangeDate
+            }
+        }
+        return cart;
     }
 
     /**

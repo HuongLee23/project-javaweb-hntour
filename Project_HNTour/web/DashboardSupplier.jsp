@@ -19,6 +19,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
+        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
         <meta name="author" content="" />
         <title>HaNoiTour</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
@@ -198,9 +199,7 @@
                                                         <td>${listTA.account.phoneNumber}</td>
                                                         <td>${listTA.account.address}</td>
                                                         <td>
-
                                                             <a href="tangvoucher?aid=${listTA.account.id}" class="btn btn-primary">Tặng Voucher</a>
-
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
@@ -247,7 +246,6 @@
 
 
                                 <div class="clearfix">
-                                    <div class="hint-text">Showing Product</div>
                                     <div>
                                         <form action="inexcel" method="get">
                                             <button type="submit" class="btn btn-success">

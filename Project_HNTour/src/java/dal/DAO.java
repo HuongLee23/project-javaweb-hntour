@@ -44,8 +44,6 @@ import ulti.PasswordEncryption;
  */
 public class DAO extends DBContext {
 
-    
-
     public List<Tour> getAllTour() {
         List<Tour> list = new ArrayList<>();
 

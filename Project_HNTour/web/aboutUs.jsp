@@ -54,7 +54,7 @@
                                 <div class="intro_content">
                                     <div class="intro_title">Khám Phá Hà Nội - Thủ Đô Nghìn Năm Văn Hiến</div>
                                     <p class="intro_text" style="text-align: justify;">Khám phá vẻ đẹp lịch sử và văn hóa của Thủ đô Hà Nội với chúng tôi - HaNoi Tour. Chuyên tổ chức các hành trình du lịch độc đáo, chúng tôi mang đến trải nghiệm tuyệt vời với những điểm đến độc đáo, ẩm thực đặc sắc và hành trình đầy ý nghĩa. Hãy đồng hành cùng chúng tôi để khám phá những góc cảnh tuyệt vời nhất của Hà Nội - nơi mà câu chuyện lịch sử và văn hóa được tái hiện mỗi bước chân của bạn. Đặt ngay để bắt đầu hành trình khám phá!</p>
-                                    <div class="button intro_button"><div class="button_bcg"></div><a href="#">explore now<span></span><span></span><span></span></a></div>
+                                    <div class="button intro_button"><div class="button_bcg"></div><a href="tourlist">khám phá ngay<span></span><span></span><span></span></a></div>
                                 </div>
                             </div>
                         </div>
@@ -217,9 +217,9 @@
                             <div class="col">
                                 <div class="add_container">
                                     <div class="add_background" style="background-image:url(images/add.jpg)"></div>
-                                    <div class="add_content">
+<!--                                    <div class="add_content">
                                         <div class="button add_button"><div class="button_bcg"></div><a href="#">explore now<span></span><span></span><span></span></a></div>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>

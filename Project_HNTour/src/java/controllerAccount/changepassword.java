@@ -86,8 +86,6 @@ public class changepassword extends HttpServlet {
 
         Account a = accountDAO.loginAccount(email, oldPass);
 
-//        PasswordEncryption encry = new PasswordEncryption();
-//        String hashOdlPass = encry.hashPassword(newPass2);
         if (a == null) {
             String errorMessage = "Mật khẩu cũ không đúng!";
             request.setAttribute("error", errorMessage);
@@ -100,8 +98,9 @@ public class changepassword extends HttpServlet {
             // Update the password in the database
             accountDAO.changePassword(email, oldPass, newPass);
 
-//            // Update the password in the account object
+            // Update the password in the account object
 //            a.setPassword(newPass);
+            
             // Update the session with the modified account
             HttpSession session = request.getSession();
             session.setAttribute("account", a);
