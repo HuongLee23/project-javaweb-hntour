@@ -112,9 +112,15 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        String selectDate = request.getParameter("selectedDates");
+//        HttpSession session = request.getSession();
 //        PrintWriter out = response.getWriter();
-//        out.print("date: " + selectDate);
+//        String selectDate = request.getParameter("selectedDate");
+//        Cart cartItem = (Cart) session.getAttribute("cartFill");
+//        Cart arragesItem = arrangeDates(cartItem, selectDate);
+//
+//        for (Item item : arragesItem.getItems()) {
+//            out.print("date of tour" + item.getTour().getName() + ": " + item.getDateDeparture());
+//        }
 
         HttpSession session = request.getSession();
         CheckoutDAO checkoutDao = new CheckoutDAO();
@@ -144,7 +150,7 @@ public class CheckoutServlet extends HttpServlet {
                 }
 
             } else {
-                String dateTours = request.getParameter("selectedDates");
+                String dateTours = request.getParameter("selectedDate");
                 Cart cartItem = (Cart) session.getAttribute("cartFill");
                 Cart arragesItem = arrangeDates(cartItem, dateTours);
                 boolean result = checkoutDao.addOrderForCart(arragesItem, account, idInfor);
