@@ -11,13 +11,11 @@ package model;
  */
 public class Order {
 
-    private int id,
+     private int id,
             accountId,
             idInforAcc;
     private String date;
     private double totalPrice;
-    private int voucherId;
-
     public Order() {
     }
 
@@ -27,7 +25,7 @@ public class Order {
         this.idInforAcc = idInforAcc;
         this.date = date;
         this.totalPrice = totalPrice;
-        this.voucherId = voucherId;
+      
     }
 
     public int getId() {
@@ -50,9 +48,7 @@ public class Order {
         return totalPrice;
     }
 
-    public int getVoucherId() {
-        return voucherId;
-    }
+   
 
     public void setId(int id) {
         this.id = id;
@@ -74,10 +70,7 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public void setVoucherId(int voucherId) {
-        this.voucherId = voucherId;
-    }
-
+ 
     
 
 }

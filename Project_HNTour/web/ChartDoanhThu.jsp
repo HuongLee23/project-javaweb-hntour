@@ -142,7 +142,7 @@
             borderColor: [
                 // Đổi các màu đường biên ở đây, tương tự như backgroundColor
             ],
-            borderWidth: 1
+            borderWidth: 5
         }]
     },
     options: {

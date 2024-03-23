@@ -185,7 +185,7 @@
                                         <div class="col-lg-8">
                                             <div class="offers_content">
                                                 <div class="offers_price" style="font-size: 25px">${c.name}
-                                                    <div><span>Thời gian dự kiến hết: ${c.intendedTime}</span></div>
+                                                    <div><span>Thời gian xuất phát dự kiến: ${c.intendedTime}</span></div>
                                                 </div>
                                                 <p class="offers_text">
                                                     <c:choose>
