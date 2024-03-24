@@ -1,0 +1,552 @@
+[33mcommit 804a8fac5a90386e0fbda5fcc39c472fc5583450[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mhuongllhe171065[m[33m, [m[1;32msoncthe171406[m[33m)[m
+Merge: f325336 004b741
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Sun Mar 24 19:27:03 2024 +0700
+
+    merge local
+
+[33mcommit 004b741ab2ec41df0fa1b2253ce8bb9220c0d3d2[m[33m ([m[1;31morigin/soncthe171406[m[33m)[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Sun Mar 24 05:13:30 2024 +0700
+
+    update final
+
+[33mcommit f325336bbb626e4519f50075d55a5a8ddb6f5067[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Sun Mar 17 22:32:44 2024 +0700
+
+    merge code local
+
+[33mcommit 049f35460a9ef878fe99aa79369bc29cf4d16c7f[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Sat Mar 16 01:21:35 2024 +0700
+
+    iter3 voucher,statistic,chart of supplier
+
+[33mcommit 5b8bd00bf8fdd82569da098232feac009718efcc[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Fri Mar 15 02:15:20 2024 +0700
+
+    code chart theo quy va bieu do tron theo category tour
+
+[33mcommit 30677097efd7ef419f7852a8640ba50793b8df6b[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Thu Mar 14 04:17:50 2024 +0700
+
+    code chart and voucher
+
+[33mcommit 9bb2ad193302dc12363d1373278a9a4190ea3f1f[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Wed Mar 13 23:34:53 2024 +0700
+
+    update tang voucher cho nguoi dung va nhung nguoi mua nhieu nhat
+
+[33mcommit d1c84f0f1b48a1b5b68d8be3690c623c2e59be74[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Wed Mar 13 20:16:09 2024 +0700
+
+    update statistic supplier
+
+[33mcommit b6fae7cf616ed1c3d4f4a44bb95d1eb3ec95191d[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Tue Mar 12 01:38:57 2024 +0700
+
+    code statistic for supplier
+
+[33mcommit 9d94df2d3b4376c6eb04744fc70ac9d85440f91e[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Fri Mar 8 00:23:38 2024 +0700
+
+    update status for tour,checkbox delete tour and updating list tour have status equal 1
+
+[33mcommit 33f6fe5c98adf7cede52a93fd4b56cb2f4572d5a[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Thu Mar 7 16:08:46 2024 +0700
+
+    update thong bao voucher
+
+[33mcommit dd2df71995d75f3324cd88843a96eec09a216cc8[m
+Merge: e595201 bb075df
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Wed Mar 6 01:06:40 2024 +0700
+
+    iter 3 voucher
+
+[33mcommit e5952010c7282ba262ae6de9bf216e53f4d907b7[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Fri Mar 1 15:40:03 2024 +0700
+
+    pull code
+
+[33mcommit bb075df182d34a067e2ff837e209399d21ec41d7[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Merge: 1420c47 17ef790
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Wed Feb 28 11:28:18 2024 +0700
+
+    merge code from huongllhe171065 branch into main branch
+
+[33mcommit 17ef790c4c400391777ec333bb7291c948886b76[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Wed Feb 28 10:58:30 2024 +0700
+
+    update code
+
+[33mcommit c1c1637e9611cbde36cee83adddf23983f66f317[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Wed Feb 28 10:56:42 2024 +0700
+
+    update the code after merging in iter2
+
+[33mcommit e0ab94a0af8a1594ab8015678e6b515a15658e2c[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Tue Feb 27 14:50:14 2024 +0700
+
+    update code servlet for checkout of method doget
+
+[33mcommit a5e345d0250cf1f83c07dab7f084856d7941e37f[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Tue Feb 27 14:12:38 2024 +0700
+
+    update code for file .jsp
+
+[33mcommit f903e99ab0c1c0d91d7a6c182ab9459b832993dc[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Tue Feb 27 11:51:22 2024 +0700
+
+    update code for fillInfor and checkout bothh servlet and jsp part
+
+[33mcommit e0aae2d41dc9340f464738a914ecc5c75ff52d9e[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Tue Feb 27 10:14:04 2024 +0700
+
+    update code for FillInformationServlet
+
+[33mcommit b6c0f40fc8126aa2bba68f5f2eb085e5381cab80[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 26 23:19:49 2024 +0700
+
+    update code
+
+[33mcommit acfd5077093a738217119c461858cdaa56542e5e[m
+Merge: 217f161 4eca3af
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 26 22:03:37 2024 +0700
+
+    merge code from namcthe171385
+
+[33mcommit 4eca3af33b9525b8d1aa0e3101abd6571ae61753[m
+Merge: 0ef3420 e12ce26
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 26 20:18:25 2024 +0700
+
+    update code local from Namcthe171385
+
+[33mcommit 217f161ab14d25847491aa8ca8f256e4e149fbdf[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 26 20:00:39 2024 +0700
+
+    update file
+
+[33mcommit dbc53130cb1e03de2d57677c9e07ad67ef992064[m
+Merge: bf01e66 8f43ecf
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 26 17:27:41 2024 +0700
+
+    merge code from soncthe171406 branch into huongllhe171065 branch
+
+[33mcommit 8f43ecfd7bf9a8a3fd53fdf72f444be700397346[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 26 17:03:52 2024 +0700
+
+    merge code local
+
+[33mcommit bf01e668c5ab75155a74e072f7f53ec00fbb85b4[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 26 16:55:00 2024 +0700
+
+    update logo show on web
+
+[33mcommit 61f8d2612d6464153d0011677e9fff0c4fad6074[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Mon Feb 26 16:53:43 2024 +0700
+
+    delete controllercart
+
+[33mcommit 58e5d5a5a86cacccd71e36d66e0b59147fb1d8db[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Mon Feb 26 16:45:23 2024 +0700
+
+    update back home for manager tour
+
+[33mcommit 5e886809db049a399f4506cef197158c2aa0c38a[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Mon Feb 26 15:30:40 2024 +0700
+
+    required input schedule
+
+[33mcommit e12ce26704d4667763f9e2948168017b0d1ea456[m
+Author: thanhnamcan59 <thanhnamcan59@gmail.com>
+Date:   Mon Feb 26 15:14:29 2024 +0700
+
+     update tourdetail
+
+[33mcommit 6132c7289b5e84c3667c221fc6e0e60dcffee628[m
+Author: thanhnamcan59 <thanhnamcan59@gmail.com>
+Date:   Mon Feb 26 14:47:50 2024 +0700
+
+     phan trang cho feedback
+
+[33mcommit 8fae018c98274690f8f9cf5f6e8904144a2405e2[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 26 11:26:24 2024 +0700
+
+    update code css for checkout.jsp
+
+[33mcommit ba9d653e7d250de888046347a744dac57804c90c[m
+Author: thanhnamcan59 <thanhnamcan59@gmail.com>
+Date:   Mon Feb 26 00:54:59 2024 +0700
+
+     update edit feedback and delete feedback
+
+[33mcommit b18b2977e7bcff16cf6f851f2fd49b3ed010b4cb[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Sun Feb 25 11:56:10 2024 +0700
+
+    update code css for fillInformationBuyer.jsp
+
+[33mcommit 95ef62bebb03e8bc52dc84b5a568a429587b903c[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Sun Feb 25 11:28:41 2024 +0700
+
+    update code for filInformationBuyer about when customers click the Buy Now button on tourlist and tourdetail
+
+[33mcommit cc401c3517a27703544479534dd64d16479ed689[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Sun Feb 25 09:56:16 2024 +0700
+
+    update code for add information of fillInformationBuyer.jsp
+
+[33mcommit a03ef93d2200aaf68785be8294f06720f03f3df4[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Sat Feb 24 23:39:18 2024 +0700
+
+    update type price
+
+[33mcommit 540ffa348e4dc88f01ce5e1e1636d87a33e8a058[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Sat Feb 24 22:52:04 2024 +0700
+
+    update ckeditor for description tour
+
+[33mcommit 8f127ef8252290e93ba122930a9c72d9e8bdb491[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Sat Feb 24 22:28:49 2024 +0700
+
+    update code for fill information when buy prodcut
+
+[33mcommit c7655d61bb800be281520abc7e49d7a28cbc067f[m
+Merge: c626a92 3f22ab0
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Sat Feb 24 18:30:51 2024 +0700
+
+    merge code huongllhe171065 and soncthe171406
+
+[33mcommit c626a927cb5d726c01308cc9e2f2361f58b6ab36[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Sat Feb 24 17:48:58 2024 +0700
+
+    update code
+
+[33mcommit 3f22ab01c614602eab24ab46baae6bf8a67838a8[m
+Merge: 68aa8fe 18fbefc
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Fri Feb 23 22:41:42 2024 +0700
+
+    merge code from soncthe171406 branch into huongllhe171065
+
+[33mcommit 18fbefcac2b08728f39c38d0bab67fc2747aeee1[m
+Merge: 1431f58 b60b188
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Fri Feb 23 21:50:34 2024 +0700
+
+    merge code local from soncthe171406 branch
+
+[33mcommit 68aa8fe2beef30a84e9df8c50f199ebf4630929f[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Fri Feb 23 21:37:23 2024 +0700
+
+    update code for backend of fillBuyerInformation
+
+[33mcommit b60b18858d084b05b3377ccad8ce4c5c97016e14[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Fri Feb 23 16:16:24 2024 +0700
+
+    CRUD Tour Iter 2
+
+[33mcommit 40de8ceb54ac76234d3d5782d2ab81db9b6bf397[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Thu Feb 22 22:56:23 2024 +0700
+
+    update tieng viet
+
+[33mcommit 1431f583de9d312d480c9744c89dce11cbcc1310[m
+Merge: 2c43c28 8e2b0d1
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Thu Feb 22 22:49:25 2024 +0700
+
+    update code from soncthe171406 branch
+
+[33mcommit 0d48ff69871b2e2ee9afe8dcd1028b8052345221[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Thu Feb 22 22:40:27 2024 +0700
+
+    update code for checkout
+
+[33mcommit 8e2b0d1086994f85da9ae8c993414893c5568fef[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Thu Feb 22 01:31:00 2024 +0700
+
+    CRUD tour update iter2
+
+[33mcommit 1c044c8b1aae861e4229cb4a88a691b0d788d077[m
+Author: thanhnamcan59 <thanhnamcan59@gmail.com>
+Date:   Wed Feb 21 10:23:55 2024 +0700
+
+    fix rating
+
+[33mcommit cc8157a62f5d0dc9cc4ee1fed3f254f5556a5830[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Tue Feb 20 23:16:15 2024 +0700
+
+    crud tour update schedule
+
+[33mcommit c709a58e35f48c8fda5587f8f595ed04d676a563[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Mon Feb 19 23:38:33 2024 +0700
+
+    delete schedule of tour search tour manager
+
+[33mcommit 43059d8f73627785663a10152da857c5c49494f4[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 19 09:08:46 2024 +0700
+
+    update code
+
+[33mcommit 1420c473a357e46588e58a30ad33816d9bbc2e02[m
+Merge: bfd1af0 a8db479
+Author: Huong LEE <huonglee160923@gmail.com>
+Date:   Mon Feb 19 02:04:54 2024 +0000
+
+    Merge branch 'huongllhe171065' into 'main'
+    
+    Huongllhe171065
+    
+    See merge request projectfirst2/projectteam3!31
+
+[33mcommit bfd1af0cac9fe7a5fbbf473b11835538b3cc7fc4[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 19 09:04:09 2024 +0700
+
+    merge code from huongllhe171065 branch into main branch
+
+[33mcommit a8db4799d9cd2d22a32dce19de7807fdc32ceea5[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 19 08:35:03 2024 +0700
+
+    update code
+
+[33mcommit 82e0eb7a298c43d86aaaa1d5c332d3dd95210168[m
+Author: thanhnamcan59 <thanhnamcan59@gmail.com>
+Date:   Mon Feb 19 01:04:41 2024 +0700
+
+    fix rating
+
+[33mcommit 0465f07d56a708f946aac44223dce6108cebc22a[m
+Author: thanhnamcan59 <thanhnamcan59@gmail.com>
+Date:   Mon Feb 19 00:26:03 2024 +0700
+
+    comment in tourdetail
+
+[33mcommit ca5efe6575c105aeb8d24ae37325e4d26d642484[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Sun Feb 18 23:26:09 2024 +0700
+
+    CRUD tour and schedule
+
+[33mcommit 2ecfe40b9ae54e023cac82063c409f13a1a025b0[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Sun Feb 18 19:23:55 2024 +0700
+
+    update code
+
+[33mcommit 281496645e2d3f10feb57d8bc4a803c06892ce4a[m
+Merge: 8076f14 052a40c
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Sat Feb 17 22:52:22 2024 +0700
+
+    crud tour
+
+[33mcommit b741a6deb81aabbc35308ac9d458329d9074a93e[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Sat Feb 17 21:29:25 2024 +0700
+
+    update code for checkout
+
+[33mcommit b5530e565ae4238dbaf82563e4cd256a7d83e671[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Thu Feb 15 13:50:39 2024 +0700
+
+    update code
+
+[33mcommit b79405a83c9a5f23d8445da8055252453ef43dfd[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Thu Feb 15 12:48:45 2024 +0700
+
+    delete 2 file java in package controller
+
+[33mcommit a7ff8f02fba7922c3be09c42dd0fa632832f9c7e[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Wed Feb 14 22:08:19 2024 +0700
+
+    Updated the code for the add to cart section to be more optimized
+
+[33mcommit f0a517683c90798868c08228b377d09c518926bd[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Tue Feb 13 11:53:20 2024 +0700
+
+    update code for file .jsp
+
+[33mcommit 2e931948ba31f5a28c28e8cc777e6a05cdf74127[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 12 12:37:00 2024 +0700
+
+    update code for showcart.jsp
+
+[33mcommit 89b07c87cfbb687d3b2e92ef7dbde7fa44c5bdca[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 12 11:09:02 2024 +0700
+
+    update code for file .jsp
+
+[33mcommit 3dba9a24f3db716c0b6b3a16162a51ebab1eebcc[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Fri Feb 9 23:14:21 2024 +0700
+
+    update code of search ajax for tour.jsp
+
+[33mcommit 9e9715198e12f4ed1ebd9847f4d2a59a8ed9a7a6[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Wed Feb 7 22:24:11 2024 +0700
+
+    update code register.jsp
+
+[33mcommit c8732cb3dfa042db4a0b6e6a7c890c4abb750542[m
+Merge: a147a3e e2e2031
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Wed Feb 7 22:12:17 2024 +0700
+
+    Merge huongllhe171065 into main
+
+[33mcommit e2e20312da65b44fe26412d2e2eabdadbb7a2c1a[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Wed Feb 7 22:10:49 2024 +0700
+
+    update code for file .jsp
+
+[33mcommit a147a3e414b761aeb4c0e0803d4fa1b5d9f2c57e[m
+Merge: 1ad1f2c 1f623a8
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Wed Feb 7 21:40:46 2024 +0700
+
+    Merged branch huongllhe171065 into main branch but am having problems
+
+[33mcommit 1f623a8edcad98d02ee8729859b2c11f2789fed8[m
+Merge: e0ef7fd 2c43c28
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Wed Feb 7 21:25:32 2024 +0700
+
+    Merge branch soncthe171406 into branch huongllhe171065 to update the avatar image upload code
+
+[33mcommit 2c43c287446461c858d30725eb8218dc13d23abe[m
+Merge: ab49f4c 8076f14
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Wed Feb 7 21:14:20 2024 +0700
+
+    update code soncthe171406 branch on local
+
+[33mcommit 8076f149dc70a32e97e030c5dba065e5534f32eb[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Wed Feb 7 18:28:40 2024 +0700
+
+    update avatar file
+
+[33mcommit 15c586a21674c5c3c07dcf040e0f0b186942cdc4[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Wed Feb 7 18:08:35 2024 +0700
+
+    update avatar by file
+
+[33mcommit e0ef7fde0112f6ad3e5b5f703cd4aecf49923cc1[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Wed Feb 7 15:13:18 2024 +0700
+
+    update code for file .jsp
+
+[33mcommit c5c123e4a204379aaf8559c988b973cc9e283a50[m
+Merge: 726abf2 0ef3420
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Tue Feb 6 23:49:31 2024 +0700
+
+    Merge code from Namcthe171385 branch into huongllhe171065 branch
+
+[33mcommit 0ef34204b658f606020ad2b37f15e94b44ab3a2a[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Tue Feb 6 22:39:46 2024 +0700
+
+    update code from Namcthe17171385
+
+[33mcommit 726abf2539c22bc38a20b7ae54bdf604928d1599[m
+Merge: b2ed254 ab49f4c
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Tue Feb 6 22:23:58 2024 +0700
+
+    Merge from soncthe171406 branch into huongllhe171065 branch
+
+[33mcommit ab49f4cec987e4359451cdce40650d965c4fa446[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Tue Feb 6 21:43:00 2024 +0700
+
+    update code
+
+[33mcommit b2ed254e506932e9b83d3ff27fb48907fff2ca2e[m
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Tue Feb 6 21:19:18 2024 +0700
+
+    update file private.xml
+
+[33mcommit 052a40c96cc30b5e1141949cda8eb6d50d211e52[m
+Merge: 7d1010e 62cee41
+Author: thanhnamcan59 <thanhnamcan59@gmail.com>
+Date:   Tue Feb 6 16:12:55 2024 +0700
+
+    SortBy
+
+[33mcommit efa7823d623bad0c0867d55ea55a0bf0a47c6ccf[m
+Merge: 1984e50 62cee41
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 5 22:55:45 2024 +0700
+
+    Merge branch 'soncthe171406' of https://gitlab.com/projectfirst2/projectteam3 into soncthe171406
+
+[33mcommit 62cee41f4c5395299ede6fc087fbea362d8248dd[m
+Author: dinamok59 <dinamok59@gmail.com>
+Date:   Mon Feb 5 22:51:26 2024 +0700
+
+    update profile supplier and profile customer
+
+[33mcommit 1984e509e9b0a08fca99b68916e596083527a4db[m
+Merge: b85f9fe efc15e9
+Author: huong lee <huonglee160923@gmail.com>
+Date:   Mon Feb 5 22:37:43 2024 +0700
+
+    Merge code soncth171406 in local
