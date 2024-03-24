@@ -145,11 +145,7 @@
     <label for="discountPercentage">Phần trăm giảm giá:</label>
     <input type="number" name="discountPercentage" id="discountPercentage" readonly>
 
-    <label for="status">Trạng thái:</label>
-    <select name="status" required>
-        <option value="1">Hoạt động</option>
-        <option value="0">Không hoạt động</option>
-    </select>
+    
 
     <label for="nguoinhan">Người nhận voucher:</label>
     <select name="nguoinhan">

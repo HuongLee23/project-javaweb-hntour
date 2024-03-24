@@ -18,14 +18,12 @@ import java.util.List;
 import model.Account;
 import model.TopProduct;
 
-import model.TotalInvoiceOfCategory;
-
 /**
  *
  * @author Admin
  */
-@WebServlet(name="Statistic", urlPatterns={"/statistic"})
-public class Statistic extends HttpServlet {
+@WebServlet(name="ListCustomerDamua", urlPatterns={"/listcustomerdamua"})
+public class ListCustomerDamua extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -42,10 +40,10 @@ public class Statistic extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Statistic</title>");  
+            out.println("<title>Servlet ListCustomerDamua</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Statistic at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ListCustomerDamua at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,27 +57,23 @@ public class Statistic extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-   HttpSession session = request.getSession();
-   
-    // Create an instance of the DAO (Data Access Object) class
-    DAO dao = new DAO();
-     String id_raw = request.getParameter("supplierId");
-      int supplierId = Integer.parseInt(id_raw);
-     
-    // Retrieve the total invoice for a category using the DAO
-    TotalInvoiceOfCategory totalCate = dao.getTotalInvoiceCate(supplierId);
-List<TopProduct> listTopProduct = dao.listTopProduct(supplierId);
-List<TopProduct> listTopAcc = dao.listTopAccounts(supplierId);
-   List<TopProduct> listInvoice = dao.listInvoice(supplierId);
-    request.setAttribute("totalCate", totalCate);
- request.setAttribute("listTopPro", listTopProduct);
- request.setAttribute("listTopAcc", listTopAcc);
-  request.setAttribute("listInvoice", listInvoice);
-    // Forward the request to the "DashboardSupplier.jsp" page
-    request.getRequestDispatcher("DashboardSupplier.jsp").forward(request, response);
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    Account account = (Account) session.getAttribute("account");
+    
+    // Check if the account is valid
+    if (account != null) {
+        DAO dao = new DAO();
+        List<TopProduct> listInvoice = dao.listInvoice(account.getId());
+        
+        // Set the listInvoice attribute in the request
+        request.setAttribute("listInvoice", listInvoice);
+        
+        // Forward the request to the "DanhSachKhachHangDamua.jsp" page
+        request.getRequestDispatcher("DanhSachKhachHangDamua.jsp").forward(request, response);
+    } 
 }
 
 

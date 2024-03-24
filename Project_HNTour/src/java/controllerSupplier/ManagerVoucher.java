@@ -20,6 +20,9 @@ import model.AccountVoucher;
 import model.TopProduct;
 import model.Tour;
 import model.Voucher;
+import ulti.sendEmailConfirm;
+import ulti.sendEmailReject;
+import ulti.sendEmailVoucher;
 
 /**
  *
@@ -95,6 +98,7 @@ public class ManagerVoucher extends HttpServlet {
 
         // Retrieve form parameters
         String code = request.getParameter("code");
+        String email = request.getParameter("email");
         int discountPercentage = Integer.parseInt(request.getParameter("discountPercentage"));
         boolean status = "1".equals(request.getParameter("status")); // Convert "1" to true, "0" to false
         int supplierId = Integer.parseInt(request.getParameter("supplierId"));
@@ -103,35 +107,36 @@ public class ManagerVoucher extends HttpServlet {
         boolean isCodeExists = dao.isVoucherCodeExists(code, supplierId); // Check if the code already exists
 
         String idAcc = request.getParameter("nguoinhan");
+        sendEmailVoucher send = new sendEmailVoucher();
 
         try {
             // Check if nguoinhan_raw is empty or null
-
+            String message, messageEmail;
             // Validate and insert into the database
             if (!isCodeExists) {
-                // Assuming you have a method to insert a new voucher in DAO
+                session.setAttribute("msRegisterSupplier", "Chấp nhận đơn hàng thành công");
+                messageEmail = "Chúc mừng! Bạn đã nhận được một Voucher từ [HaNoiTour]. Dưới đây là thông tin chi tiết về voucher: ";
+
+                String sendEmail = email;
+
+                send.sendMailVoucher(sendEmail, code,discountPercentage, messageEmail);
+                message = "Quý khách vui lòng nhập mã xác thực để yêu cầu đặt lại mật khẩu. Hà Nội Tour sẽ xác nhận mã đã gửi tới email.";
+                session.setAttribute("sendEmail", sendEmail);
+                request.setAttribute("message", message);
+
                 dao.insertVoucher(code, discountPercentage, status, supplierId, idAcc);
                 session.setAttribute("tbvoucher", "Thêm Voucher thành công!");
+                response.sendRedirect("managervoucher");
             } else {
                 session.setAttribute("tbvoucher", "Mã code Voucher đã tồn tại trước đó. Vui lòng thử lại!");
+                response.sendRedirect("managervoucher");
             }
         } catch (NumberFormatException e) {
             // Handle the case where nguoinhan_raw is not a valid integer
             session.setAttribute("tbvoucher", "Lỗi khi xử lý người nhận. Vui lòng chọn lại!");
         }
 
-        Account account = (Account) session.getAttribute("account");
-
-        request.setAttribute("account", account);
-        List<AccountVoucher> voucherofaccount = dao.voucherOfAccount(account.getId());
-        request.setAttribute("voucher", voucherofaccount);
-
-        List<TopProduct> listAccVoucher = dao.listAccountsVoucher(account.getId());
-        request.setAttribute("users", listAccVoucher);
-
 // Redirect to the manager voucher page
-        response.sendRedirect("managervoucher");
-
     }
 
     /**

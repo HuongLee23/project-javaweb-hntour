@@ -1563,7 +1563,7 @@ public class DAO extends DBContext {
     }
 
     public void deleteVoucher(String vid) {
-        String sql = "DELETE FROM Voucher WHERE id = ?";
+        String sql = "DELETE FROM Voucher WHERE id=? and idAcc IS NULL;";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -1737,12 +1737,13 @@ public class DAO extends DBContext {
         return null;
     }
 
-    public OrderDetail getOrderDetailByID(int orderDetailId) {
+    public OrderDetail getOrderDetailByID(int orderId,int tourId) {
         OrderDetail orderDetail = null;
-        String sql = "SELECT * FROM [HaNoiTour].[dbo].[OrderDetail] WHERE id = ?";
+        String sql = "SELECT * FROM [HaNoiTour].[dbo].[OrderDetail] WHERE orderId = ? and tourId=?";
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setInt(1, orderDetailId);
+            st.setInt(1, orderId);
+            st.setInt(2, tourId);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
@@ -1752,7 +1753,10 @@ public class DAO extends DBContext {
                         rs.getInt("tourId"),
                         rs.getInt("quantity"),
                         rs.getDouble("price"),
-                        rs.getInt("versionId")
+                        rs.getInt("versionId"),
+                        rs.getInt("voucherId"),
+                        rs.getString("dateDeparture"),
+                        rs.getString("status")
                 );
             }
         } catch (SQLException e) {
@@ -1764,7 +1768,7 @@ public class DAO extends DBContext {
 
     public List<TopProduct> listTopProduct(int supplierId) {
         List<TopProduct> list = new ArrayList();
-        String sql = "SELECT TOP 3\n"
+        String sql = "SELECT TOP 10\n"
                 + "        t.id AS TourId,\n"
                 + "        t.name AS TourName,\n"
                 + "        t.price,\n"
@@ -1831,7 +1835,7 @@ public class DAO extends DBContext {
 
     public List<TopProduct> listTopAccounts(int supplierId) {
         List<TopProduct> list = new ArrayList<>();
-        String sql = "SELECT TOP 3\n"
+        String sql = "SELECT TOP 10\n"
                 + "    O.[accId] AS AccountId,\n"
                 + "    A.[username] AS Username,\n"
                 + "    A.[email] AS Email,\n"
@@ -1884,7 +1888,7 @@ public class DAO extends DBContext {
 
                 order.setDate(rs.getString("date"));
                 order.setTotalPrice(rs.getDouble("totalPrice"));
-                order.setVoucherId(rs.getInt("voucherId"));
+               
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
@@ -1895,26 +1899,26 @@ public class DAO extends DBContext {
 
     public List<TopProduct> listInvoice(int supplierId) {
         List<TopProduct> list = new ArrayList<>();
-        String sql = " SELECT \n"
-                + "    [Order].id AS InvoiceNumber,\n"
-                + "    Tour.id AS TourId,\n"
-                + "    Tour.name AS TourName,\n"
-                + "    Tour.price AS TourPrice,\n"
-                + "    Account.id AS AccountId,\n"
-                + "    Account.username AS CustomerName,\n"
-                + "    Account.phoneNumber AS CustomerPhone,\n"
-                + "    Account.address AS CustomerAddress,\n"
-                + "    [Order].date AS PurchaseDate\n"
-                + "FROM \n"
-                + "    [HaNoiTour].[dbo].[Tour] AS Tour\n"
-                + "JOIN \n"
-                + "    [HaNoiTour].[dbo].[OrderDetail] AS OrderDetail ON Tour.id = OrderDetail.tourId\n"
-                + "JOIN \n"
-                + "    [HaNoiTour].[dbo].[Order] AS [Order] ON OrderDetail.orderId = [Order].id\n"
-                + "JOIN \n"
-                + "    [HaNoiTour].[dbo].[Account] AS Account ON [Order].accId = Account.id \n"
-                + "WHERE \n"
-                + "    supplierId = ?;";
+        String sql = " SELECT \n" +
+"                    [Order].id AS InvoiceNumber,\n" +
+"                    Tour.id AS TourId,\n" +
+"                    Tour.name AS TourName,\n" +
+"                    Tour.price AS TourPrice,\n" +
+"                    Account.id AS AccountId,\n" +
+"                    Account.username AS CustomerName,\n" +
+"                    Account.phoneNumber AS CustomerPhone,\n" +
+"                    Account.address AS CustomerAddress,\n" +
+"                    [Order].date AS PurchaseDate\n" +
+"                FROM \n" +
+"                    [HaNoiTour].[dbo].[Tour] AS Tour\n" +
+"                JOIN \n" +
+"                    [HaNoiTour].[dbo].[OrderDetail] AS OrderDetail ON Tour.id = OrderDetail.tourId\n" +
+"                JOIN \n" +
+"                    [HaNoiTour].[dbo].[Order] AS [Order] ON OrderDetail.orderId = [Order].id\n" +
+"                JOIN \n" +
+"                    [HaNoiTour].[dbo].[Account] AS Account ON [Order].accId = Account.id \n" +
+"                WHERE \n" +
+"                    supplierId = ? and OrderDetail.status='Confirmed';";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -1940,7 +1944,7 @@ public class DAO extends DBContext {
 //list ra các account de nhan voucher
     public List<TopProduct> listAccountsVoucher(int supplierId) {
         List<TopProduct> list = new ArrayList<>();
-        String sql = "SELECT A.id AS AccountId, A.[username] AS AccountUsername "
+        String sql = "SELECT distinct A.id AS AccountId, A.[username] AS AccountUsername "
                 + "FROM [HaNoiTour].[dbo].[Account] A "
                 + "INNER JOIN [HaNoiTour].[dbo].[Order] O ON A.[id] = O.[accId] "
                 + "INNER JOIN [HaNoiTour].[dbo].[OrderDetail] OD ON O.[id] = OD.[orderId] "
@@ -2025,7 +2029,7 @@ public class DAO extends DBContext {
 }
 
    
-
+//lay ra account de tang voucher
     public List<TopProduct> AccountIdVoucher(int supplierId, int accountId) {
         List<TopProduct> list = new ArrayList<>();
         String sql = "SELECT A.id AS AccountId, A.[username] AS AccountUsername\n"
