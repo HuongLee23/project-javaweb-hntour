@@ -10,6 +10,7 @@ package model;
  * @author hello
  */
 public class Voucher {
+
     private int id;
     private String code;
     private int discount;
@@ -77,6 +78,4 @@ public class Voucher {
         this.idAcc = idAcc;
     }
 
-    
 }
-

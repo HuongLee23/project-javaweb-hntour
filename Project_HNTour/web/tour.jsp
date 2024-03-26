@@ -175,7 +175,7 @@
                                         <div class="col-lg-1 temp_col"></div>
                                         <div class="col-lg-3 col-1680-4">
                                             <div class="offers_image_container">
-                                                <a class="add_to_card" href="additem?id=${c.id}&num=1">
+                                                <a class="add_to_card" href="additem?id=${c.id}&num=1" onclick="addToCart(${c.id}, 1)" >
                                                     <i class="icon_card fa-solid fa-cart-plus" style="color: #e2492b" ></i>
                                                 </a>
                                                 <img  class="card-img-top" src="${c.imageMain}">
@@ -185,7 +185,7 @@
                                         <div class="col-lg-8">
                                             <div class="offers_content">
                                                 <div class="offers_price" style="font-size: 25px">${c.name}
-                                                    <div><span>Thời gian xuất phát dự kiến: ${c.intendedTime}</span></div>
+                                                    <div><span>Thời gian xuất phát: ${c.intendedTime}</span></div>
                                                 </div>
                                                 <p class="offers_text">
                                                     <c:choose>
@@ -218,6 +218,24 @@
 
 
         <script>
+
+//            function addToCart(itemId, quantity) {
+//                $.ajax({
+//                    url: 'additem', // URL của servlet xử lý yêu cầu
+//                    type: 'GET',
+//                    data: {id: itemId, num: quantity}, // Dữ liệu gửi đi (ID của sản phẩm và số lượng)
+//                    success: function (data) {
+//                        // Xử lý kết quả trả về (nếu cần)
+//                        alert('Sản phẩm đã được thêm vào giỏ hàng!');
+//                    },
+//                    error: function (xhr, status, error) {
+//                        // Xử lý lỗi nếu có
+//                        console.error('Đã xảy ra lỗi:', error);
+//                    }
+//                });
+//            }
+
+
             function searchByAll(param) {
                 var searchAll = param.value;
                 $.ajax({

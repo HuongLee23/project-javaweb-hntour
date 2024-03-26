@@ -57,10 +57,10 @@
                                     <input value="${tour.id}" name="id" type="text" class="form-control" readonly required>
                                 </div>
                                 <div class="form-group">
-    <label>Version</label>
-    <input value="${tour.version}" name="version" type="text" class="form-control" readonly required>
-</div>
-                                
+                                    <label>Version</label>
+                                    <input value="${tour.version}" name="version" type="text" class="form-control" readonly required>
+                                </div>
+
                                 <div class="form-group">
                                     <label>Tên</label>
                                     <input value="${tour.name}" name="name" type="text" class="form-control" required>
@@ -162,13 +162,13 @@
                                     <label>Miêu tả</label>
                                     <textarea id="describe" name="description" class="form-control" required>${tour.description}</textarea>
                                 </div>
-                                
-                                 <div class="form-group">
+
+                                <div class="form-group">
                                     <label>Quy Định</label>
                                     <textarea id="describe1" name="description" class="form-control" required>${tour.rule}</textarea>
                                 </div>
-                                
-                               
+
+
 
                                 <div class="form-group">
                                     <label>Thể loại</label>
@@ -277,7 +277,7 @@
         <script src="js/manager.js" type="text/javascript"></script>
         <script>
                                     CKEDITOR.replace('describe');
-                                     CKEDITOR.replace('describe1');
+                                    CKEDITOR.replace('describe1');
         </script>
     </body>
 </html>

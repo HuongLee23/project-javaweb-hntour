@@ -16,14 +16,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Account;
 import model.AccountVoucher;
-import model.Cart;
+import model.FeedbackWeb;
+import model.Blog;
+import model.BlogComment;
 import model.Category;
 import model.Feedback;
+import model.HistoryOrder;
 
 import model.InformationAccount;
 import model.Item;
@@ -928,63 +928,6 @@ public class DAO extends DBContext {
         }
     }
 
-// Chưa hoàn thiện xong phần checkout
-    public void addOrder(Account a, InformationAccount inforAcc, Cart cart, Voucher v) {
-        LocalDate curDate = LocalDate.now();
-        String date = curDate.toString();
-        try {
-            String sql = "INSERT INTO [dbo].[Order]\n"
-                    + "           ([accId]\n"
-                    + "           ,[idInforAcc]\n"
-                    + "           ,[date]\n"
-                    + "           ,[totalPrice]\n"
-                    + "           ,[voucherId])\n"
-                    + "     VALUES\n"
-                    + "           (?, ?, ?, ?, ?)";
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, a.getId());
-            st.setInt(2, inforAcc.getId());
-            st.setString(3, date);
-            st.setDouble(4, cart.getTotalMoney());
-            st.setInt(5, v.getId());
-            st.executeUpdate();
-
-            String sql1 = "SELECT top(1) [id]\n"
-                    + "      ,[accId]\n"
-                    + "      ,[date]\n"
-                    + "      ,[totalPrice]\n"
-                    + "      ,[voucherId]\n"
-                    + "  FROM [dbo].[Order] where accId = ? \n"
-                    + "  order by id desc";
-            PreparedStatement st1 = connection.prepareStatement(sql1);
-            st1.setInt(1, a.getId());
-            ResultSet rs = st1.executeQuery();
-
-            if (rs.next()) {
-                int oid = rs.getInt("id");
-                for (Item i : cart.getItems()) {
-                    String sql2 = "INSERT INTO [dbo].[OrderDetail]\n"
-                            + "           ([orderId]\n"
-                            + "           ,[tourId]\n"
-                            + "           ,[quantity]\n"
-                            + "           ,[price]\n"
-                            + "           ,[versionId])\n"
-                            + "     VALUES( ?, ?, ?, ?, ?)";
-                    PreparedStatement st2 = connection.prepareStatement(sql2);
-                    st2.setInt(1, oid);
-                    st2.setInt(2, i.getTour().getId());
-                    st2.setInt(3, i.getQuantity());
-                    st2.setDouble(4, i.getPrice());
-                    st2.setInt(5, v.getId());
-                    st2.executeUpdate();
-                }
-
-            }
-        } catch (SQLException e) {
-        }
-
-    }
-
     public Feedback getFeedbackByID(int id) {
         String sql = "SELECT F.[id], F.[accId], A.[username] AS [accName], \n"
                 + "                           F.[tourId], F.[versionId], F.[comment], F.[rating] , A.[avatar] as [avatarAc]\n"
@@ -1388,6 +1331,581 @@ public class DAO extends DBContext {
         }
     }
 
+    public void insertFeedbackWeb(Account acc, String subject, String message
+    ) {
+        LocalDate curDate = LocalDate.now();
+        String date = curDate.toString();
+        String sql = "INSERT INTO [dbo].[FeedbackWeb]\n"
+                + "           ([accId]\n"
+                + "           ,[date]\n"
+                + "           ,[subject]\n"
+                + "           ,[message])\n"
+                + "     VALUES\n"
+                + "           ( ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setInt(1, acc.getId());
+            ps.setString(2, date);
+            ps.setString(3, subject);
+            ps.setString(4, message);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public List<Blog> getBlog(int status) {
+        List<Blog> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000)\n"
+                + "    B.[id],\n"
+                + "    B.[title],\n"
+                + "    B.[content],\n"
+                + "    B.[image],\n"
+                + "    B.[publishDate],\n"
+                + "    B.[accountId],B.[status],"
+                + "    A.[username] as [accountName]\n"
+                + "FROM [HaNoiTour].[dbo].[Blog] B JOIN [dbo].[Account] A ON B.[accountId]=A.[id] where B.[status]=?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, status);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Blog blogs = new Blog();
+                blogs.setBid(rs.getInt("id"));
+                blogs.setTitle(rs.getString("title"));
+                blogs.setContent(rs.getString("content"));
+                blogs.setImage(rs.getString("image"));
+                blogs.setPublishDate(rs.getDate("publishDate"));
+                blogs.setAccountId(rs.getInt("accountId"));
+                blogs.setStatus(rs.getInt("status"));
+                blogs.setAccountName(rs.getString("accountName"));
+                list.add(blogs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public Blog getDetailBlog(int idB) {
+        String sql = "SELECT TOP (1000)\n"
+                + "    B.[id],\n"
+                + "    B.[title],\n"
+                + "    B.[content],\n"
+                + "    B.[image],\n"
+                + "    B.[publishDate],\n"
+                + "    B.[accountId], B.[status],"
+                + "    A.[username] as [accountName]\n"
+                + "FROM [HaNoiTour].[dbo].[Blog] B JOIN [dbo].[Account] A ON B.[accountId]=A.[id] WHERE B.[id]=?";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, idB);
+            try ( ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    return new Blog(
+                            rs.getInt("id"),
+                            rs.getString("title"),
+                            rs.getString("content"),
+                            rs.getString("image"),
+                            rs.getDate("publishDate"),
+                            rs.getInt("accountId"),
+                            rs.getString("accountName"),
+                            rs.getInt("status")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<BlogComment> getBlogComment(int bid) {
+        List<BlogComment> list = new ArrayList<>();
+        String sql = "SELECT B.[id]\n"
+                + "      ,B.[blogId]\n"
+                + "      ,B.[accountId]\n"
+                + "      ,B.[comment]\n"
+                + "      ,B.[commentDate]\n"
+                + "	  ,A.[username] as [accName]\n"
+                + "	  ,A.[avatar] as [accAvatar]\n"
+                + "  FROM [dbo].[BlogComment] B JOIN [Account] A\n"
+                + "  ON B.[accountId]= A.[id] where B.[blogId]=? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, bid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                BlogComment blogcm = new BlogComment();
+                blogcm.setPid(rs.getInt("id"));
+                blogcm.setIdblog(rs.getInt("blogId"));
+                blogcm.setAccBlog(rs.getInt("accountId"));
+                blogcm.setComment(rs.getString("comment"));
+                blogcm.setCommentDate(rs.getDate("commentDate"));
+                blogcm.setAccName(rs.getString("accName"));
+                blogcm.setAccAvatar(rs.getString("accAvatar"));
+                list.add(blogcm);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Blog> getBlogBySellId(int idsell) {
+        List<Blog> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000)\n"
+                + "                  B.[id],\n"
+                + "                 B.[title],\n"
+                + "              B.[content],\n"
+                + "                B.[image],\n"
+                + "                   B.[publishDate],\n"
+                + "                   B.[accountId],B.[status]\n"
+                + "               FROM [HaNoiTour].[dbo].[Blog] B WHERE B.[accountId]=? ;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, idsell);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Blog blogs = new Blog();
+                blogs.setBid(rs.getInt("id"));
+                blogs.setTitle(rs.getString("title"));
+                blogs.setContent(rs.getString("content"));
+                blogs.setImage(rs.getString("image"));
+                blogs.setPublishDate(rs.getDate("publishDate"));
+                blogs.setStatus(rs.getInt("status"));
+                blogs.setAccountId(rs.getInt("accountId"));
+
+                list.add(blogs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Blog> getBlogLasted(int status) {
+        List<Blog> list = new ArrayList<>();
+        String sql = "SELECT TOP (3)\n"
+                + "    B.[id],\n"
+                + "    B.[title],\n"
+                + "    B.[content],\n"
+                + "    B.[image],\n"
+                + "    B.[publishDate],\n"
+                + "    B.[accountId],B.[status],\n"
+                + "    A.[username] AS [accountName]\n"
+                + "FROM [HaNoiTour].[dbo].[Blog] B\n"
+                + "JOIN [HaNoiTour].[dbo].[Account] A ON B.[accountId] = A.[id]\n"
+                + "where B.[status]= ?\n"
+                + "ORDER BY ABS(DATEDIFF(SECOND, GETDATE(), B.[publishDate])) ASC;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, status);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Blog blogs = new Blog();
+                blogs.setBid(rs.getInt("id"));
+                blogs.setTitle(rs.getString("title"));
+                blogs.setContent(rs.getString("content"));
+                blogs.setImage(rs.getString("image"));
+                blogs.setPublishDate(rs.getDate("publishDate"));
+                blogs.setAccountId(rs.getInt("accountId"));
+                blogs.setStatus(rs.getInt("status"));
+                blogs.setAccountName(rs.getString("accountName"));
+                list.add(blogs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public void updateBlog(String title, String content, String image, int status, int bid) {
+        String sql = "UPDATE [dbo].[Blog]\n"
+                + "   SET [title] = ?\n"
+                + "      ,[content] = ?\n"
+                + "      ,[image] = ?\n"
+                + "      ,[status] = ?\n"
+                + " WHERE  [id] =?;";
+        try {
+            PreparedStatement rs = connection.prepareStatement(sql);
+
+            rs.setString(1, title);
+            rs.setString(2, content);
+            rs.setString(3, image);
+
+            rs.setInt(4, status);
+            rs.setInt(5, bid);
+            rs.executeUpdate();
+
+        } catch (SQLException e) {
+        }
+    }
+
+    public void deleteBlog(String id) {
+        String sql = "delete from blog where id =?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+        }
+    }
+
+    public void insertBlog(String title, String content, String image, Date publishDate, int accountId, int status) {
+        String sql = "INSERT INTO [dbo].[Blog] "
+                + "([title], [content], [image], [publishDate], [accountId], [status]) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+        try ( PreparedStatement rs = connection.prepareStatement(sql)) {
+            rs.setString(1, title);
+            rs.setString(2, content);
+            rs.setString(3, image);
+            rs.setDate(4, publishDate);
+            rs.setInt(5, accountId);
+            rs.setInt(6, status);
+
+            rs.executeUpdate();
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ
+            e.printStackTrace();
+        }
+    }
+
+    public Order getOrderByID(int orderId) {
+        Order order = null;
+        String sql = "SELECT * FROM [HaNoiTour].[dbo].[Order] WHERE id = ?;";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, orderId);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                order = new Order();
+                order.setId(rs.getInt("id"));
+                order.setAccountId(rs.getInt("accId"));
+
+                order.setDate(rs.getString("date"));
+                order.setTotalPrice(rs.getDouble("totalPrice"));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+
+        return order;
+    }
+
+    public OrderDetail getOrderDetailByID(int orderId,int tourId) {
+        OrderDetail orderDetail = null;
+        String sql = "SELECT * FROM [HaNoiTour].[dbo].[OrderDetail] WHERE orderId = ? and tourId=?";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, orderId);
+            st.setInt(2, tourId);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                // Assuming your OrderDetail class has a constructor to initialize its properties
+                orderDetail = new OrderDetail(
+                        rs.getInt("orderId"),
+                        rs.getInt("tourId"),
+                        rs.getInt("quantity"),
+                        rs.getDouble("price"),
+                        rs.getInt("versionId"),
+                        rs.getInt("voucherId"),
+                        rs.getString("dateDeparture"),
+                        rs.getString("status")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+
+        return orderDetail;
+    }
+
+    public boolean checkUserOrder(int accId, int tourId) {
+        boolean userHasPurchased = false;
+        String sql = "SELECT TOP (1000)\n"
+                + "      OD.[tourId]\n"
+                + "	   ,O.[accId]\n"
+                + "  FROM [HaNoiTour].[dbo].[OrderDetail] OD \n"
+                + "    JOIN [Order] O ON OD.[orderId] = O.[id] WHERE O.[accId]= ? and OD.[tourId]=?;";
+
+        try ( PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accId);
+            ps.setInt(2, tourId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                userHasPurchased = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userHasPurchased;
+    }
+
+    public int countUserFeedback(int accountId, int tourId) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS num_feedback FROM Feedback WHERE accId = ? and tourId= ?;";
+
+        try ( PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accountId);
+            ps.setInt(2, tourId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("num_feedback");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+    public List<Blog> searchBlogByName(String txtSearch) {
+        List<Blog> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000)\n"
+                + "    B.[id],\n"
+                + "    B.[title],\n"
+                + "    B.[content],\n"
+                + "    B.[image],\n"
+                + "    B.[publishDate],\n"
+                + "    B.[accountId],B.[status],"
+                + "    A.[username] as [accountName]\n"
+                + "FROM [HaNoiTour].[dbo].[Blog] B JOIN [dbo].[Account] A ON B.[accountId]=A.[id] where B.[title] like ?;";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%" + txtSearch + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(
+                        new Blog(
+                                rs.getInt("id"),
+                                rs.getString("title"),
+                                rs.getString("content"),
+                                rs.getString("image"),
+                                rs.getDate("publishDate"),
+                                rs.getInt("accountId"),
+                                rs.getString("accountName"),
+                                rs.getInt("status")
+                        // Add missing commas and complete the constructor parameters as needed
+                        ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public void addBlogCommen(int accBlog, int idblog, String comment, Date commentDate) {
+        String sql = "INSERT INTO BlogComment (accountId,blogId, comment,commentDate) VALUES (?, ?,?, ?)";
+
+        try {
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, accBlog);
+            statement.setInt(2, idblog);
+            statement.setString(3, comment);
+            statement.setDate(4, commentDate);
+            statement.executeUpdate();
+
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int countUserCMT(int accBlog, int idblog) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) AS num_feedback FROM BlogComment WHERE accountId = ? and blogId= ?;";
+
+        try ( PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, accBlog);
+            ps.setInt(2, idblog);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("num_feedback");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+    public void updatecmt(int pid, int accBlog, int idblog, String comment) {
+        String sql = " UPDATE [BlogComment]\n"
+                + "SET \n"
+                + "    [accountId] = ?,\n"
+                + "    [blogId] = ?,\n"
+                + "    [comment] = ?\n"
+                + "WHERE\n"
+                + "    [id] = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setInt(1, accBlog);
+            ps.setInt(2, idblog);
+            ps.setString(3, comment);
+
+            ps.setInt(4, pid);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+        }
+    }
+
+    public BlogComment getCommentByID(int id) {
+        String sql = "SELECT B.[id]\n"
+                + "      ,B.[blogId]\n"
+                + "      ,B.[accountId]\n"
+                + "      ,B.[comment]\n"
+                + "      ,B.[commentDate]\n"
+                + "	  ,A.[username] as [accName]\n"
+                + "	  ,A.[avatar] as [accAvatar]\n"
+                + "  FROM [dbo].[BlogComment] B JOIN [Account] A\n"
+                + "  ON B.[accountId]= A.[id] where B.[id]=? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new BlogComment(
+                        rs.getInt("id"),
+                        rs.getInt("blogId"), // Thay đổi từ accId thành blogId
+                        rs.getInt("accountId"),
+                        rs.getString("comment"),
+                        rs.getDate("commentDate"),
+                        rs.getString("accName"),
+                        rs.getString("accAvatar")); // Thay đổi từ avatarAc thành accAvatar
+            }
+        } catch (SQLException e) {
+            // Xử lý lỗi
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void deleteCmt(String id) {
+        String sql = "delete from BlogComment where id =?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+        }
+    }
+
+    public void hideBlog(int bid, int status) {
+        String sql = "UPDATE Blog SET status = ? WHERE bid = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            // Chuyển chuỗi id thành một số nguyên trước khi đặt giá trị cho tham số trong câu lệnh SQL
+
+            ps.setInt(1, status);
+            ps.setInt(2, bid);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+        } catch (NumberFormatException e) {
+        }
+    }
+
+    public List<HistoryOrder> getHistoryOrder(int idAcc) {
+        List<HistoryOrder> list = new ArrayList<>();
+        String sql = "SELECT TOP (1000) OD.[orderId], OD.[tourId], OD.[quantity], OD.[price], \n"
+                + "               OD.[versionId], T.[name], T.[imageMain], O.[accId], O.[date], T.[status], \n"
+                + "               O.[id] AS InvoiceNumber, T.[id] AS TourId \n"
+                + "               FROM [HaNoiTour].[dbo].[OrderDetail] OD \n"
+                + "               JOIN [Tour] T ON OD.[tourId] = T.[id] \n"
+                + "               JOIN [Order] O ON OD.[orderId] = O.[id] \n"
+                + "               WHERE O.[accId] = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, idAcc);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                HistoryOrder historyOrder = new HistoryOrder();
+                DAO dao = new DAO();
+
+                Order order = dao.getOrderByID(rs.getInt("InvoiceNumber"));
+                OrderDetail od = dao.getOrderDetailByID(rs.getInt("orderId"));
+                historyOrder.setOrderdetail(od);
+                Tour tour = dao.getTourByID(rs.getInt("TourId"));
+                historyOrder.setOrder(order);
+                historyOrder.setTour(tour);
+
+                list.add(historyOrder);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public Account getAccountByID(int id) {
+        String sql = "SELECT * FROM Account WHERE id = ?";
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, id);
+            try ( ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    return new Account(
+                            rs.getInt("id"),
+                            rs.getString("email"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getInt("role"),
+                            rs.getString("address"),
+                            rs.getString("avatar"),
+                            rs.getString("phoneNumber"),
+                            rs.getBoolean("status")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //Lấy list feedback của customer về Web
+    public List<FeedbackWeb> getListFeedbackWeb() {
+        List<FeedbackWeb> list = new ArrayList<>();
+        DAO dao = new DAO();
+        String sql = "SELECT [id]\n"
+                + "      ,[accId]\n"
+                + "      ,[date]\n"
+                + "      ,[subject]\n"
+                + "      ,[message]\n"
+                + "  FROM [dbo].[FeedbackWeb]";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account acc = dao.getAccountByID(rs.getInt("accId"));
+                list.add(new FeedbackWeb(
+                        rs.getInt("id"),
+                        acc, rs.getString("date"),
+                        rs.getString("subject"),
+                        rs.getString("message")));
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public void incrementTourVersion(int tourId) {
 
         // Update the tour version
@@ -1403,82 +1921,79 @@ public class DAO extends DBContext {
     }
 
     public void insertVoucher(String code, int discount, boolean status, int supplierId, String idAcc_raw) {
-    String sql;
-    try {
-        if (idAcc_raw != null && !idAcc_raw.isEmpty()) {
-            int idAcc = Integer.parseInt(idAcc_raw);
-            sql = "INSERT INTO [dbo].[Voucher]\n"
-                + "   ([code]\n"
-                + "   ,[discountPercentage]\n"
-                + "   ,[status]\n"
-                + "   ,[supplierId]\n"
-                + "   ,[idAcc])\n"
-                + "VALUES (?, ?, ?, ?, ?)";
+        String sql;
+        try {
+            if (idAcc_raw != null && !idAcc_raw.isEmpty()) {
+                int idAcc = Integer.parseInt(idAcc_raw);
+                sql = "INSERT INTO [dbo].[Voucher]\n"
+                        + "   ([code]\n"
+                        + "   ,[discountPercentage]\n"
+                        + "   ,[status]\n"
+                        + "   ,[supplierId]\n"
+                        + "   ,[idAcc])\n"
+                        + "VALUES (?, ?, ?, ?, ?)";
 
-            try (PreparedStatement st = connection.prepareStatement(sql)) {
-                // Set values for the parameters
-                st.setString(1, code);
-                st.setInt(2, discount);
-                st.setBoolean(3, status);
-                st.setInt(4, supplierId);
-                st.setInt(5, idAcc);
+                try ( PreparedStatement st = connection.prepareStatement(sql)) {
+                    // Set values for the parameters
+                    st.setString(1, code);
+                    st.setInt(2, discount);
+                    st.setBoolean(3, status);
+                    st.setInt(4, supplierId);
+                    st.setInt(5, idAcc);
 
-                // Execute the update
-                st.executeUpdate();
-                
+                    // Execute the update
+                    st.executeUpdate();
+
+                }
+            } else {
+                sql = "INSERT INTO [dbo].[Voucher]\n"
+                        + "   ([code]\n"
+                        + "   ,[discountPercentage]\n"
+                        + "   ,[status]\n"
+                        + "   ,[supplierId])\n"
+                        + "VALUES (?, ?, ?, ?)";
+
+                try ( PreparedStatement st = connection.prepareStatement(sql)) {
+                    // Set values for the parameters
+                    st.setString(1, code);
+                    st.setInt(2, discount);
+                    st.setBoolean(3, status);
+                    st.setInt(4, supplierId);
+
+                    // Execute the update
+                    st.executeUpdate();
+
+                }
             }
-        } else {
-            sql = "INSERT INTO [dbo].[Voucher]\n"
-                + "   ([code]\n"
-                + "   ,[discountPercentage]\n"
-                + "   ,[status]\n"
-                + "   ,[supplierId])\n"
-                + "VALUES (?, ?, ?, ?)";
-
-            try (PreparedStatement st = connection.prepareStatement(sql)) {
-                // Set values for the parameters
-                st.setString(1, code);
-                st.setInt(2, discount);
-                st.setBoolean(3, status);
-                st.setInt(4, supplierId);
-
-                // Execute the update
-                st.executeUpdate();
-                
-            }
+        } catch (SQLException | NumberFormatException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException | NumberFormatException e) {
-        e.printStackTrace();
+
     }
-    
-}
-    
-     public void updateVoucher(int voucherId, int discountPercentage, boolean status, int accountId) {
+
+    public void updateVoucher(int voucherId, int discountPercentage, boolean status, int accountId) {
         try {
             String sql = "UPDATE Voucher SET discountPercentage = ?, status = ?, idAcc = ? WHERE id = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
- 
+
             statement.setInt(1, discountPercentage);
             statement.setBoolean(2, status);
             statement.setInt(3, accountId);
             statement.setInt(4, voucherId);
-            
+
             // Thực thi câu lệnh SQL
             statement.executeUpdate();
-            
+
             // Đóng kết nối và tài nguyên
             statement.close();
             // Đóng kết nối
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
             // Xử lý ngoại lệ
         }
     }
-
-
-    
 
     public void banVoucher(int id) {
         String sql = "Update Voucher\n"
@@ -1526,16 +2041,15 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     //lay cac thong tin cua voucher ma idAcc do dang co
-   public List<Voucher> getVouchersByAccountId(int accountId) {
+    public List<Voucher> getVouchersByAccountId(int accountId) {
         List<Voucher> vouchers = new ArrayList<>();
         try {
-           
 
-            String sql = "SELECT id, code, discountPercentage, status, supplierId, idAcc " +
-                         "FROM Voucher " +
-                         "WHERE idAcc = ?";
+            String sql = "SELECT id, code, discountPercentage, status, supplierId, idAcc "
+                    + "FROM Voucher "
+                    + "WHERE idAcc = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, accountId);
 
@@ -1563,7 +2077,7 @@ public class DAO extends DBContext {
     }
 
     public void deleteVoucher(String vid) {
-        String sql = "DELETE FROM Voucher WHERE id=? and idAcc IS NULL;";
+        String sql = "DELETE FROM Voucher WHERE id = ?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -1737,38 +2251,9 @@ public class DAO extends DBContext {
         return null;
     }
 
-    public OrderDetail getOrderDetailByID(int orderId,int tourId) {
-        OrderDetail orderDetail = null;
-        String sql = "SELECT * FROM [HaNoiTour].[dbo].[OrderDetail] WHERE orderId = ? and tourId=?";
-
-        try ( PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setInt(1, orderId);
-            st.setInt(2, tourId);
-            ResultSet rs = st.executeQuery();
-
-            if (rs.next()) {
-                // Assuming your OrderDetail class has a constructor to initialize its properties
-                orderDetail = new OrderDetail(
-                        rs.getInt("orderId"),
-                        rs.getInt("tourId"),
-                        rs.getInt("quantity"),
-                        rs.getDouble("price"),
-                        rs.getInt("versionId"),
-                        rs.getInt("voucherId"),
-                        rs.getString("dateDeparture"),
-                        rs.getString("status")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
-        }
-
-        return orderDetail;
-    }
-
     public List<TopProduct> listTopProduct(int supplierId) {
         List<TopProduct> list = new ArrayList();
-        String sql = "SELECT TOP 10\n"
+        String sql = "SELECT TOP 3\n"
                 + "        t.id AS TourId,\n"
                 + "        t.name AS TourName,\n"
                 + "        t.price,\n"
@@ -1805,37 +2290,9 @@ public class DAO extends DBContext {
         return list;
     }
 
-    public Account getAccountByID(int accountId) {
-        Account account = null;
-        String sql = "SELECT * FROM [HaNoiTour].[dbo].[Account] WHERE [id] = ?";
-
-        try ( PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setInt(1, accountId);
-            ResultSet rs = st.executeQuery();
-
-            if (rs.next()) {
-                int id = rs.getInt("id");
-                String email = rs.getString("email");
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                int role = rs.getInt("role");
-                String address = rs.getString("address");
-                String avatar = rs.getString("avatar");
-                String phoneNumber = rs.getString("phoneNumber");
-                boolean status = rs.getBoolean("status");
-
-                account = new Account(id, email, username, password, role, address, avatar, phoneNumber, status);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
-        }
-
-        return account;
-    }
-
     public List<TopProduct> listTopAccounts(int supplierId) {
         List<TopProduct> list = new ArrayList<>();
-        String sql = "SELECT TOP 10\n"
+        String sql = "SELECT TOP 3\n"
                 + "    O.[accId] AS AccountId,\n"
                 + "    A.[username] AS Username,\n"
                 + "    A.[email] AS Email,\n"
@@ -1873,52 +2330,28 @@ public class DAO extends DBContext {
         return list;
     }
 
-    public Order getOrderByID(int orderId) {
-        Order order = null;
-        String sql = "SELECT * FROM [HaNoiTour].[dbo].[Order] WHERE id = ?;";
-
-        try ( PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setInt(1, orderId);
-            ResultSet rs = st.executeQuery();
-
-            if (rs.next()) {
-                order = new Order();
-                order.setId(rs.getInt("id"));
-                order.setAccountId(rs.getInt("accId"));
-
-                order.setDate(rs.getString("date"));
-                order.setTotalPrice(rs.getDouble("totalPrice"));
-               
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
-        }
-
-        return order;
-    }
-
     public List<TopProduct> listInvoice(int supplierId) {
         List<TopProduct> list = new ArrayList<>();
-        String sql = " SELECT \n" +
-"                    [Order].id AS InvoiceNumber,\n" +
-"                    Tour.id AS TourId,\n" +
-"                    Tour.name AS TourName,\n" +
-"                    Tour.price AS TourPrice,\n" +
-"                    Account.id AS AccountId,\n" +
-"                    Account.username AS CustomerName,\n" +
-"                    Account.phoneNumber AS CustomerPhone,\n" +
-"                    Account.address AS CustomerAddress,\n" +
-"                    [Order].date AS PurchaseDate\n" +
-"                FROM \n" +
-"                    [HaNoiTour].[dbo].[Tour] AS Tour\n" +
-"                JOIN \n" +
-"                    [HaNoiTour].[dbo].[OrderDetail] AS OrderDetail ON Tour.id = OrderDetail.tourId\n" +
-"                JOIN \n" +
-"                    [HaNoiTour].[dbo].[Order] AS [Order] ON OrderDetail.orderId = [Order].id\n" +
-"                JOIN \n" +
-"                    [HaNoiTour].[dbo].[Account] AS Account ON [Order].accId = Account.id \n" +
-"                WHERE \n" +
-"                    supplierId = ? and OrderDetail.status='Confirmed';";
+        String sql = " SELECT \n"
+                + "    [Order].id AS InvoiceNumber,\n"
+                + "    Tour.id AS TourId,\n"
+                + "    Tour.name AS TourName,\n"
+                + "    Tour.price AS TourPrice,\n"
+                + "    Account.id AS AccountId,\n"
+                + "    Account.username AS CustomerName,\n"
+                + "    Account.phoneNumber AS CustomerPhone,\n"
+                + "    Account.address AS CustomerAddress,\n"
+                + "    [Order].date AS PurchaseDate\n"
+                + "FROM \n"
+                + "    [HaNoiTour].[dbo].[Tour] AS Tour\n"
+                + "JOIN \n"
+                + "    [HaNoiTour].[dbo].[OrderDetail] AS OrderDetail ON Tour.id = OrderDetail.tourId\n"
+                + "JOIN \n"
+                + "    [HaNoiTour].[dbo].[Order] AS [Order] ON OrderDetail.orderId = [Order].id\n"
+                + "JOIN \n"
+                + "    [HaNoiTour].[dbo].[Account] AS Account ON [Order].accId = Account.id \n"
+                + "WHERE \n"
+                + "    supplierId = ?;";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -1968,7 +2401,6 @@ public class DAO extends DBContext {
         return list;
     }
 
-    
     //list ra các voucher
     public List<AccountVoucher> voucherOfAccount(int supplierId) {
         List<AccountVoucher> list = new ArrayList<>();
@@ -2002,34 +2434,32 @@ public class DAO extends DBContext {
         }
         return list;
     }
-    
+
     //hien ra cac ma code chua co idAcc
-   public List<AccountVoucher> voucherNoIdAcc(int supplierId) {
-    List<AccountVoucher> list = new ArrayList<>();
-    String sql = "SELECT NULL AS AccountId, NULL AS AccountUsername, O.id AS VoucherId\n" +
-                 "FROM [HaNoiTour].[dbo].[Voucher] O\n" +
-                 "WHERE O.idAcc IS NULL AND O.supplierId = ?;";
+    public List<AccountVoucher> voucherNoIdAcc(int supplierId) {
+        List<AccountVoucher> list = new ArrayList<>();
+        String sql = "SELECT NULL AS AccountId, NULL AS AccountUsername, O.id AS VoucherId\n"
+                + "FROM [HaNoiTour].[dbo].[Voucher] O\n"
+                + "WHERE O.idAcc IS NULL AND O.supplierId = ? and O.status=1;";
 
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setInt(1, supplierId);
-        ResultSet rs = st.executeQuery();
-        DAO d = new DAO();
-        while (rs.next()) {
-            AccountVoucher tp = new AccountVoucher();
-            // Không cần truy cập vào cột AccountId vì đã là NULL
-            Voucher vc = d.getVoucherByID(rs.getInt("VoucherId"));
-            tp.setVoucher(vc);
-            list.add(tp);
+        try { 
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, supplierId);
+            ResultSet rs = st.executeQuery();
+            DAO d = new DAO();
+            while (rs.next()) {
+                AccountVoucher tp = new AccountVoucher();
+                // Không cần truy cập vào cột AccountId vì đã là NULL
+                Voucher vc = d.getVoucherByID(rs.getInt("VoucherId"));
+                tp.setVoucher(vc);
+                list.add(tp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ một cách thích hợp
         }
-    } catch (SQLException e) {
-        e.printStackTrace(); // Xử lý ngoại lệ một cách thích hợp
+        return list;
     }
-    return list;
-}
 
-   
-//lay ra account de tang voucher
     public List<TopProduct> AccountIdVoucher(int supplierId, int accountId) {
         List<TopProduct> list = new ArrayList<>();
         String sql = "SELECT A.id AS AccountId, A.[username] AS AccountUsername\n"
@@ -2058,25 +2488,23 @@ public class DAO extends DBContext {
         return list;
     }
 
-
-
- public List<Tour> showTourBySupplier(int supplierId) {
+    public List<Tour> showTourBySupplier(int supplierId) {
         List<Tour> list = new ArrayList<>();
 
-        String sql = "SELECT TOP (1000) \n" +
-"                T.[id], \n" +
-"                T.[name],\n" +
-"                 T.[imageMain],\n" +
-"                 T.[imageAlbum],\n" +
-"                 T.[intendedTime], \n" +
-"                T.[price], \n" +
-"                T.[description], \n" +
-"                T.[categoryId], \n" +
-"                T.[version], \n" +
-"                T.[rule], \n" +
-"                T.[supplierId], \n" +
-"                T.[status] \n" +
-"                FROM [HaNoiTour].[dbo].[Tour] T where status=1 and supplierId=?";
+        String sql = "SELECT TOP (1000) \n"
+                + "                T.[id], \n"
+                + "                T.[name],\n"
+                + "                 T.[imageMain],\n"
+                + "                 T.[imageAlbum],\n"
+                + "                 T.[intendedTime], \n"
+                + "                T.[price], \n"
+                + "                T.[description], \n"
+                + "                T.[categoryId], \n"
+                + "                T.[version], \n"
+                + "                T.[rule], \n"
+                + "                T.[supplierId], \n"
+                + "                T.[status] \n"
+                + "                FROM [HaNoiTour].[dbo].[Tour] T where status=1 and supplierId=?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -2114,9 +2542,6 @@ public class DAO extends DBContext {
         return list;
     }
 
-    
-    
-    
     public static void main(String[] args) {
         // Assuming you have a DAO instance
         DAO dao = new DAO();
@@ -2137,12 +2562,3 @@ public class DAO extends DBContext {
     }
 
 }
-
-//        if (!tourList.isEmpty()) {
-//            for (Tour tour : tourList) {
-//                System.out.println(tour);
-//            }
-//        } else {
-//            System.out.println("No tours found.");
-//        }
-

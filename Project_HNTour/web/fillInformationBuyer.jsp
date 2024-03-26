@@ -155,7 +155,7 @@
 
                     <!--Show thông tin của các tour trong cart-->
                     <c:if test="${sessionScope.idSelectOne == 0}">
-                        <c:set value="${sessionScope.cart}" var="o"/>
+                        <c:set value="${sessionScope.cartFill}" var="o"/>
                         <c:forEach items="${o.items}" var="i" varStatus="loop">
                             <div class="row justify-content-center mb-3">
                                 <div class="col-md-12 col-xl-10">
@@ -247,7 +247,7 @@
                                                                     <option <c:if test="${i.id eq requestScope.infoAcc.id}">selected</c:if> value="${i.id}">${i.username}</option>
                                                                 </c:forEach>
                                                             </select>
-                                                            
+
                                                             <!--<label class="form-label select-label">Choose option</label>-->
                                                         </div>
                                                     </form>
@@ -263,7 +263,7 @@
 
                                                 <!--Phần xử lý sửa về thông tin tài khoản-->
                                                 <c:if test="${not empty listInf}">
-                                                    <form action="updateinformationacc" method="post">
+                                                    <form id="updateForm" action="updateinformationacc" method="post" onsubmit="return validateForm()">
                                                         <c:set value="${requestScope.infoAcc}" var="infoAcc"/>
                                                         <input id="idAccount" type="text" hidden value="${sessionScope.account.id}" name="idAccount">
                                                         <input id="idInfor" type="text" hidden value="${infoAcc.id}" name="idInfor">
@@ -451,7 +451,7 @@
 
                                                 <!--Show thông tin thanh toán của các tour trong cart-->
                                                 <c:if test="${sessionScope.idSelectOne == 0}">
-                                                    <c:set value="${sessionScope.cart}" var="o"/>
+                                                    <c:set value="${sessionScope.cartFill}" var="o"/>
                                                     <div style="display: block" class="row">
                                                         <div style="max-width: 100%;" class="col-12 col-xl-6">
                                                             <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
@@ -503,6 +503,16 @@
         </div>
 
         <script>
+            function validateForm() {
+                var selectBox = document.getElementById("proccessSelect");
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                if (selectedValue === "0") {
+                    alert("Vui lòng chọn một thông tin tài khoản để cập nhật.");
+                    return false;
+                }
+                return true;
+            }
+
 
             function buyNow(event) {
                 // Lấy giá trị đã chọn từ select box

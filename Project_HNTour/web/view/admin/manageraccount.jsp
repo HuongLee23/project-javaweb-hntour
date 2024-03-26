@@ -16,17 +16,20 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Hà Nội Tour</title>
+        <link rel="shortcut icon" type="image/png" href="../assets/img/test.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <<link rel="stylesheet" href="../css/styles.css"/>>
+        <link rel="stylesheet" href="../css/styles.css"/>
+        <link rel="stylesheet" href="../css/main.css"/>
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background: linear-gradient(to right, #fa9e1b, #8d4fff, #fa9e1b);">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="../home">Start Bootstrap</a>
+            <a class="navbar-brand ps-3" href="manageraccount">Start Bootstrap</a>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <input class="form-control" type="text" oninput="searchAccountByAll(this)" data-role="0" name="txt" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
             </form>
@@ -35,7 +38,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="../home">Home</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="../logout">Logout</a></li>
@@ -43,19 +46,21 @@
                 </li>
             </ul>
         </nav>
-        <div id="layoutSidenav_content">
+        <div style="margin-top: 80px" id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Dashboard</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
+                    <!--                    <ol class="breadcrumb mb-4">
+                                            <li class="breadcrumb-item active">Dashboard</li>
+                                        </ol>-->
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
                                 <div class="card-body">Customer Account</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <p>${requestScope.totalcustomer}</p>
+                                    <div class="small text-white"><a href="manageracccustomer?role=3" style="color: white"><i class="fas fa-angle-right"></i></a></div>
+
                                 </div>
                             </div>
                         </div>
@@ -64,24 +69,25 @@
                                 <div class="card-body">Supplier Account</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <p>${requestScope.totalsupplier}</p>
-                                    <div class="small text-white"><a href="#" style="color: white"><i class="fas fa-angle-right"></i></a></div>
+                                    <div class="small text-white"><a href="manageraccsupplier?role=2" style="color: white"><i class="fas fa-angle-right"></i></a></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-success text-white mb-4">
-                                <div class="card-body">Sales</div>
+                                <div class="card-body">Supplier registration</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <p>${requestScope.totalPrice}đ</p>
-                                    <div class="small text-white"><a href="#" style="color: white"><i class="fas fa-angle-right"></i></a></div>
+                                    <p>${requestScope.totalRegisterSupplier}</p>
+                                    <div class="small text-white"><a href="managerregistersupplier" style="color: white"><i class="fas fa-angle-right"></i></a></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-danger text-white mb-4">
-                                <div class="card-body">Banned Account</div>
+                                <div class="card-body">Feedback</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <p>${requestScope.totalBanned}</p>
+                                    <p>${requestScope.totalFeedback}</p>
+                                    <div class="small text-white"><a href="managerfeedback" style="color: white"><i class="fas fa-angle-right"></i></a></div>
                                 </div>
                             </div>
                         </div>
@@ -119,17 +125,26 @@
                                         <th>Password</th>
                                         <th>Email</th>
                                         <th>Address</th>
+                                        <th>Role</th>
                                         <th>Status</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <c:forEach items="${requestScope.currentPageData}" var="a">
+                                    <c:forEach items="${requestScope.currentPageData}" var="a">
+                                        <tr>
                                             <td>${a.username}</td>
                                             <td>${a.password}</td>
                                             <td>${a.email}</td>
                                             <td>${a.address}</td>
+                                            <td style="text-align: center; font-size: xx-large;">
+                                                <c:if test="${a.role == 2}">
+                                                    <i class="fa-solid fa-user-tie" ></i>
+                                                </c:if>
+                                                <c:if test="${a.role == 3}">
+                                                    <i class="fa-solid fa-user" ></i>
+                                                </c:if>
+                                            </td>
                                             <td>
                                                 <c:if test="${a.status}">
                                                     <i class="fa-solid fa-circle" style="color: greenyellow"></i> Active
@@ -194,6 +209,27 @@
             }
         </style>
         <script>
+
+            function searchAccountByAll(param) {
+                var searchAll = param.value;
+                var role = param.getAttribute("data-role");
+                $.ajax({
+                    url: "/VNTravel/admin/searchajaxacc",
+                    type: "get",
+                    data: {
+                        txt: searchAll,
+                        roleAcc:  role
+                    },
+                    success: function (data) {
+                        var row = document.getElementById("datatablesSimple");
+                        row.innerHTML = data;
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("An error occurred:", error);
+                    }
+                }); // Add closing bracket here
+            }
+
             function banAccount() {
                 // Hiển thị hộp thoại xác nhận
                 var userConfirmed = confirm('Are you sure lock this account?');

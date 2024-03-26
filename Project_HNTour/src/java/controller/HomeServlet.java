@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Cart;
 import model.Category;
+import model.FeedbackWeb;
 import model.Item;
 import model.Tour;
 
@@ -92,10 +93,11 @@ public class HomeServlet extends HttpServlet {
             List<Tour> listTop3Tour = dao.listTop3Tour();
             List<Tour> listNew4Tour = dao.listNew4Tour();
             List<Tour> listTrendTour = dao.listTrendTour();
-
+            List<FeedbackWeb> listFeedbacks = dao.getListFeedbackWeb();
             session.setAttribute("sizeCart", size);
             session.setAttribute("listItem", listItem);
 
+            request.setAttribute("listFeedbacks", listFeedbacks);
             request.setAttribute("listCategory", listCategory);
             request.setAttribute("listTop3Tour", listTop3Tour);
             request.setAttribute("listNew4Tour", listNew4Tour);

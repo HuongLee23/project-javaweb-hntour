@@ -91,7 +91,7 @@ public class SendEmailServlet extends HttpServlet {
                 //Check xem tài khoản đã đăng ký hay chưa để cho phép thay đổi password
                 if (checkExistAccount) {
                     messageEmail = "Hà Nội Tour đã nhận được yêu cầu của Quý khách về việc xác minh mã để đặt lại mật khẩu.";
-                    send.sendMailForCusBuy(sendEmail, randomNumber, messageEmail);
+                    send.sendMailForAuthen(sendEmail, randomNumber, messageEmail);
                     message = "Quý khách vui lòng nhập mã xác thực để yêu cầu đặt lại mật khẩu. Hà Nội Tour sẽ xác nhận mã đã gửi tới email.";
                     session.setAttribute("sendEmail", sendEmail);
                     request.setAttribute("message", message);
@@ -109,7 +109,7 @@ public class SendEmailServlet extends HttpServlet {
                         request.getRequestDispatcher("register.jsp").forward(request, response);
                     } else {
                         messageEmail = "Hà Nội Tour đã nhận được yêu cầu của Quý khách về việc xác minh mã để mở tài khoản.";
-                        send.sendMailForCusBuy(sendEmail, randomNumber, messageEmail);
+                        send.sendMailForAuthen(sendEmail, randomNumber, messageEmail);
                         message = "Quý khách vui lòng nhập mã xác thực để yêu cầu mở tài khoản. Hà Nội Tour sẽ xác nhận mã đã gửi tới email.";
 
                         session.setAttribute("sendEmail", sendEmail);

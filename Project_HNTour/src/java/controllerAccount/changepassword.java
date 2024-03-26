@@ -20,10 +20,8 @@ import model.Account;
  *
  * @author hello
  */
-
 @WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
-public class ChangePassword extends HttpServlet {
-
+public class changepassword extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

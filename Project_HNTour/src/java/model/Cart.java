@@ -64,6 +64,18 @@ public class Cart {
         return total;
     }
 
+    public double getTotalMoneyUseVoucher() {
+        double total = 0;
+        for (Item item : items) {
+            if (item.getPriceSale() != 0) {
+                total += item.getPriceSale(); // Thay vì item.getQuantity() * item.getPrice()
+            } else {
+                total += item.getPrice();
+            }
+        }
+        return total;
+    }
+
     private Tour getTourById(int id, List<Tour> list) {
         for (Tour p : list) {
             if (p.getId() == id) {
