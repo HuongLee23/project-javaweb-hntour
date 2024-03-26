@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : manageraccount
     Created on : Jan 19, 2024, 5:02:08 PM
@@ -40,7 +41,6 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="../home">Home</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="../logout">Logout</a></li>
                     </ul>
@@ -60,26 +60,6 @@
                                     <div class="small text-white"><a href="manageracccustomer?role=3" style="color: white"><i class="fas fa-angle-right"></i></a></div>
 
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-area me-1"></i>
-                                    Area Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-bar me-1"></i>
-                                    Bar Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                             </div>
                         </div>
                     </div>
@@ -111,7 +91,7 @@
                                             <td>${a.phoneNumber}</td>
                                             <td style="color: #00adef">
                                                 <!--<form action="managerregistersupplier" method="post">-->
-                                                <input class="confirm-btn" onclick="openForm(this)" data-id="${a.id}" data-role="${a.role}" data-username="${a.username}" data-password="${a.password}" data-email="${a.email}" data-address="${a.address}" data-phonenumber="${a.phoneNumber}" value="Update"/>
+                                                <input class="confirm-btn" onclick="openForm(this)" data-id="${a.id}" data-role="${a.role}" data-username="${a.username}" data-email="${a.email}" data-address="${a.address}" data-phonenumber="${a.phoneNumber}" value="Update"/>
 
                                                 <!--</form>-->
                                             </td>
@@ -147,20 +127,20 @@
                     <input type="hidden" id="id" name="id" >
                     <input type="hidden" id="role" name="role" >
 
-                    <input type="text" id="name" name="username" class="form-control" required />
                     <label class="form-label" for="name">Họ và tên</label>
+                    <input type="text" id="name" name="username" class="form-control" required />
 
-                    <input type="text" id="password" name="password" class="form-control" required/>
-                    <label class="form-label" for="password">Mật khẩu</label>
+                    <!--                    <input type="text" id="password" name="password" class="form-control" required/>
+                                        <label class="form-label" for="password">Mật khẩu</label>-->
 
-                    <input type="email" id="emailAddress" name="email" class="form-control" required/>
                     <label class="form-label" for="emailAddress">Email</label>
+                    <input type="email" id="emailAddress" name="email" class="form-control" required/>
 
-                    <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" required/>
                     <label class="form-label" for="phoneNumber">Số điện thoại</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" required/>
 
-                    <input type="text" id="address" name="address" class="form-control" required/>
                     <label class="form-label" for="address">Địa chỉ</label>
+                    <input type="text" id="address" name="address" class="form-control" required/>
 
                     <h5 style="color: red">${requestScope.mess}</h5>
 
@@ -229,7 +209,7 @@
                 var id = btn.getAttribute("data-id");
                 var role = btn.getAttribute("data-role");
                 var username = btn.getAttribute("data-username");
-                var password = btn.getAttribute("data-password");
+//                var password = btn.getAttribute("data-password");
                 var email = btn.getAttribute("data-email");
                 var address = btn.getAttribute("data-address");
                 var phoneNumber = btn.getAttribute("data-phonenumber");
@@ -238,7 +218,7 @@
                 document.getElementById("id").value = id;
                 document.getElementById("role").value = role;
                 document.getElementById("name").value = username;
-                document.getElementById("password").value = password;
+//                document.getElementById("password").value = password;
                 document.getElementById("emailAddress").value = email;
                 document.getElementById("phoneNumber").value = phoneNumber;
                 document.getElementById("address").value = address;
@@ -273,4 +253,5 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
     </body>
+
 </html>

@@ -4,6 +4,7 @@
  */
 package controllerAccount;
 
+import dal.AccountDAO;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -78,7 +79,7 @@ public class ProfileAccount extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            DAO accountDAO = new DAO();
+            AccountDAO accountDAO = new AccountDAO();
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("account");
 
@@ -144,7 +145,7 @@ public class ProfileAccount extends HttpServlet {
             int userId = Integer.parseInt(request.getParameter("id"));
             String email = request.getParameter("email");
 
-            DAO accountDAO = new DAO();
+            AccountDAO accountDAO = new AccountDAO();
             HttpSession session = request.getSession();
 
             // Retrieve existing avatar filename from the session

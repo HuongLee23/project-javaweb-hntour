@@ -35,8 +35,6 @@
     <body class="sb-nav-fixed">
 
 
-
-
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">HaNoiTour</a>
@@ -85,8 +83,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
                                 Biểu đồ thống kê
                             </a>
+
                             
                              <a class="nav-link" href="confirmorder">
+
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Xử lý đơn hàng
                             </a>
@@ -94,6 +94,7 @@
                     </div>
                 </nav>
             </div>
+
 
             <c:set value="${requestScope.account}" var="a"/>
 
@@ -161,6 +162,7 @@
 
                 
             </div>
+
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>

@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+
+
 package controllerSupplier;
 
 import dal.DAOConfirmOrder;
@@ -22,24 +24,29 @@ import model.TopProduct;
  *
  * @author Admin
  */
+
 @WebServlet(name="ConfirmOrder", urlPatterns={"/confirmorder"})
 public class ConfirmOrder extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+
             out.println("<title>Servlet ConfirmOrder</title>");  
             out.println("</head>");
             out.println("<body>");

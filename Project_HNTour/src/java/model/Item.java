@@ -1,4 +1,5 @@
 
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -10,13 +11,15 @@ package model;
  * @author hello
  */
 public class Item {
+
     private Tour tour;
     private int quantity;
     private double price;
     private int idVoucher;
     private int discount;
     private double priceSale;
-    
+    private String dateDeparture;
+
     public Item() {
     }
 
@@ -83,7 +86,13 @@ public class Item {
         this.priceSale = priceSale;
     }
 
-   
-   
+    public String getDateDeparture() {
+        return dateDeparture;
+    }
+
+    public void setDateDeparture(String dateDeparture) {
+        this.dateDeparture = dateDeparture;
+    }
+
 }
 

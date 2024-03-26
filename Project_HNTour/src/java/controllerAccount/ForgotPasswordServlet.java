@@ -6,6 +6,7 @@ package controllerAccount;
 
 import controller.*;
 import controller.*;
+import dal.AccountDAO;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
+import ulti.PasswordEncryption;
 
 /**
  *
@@ -84,8 +86,9 @@ public class ForgotPasswordServlet extends HttpServlet {
             request.setAttribute("error", "Trùng mật khẩu cũ. Vui lòng thử lại.");
             request.getRequestDispatcher("forgotPassword.jsp").forward(request, response);
         } else {
-            DAO d = new DAO();
-            boolean result = d.changePassword(email, pass, newpass);
+            AccountDAO accountDAO = new AccountDAO();
+            
+            boolean result = accountDAO.forgotPassword(email, pass, newpass);
             if (result) {
                 response.sendRedirect("login.jsp");
             } else {

@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -112,6 +113,16 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        HttpSession session = request.getSession();
+//        PrintWriter out = response.getWriter();
+//        String selectDate = request.getParameter("selectedDate");
+//        Cart cartItem = (Cart) session.getAttribute("cartFill");
+//        Cart arragesItem = arrangeDates(cartItem, selectDate);
+//
+//        for (Item item : arragesItem.getItems()) {
+//            out.print("date of tour" + item.getTour().getName() + ": " + item.getDateDeparture());
+//        }
+
         HttpSession session = request.getSession();
         CheckoutDAO checkoutDao = new CheckoutDAO();
 
@@ -124,7 +135,10 @@ public class CheckoutServlet extends HttpServlet {
         } else {
 
             if (selectCheckout != 0) {
+                String selectDate = request.getParameter("selectedDate");
+
                 Item itemTour = (Item) session.getAttribute("itemTour");
+                itemTour.setDateDeparture(selectDate);
                 boolean result = checkoutDao.addOrderForBuyNow(itemTour, account, idInfor);
                 if (result) {
                     session.removeAttribute("listVoucher");
@@ -137,8 +151,10 @@ public class CheckoutServlet extends HttpServlet {
                 }
 
             } else {
+                String dateTours = request.getParameter("selectedDate");
                 Cart cartItem = (Cart) session.getAttribute("cartFill");
-                boolean result = checkoutDao.addOrderForCart(cartItem, account, idInfor);
+                Cart arragesItem = arrangeDates(cartItem, dateTours);
+                boolean result = checkoutDao.addOrderForCart(arragesItem, account, idInfor);
                 if (result) {
                     Cookie c = new Cookie("cart", "");
                     c.setMaxAge(0);
@@ -158,9 +174,21 @@ public class CheckoutServlet extends HttpServlet {
                     request.setAttribute("messBuy", "Mua hàng thất bại");
                 }
             }
-//            request.setAttribute("mess", "Mua hàng thành công");
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
         }
+    }
+
+    private Cart arrangeDates(Cart cart, String dateTours) {
+        if (dateTours != null && dateTours.length() != 0) {
+            String[] arrangeDate = dateTours.split(",");
+            int index = 0;
+            for (Item item : cart.getItems()) {
+                String dateItem = arrangeDate[index];
+                item.setDateDeparture(dateItem);
+                index++; // Di chuyển đến ngày tiếp theo trong mảng arrangeDate
+            }
+        }
+        return cart;
     }
 
     /**
@@ -174,3 +202,4 @@ public class CheckoutServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+

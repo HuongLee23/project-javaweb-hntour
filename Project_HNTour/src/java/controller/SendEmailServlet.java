@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.AccountDAO;
 import dal.DAO;
 import ulti.SendEmail;
 import java.io.IOException;
@@ -71,9 +72,9 @@ public class SendEmailServlet extends HttpServlet {
         SendEmail send = new SendEmail();
         Random random = new Random();
         HttpSession session = request.getSession();
-        DAO d = new DAO();
+        AccountDAO accountDAO = new AccountDAO();
 
-        boolean checkExistAccount = d.checkAccountExistByEmail(sendEmail);
+        boolean checkExistAccount = accountDAO.checkAccountExistByEmail(sendEmail);
 
         try {
             int role = Integer.parseInt(role_raw);
@@ -148,7 +149,7 @@ public class SendEmailServlet extends HttpServlet {
         String sendEmail = (String) session.getAttribute("sendEmail");
         int role = (int) session.getAttribute("role");
 
-        DAO d = new DAO();
+        AccountDAO accountDAO = new AccountDAO();
 
         try {
             int toCode = Integer.parseInt(toCode_raw);
@@ -157,7 +158,7 @@ public class SendEmailServlet extends HttpServlet {
                 if (role == 1) {
 
                     // Xác nhận mã thành công để chuyển sang trang thay đổi mật khẩu
-                    String oldPassword = d.retrieveOldPasswordByEmail(sendEmail);
+                    String oldPassword = accountDAO.retrieveOldPasswordByEmail(sendEmail);
 
                     request.setAttribute("oldPassword", oldPassword);
                     request.setAttribute("sendEmail", sendEmail);

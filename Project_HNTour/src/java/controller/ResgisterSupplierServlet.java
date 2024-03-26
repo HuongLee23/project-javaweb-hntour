@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -115,18 +116,12 @@ public class ResgisterSupplierServlet extends HttpServlet {
         String birthday_raw = request.getParameter("birthday");
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("phoneNumber");
-//        String frontCMND = request.getParameter("frontCMND");
-//        String backCMND = request.getParameter("backCMND");
-
         String nameCompany = request.getParameter("nameCompany");
         String addressCompany = request.getParameter("addressCompany");
         String emailCompany = request.getParameter("emailCompany");
         String phoneNumberCompany = request.getParameter("phoneNumberCompany");
 
         String businessCode = request.getParameter("businessCode");
-//        String businessRegis = request.getParameter("businessRegis");
-//        String taxCertificate = request.getParameter("taxCertificate");
-//        String taxPayment = request.getParameter("taxPayment");
 
         String frontCMND = null;
         String backCMND = null;
@@ -217,3 +212,4 @@ public class ResgisterSupplierServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+

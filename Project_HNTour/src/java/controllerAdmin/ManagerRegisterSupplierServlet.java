@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -138,46 +139,6 @@ public class ManagerRegisterSupplierServlet extends HttpServlet {
             System.out.println(e);
         }
         response.sendRedirect("managerregistersupplier");
-
-//        try {
-//            int currentPage = (pageStr != null) ? Integer.parseInt(pageStr) : 1;
-//            int idAcc = Integer.parseInt(idAcc_raw);
-//            int itemsPerPage = 10;
-//
-//            boolean result = mnAccount.confirmRegisterSupplier(idAcc);
-//            if (result) {
-//                request.setAttribute("msRegisterSupplier", "Xác nhận chuyển đổi role thành công.");
-//            } else {
-//                request.setAttribute("msRegisterSupplier", "Xác nhận chuyển đổi role thất bại!");
-//            }
-//
-//            // Gọi phương thức để lấy danh sách tài khoản từ cơ sở dữ liệu
-//            List<Supplier> listAccounts = getAllAccountsFromDatabase();
-//
-//            // Tính toán số trang
-//            int totalPages = (int) Math.ceil((double) listAccounts.size() / itemsPerPage);
-//            // Lấy sublist của danh sách để hiển thị trên trang hiện tại
-//            List<Supplier> currentPageData = getCurrentPageData(listAccounts, currentPage, itemsPerPage);
-//            int totalAccountCustomer = mnAccount.countAccountCustomer();
-//            int totalAccountSupplier = mnAccount.countAccountSupplier();
-//            String totalPrice = mnAccount.totalPrice();
-//            int totalBanned = mnAccount.totalAccountBanned();
-//
-//            // Gán danh sách tài khoản vào request để truy cập từ trang JSP
-//            request.setAttribute("currentPageData", currentPageData);
-//            request.setAttribute("totalPages", totalPages);
-//            request.setAttribute("currentPage", currentPage);
-//            request.setAttribute("totalcustomer", totalAccountCustomer);
-//            request.setAttribute("totalsupplier", totalAccountSupplier);
-//            request.setAttribute("totalPrice", totalPrice);
-//            request.setAttribute("totalBanned", totalBanned);
-//
-//            // Chuyển hướng (forward) request và response đến trang JSP
-//            RequestDispatcher dispatcher = request.getRequestDispatcher("../view/admin/managerregistersupplier.jsp");
-//            dispatcher.forward(request, response);
-//        } catch (NumberFormatException e) {
-//            System.out.println(e);
-//        }
     }
 
     /**
@@ -191,3 +152,4 @@ public class ManagerRegisterSupplierServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+

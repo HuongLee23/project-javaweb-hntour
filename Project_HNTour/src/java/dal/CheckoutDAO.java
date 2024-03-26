@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -96,17 +97,19 @@ public class CheckoutDAO extends DBContext {
                         + "           ,[tourId]\n"
                         + "           ,[quantity]\n"
                         + "           ,[price]\n"
+                        + "           ,[dateDeparture]\n"
                         + "           ,[versionId]\n"
                         + "           ,[voucherId])\n"
                         + "     VALUES\n"
-                        + "           ( ?, ?, ?, ?, ?, ?)";
+                        + "           ( ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement st2 = connection.prepareStatement(sql2);
                 st2.setInt(1, oid);
                 st2.setInt(2, item.getTour().getId());
                 st2.setInt(3, item.getQuantity());
                 st2.setDouble(4, rs.getDouble("totalPrice"));
-                st2.setInt(5, item.getTour().getVersion());
-                st2.setInt(6, item.getIdVoucher());
+                st2.setString(5, item.getDateDeparture());
+                st2.setInt(6, item.getTour().getVersion());
+                st2.setInt(7, item.getIdVoucher());
                 st2.executeUpdate();
             }
             if (item.getIdVoucher() != 0) {
@@ -163,22 +166,24 @@ public class CheckoutDAO extends DBContext {
                             + "           ,[tourId]\n"
                             + "           ,[quantity]\n"
                             + "           ,[price]\n"
+                            + "           ,[dateDeparture]\n"
                             + "           ,[versionId]\n"
                             + "           ,[voucherId])\n"
                             + "     VALUES\n"
-                            + "           ( ?, ?, ?, ?, ?, ?)";
+                            + "           ( ?, ?, ?, ?, ?, ?, ?)";
                     PreparedStatement st2 = connection.prepareStatement(sql2);
                     st2.setInt(1, oid);
                     st2.setInt(2, i.getTour().getId());
                     st2.setInt(3, i.getQuantity());
                     st2.setDouble(4, i.getPriceSale() != 0 ? i.getPriceSale() : i.getPrice());
-                    st2.setInt(5, i.getTour().getVersion());
-                    st2.setInt(6, i.getIdVoucher());
+                    st2.setString(5, i.getDateDeparture());
+                    st2.setInt(6, i.getTour().getVersion());
+                    st2.setInt(7, i.getIdVoucher());
                     st2.executeUpdate();
 
                 }
             }
-            
+
             //Kiểm tra xem item nào dùng voucher
             for (Item i : cart.getItems()) {
                 if (i.getIdVoucher() != 0) {
@@ -203,3 +208,4 @@ public class CheckoutDAO extends DBContext {
 
     }
 }
+

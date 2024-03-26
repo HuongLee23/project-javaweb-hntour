@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : manageraccount
     Created on : Jan 19, 2024, 5:02:08 PM
@@ -41,7 +42,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="../home">Home</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <!--<li><a class="dropdown-item" href="#!">Activity Log</a></li>-->
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="../logout">Logout</a></li>
                     </ul>
@@ -65,26 +66,6 @@
                         </div>
 
                     </div>
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-area me-1"></i>
-                                    Area Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-bar me-1"></i>
-                                    Bar Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
@@ -95,7 +76,7 @@
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>Username</th>
+                                        <th>Full name</th>
                                         <th>Password</th>
                                         <th>Email</th>
                                         <th>Address</th>
@@ -220,3 +201,4 @@
         <script src="js/datatables-simple-demo.js"></script>
     </body>
 </html>
+

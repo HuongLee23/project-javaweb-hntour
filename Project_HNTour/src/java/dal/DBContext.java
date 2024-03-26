@@ -1,3 +1,4 @@
+
 package dal;
 
 import java.sql.Connection;
@@ -23,3 +24,4 @@ public abstract class DBContext<T> {
         }
     }
 }
+
