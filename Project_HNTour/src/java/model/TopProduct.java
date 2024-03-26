@@ -9,6 +9,7 @@ package model;
  * @author Admin
  */
 public class TopProduct {
+
     private Account account;
     private Tour tour;
     private Order order;
@@ -65,8 +66,4 @@ public class TopProduct {
     public void setTotalquantity(int totalquantity) {
         this.totalquantity = totalquantity;
     }
-
-    
-   
-    
 }

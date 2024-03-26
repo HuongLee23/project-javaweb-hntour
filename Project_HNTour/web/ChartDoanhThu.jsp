@@ -15,7 +15,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
         <title>Charts - SB Admin</title>
         <link href="./assets/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -27,7 +26,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="home">HaNoiTour</a>
+            <a class="navbar-brand ps-3" href="index.html">HaNoiTour</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -54,7 +53,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="statistic?supplierId=${sessionScope.account.id}">
+                            <a class="nav-link" href="home">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Trang Chủ
                             </a>
@@ -143,7 +142,7 @@
                             borderColor: [
                                 // Đổi các màu đường biên ở đây, tương tự như backgroundColor
                             ],
-                            borderWidth: 1
+                            borderWidth: 5
                         }]
                 },
                 options: {

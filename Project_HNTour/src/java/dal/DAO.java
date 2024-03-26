@@ -2364,6 +2364,35 @@ public class DAO extends DBContext {
         return list;
     }
 
+    public OrderDetail getOrderDetailByID(int orderId, int tourId) {
+        OrderDetail orderDetail = null;
+        String sql = "SELECT * FROM [HaNoiTour].[dbo].[OrderDetail] WHERE orderId = ? and tourId=?";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, orderId);
+            st.setInt(2, tourId);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                // Assuming your OrderDetail class has a constructor to initialize its properties
+                orderDetail = new OrderDetail(
+                        rs.getInt("orderId"),
+                        rs.getInt("tourId"),
+                        rs.getInt("quantity"),
+                        rs.getDouble("price"),
+                        rs.getInt("versionId"),
+                        rs.getInt("voucherId"),
+                        rs.getString("dateDeparture"),
+                        rs.getString("status")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+
+        return orderDetail;
+    }
+
     public static void main(String[] args) {
         // Assuming you have a DAO instance
         DAO dao = new DAO();

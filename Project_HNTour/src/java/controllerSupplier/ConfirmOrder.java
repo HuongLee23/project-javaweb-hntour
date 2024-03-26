@@ -4,7 +4,7 @@
  */
 package controllerSupplier;
 
-import dal.DAO;
+import dal.DAOConfirmOrder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,14 +17,12 @@ import java.util.List;
 import model.Account;
 import model.TopProduct;
 
-import model.TotalInvoiceOfCategory;
-
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "Statistic", urlPatterns = {"/statistic"})
-public class Statistic extends HttpServlet {
+@WebServlet(name = "ConfirmOrder", urlPatterns = {"/confirmorder"})
+public class ConfirmOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,13 +41,24 @@ public class Statistic extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Statistic</title>");
+            out.println("<title>Servlet ConfirmOrder</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Statistic at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConfirmOrder at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        DAOConfirmOrder dc = new DAOConfirmOrder();
+        List<TopProduct> listOd = dc.getListOrderPending(account.getId());
+        request.setAttribute("confirmod", listOd);
+        request.getRequestDispatcher("confirmOrder.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -62,40 +71,38 @@ public class Statistic extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-        // Create an instance of the DAO (Data Access Object) class
-        DAO dao = new DAO();
-        String id_raw = request.getParameter("supplierId");
-        int supplierId = Integer.parseInt(id_raw);
-
-        // Retrieve the total invoice for a category using the DAO
-        TotalInvoiceOfCategory totalCate = dao.getTotalInvoiceCate(supplierId);
-        List<TopProduct> listTopProduct = dao.listTopProduct(supplierId);
-        List<TopProduct> listTopAcc = dao.listTopAccounts(supplierId);
-        List<TopProduct> listInvoice = dao.listInvoice(supplierId);
-        request.setAttribute("totalCate", totalCate);
-        request.setAttribute("listTopPro", listTopProduct);
-        request.setAttribute("listTopAcc", listTopAcc);
-        request.setAttribute("listInvoice", listInvoice);
-        // Forward the request to the "DashboardSupplier.jsp" page
-        request.getRequestDispatcher("DashboardSupplier.jsp").forward(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        String action = request.getParameter("action"); // Lấy giá trị của trường ẩn "action"
+        String idtour_raw = request.getParameter("tourId");
+        String orderId_raw = request.getParameter("orderId");
+        DAOConfirmOrder od = new DAOConfirmOrder();
+
+        try {
+            int idtour = Integer.parseInt(idtour_raw);
+            int idorder = Integer.parseInt(orderId_raw);
+            if ("accept".equals(action)) { // Nếu hành động là chấp nhận
+                boolean result = od.confirmSupplier(idorder, idtour);
+                if (result) {
+                    session.setAttribute("msRegisterSupplier", "Xác nhận đơn hàng thành công");
+                } else {
+                    session.setAttribute("msRegisterSupplier", "Xác nhận đơn hàng thất bại");
+                }
+            } else if ("reject".equals(action)) { // Nếu hành động là từ chối
+                boolean result = od.cancelSupplier(idorder, idtour);
+                if (result) {
+                    session.setAttribute("msRegisterSupplier", "Từ chối đơn hàng");
+                } else {
+                    session.setAttribute("msRegisterSupplier", "Từ chối đơn hàng thất bại");
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+        response.sendRedirect("confirmorder");
     }
 
     /**
