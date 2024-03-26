@@ -13,13 +13,8 @@
         <title>Hà Nội Tour</title>
         <link rel="shortcut icon" type="image/png" href="../assets/img/test.png">
         <link rel="stylesheet" type="text/css" href="../view/css/base.css">
-        <!--<link rel="stylesheet" type="text/css" href="../../view/css/main.css">-->
-        <!--<link rel="stylesheet" type="text/css" href="../../view/admin/viewprofilesupplier.jsp">-->
     </head>
     <body>
-        <!--Phần xử lý hiện thông tin hồ sơ của supplier-->
-        <!--<div class="fib-drawer-mask" onclick="closeForm()"></div>-->
-        <!--<div class="fib-add-form">-->
         <div class="fib-add-form">
             <h1>Thông tin hồ sơ</h1>
             <span style="color: red">${sessionScope.msUpdateProfileSupplier}</span>

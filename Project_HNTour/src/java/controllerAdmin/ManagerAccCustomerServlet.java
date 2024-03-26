@@ -130,7 +130,7 @@ public class ManagerAccCustomerServlet extends HttpServlet {
         String role_raw = request.getParameter("role");
         String id_raw = request.getParameter("id");
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+//        String password = request.getParameter("password");
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("phoneNumber");
         String address = request.getParameter("address");
@@ -139,7 +139,7 @@ public class ManagerAccCustomerServlet extends HttpServlet {
         try {
             id = Integer.parseInt(id_raw);
             role = Integer.parseInt(role_raw);
-            boolean result = mnAccount.updateInforCustomer(id, username, password, email, phoneNumber, address);
+            boolean result = mnAccount.updateInforCustomer(id, username, email, phoneNumber, address);
             if (result) {
                 session.setAttribute("msUpdateCustomer", "Cập nhật thông tin khách hàng thành công");
             } else {
