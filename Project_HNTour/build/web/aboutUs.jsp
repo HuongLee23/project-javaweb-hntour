@@ -211,20 +211,6 @@
 
                 <!-- Add -->
 
-                <div class="add">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <div class="add_container">
-                                    <div class="add_background" style="background-image:url(images/add.jpg)"></div>
-                                    <div class="add_content">
-                                        <div class="button add_button"><div class="button_bcg"></div><a href="#">explore now<span></span><span></span><span></span></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Milestones -->
 
@@ -255,7 +241,7 @@
                                 <div class="milestone text-center">
                                     <div class="milestone_icon"><img src="images/milestone_3.png" alt=""></div>
                                     <div class="milestone_counter" data-end-value="39">0</div>
-                                    <div class="milestone_text">Countries</div>
+                                    <div class="milestone_text"></div>
                                 </div>
                             </div>
 

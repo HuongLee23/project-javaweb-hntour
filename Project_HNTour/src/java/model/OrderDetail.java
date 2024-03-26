@@ -5,7 +5,6 @@
  */
 package model;
 
-import java.sql.Date;
 
 
 /**
@@ -13,21 +12,26 @@ import java.sql.Date;
  * @author hello
  */
 public class OrderDetail {
-    private int orderId, tourId;
+   private int orderId, tourId;
     private int quantity;
     private double price;
     private int versionId;
-    private  int voucherId;
+    private int voucherId;
+    private String dateDeparture;
+    private String status;
+
     public OrderDetail() {
     }
 
-    public OrderDetail(int orderId, int tourId, int quantity, double price, int versionId, int voucherId) {
+    public OrderDetail(int orderId, int tourId, int quantity, double price, int versionId, int voucherId, String dateDeparture, String status) {
         this.orderId = orderId;
         this.tourId = tourId;
         this.quantity = quantity;
         this.price = price;
         this.versionId = versionId;
         this.voucherId = voucherId;
+        this.dateDeparture = dateDeparture;
+        this.status = status;
     }
 
     public int getOrderId() {
@@ -78,9 +82,20 @@ public class OrderDetail {
         this.voucherId = voucherId;
     }
 
-    @Override
-    public String toString() {
-        return "OrderDetail{" + "orderId=" + orderId + ", tourId=" + tourId + ", quantity=" + quantity + ", price=" + price + ", versionId=" + versionId + ", voucherId=" + voucherId + '}';
+    public String getDateDeparture() {
+        return dateDeparture;
+    }
+
+    public void setDateDeparture(String dateDeparture) {
+        this.dateDeparture = dateDeparture;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
   
 }

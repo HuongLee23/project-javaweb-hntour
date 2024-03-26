@@ -18,6 +18,7 @@ import java.util.List;
 import model.Account;
 import model.Category;
 import model.Feedback;
+import model.HistoryOrder;
 import model.ImageAlbum;
 import model.Schedules;
 import model.Tour;
@@ -138,6 +139,8 @@ public class TourDetailServlet extends HttpServlet {
         if (account != null) { // Kiểm tra nếu có tài khoản
             numFeedback = dao.countUserFeedback(account.getId(), id); // Đếm số lượng comment của người dùng
         }
+          HistoryOrder sup = dao.getSupplierByTour(id);
+        request.setAttribute("sup", sup);
         request.setAttribute("numberFB", numFeedback); // Đặt thuộc tính numberFB để truyền vào trang JSP
 
         request.setAttribute("overallRating", overallRating); // Phần tổng quan

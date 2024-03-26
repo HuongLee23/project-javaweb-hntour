@@ -37,63 +37,14 @@
         <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="./ckeditor/ckeditor/ckeditor.js"></script>
+        <link href="./assets/libs/bootstrap-icons.css" rel="stylesheet" />
+        <link href="./assets/libs/father.css" rel="stylesheet" />
+        <link href="./assets/libs/font.css" rel="stylesheet" />
+        <link href="./assets/libs/simple.css" rel="stylesheet" />
+        <link href="./assets/libs/theme.css" rel="stylesheet" />
     </style>
-    <style>
-        .page-item.active .page-link{
-            background-color: #fa9e1b;
-            border-color: #fa9e1b;
-        }
-        .pagination>li>a{
-            color: black ;
-        }
-        .type-feedback{
 
-            margin-left: 90%;
-        }
 
-    </style>
-    <style type="text/css">
-
-        .card {
-            border: none;
-            margin-bottom: 24px;
-            -webkit-box-shadow: 0 0 13px 0 rgba(236,236,241,.44);
-            box-shadow: 0 0 13px 0 rgba(236,236,241,.44);
-        }
-
-        .avatar-xs {
-            height: 2.3rem;
-            width: 2.3rem;
-        }
-
-        .card {
-            background: #fff;
-            transition: .5s;
-            border: 0;
-            margin-bottom: 30px;
-            border-radius: .55rem;
-            position: relative;
-            width: 100%;
-            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
-        }
-        .card .body {
-            color: #444;
-            padding: 20px;
-            font-weight: 400;
-        }
-
-        .container .addnewblog{
-            margin-top: 45px;
-        }
-
-        .container .searchblog{
-            width: 0;
-        }
-        tr , th , td {
-            padding: 5px;
-        }
-    </style>
 </head>
 
 
@@ -113,111 +64,117 @@
                 </div>
             </div>
 
-            <!-- Intro -->
-
-            <!-- Offers -->
-
-            <div class="listing">
-
-                <!-- Search -->
-
-                <div class="search">
-                    <div class="search_inner">
-
-                        <!-- Search Contents -->
-
-                        	
-                </div>	
-            </div>
-
-            <!-- Single Listing -->
-
-            <div class="container">
-                <div class="table-responsive">
-                    <div class="card">
-
-                        <div class="card-body row">
-                            <table class="table project-table table-centered table-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">STT</th>
-                                        <th scope="col">Ảnh</th>
-                                        <th scope="col">Tên Tour</th>
-                                        <th scope="col">Giá</th>
-                                        <th scope="col">Số lượng</th>
-                                        <th scope="col">Tổng đơn giá</th>
-                                        <th>...</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${requestScope.listOrder}" var="od" varStatus="loop1">
-                                        <tr>
-                                            <th scope="row">${loop1.index+1}</th>
-                                            <td style="width: 30%">
-                                                <img style="width: 35%" class="d-block img-fluid" src="${od.tour.imageMain}" alt="">
-                                            </td>
-                                            <td>${od.tour.name}</td>
-                                            <td>${od.tour.price}</td>
-                                            <td>${od.orderdetail.quantity}</td>
-                                            <td>${od.orderdetail.price}</td>
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${od.tour.status == true}">
-                                                        <a style="background: #fa9e1b " href="detail?tid=${od.tour.id}" class="btn btn-primary">Mua lại</a>
-                                                    </c:when>
-                                                    <c:when test="${od.tour.status == false}">
-                                                        <span>Tour này đã bị ẩn</span>
-                                                    </c:when>
-                                                </c:choose>
-                                            </td>
-                                        </tr>    
-                                    </c:forEach>
 
 
-                                </tbody>
-                            </table>
+            <section class="container-fluid p-4">
+                <div class="row ">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <!-- Page header -->
+                        <div class="border-bottom pb-3 mb-3 ">
+                            <div class="mb-2 mb-lg-0">
+                                <h1 class="mb-0 h2 fw-bold">Lịch sử mua hàng </h1>
+
+                            </div>
                         </div>
-
                     </div>
-
                 </div>
-            </div>		
-        </div>
-        <!-- Footer -->
+                <!-- row -->
+                <div class="row-cols-6">
+                    <div class="col-xxl-10 col-10">
+                        <!-- card -->
+                        <div class="card">
+                            <!-- card body-->
+                            <div class="card-body">
+                                <div class="mb-6">
+                                    <h4 class="mb-0">Đơn hàng của tôi</h4>
+                                    <p> Hãy kiểm tra trạng thái của các đơn đặt hàng gần đây, quản lý trả lại và khám phá các sản phẩm tương tự.</p>
+                                </div>
+                                <div class="mb-8">
+                                    <!-- text -->
+                                <c:forEach items="${requestScope.listOrder}" var="ho">
+                                   
+                                    <c:if test="${not empty prevSupplierId && ho.supplier.idAcc ne prevSupplierId}">
+                                  
+                                    </div>
+                                </c:if>
 
+                               
+                                <c:if test="${empty prevSupplierId || ho.supplier.idAcc ne prevSupplierId}">
+                                    
+                                    <div class="border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <h5 class="mb-0"><a href="supplier?sid=${ho.tour.supplierId}"> ${ho.supplier.nameCompany}</a></h5>
+                                            <span class="ms-2">ID Đơn hàng: ${ho.order.id}</span>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <!-- link -->
+                                            <a href="#">Xem trạng thái</a>
+                                        </div>
+                                    </div>
+                                
+                                    <c:set var="prevSupplierId" value="${ho.supplier.idAcc}" />
+                                </c:if>
 
-        <jsp:include page="footer.jsp"></jsp:include>
-
+                            
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-lg-8 col-12">
+                                        <div class="d-md-flex">
+                                            <div>
+                                                <!-- img -->
+                                               <img src="${ho.tour.imageMain}" alt="hiii" class="img-4by3-xl rounded">
+                                            </div>
+                                            <div class="ms-md-4 mt-2 mt-lg-0">
+                                                <!-- heading -->
+                                                <h5 class="mb-1">${ho.tour.name}</h5>
+                                                <!-- text -->
+                                                <span>Giá gốc: <span class="text-dark"><fmt:formatNumber value="${ho.tour.price}" pattern="###,###"/>VNÐ</span><br>
+                                                    Số lượng:<span class="text-dark">${ho.orderdetail.quantity}</span></span><br>
+                                                <span>Phân loại:<span class="text-dark">${ho.category.name}</span><br>
+                                                    Ngày mua:<span class="text-dark">${ho.order.date}</span></span>
+                                                <!-- text -->
+                                                <div class="mt-3">
+                                                    <h4><fmt:formatNumber value="${ho.orderdetail.price}" pattern="###,###"/>VNÐ</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- button -->
+                                    <div class="col-lg-3 col-12 d-grid">
+                                        <a href="detail?tid=${ho.tour.id}" class="btn btn-primary mb-2">Mua lại</a>
+                                        <a href="supplier?sid=${ho.tour.supplierId}" class="btn btn-secondary"> Xem shop</a>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                              
+                            <hr class="my-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
 
-    <script>
-        CKEDITOR.replace('describe');
-        function submitForm() {
-            document.getElementById("myForm").submit();
-        }
-    </script>
 
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="styles/bootstrap4/popper.js"></script>
-    <script src="styles/bootstrap4/bootstrap.min.js"></script>
-    <script src="plugins/greensock/TweenMax.min.js"></script>
-    <script src="plugins/greensock/TimelineMax.min.js"></script>
-    <script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
-    <script src="plugins/greensock/animation.gsap.min.js"></script>
-    <script src="plugins/greensock/ScrollToPlugin.min.js"></script>
-    <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="plugins/easing/easing.js"></script>
-    <script src="plugins/parallax-js-master/parallax.min.js"></script>
-    <script src="js/about_custom.js"></script>
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="styles/bootstrap4/popper.js"></script>
-    <script src="styles/bootstrap4/bootstrap.min.js"></script>
-    <script src="plugins/easing/easing.js"></script>
-    <script src="plugins/parallax-js-master/parallax.min.js"></script>
-    <script src="plugins/colorbox/jquery.colorbox-min.js"></script>
-    <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
-    <script src="js/single_listing_custom.js"></script>
+
+</section>
+<!-- Single Listing -->
+
+
+
+<!-- Footer -->
+
+
+<jsp:include page="footer.jsp"></jsp:include>
+
+</div>
+
+<script>
+    CKEDITOR.replace('describe');
+    function submitForm() {
+        document.getElementById("myForm").submit();
+    }
+</script>
+
+
 </body>
 
 </html>
