@@ -18,11 +18,12 @@ public class Feedback {
     private int rating;
     private String accName;
     private String avatarAc;
+    private String nameTour;
 
     public Feedback() {
     }
 
-    public Feedback(int id, int accId, int tourId, int versionId, String comment, int rating, String accName, String avatarAc) {
+    public Feedback(int id, int accId, int tourId, int versionId, String comment, int rating, String accName, String avatarAc, String nameTour) {
         this.id = id;
         this.accId = accId;
         this.tourId = tourId;
@@ -31,6 +32,7 @@ public class Feedback {
         this.rating = rating;
         this.accName = accName;
         this.avatarAc = avatarAc;
+        this.nameTour = nameTour;
     }
 
     public int getId() {
@@ -97,8 +99,18 @@ public class Feedback {
         this.avatarAc = avatarAc;
     }
 
+    public String getNameTour() {
+        return nameTour;
+    }
+
+    public void setNameTour(String nameTour) {
+        this.nameTour = nameTour;
+    }
+
     @Override
     public String toString() {
-        return "Feedback{" + "id=" + id + ", accId=" + accId + ", tourId=" + tourId + ", versionId=" + versionId + ", comment=" + comment + ", rating=" + rating + ", accName=" + accName + ", avatarAc=" + avatarAc + '}';
+        return "Feedback{" + "id=" + id + ", accId=" + accId + ", tourId=" + tourId + ", versionId=" + versionId + ", comment=" + comment + ", rating=" + rating + ", accName=" + accName + ", avatarAc=" + avatarAc + ", nameTour=" + nameTour + '}';
     }
+
+   
 }

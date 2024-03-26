@@ -59,17 +59,22 @@ public class HistoryOrderDetailOfCustomerServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        DAO dao = new DAO();
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    DAO dao = new DAO();
       
+    String id_raw = request.getParameter("tid");
+    int id = Integer.parseInt(id_raw);
+    List<HistoryOrder> listOrder= dao.getHistoryOrder(id);
+   
+    request.setAttribute("prevSupplierId", null);
+    
+    request.setAttribute("listOrder", listOrder);
+   
+    request.getRequestDispatcher("historyorderdetail.jsp").forward(request, response);
+}
 
-        String id_raw = request.getParameter("tid");
-        int id = Integer.parseInt(id_raw);
-        List<HistoryOrder> listOrder= dao.getHistoryOrder(id);
-        request.setAttribute("listOrder", listOrder);
-        request.getRequestDispatcher("historyorderdetail.jsp").forward(request, response);
-    } 
+
+
 
     /** 
      * Handles the HTTP <code>POST</code> method.

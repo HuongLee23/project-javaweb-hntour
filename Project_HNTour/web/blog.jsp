@@ -56,15 +56,13 @@
                                         <div class="blog_post_image">
                                             <img src="${blog.image}" alt="alt"/>
                                             <div class="blog_post_date d-flex flex-column align-items-center justify-content-center">
-                                                <div class="blog_post_day">01</div>
-                                                <div class="blog_post_month">Dec, 2017</div>
+                                                <div  class="blog_post_month">${blog.publishDate}</div>
                                             </div>
                                         </div>
                                         <div class="blog_post_meta">
                                             <ul>
                                                 <li class="blog_post_meta_item"><a href="">${blog.accountId}</a></li>
                                                 <li class="blog_post_meta_item"><a href="">${blog.accountName}</a></li>
-                                                <li class="blog_post_meta_item"><a href="">3 Comments</a></li>
                                             </ul>
                                         </div>
                                         <div class="blog_post_title"><a href="blogdetail?id=${blog.bid}">${blog.title}</a></div>
@@ -129,18 +127,8 @@
                             </div>
 
                             <!-- Sidebar Archives -->
-                            <div class="sidebar_archives">
-                                <div class="sidebar_title">Archives</div>
-                                <div class="sidebar_list">
-                                    <ul>
-                                        <li><a href="#">March 2017</a></li>
-                                        <li><a href="#">April 2017</a></li>
-                                        <li><a href="#">May 2017</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                           <!-- Sidebar Archives -->
 
-                            <!-- Sidebar Archives -->
 
 
                             <!-- Sidebar Latest Posts -->
@@ -187,7 +175,7 @@
                             var row = document.getElementById("offers_blog");
                             row.innerHTML = data;
                         },
-                        error: function ( error) {
+                        error: function (error) {
                             console.log("An error occurred:", error);
                         }
                     }); // Add closing bracket here
