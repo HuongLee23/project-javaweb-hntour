@@ -27,7 +27,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="home">HaNoiTour</a>
+            <a class="navbar-brand ps-3" href="statistic?supplierId=${sessionScope.account.id}">Quản lý</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -54,35 +54,47 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="home">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+
+                            <a class="nav-link" href="statistic?supplierId=${sessionScope.account.id}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
+
                                 Trang Chủ
                             </a>
 
                             <a class="nav-link" href="listcustomerdamua">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+
+
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
                                 Danh Sách Khách Hàng
                             </a>
-                            
+
+                            <a class="nav-link" href="confirmorder">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice" style="color: #ffffff;"></i></div>
+                                Xử lý đơn hàng
+                            </a>
+
+
                             <a class="nav-link" href="managertourlist">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-table" style="color: #ffffff;"></i></div>
                                 Quản lý Tour
+                            </a>
+                            <a class="nav-link" href="managerblogs">
+                                <div class="sb-nav-link-icon"><i class="fa-brands fa-blogger" style="color: #ffffff;"></i></div>
+                                Quản lý Blog
                             </a>
 
                             <a class="nav-link" href="managervoucher">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-ticket" style="color: #ffffff;"></i></div>
                                 Voucher
                             </a>
 
                             <a class="nav-link" href="chart">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
                                 Biểu đồ thống kê
                             </a>
-                            
-                             <a class="nav-link" href="confirmorder">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Xử lý đơn hàng
-                            </a>
+
+
                         </div>
                     </div>
                 </nav>

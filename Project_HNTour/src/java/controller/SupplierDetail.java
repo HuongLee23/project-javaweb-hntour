@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -13,18 +12,23 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 import java.util.List;
 import model.Account;
-import model.HistoryOrder;
-import model.OrderDetail;
+import model.Category;
+
+import model.Feedback;
+import model.Schedules;
+
+import model.Supplier;
+import model.Tour;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "LoadBlogServlet", urlPatterns = {"/historyorder"})
-public class HistoryOrderDetailOfCustomerServlet extends HttpServlet {
+@WebServlet(name = "SupplierDetail", urlPatterns = {"/supplier"})
+public class SupplierDetail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +47,10 @@ public class HistoryOrderDetailOfCustomerServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoadBlogServlet</title>");
+            out.println("<title>Servlet SupplierDetail</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoadBlogServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SupplierDetail at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,17 +67,45 @@ public class HistoryOrderDetailOfCustomerServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("sid"));
         DAO dao = new DAO();
+        List<Tour> list = dao.getTourBySupllierID(id);
+        request.setAttribute("tour", list);
 
-        String id_raw = request.getParameter("tid");
-        int id = Integer.parseInt(id_raw);
-        List<HistoryOrder> listOrder = dao.getHistoryOrder(id);
+        // Lấy danh sách feedback và tính giá trị trung bình của rating
+        List<Feedback> listFeedback = dao.getFeedbackSupplier(id);
+        double averageRating = calculateAverageRating(listFeedback);
 
-        request.setAttribute("prevSupplierId", null);
+        // Truyền giá trị trung bình của rating và danh sách feedback đến JSP
+        request.setAttribute("averageRating", averageRating);
+        request.setAttribute("feedback", listFeedback);
 
-        request.setAttribute("listOrder", listOrder);
+        int countTour = dao.countTourSupplier(id);
+        int countFeedback = dao.countFeedbackSupplier(id);
+        int countBlog = dao.countBlogSupplier(id);
+        int countOrder = dao.countOrderSupplier(id);
+        Supplier sup = dao.getSupplierByID(id);
 
-        request.getRequestDispatcher("historyorderdetail.jsp").forward(request, response);
+        request.setAttribute("sup", sup);
+        request.setAttribute("countBlog", countBlog);
+        request.setAttribute("countFeedback", countFeedback);
+        request.setAttribute("countTour", countTour);
+        request.setAttribute("countOrder", countOrder);
+
+        request.getRequestDispatcher("supplierdetail.jsp").forward(request, response);
+    }
+
+// Phương thức tính toán giá trị trung bình của rating từ danh sách feedback
+    private double calculateAverageRating(List<Feedback> feedbackList) {
+        if (feedbackList == null || feedbackList.isEmpty()) {
+            return 0.0; // Trả về 0 nếu danh sách feedback trống
+        }
+
+        int totalRating = 0;
+        for (Feedback feedback : feedbackList) {
+            totalRating += feedback.getRating();
+        }
+        return (double) totalRating / feedbackList.size();
     }
 
     /**

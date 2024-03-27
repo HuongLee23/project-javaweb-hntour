@@ -849,32 +849,29 @@ public class sendEmailConfirm {
                     + "                                                                                            <tr>\n"
                     + "                                                                                                <td class=\"esd-container-frame\" width=\"540\" align=\"left\">\n"
                     + "                                                                                                    <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n"
-                    + "                                                                                                        <tbody>\n"+
-                                                                                                                      
-                   "    <td class=\\\"esd-block-text es-p20t es-p20b es-m-txt-c\\\" align=\\\"center\\\">" +
-"        <p>Thư Cảm Ơn và Chuẩn Bị cho Chuyến Đi Tới<br><br>" +
-"        Kính gửi Quý Khách hàng yêu quý,<br><br>" +
-"        Chúng tôi xin gửi lời cảm ơn chân thành nhất tới Quý vị đã lựa chọn và đặt hàng tại HaNoiTour! Chúng tôi rất vui mừng thông báo rằng đơn đặt hàng của Quý vị đã được xác nhận thành công và chúng tôi đã bắt đầu chuẩn bị mọi thứ để đảm bảo chuyến đi của Quý vị trở thành một trải nghiệm không thể quên.<br><br>" +
-"        Dưới đây là một số thông tin quan trọng và lịch trình chuẩn bị cho chuyến đi của Quý vị:<br><br>" +
-"        Địa điểm tập trung: Đại học FPT<br>" +
-"        Ngày Bắt Đầu Chuyến Đi: " + ngaydi + "<br>" +
-"        Ngày Kết Thúc Chuyến Đi:" + ngaydi + "<br><br>" +
-"        Lịch Trình Chuẩn Bị:<br><br>" +
-"        1. Kiểm tra và xác nhận lại thông tin về chuyến đi.<br>" +
-"        2. Lập danh sách các hoạt động và địa điểm mà bạn muốn trải nghiệm trong chuyến đi của mình.<br>" +
-"        3. Liên hệ và xác nhận với hướng dẫn viên du lịch hoặc nhân viên của chúng tôi để biết thêm thông tin chi tiết về chuyến đi.<br><br>" +
-"        Chúng tôi muốn đảm bảo rằng mọi điều kiện đã được chuẩn bị hoàn hảo để mang lại trải nghiệm du lịch tốt nhất cho Quý vị. Nếu Quý vị có bất kỳ câu hỏi hoặc yêu cầu đặc biệt nào, đừng ngần ngại liên hệ với chúng tôi bất cứ lúc nào. Chúng tôi luôn sẵn lòng hỗ trợ và đảm bảo chuyến đi của Quý vị trở nên hoàn hảo nhất.<br><br>" +
-                    
-"<strong>Ngoài ra, chúng tôi muốn chia sẻ một số lưu ý quan trọng về các ngày lễ Tết và tác động của chúng đối với giá tour:</strong><br>" +
-"Trong thời gian các ngày lễ Tết, như Tết Nguyên Đán, Giỗ Tổ Hùng Vương và nhiều ngày lễ khác, giá tour có thể tăng cao do sự tăng cường trong nhu cầu du lịch và chi phí hoạt động.<br>" +
-"Đối với các ngày này, việc đặt tour trước sẽ giúp bạn đảm bảo được vị trí và dịch vụ tốt nhất cũng như tránh được các biến động giá không mong muốn.<br>" +
-"Chúng tôi khuyến khích Quý vị lên kế hoạch sớm và đặt tour trước ít nhất 1 tháng trước ngày khởi hành để có được mức giá tốt nhất và sự đảm bảo về dịch vụ.<br><br><br>"+
-"        Một lần nữa, chúng tôi xin bày tỏ lòng biết ơn sâu sắc về sự tin tưởng và lựa chọn của Quý vị. Chúng tôi rất mong đợi được phục vụ và chúc Quý vị có một chuyến đi tuyệt vời và đáng nhớ!<br><br>" +
-"        Trân trọng,<br>" +
-"        [HaNoiTour]</p>" +
-"    </td>" +
-"</tr>\n"
-                                                                                                                         
+                    + "                                                                                                        <tbody>\n"
+                    + "    <td class=\\\"esd-block-text es-p20t es-p20b es-m-txt-c\\\" align=\\\"center\\\">"
+                    + "        <p>Thư Cảm Ơn và Chuẩn Bị cho Chuyến Đi Tới<br><br>"
+                    + "        Kính gửi Quý Khách hàng yêu quý,<br><br>"
+                    + "        Chúng tôi xin gửi lời cảm ơn chân thành nhất tới Quý vị đã lựa chọn và đặt hàng tại HaNoiTour! Chúng tôi rất vui mừng thông báo rằng đơn đặt hàng của Quý vị đã được xác nhận thành công và chúng tôi đã bắt đầu chuẩn bị mọi thứ để đảm bảo chuyến đi của Quý vị trở thành một trải nghiệm không thể quên.<br><br>"
+                    + "        Dưới đây là một số thông tin quan trọng và lịch trình chuẩn bị cho chuyến đi của Quý vị:<br><br>"
+                    + "        Địa điểm tập trung: Đại học FPT<br>"
+                    + "        Ngày Bắt Đầu Chuyến Đi: " + ngaydi + "<br>"
+                    + "        Ngày Kết Thúc Chuyến Đi:" + ngaydi + "<br><br>"
+                    + "        Lịch Trình Chuẩn Bị:<br><br>"
+                    + "        1. Kiểm tra và xác nhận lại thông tin về chuyến đi.<br>"
+                    + "        2. Lập danh sách các hoạt động và địa điểm mà bạn muốn trải nghiệm trong chuyến đi của mình.<br>"
+                    + "        3. Liên hệ và xác nhận với hướng dẫn viên du lịch hoặc nhân viên của chúng tôi để biết thêm thông tin chi tiết về chuyến đi.<br><br>"
+                    + "        Chúng tôi muốn đảm bảo rằng mọi điều kiện đã được chuẩn bị hoàn hảo để mang lại trải nghiệm du lịch tốt nhất cho Quý vị. Nếu Quý vị có bất kỳ câu hỏi hoặc yêu cầu đặc biệt nào, đừng ngần ngại liên hệ với chúng tôi bất cứ lúc nào. Chúng tôi luôn sẵn lòng hỗ trợ và đảm bảo chuyến đi của Quý vị trở nên hoàn hảo nhất.<br><br>"
+                    + "<strong>Ngoài ra, chúng tôi muốn chia sẻ một số lưu ý quan trọng về các ngày lễ Tết và tác động của chúng đối với giá tour:</strong><br>"
+                    + "Trong thời gian các ngày lễ Tết, như Tết Nguyên Đán, Giỗ Tổ Hùng Vương và nhiều ngày lễ khác, giá tour có thể tăng cao do sự tăng cường trong nhu cầu du lịch và chi phí hoạt động.<br>"
+                    + "Đối với các ngày này, việc đặt tour trước sẽ giúp bạn đảm bảo được vị trí và dịch vụ tốt nhất cũng như tránh được các biến động giá không mong muốn.<br>"
+                    + "Chúng tôi khuyến khích Quý vị lên kế hoạch sớm và đặt tour trước ít nhất 1 tháng trước ngày khởi hành để có được mức giá tốt nhất và sự đảm bảo về dịch vụ.<br><br><br>"
+                    + "        Một lần nữa, chúng tôi xin bày tỏ lòng biết ơn sâu sắc về sự tin tưởng và lựa chọn của Quý vị. Chúng tôi rất mong đợi được phục vụ và chúc Quý vị có một chuyến đi tuyệt vời và đáng nhớ!<br><br>"
+                    + "        Trân trọng,<br>"
+                    + "        [HaNoiTour]</p>"
+                    + "    </td>"
+                    + "</tr>\n"
                     + "                                                                                                                    <td style=\"padding: 15px;width: 150px; background-color: #ebebeb;\" class=\"esd-block-text es-p20t es-p20b es-m-txt-c\" align=\"center\">\n"
                     + "                                                                                                                    </td>\n"
                     + "                                                                                                            </tr>\n"
@@ -1046,4 +1043,3 @@ public class sendEmailConfirm {
     }
 
 }
-

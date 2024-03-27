@@ -12,6 +12,7 @@ import java.sql.Date;
  * @author hello
  */
 public class Supplier {
+
     private int idAcc;
     private String fullName;
     private Date birthday;
@@ -168,6 +169,5 @@ public class Supplier {
     public void setTaxPayment(String taxPayment) {
         this.taxPayment = taxPayment;
     }
-    
-    
+
 }

@@ -1,4 +1,3 @@
-
 package dal;
 
 import java.sql.Connection;
@@ -8,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class DBContext<T> {
+
     protected Connection connection;
 
     public DBContext() {
@@ -24,4 +24,3 @@ public abstract class DBContext<T> {
         }
     }
 }
-

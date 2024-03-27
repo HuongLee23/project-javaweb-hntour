@@ -37,7 +37,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">HaNoiTour</a>
+            <a class="navbar-brand ps-3" href="statistic?supplierId=${sessionScope.account.id}">Quản lý</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -64,35 +64,44 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="home">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <a class="nav-link" href="statistic?supplierId=${sessionScope.account.id}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
                                 Trang Chủ
                             </a>
 
                             <a class="nav-link" href="listcustomerdamua">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+
+
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
                                 Danh Sách Khách Hàng
                             </a>
-                            
+
+                            <a class="nav-link" href="confirmorder">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice" style="color: #ffffff;"></i></div>
+                                Xử lý đơn hàng
+                            </a>
+
+
                             <a class="nav-link" href="managertourlist">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-table" style="color: #ffffff;"></i></div>
                                 Quản lý Tour
+                            </a>
+                            <a class="nav-link" href="managerblogs">
+                                <div class="sb-nav-link-icon"><i class="fa-brands fa-blogger" style="color: #ffffff;"></i></div>
+                                Quản lý Blog
                             </a>
 
                             <a class="nav-link" href="managervoucher">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-ticket" style="color: #ffffff;"></i></div>
                                 Voucher
                             </a>
 
                             <a class="nav-link" href="chart">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
                                 Biểu đồ thống kê
                             </a>
-                            
-                             <a class="nav-link" href="confirmorder">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Xử lý đơn hàng
-                            </a>
+
                         </div>
                     </div>
                 </nav>
@@ -101,8 +110,9 @@
 
             <c:set value="${requestScope.account}" var="a"/>
 
-           <div id="layoutSidenav_content">
+            <div id="layoutSidenav_content">
                 <main>
+
 <div class="row">
                         <div class="col-md-12">
                             <form action="listcustomerdamua" method="POST">
@@ -119,77 +129,80 @@
                             </form>
                         </div>
                     </div><br>
-                        <div class="card mb-12">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Danh sách khách hàng mua
-                                <div style="color: greenyellow">${requestScope.mess}</div>
-                            </div>
-                            <div class="card-body" style="text-align: center">
-                                <table class="table table-striped table-hover">
-                                    <thead>
+                       
+
+                    <div class="card mb-12">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Danh sách khách hàng mua
+                            <div style="color: greenyellow">${requestScope.mess}</div>
+                        </div>
+                        <div class="card-body" style="text-align: center">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+
+                                        <th>Tên sản phẩm</th>
+                                        <th>Giá</th>
+                                        <th>Tên khách hàng</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Ngày mua</th>
+                                        <th>Voucher</th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.listInvoice}" var="o">
+
                                         <tr>
 
-                                            <th>Tên sản phẩm</th>
-                                            <th>Giá</th>
-                                            <th>Tên khách hàng</th>
-                                            <th>Số điện thoại</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Ngày mua</th>
-                                             <th>Voucher</th> 
+                                            <td>${o.tour.name}</td>
+                                            <td><fmt:formatNumber value="${o.tour.price}" pattern="###,###"/> VND</td>
+                                            <td>${o.account.username}</td>
+                                            <td>${o.account.phoneNumber}</td>
+                                            <td>${o.account.address}</td>
+                                            <td>${o.order.date}</td>
+                                            <td>
+                                                <i onclick="window.location.href = 'tangvoucher?aid=${o.account.id}'" class="fa-solid fa-gift fa-shake" style="color: #00ad4b;"></i>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${requestScope.listInvoice}" var="o">
-                                            <tr>
-
-                                                <td>${o.tour.name}</td>
-                                                <td><fmt:formatNumber value="${o.tour.price}" pattern="###,###"/> VND</td>
-                                                <td>${o.account.username}</td>
-                                                <td>${o.account.phoneNumber}</td>
-                                                <td>${o.account.address}</td>
-                                                <td>${o.order.date}</td>
-                                                <td>
-                                                            <i onclick="window.location.href = 'tangvoucher?aid=${o.account.id}'" class="fa-solid fa-gift fa-shake" style="color: #00ad4b;"></i>
-                                                        </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
 
 
-                                <div class="clearfix">
-                                    <div class="hint-text">Showing Product</div>
-                                    <div>
-                                        <form action="inexcel" method="get">
-                                            <button type="submit" class="btn btn-success">
-                                                Xuất excel
-                                            </button>
-                                        </form>
+                            <div class="clearfix">
+                                <div class="hint-text">Showing Product</div>
+                                <div>
+                                    <form action="inexcel" method="get">
+                                        <button type="submit" class="btn btn-success">
+                                            Xuất excel
+                                        </button>
+                                    </form>
 
 
-                                    </div>
-                                   
                                 </div>
 
                             </div>
+
                         </div>
                     </div>
-                </main>
-
-
-                
             </div>
+        </main>
 
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
-    </body>
+
+
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/chart-area-demo.js"></script>
+<script src="assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script src="js/datatables-simple-demo.js"></script>
+</body>
 </html>
 
 
