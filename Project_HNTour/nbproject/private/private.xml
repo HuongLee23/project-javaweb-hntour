@@ -5,8 +5,12 @@
         <group>
             <file>file:/C:/Users/Admin/Desktop/Project%20SWP391/projectteam3/Project_HNTour/web/TangVoucher.jsp</file>
             <file>file:/C:/Users/Admin/Desktop/Project%20SWP391/projectteam3/Project_HNTour/web/ChartDoanhThu.jsp</file>
+            <file>file:/C:/Users/Admin/Desktop/Project%20SWP391/projectteam3/Project_HNTour/src/java/dal/DAO.java</file>
             <file>file:/C:/Users/Admin/Desktop/Project%20SWP391/projectteam3/Project_HNTour/web/DashboardSupplier.jsp</file>
             <file>file:/C:/Users/Admin/Desktop/Project%20SWP391/projectteam3/Project_HNTour/web/DanhSachKhachHangDamua.jsp</file>
+            <file>file:/C:/Users/Admin/Desktop/Project%20SWP391/projectteam3/Project_HNTour/src/java/controllerSupplier/ListCustomerDamua.java</file>
+            <file>file:/C:/Users/Admin/Desktop/Project%20SWP391/projectteam3/Project_HNTour/src/java/dal/DAOConfirmOrder.java</file>
+            <file>file:/C:/Users/Admin/Desktop/Project%20SWP391/projectteam3/Project_HNTour/web/EditTour.jsp</file>
         </group>
     </open-files>
 </project-private>
