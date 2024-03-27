@@ -2578,25 +2578,25 @@ public class DAO extends DBContext {
 
     public List<HistoryOrder> getHistoryOrder(int idAcc) {
         List<HistoryOrder> list = new ArrayList<>();
-        String sql = "SELECT \n" +
-"   T.supplierId,\n" +
-"        OD.[orderId] as [orderId], \n" +
-"     O.[id] AS InvoiceNumber, \n" +
-"             T.[id] AS TourId,\n" +
-"                S.[accId] as SupplierId ,\n" +
-"            	C.[id] as CategoryId, \n" +
-"             \n" +
-"                 COUNT(*) AS TotalOrders,\n" +
-"              STRING_AGG(T.name, ', ') AS OrderedTours\n" +
-"              FROM\n" +
-"                 OrderDetail OD  JOIN  Tour T ON OD.tourId = T.id\n" +
-"                        JOIN [Order] O ON OD.orderId = O.id JOIN  Supplier S ON T.supplierId = S.accId  JOIN Category C ON C.[id]=T.[categoryId]\n" +
-"                WHERE\n" +
-"                   O.accId = ?\n" +
-"                GROUP BY\n" +
-"                  T.supplierId, OD.[orderId], S.[accId], O.[id],T.[id],C.[id]\n" +
-"                ORDER BY\n" +
-"                  T.supplierId;";
+        String sql = "SELECT \n"
+                + "   T.supplierId,\n"
+                + "        OD.[orderId] as [orderId], \n"
+                + "     O.[id] AS InvoiceNumber, \n"
+                + "             T.[id] AS TourId,\n"
+                + "                S.[accId] as SupplierId ,\n"
+                + "            	C.[id] as CategoryId, \n"
+                + "             \n"
+                + "                 COUNT(*) AS TotalOrders,\n"
+                + "              STRING_AGG(T.name, ', ') AS OrderedTours\n"
+                + "              FROM\n"
+                + "                 OrderDetail OD  JOIN  Tour T ON OD.tourId = T.id\n"
+                + "                        JOIN [Order] O ON OD.orderId = O.id JOIN  Supplier S ON T.supplierId = S.accId  JOIN Category C ON C.[id]=T.[categoryId]\n"
+                + "                WHERE\n"
+                + "                   O.accId = ?\n"
+                + "                GROUP BY\n"
+                + "                  T.supplierId, OD.[orderId], S.[accId], O.[id],T.[id],C.[id]\n"
+                + "                ORDER BY\n"
+                + "                  T.supplierId;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, idAcc);
@@ -2797,8 +2797,8 @@ public class DAO extends DBContext {
 
     public static void main(String[] args) {
         // Assuming you have a DAO instance
-        DAO dao=new DAO();
-   List< HistoryOrder> his= dao.getHistoryOrder(5);
+        DAO dao = new DAO();
+        List< HistoryOrder> his = dao.getHistoryOrder(5);
         System.out.println(his);
     }
 
