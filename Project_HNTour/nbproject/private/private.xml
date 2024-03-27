@@ -3,23 +3,31 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/upsupplier.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/home.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/EditTour.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerAccount/changepassword.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/tourdetail.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Feedback.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/blog.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/login.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/view/admin/manageraccount.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/ManagerTour.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/tour.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/register.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/checkout.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controller/TourDetailServlet.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/footer.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/upsupplier.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/historyorderdetail.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerAccount/changepassword.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/tourdetail.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/supplierdetail.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controller/HistoryOrderDetailOfCustomerServlet.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/tour.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/confirmOrder.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/register.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/AddTour.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/OrderDetail.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Account.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/DAO.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/aboutUs.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/blogdetail.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/showcart.jsp</file>
         </group>
     </open-files>

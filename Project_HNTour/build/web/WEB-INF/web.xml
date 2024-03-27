@@ -40,6 +40,10 @@
         <servlet-name>ManagerFeedbackServlet</servlet-name>
         <servlet-class>controllerAdmin.ManagerFeedbackServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddAccountServlet</servlet-name>
+        <servlet-class>controllerAdmin.AddAccountServlet</servlet-class>
+    </servlet>
     
     
     <servlet-mapping>
@@ -87,6 +91,11 @@
     <servlet-mapping>
         <servlet-name>ManagerFeedbackServlet</servlet-name>
         <url-pattern>/admin/managerfeedback</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AddAccountServlet</servlet-name>
+        <url-pattern>/admin/addaccount</url-pattern>
     </servlet-mapping>
     
     <session-config>

@@ -61,7 +61,7 @@
             <div class="home">
                 <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/about_background.jpg"></div>
                 <div class="home_content">
-                    <div class="home_title">Tour detail</div>
+                    <div class="home_title" style="color: black">Lịch sử mua hàng</div>
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
                         <!-- Page header -->
                         <div class="border-bottom pb-3 mb-3 ">
                             <div class="mb-2 mb-lg-0">
-                                <h1 class="mb-0 h2 fw-bold">Lịch sử mua hàng </h1>
+                                <!--<h1 class="mb-0 h2 fw-bold">Lịch sử mua hàng</h1>-->
 
                             </div>
                         </div>
