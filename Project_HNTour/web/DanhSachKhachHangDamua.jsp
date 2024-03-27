@@ -75,6 +75,10 @@
                                 Danh Sách Khách Hàng
                             </a>
 
+                            <a class="nav-link" href="confirmorder">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice" style="color: #ffffff;"></i></div>
+                                Xử lý đơn hàng
+                            </a>
 
                             <a class="nav-link" href="managertourlist">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table" style="color: #ffffff;"></i></div>
@@ -96,11 +100,6 @@
                                 Biểu đồ thống kê
                             </a>
 
-                            <a class="nav-link" href="confirmorder">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
-
-                                Xử lý đơn hàng
-                            </a>
                         </div>
                     </div>
                 </nav>

@@ -131,14 +131,14 @@
                                                 <c:if test="${ho.orderdetail.voucherId != 0}">
                                                     <span>Giá bán: <span style="color: #757582 !important; text-decoration: line-through !important; " class="text-dark"><fmt:formatNumber value="${ho.tour.price}" pattern="###,###"/>VNÐ</span><br>
                                                         <span style="color: #f0552d !important;">Áp mã giảm giá: <span style="color: #f0552d !important;" class="text-dark"><fmt:formatNumber value="${ho.orderdetail.price}" pattern="###,###"/>VNÐ</span></span><br>
-                                                        </c:if>
-                                                        <c:if test="${ho.orderdetail.voucherId == 0}">
-                                                            <span>Giá mua: <span class="text-dark"><fmt:formatNumber value="${ho.orderdetail.price}" pattern="###,###"/>VNÐ</span></span> <br>
-                                                        </c:if>
+                                                    </c:if>
+                                                    <c:if test="${ho.orderdetail.voucherId == 0}">
+                                                        <span>Giá mua: <span class="text-dark"><fmt:formatNumber value="${ho.orderdetail.price}" pattern="###,###"/>VNÐ</span></span> <br>
+                                                    </c:if>
 
 
-                                                        Số lượng: <span class="text-dark">${ho.orderdetail.quantity}</span></span><br>
-                                                    Ngày mua: <span class="text-dark">${ho.order.date}</span></span><br>
+                                                    Số lượng: <span class="text-dark">${ho.orderdetail.quantity}</span></span><br>
+                                                Ngày mua: <span class="text-dark">${ho.order.date}</span></span><br>
                                                 Ngày đi: <span class="text-dark">${ho.orderdetail.dateDeparture}</span></span><br>
                                                 <!-- text -->
                                                 <%--<c:if test="${ho.orderdetail.voucherId != 0}">--%>

@@ -67,6 +67,10 @@
                                 Danh Sách Khách Hàng
                             </a>
 
+                            <a class="nav-link" href="confirmorder">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice" style="color: #ffffff;"></i></div>
+                                Xử lý đơn hàng
+                            </a>
 
                             <a class="nav-link" href="managertourlist">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table" style="color: #ffffff;"></i></div>
@@ -88,11 +92,6 @@
                                 Biểu đồ thống kê
                             </a>
 
-                            <a class="nav-link" href="confirmorder">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
-
-                                Xử lý đơn hàng
-                            </a>
                         </div>
                     </div>
                 </nav>
@@ -110,27 +109,16 @@
                                 <h3 style="color: red">${sessionScope.msRegisterSupplier}</h3>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <!--        <form action="confirmorder" method="post">
-                                                    <div class="mb-3">
-                                                        <label for="startDate" class="form-label">Từ ngày:</label>
-                                                        <input type="date" class="form-control" id="startDate" name="startDate">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="endDate" class="form-label">Đến ngày:</label>
-                                                        <input type="date" class="form-control" id="endDate" name="endDate">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Lọc</button>
-                                                </form>-->
                                     </div>
                                 </div>
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Tên Tour</th>
-                                            <th>Giá</th>
                                             <th>Tên khách hàng</th>
                                             <th>Số điện thoại</th>
                                             <th>Địa chỉ</th>
+                                            <th>Tên Tour</th>
+                                            <th>Giá</th>
                                             <th>Số lượng</th>
                                             <th>Ngày mua</th>
                                             <th>Ngày đi</th>
@@ -141,11 +129,11 @@
                                     <tbody>
                                         <c:forEach items="${requestScope.confirmod}" var="o">
                                             <tr>
-                                                <td>${o.tour.name}</td>
-                                                <td><fmt:formatNumber value="${o.tour.price}" pattern="###,###"/> VND</td>
                                                 <td>${o.account.username}</td>
                                                 <td>${o.account.phoneNumber}</td>
                                                 <td>${o.account.address}</td>
+                                                <td>${o.tour.name}</td>
+                                                <td><fmt:formatNumber value="${o.orderdetail.price}" pattern="###,###"/> VND</td>
                                                 <td>${o.orderdetail.quantity}</td>
                                                 <td>${o.order.date}</td>
                                                 <td>${o.orderdetail.dateDeparture}</td>
