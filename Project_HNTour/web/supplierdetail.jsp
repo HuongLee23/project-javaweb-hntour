@@ -97,9 +97,9 @@
                                         <div class="col-lg-6">
                                             <div class="offers_content">
                                                 <div class="offers_price">${c.name}</div>
-                                                  <div class="rating_r rating_r_4 offers_rating">
-                                                      
-                                                  </div>
+                                                <div class="rating_r rating_r_4 offers_rating">
+
+                                                </div>
 
                                                 <p class="offers_text" style="color: #ff6600"><fmt:formatNumber value="${c.price}" pattern="###,###"/>VNÐ</p>
                                                 <div class="offers_icons">
