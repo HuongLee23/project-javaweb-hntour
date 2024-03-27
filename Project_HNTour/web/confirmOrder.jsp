@@ -139,7 +139,7 @@
                 <td>${o.orderdetail.dateDeparture}</td>
                 <td>${o.orderdetail.status}</td>
                 <td>
-                    <c:if test="${o.orderdetail.status == 'Processing'}">
+                    <c:if test="${o.orderdetail.status == 'Đang xử lý'}">
                         <form id="acceptForm" action="sendconfirmod">
                             <input type="hidden" name="action" value="accept"> <!-- Trường ẩn để xác định hành động là chấp nhận -->
                             <input type="hidden" name="tourId" value="${o.tour.id}"/>

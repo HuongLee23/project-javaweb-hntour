@@ -14,6 +14,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import model.Account;
 import model.TopProduct;
@@ -92,11 +95,31 @@ public class ListCustomerDamua extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-
     throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+    Account account = (Account) session.getAttribute("account");
+    String startDateMua_raw = request.getParameter("startDate");
+    String endDateMua_raw = request.getParameter("endDate");
+   
+    DAO od = new DAO();
+    
+    try {
+        List<TopProduct> orders = new ArrayList<>();
+        
+        // Xử lý tìm kiếm ngày mua
+        if (startDateMua_raw != null && endDateMua_raw != null) {
+            LocalDate startDateMua = LocalDate.parse(startDateMua_raw);
+            LocalDate endDateMua = LocalDate.parse(endDateMua_raw);
+            List<TopProduct> ordersMua = od.listInvoiceByDate(account.getId(), startDateMua, endDateMua);
+            orders.addAll(ordersMua);
+        }
+        request.setAttribute("listInvoice", orders);
+    } catch (DateTimeParseException e) {
+        System.out.println(e);
     }
-
+    request.getRequestDispatcher("DanhSachKhachHangDamua.jsp").forward(request, response);
+    }
+    
     /** 
      * Returns a short description of the servlet.
      * @return a String containing servlet description

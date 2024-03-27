@@ -54,11 +54,16 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="statistic?supplierId=${sessionScope.account.id}">
+                            <a class="nav-link" href="home">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Trang Chủ
                             </a>
 
+                            <a class="nav-link" href="listcustomerdamua">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+                                Danh Sách Khách Hàng
+                            </a>
+                            
                             <a class="nav-link" href="managertourlist">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Quản lý Tour
@@ -72,6 +77,11 @@
                             <a class="nav-link" href="chart">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
                                 Biểu đồ thống kê
+                            </a>
+                            
+                             <a class="nav-link" href="confirmorder">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Xử lý đơn hàng
                             </a>
                         </div>
                     </div>

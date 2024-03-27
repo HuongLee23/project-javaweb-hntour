@@ -166,7 +166,7 @@
 
                                 <div class="form-group">
                                     <label>Quy Định</label>
-                                    <textarea id="describe1" name="description" class="form-control" required>${tour.rule}</textarea>
+                                    <textarea id="describe1" name="rule" class="form-control" required>${tour.rule}</textarea>
                                 </div>
 
 

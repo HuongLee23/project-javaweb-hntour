@@ -69,6 +69,11 @@
                                 Trang Chủ
                             </a>
 
+                            <a class="nav-link" href="listcustomerdamua">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+                                Danh Sách Khách Hàng
+                            </a>
+                            
                             <a class="nav-link" href="managertourlist">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Quản lý Tour
@@ -83,10 +88,8 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
                                 Biểu đồ thống kê
                             </a>
-
                             
                              <a class="nav-link" href="confirmorder">
-
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Xử lý đơn hàng
                             </a>
@@ -100,7 +103,22 @@
 
            <div id="layoutSidenav_content">
                 <main>
-
+<div class="row">
+                        <div class="col-md-12">
+                            <form action="listcustomerdamua" method="POST">
+                                <div class="mb-3">
+                                    <label for="startDateMua" class="form-label">Từ ngày:</label>
+                                    <input type="date" class="form-control" id="startDateMua" name="startDate">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="endDateMua" class="form-label">Đến ngày:</label>
+                                    <input type="date" class="form-control" id="endDateMua" name="endDate">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                <span>Tìm kiếm ngày mua</span>
+                            </form>
+                        </div>
+                    </div><br>
                         <div class="card mb-12">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
