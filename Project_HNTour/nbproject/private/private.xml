@@ -3,47 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/upsupplier.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/home.jsp</file>
-<<<<<<< HEAD (c6360cc) - merge code from soncthe
-
-=======
-
->>>>>>> Namcthe171385 (5ac0362) - merge code loc
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/home.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerSupplier/ManagerVoucher.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/ChartDoanhThu.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/ulti/sendEmailReject.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/DashboardSupplier.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/TangVoucher.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Tour.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerSupplier/ListCustomerDamua.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/EditTour.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerAccount/changepassword.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/tourdetail.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Feedback.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/login.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/view/admin/manageraccount.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/ulti/sendEmailVoucher.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/ManagerTour.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/tour.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/ManagerVoucher.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/ulti/sendEmailConfirm.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/DAOConfirmOrder.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Order.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerSupplier/sendEmailConfirmOd.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerSupplier/Statistic.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerSupplier/ConfirmOrder.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/register.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controller/TourDetailServlet.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/AddTour.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/OrderDetail.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/model/Account.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/DAO.java</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/DanhSachKhachHangDamua.jsp</file>
-=======
-=======
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/model/Tour.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/model/Supplier.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/historyorderdetail.jsp</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/model/OrderDetail.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/dal/DAO.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/model/HistoryOrder.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/src/java/controller/HistoryOrderDetailOfCustomerServlet.java</file>
-            <file>file:/C:/Users/admin/SWP/projectteam3/Project_HNTour/web/tourdetail.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/aboutUs.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/showcart.jsp</file>
         </group>
     </open-files>
 </project-private>

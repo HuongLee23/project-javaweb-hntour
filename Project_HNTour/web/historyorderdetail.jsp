@@ -109,7 +109,7 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between">
                                             <!-- link -->
-                                            <a href="#">Xem trạng thái</a>
+                                           
                                         </div>
                                     </div>
 
@@ -130,8 +130,10 @@
                                                 <!-- text -->
                                                 <span>Giá gốc: <span class="text-dark"><fmt:formatNumber value="${ho.tour.price}" pattern="###,###"/>VNÐ</span><br>
                                                     Số lượng: <span class="text-dark">${ho.orderdetail.quantity}</span></span><br>
-                                                <span>Phân loại: <span class="text-dark">${ho.category.name}</span><br>
+                                               Trạng thái: <span class="text-dark">${ho.orderdetail.status}</span><br>
+                                                    Phân loại: <span class="text-dark">${ho.category.name}</span><br>
                                                     Ngày mua: <span class="text-dark">${ho.order.date}</span></span><br>
+                                                      Ngày đi: <span class="text-dark">${ho.orderdetail.dateDeparture}</span></span><br>
                                                 <!-- text -->
                                                 <%--<c:if test="${ho.orderdetail.voucherId != 0}">--%>
                                                     <div class="mt-3">
