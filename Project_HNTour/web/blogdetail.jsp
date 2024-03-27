@@ -29,7 +29,7 @@
     </head>
     <style>
         .from-edit-delete{
-          color: #383b43;
+            color: #383b43;
         }
     </style>
     <body>
@@ -71,10 +71,9 @@
                                     <h2 class="pt-2 tm-color-primary tm-post-title">${detailblog.title}</h2>
                                     <p class="tm-mb-40">${detailblog.publishDate} posted by ${detailblog.accountName}</p>
 
-                                    <p>
+                                    <p style="text-align: justify;">
                                         ${detailblog.content}
                                     </p>
-                                    <span class="d-block text-right tm-color-primary">Creative . Design . Business</span>
                                 </div>
 
                                 <!-- Comments -->

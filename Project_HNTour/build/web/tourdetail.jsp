@@ -195,6 +195,8 @@
                                 <div class="hotel_title_container d-flex flex-lg-row flex-column">
                                     <div class="hotel_title_content">
                                         <h1 class="hotel_title">${detail.name}</h1>
+                                        <div class="room_title"><a href="supplier?sid=${detail.supplierId}">${sup.supplier.nameCompany}</a></div>
+
 
                                         <div class="hotel_location"></div>
                                     </div>

@@ -14,9 +14,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>HaNoiTour</title>
+        <title>Hà Nội Tour</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
     </head>
@@ -150,7 +151,7 @@
                                                 <td>${o.orderdetail.dateDeparture}</td>
                                                 <td>${o.orderdetail.status}</td>
                                                 <td>
-                                                    <c:if test="${o.orderdetail.status == 'Processing'}">
+                                                    <c:if test="${o.orderdetail.status == 'Đang xử lý'}">
                                                         <form id="acceptForm" action="sendconfirmod">
                                                             <input type="hidden" name="action" value="accept"> <!-- Trường ẩn để xác định hành động là chấp nhận -->
                                                             <input type="hidden" name="tourId" value="${o.tour.id}"/>
