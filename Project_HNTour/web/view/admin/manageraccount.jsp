@@ -19,7 +19,9 @@
         <link rel="shortcut icon" type="image/png" href="../assets/img/test.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/styles.css"/>
+
         <link rel="stylesheet" href="../../view/css/main.css"/>
+
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
@@ -39,7 +41,9 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="../home">Home</a></li>
+
                         <!--<li><a class="dropdown-item" href="#!">Activity Log</a></li>-->
+
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="../logout">Logout</a></li>
                     </ul>
@@ -373,6 +377,7 @@
         </style>
         <script>
 
+
             function openForm(element) {
                 // Kiểm tra xem phần tử được nhấn có class là 'card-header' không
                 if (element.classList.contains('card-header')) {
@@ -387,6 +392,7 @@
             }
 
 
+
             function searchAccountByAll(param) {
                 var searchAll = param.value;
                 var role = param.getAttribute("data-role");
@@ -395,7 +401,9 @@
                     type: "get",
                     data: {
                         txt: searchAll,
+
                         roleAcc: role
+
                     },
                     success: function (data) {
                         var row = document.getElementById("datatablesSimple");

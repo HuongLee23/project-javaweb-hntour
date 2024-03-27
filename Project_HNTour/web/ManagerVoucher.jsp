@@ -127,61 +127,69 @@
                 <option value="0">Không hoạt động</option>
             </select>
 
-            <!-- Add a dynamic select input for selecting the user to whom the voucher will be given -->
-            <label for="nguoinhan">Người nhận voucher:</label>
-            <input type="text" id="searchInput" placeholder="Tìm kiếm tên...">
-            <select name="nguoinhan" id="nguoinhanSelect">
-                <option value="">-- Chọn người nhận --</option>
-                <c:forEach items="${requestScope.users}" var="user">
-                    <option value="${user.account.id}" data-username="${user.account.username}" data-email="${user.account.email}">
-                        ${user.account.username} - ${user.account.email}
 
-                    </option>
-                </c:forEach>
-            </select>
-            <input type="hidden" id="selectedEmail" name="email" value="">
-            <script>
-                // Function to filter options based on search input
-                function filterOptions() {
-                    var input, filter, select, options, option, i;
-                    input = document.getElementById('searchInput');
-                    filter = input.value.trim().toUpperCase();
-                    select = document.getElementById('nguoinhanSelect');
-                    options = select.getElementsByTagName('option');
+    <!-- Add a dynamic select input for selecting the user to whom the voucher will be given -->
+    <label for="nguoinhan">Người nhận voucher:</label>
+<input type="text" id="searchInput" placeholder="Tìm kiếm tên...">
+<select name="nguoinhan" id="nguoinhanSelect">
+    <option value="">-- Chọn người nhận --</option>
+    <c:forEach items="${requestScope.users}" var="user">
+        <option value="${user.account.id}" data-username="${user.account.username}" data-email="${user.account.email}">
+            ${user.account.username} - ${user.account.email}
+           
+        </option>
+    </c:forEach>
+</select>
+    <input type="hidden" id="selectedEmail" name="email" value="">
+   <script>
+    // Function to filter options based on search input
+    function filterOptions() {
+        var input, filter, select, options, option, i;
+        input = document.getElementById('searchInput');
+        filter = input.value.trim().toUpperCase();
+        select = document.getElementById('nguoinhanSelect');
+        options = select.getElementsByTagName('option');
+        
+        // Loop through all options and hide those that don't match the search input
+        for (i = 0; i < options.length; i++) {
+            option = options[i];
+            if (option.innerText.toUpperCase().indexOf(filter) > -1) {
+                option.style.display = '';
+            } else {
+                option.style.display = 'none';
+            }
+        }
+    }
 
-                    // Loop through all options and hide those that don't match the search input
-                    for (i = 0; i < options.length; i++) {
-                        option = options[i];
-                        if (option.innerText.toUpperCase().indexOf(filter) > -1) {
-                            option.style.display = '';
-                        } else {
-                            option.style.display = 'none';
-                        }
-                    }
-                }
-
-                // Attach event listener to input field for real-time filtering
-                document.getElementById('searchInput').addEventListener('input', filterOptions);
-
-                document.getElementById("nguoinhanSelect").addEventListener("change", function () {
-                    var selectElement = document.getElementById("nguoinhanSelect");
-                    var selectedOption = selectElement.options[selectElement.selectedIndex];
-                    var selectedEmail = selectedOption.getAttribute("data-email");
-                    document.getElementById("selectedEmail").value = selectedEmail;
-                });
-            </script>
-
-
-
+    // Attach event listener to input field for real-time filtering
+    document.getElementById('searchInput').addEventListener('input', filterOptions);
+    
+     document.getElementById("nguoinhanSelect").addEventListener("change", function() {
+        var selectElement = document.getElementById("nguoinhanSelect");
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var selectedEmail = selectedOption.getAttribute("data-email");
+        document.getElementById("selectedEmail").value = selectedEmail;
+    });
+</script>
 
 
 
-            <input type="hidden" name="supplierId" value="${a.id}">
 
-            <input type="submit" value="Add Voucher">
-            <h3 style="color: red">${sessionScope.tbvoucher}</h3>
-            <hr> 
 
+  
+    <input type="hidden" name="supplierId" value="${a.id}">
+
+    <input type="submit" value="Add Voucher">
+    <h3 style="color: red">${sessionScope.tbvoucher}</h3>
+    <hr> 
+
+    
+
+
+
+
+
+         
 
 
 

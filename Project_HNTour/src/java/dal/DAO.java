@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -36,13 +35,188 @@ import model.TopProduct;
 import model.TotalInvoiceOfCategory;
 import model.Tour;
 import model.Voucher;
-import ulti.PasswordEncryption;
 
 /**
  *
  * @author hello
  */
 public class DAO extends DBContext {
+
+    /*
+        Create a new account
+     */
+    public boolean registerAccount(
+            String email, String username, String password, int role
+    ) {
+        String sql = "INSERT INTO [dbo].[Account]\n"
+                + "           ([email]\n"
+                + "           ,[username]\n"
+                + "           ,[password]\n"
+                + "           ,[role])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, username);
+            st.setString(3, password);
+            st.setInt(4, role);
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+
+    /*
+        Log in to account
+     */
+    public Account loginAccount(String email, String password) {
+        String sql = "SELECT [id], [email], [username], [password], [role], [address], [avatar], [phoneNumber], [status] FROM [HaNoiTour].[dbo].[Account] WHERE [email] = ? AND [password] = ?";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, email);
+            st.setString(2, password);
+
+            try ( ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    Account a = new Account(
+                            rs.getInt("id"),
+                            rs.getString("email"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getInt("role"),
+                            rs.getString("address"),
+                            rs.getString("avatar"),
+                            rs.getString("phoneNumber"),
+                            rs.getBoolean("status")
+                    );
+                    return a;
+                }
+            }
+        } catch (SQLException e) {
+            // Log or rethrow the exception
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    /*
+        Check account exist by email
+     */
+    public boolean checkAccountExistByEmail(String email) {
+        String sql = "select * from Account where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    //Retrieve old password after authentication is completed
+    public String retrieveOldPasswordByEmail(String email) {
+        String sql = "select [password] from Account where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String oldPassword = rs.getString("password");
+                return oldPassword;
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+
+    public boolean changePassword(String email, String pass, String newPass) {
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "   SET [password] = ?\n"
+                + " WHERE [email] = ? and [password] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newPass);
+            st.setString(2, email);
+            st.setString(3, pass);
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean updateProfile(
+            int id,
+            String email,
+            String username,
+            String address,
+            String avatar,
+            String phoneNumber) {
+
+        String sql = "UPDATE [dbo].[Account] "
+                + "SET [email] = ?,"
+                + " [username] = ?,"
+                + " [address] = ?, "
+                + " [avatar] = ?, "
+                + "[phoneNumber] = ? "
+                + "WHERE [id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            st.setString(2, username);
+            st.setString(3, address);
+            st.setString(4, avatar);
+            st.setString(5, phoneNumber);
+
+            // Corrected order of parameters
+            st.setInt(6, id);
+
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public Account getAccountDetail(String email) {
+
+        String sql = "SELECT * FROM Account WHERE email = ?";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, email);
+            try ( ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    return new Account(
+                            rs.getInt("id"),
+                            rs.getString("email"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getInt("role"),
+                            rs.getString("address"),
+                            rs.getString("avatar"),
+                            rs.getString("phoneNumber"),
+                            rs.getBoolean("status")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public List<Tour> getAllTour() {
         List<Tour> list = new ArrayList<>();
@@ -1425,30 +1599,33 @@ public class DAO extends DBContext {
         return order;
     }
 
-    public OrderDetail getOrderDetailByID(int orderId) {
-        OrderDetail order = null;
-        String sql = "SELECT * FROM [HaNoiTour].[dbo].[OrderDetail] WHERE orderId = ?;";
+    public OrderDetail getOrderDetailByID(int orderId, int tourId) {
+        OrderDetail orderDetail = null;
+        String sql = "SELECT * FROM [HaNoiTour].[dbo].[OrderDetail] WHERE orderId = ? and tourId=?";
 
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, orderId);
+            st.setInt(2, tourId);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                order = new OrderDetail();
-                order.setOrderId(rs.getInt("orderId"));
-                order.setTourId(rs.getInt("tourId"));
-
-                order.setQuantity(rs.getInt("quantity"));
-                order.setPrice(rs.getDouble("price"));
-                order.setVersionId(rs.getInt("versionId"));
-                order.setVoucherId(rs.getInt("voucherId"));
-
+                // Assuming your OrderDetail class has a constructor to initialize its properties
+                orderDetail = new OrderDetail(
+                        rs.getInt("orderId"),
+                        rs.getInt("tourId"),
+                        rs.getInt("quantity"),
+                        rs.getDouble("price"),
+                        rs.getInt("versionId"),
+                        rs.getInt("voucherId"),
+                        rs.getString("dateDeparture"),
+                        rs.getString("status")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
         }
 
-        return order;
+        return orderDetail;
     }
 
     public boolean checkUserOrder(int accId, int tourId) {
@@ -1641,6 +1818,32 @@ public class DAO extends DBContext {
         } catch (SQLException e) {
         } catch (NumberFormatException e) {
         }
+    }
+
+    public OrderDetail getOrderDetailByID(int orderId) {
+        OrderDetail order = null;
+        String sql = "SELECT * FROM [HaNoiTour].[dbo].[OrderDetail] WHERE orderId = ?;";
+
+        try ( PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, orderId);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                order = new OrderDetail();
+                order.setOrderId(rs.getInt("orderId"));
+                order.setTourId(rs.getInt("tourId"));
+
+                order.setQuantity(rs.getInt("quantity"));
+                order.setPrice(rs.getDouble("price"));
+                order.setVersionId(rs.getInt("versionId"));
+                order.setVoucherId(rs.getInt("voucherId"));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+
+        return order;
     }
 
     public List<HistoryOrder> getHistoryOrder(int idAcc) {
@@ -2199,7 +2402,7 @@ public class DAO extends DBContext {
 //list ra các account de nhan voucher
     public List<TopProduct> listAccountsVoucher(int supplierId) {
         List<TopProduct> list = new ArrayList<>();
-        String sql = "SELECT A.id AS AccountId, A.[username] AS AccountUsername "
+        String sql = "SELECT distinct A.id AS AccountId, A.[username] AS AccountUsername "
                 + "FROM [HaNoiTour].[dbo].[Account] A "
                 + "INNER JOIN [HaNoiTour].[dbo].[Order] O ON A.[id] = O.[accId] "
                 + "INNER JOIN [HaNoiTour].[dbo].[OrderDetail] OD ON O.[id] = OD.[orderId] "
@@ -2262,7 +2465,7 @@ public class DAO extends DBContext {
         List<AccountVoucher> list = new ArrayList<>();
         String sql = "SELECT NULL AS AccountId, NULL AS AccountUsername, O.id AS VoucherId\n"
                 + "FROM [HaNoiTour].[dbo].[Voucher] O\n"
-                + "WHERE O.idAcc IS NULL AND O.supplierId = ?;";
+                + "WHERE O.idAcc IS NULL AND O.supplierId = ? and O.status=1;";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -2362,35 +2565,6 @@ public class DAO extends DBContext {
         }
 
         return list;
-    }
-
-    public OrderDetail getOrderDetailByID(int orderId, int tourId) {
-        OrderDetail orderDetail = null;
-        String sql = "SELECT * FROM [HaNoiTour].[dbo].[OrderDetail] WHERE orderId = ? and tourId=?";
-
-        try ( PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setInt(1, orderId);
-            st.setInt(2, tourId);
-            ResultSet rs = st.executeQuery();
-
-            if (rs.next()) {
-                // Assuming your OrderDetail class has a constructor to initialize its properties
-                orderDetail = new OrderDetail(
-                        rs.getInt("orderId"),
-                        rs.getInt("tourId"),
-                        rs.getInt("quantity"),
-                        rs.getDouble("price"),
-                        rs.getInt("versionId"),
-                        rs.getInt("voucherId"),
-                        rs.getString("dateDeparture"),
-                        rs.getString("status")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception appropriately
-        }
-
-        return orderDetail;
     }
 
     public static void main(String[] args) {

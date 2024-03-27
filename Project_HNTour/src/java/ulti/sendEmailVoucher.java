@@ -1,9 +1,9 @@
-package ulti;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
+package ulti;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
@@ -797,7 +797,7 @@ public class sendEmailVoucher {
                     + "                                                                        <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n"
                     + "                                                                            <tbody>\n"
                     + "                                                                                <tr>\n"
-                    + "                                                                                    <td class=\"esd-block-banner\" style=\"position: relative;\" align=\"center\" esdev-config=\"h40\"><a target=\"_blank\" href=\"http://localhost:9999/VNTravel/home\"><img class=\"adapt-img esdev-stretch-width esdev-banner-rendered\" src=\"https://demo.stripocdn.email/content/guids/bannerImgGuid/images/image17106885166645631.png\" alt=\"H� N?i Tour\" title=\"H� N?i Tour\" width=\"550\" style=\"display: block;\"></a></td>\n"
+                    + "                                                                                    <td class=\"esd-block-banner\" style=\"position: relative;\" align=\"center\" esdev-config=\"h40\"><a target=\"_blank\" href=\"http://localhost:9999/VNTravel/home\"><img class=\"adapt-img esdev-stretch-width esdev-banner-rendered\" src=\"https://demo.stripocdn.email/content/guids/bannerImgGuid/images/image17106885166645631.png\" alt=\"Hà Nội Tour\" title=\"Hà Nội Tour\" width=\"550\" style=\"display: block;\"></a></td>\n"
                     + "                                                                                </tr>\n"
                     + "                                                                            </tbody>\n"
                     + "                                                                        </table>\n"
@@ -849,16 +849,16 @@ public class sendEmailVoucher {
                     + "                                                                                                    <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n"
                     + "                                                                                                        <tbody>\n"
                  +  "    <td class=\\\"esd-block-text es-p20t es-p20b es-m-txt-c\\\" align=\\\"center\\\">" +
-"        <p>Th? C?m ?n<br>" +
-"        - M� Voucher: "+code+"<br> " +
-"          - Gi� tr?: "+discountPercentage+"<br>" +
+"        <p>Thư Cảm Ơn<br>" +
+"        - Mã Voucher: "+code+"<br> " +
+"          - Giá trị: "+discountPercentage+"<br>" +
       
-"        Voucher c?a b?n c� th? ???c s? d?ng ?? mua c�c s?n ph?m ho?c d?ch v? t?i c?a h�ng tr?c tuy?n ho?c c?a h�ng v?t l� c?a ch�ng t�i. H�y s? d?ng m� voucher tr�n ?? nh?n ?u ?�i t??ng ?ng.<br>" +
+"        Voucher của bạn có thể được sử dụng để mua các sản phẩm hoặc dịch vụ tại cửa hàng trực tuyến hoặc cửa hàng vật lý của chúng tôi. Hãy sử dụng mã voucher trên để nhận ưu đãi tương ứng.<br>" +
 
-"N?u b?n c� b?t k? c�u h?i ho?c c?n h? tr?, vui l�ng li�n h? v?i ch�ng t�i qua email [vntraveltouring@gmail.com] ho?c s? ?i?n tho?i [0928008008].<br>" +
+"Nếu bạn có bất kỳ câu hỏi hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi qua email [vntraveltouring@gmail.com] hoặc số điện thoại [0928008008].<br>" +
 
-"Ch�c b?n m?t ng�y tuy?t v?i v� th� v? v?i voucher c?a m�nh!<br><br>" +
-"        Tr�n tr?ng,<br>" +
+"Chúc bạn một ngày tuyệt vời và thú vị với voucher của mình!<br><br>" +
+"        Trân trọng,<br>" +
 "       [HaNoiTour]</p>" +
 "   </td>" +
 "</tr>\n"
@@ -896,10 +896,10 @@ public class sendEmailVoucher {
                     + "                                                                                                        <tbody>\n"
                     + "                                                                                                            <tr>\n"
                     + "                                                                                                                <td esdev-links-color=\"#666666\" align=\"left\" class=\"esd-block-text\" esd-links-color=\"#ffffff\" esd-links-underline=\"none\">\n"
-                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">Li�n h?:</p>\n"
+                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">Liên hệ:</p>\n"
                     + "                                                                                                                    <p style=\"color: #ffffff;\">Email: vntraveltouring@gmail.com</p>\n"
                     + "                                                                                                                    <p style=\"color: #ffffff;\">Phone: <a target=\"_blank\" href=\"tel:123456789\" style=\"color: #ffffff; text-decoration: none;\">0</a>928008008</p>\n"
-                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">??a ch?: Khu C�ng Ngh? Cao H�a L?c, Km29 ??i l? Th?ng Long, Th?ch Ho�, Th?ch Th?t, H� N?i</p>\n"
+                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">Địa chỉ: Khu Công Nghệ Cao Hòa Lạc, Km29 Đại lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội</p>\n"
                     + "                                                                                                                </td>\n"
                     + "                                                                                                            </tr>\n"
                     + "                                                                                                        </tbody>\n"
@@ -959,7 +959,7 @@ public class sendEmailVoucher {
             message.setFrom(new InternetAddress(username));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
-            message.setSubject(MimeUtility.encodeText("H� N?i Tour", "UTF-8", "B"));
+            message.setSubject(MimeUtility.encodeText("Hà Nội Tour", "UTF-8", "B"));
 
             message.setContent(multipart);
 
@@ -998,14 +998,14 @@ public class sendEmailVoucher {
         });
 
         try {
-            String emailContent = "H� N?i Tour\n"
+            String emailContent = "Hà Nội Tour\n"
                     + "\n"
-                    + "K�nh g?i: Qu� kh�ch\n"
+                    + "Kính gửi: Quý khách\n"
                     + messageEmail + "\n"
-                    + "Qu� kh�ch vui l�ng nh?p l?i m� x�c minh sau:\n"
+                    + "Quý khách vui lòng nhập lại mã xác minh sau:\n"
                     + "\t\t\t\t\t\t" + randomNumber + "\n"
-                    + "H� N?i Tour h�n h?nh ???c ph?c v? Qu� kh�ch.\n"
-                    + "Tr�n tr?ng!";
+                    + "Hà Nội Tour hân hạnh được phục vụ Quý khách.\n"
+                    + "Trân trọng!";
 
             Multipart multipart = new MimeMultipart();
             MimeBodyPart textPart = new MimeBodyPart();
@@ -1019,7 +1019,7 @@ public class sendEmailVoucher {
                     new InternetAddress(email));
 
             // Set the subject with proper encoding using MimeUtility.encodeText
-            message.setSubject(MimeUtility.encodeText("H� N?i Tour", "UTF-8", "B"));
+            message.setSubject(MimeUtility.encodeText("Hà Nội Tour", "UTF-8", "B"));
 
             message.setContent(multipart);
 

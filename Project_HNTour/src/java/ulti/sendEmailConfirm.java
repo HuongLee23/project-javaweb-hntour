@@ -1,9 +1,9 @@
-package ulti;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
+package ulti;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
@@ -799,7 +799,7 @@ public class sendEmailConfirm {
                     + "                                                                        <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n"
                     + "                                                                            <tbody>\n"
                     + "                                                                                <tr>\n"
-                    + "                                                                                    <td class=\"esd-block-banner\" style=\"position: relative;\" align=\"center\" esdev-config=\"h40\"><a target=\"_blank\" href=\"http://localhost:9999/VNTravel/home\"><img class=\"adapt-img esdev-stretch-width esdev-banner-rendered\" src=\"https://demo.stripocdn.email/content/guids/bannerImgGuid/images/image17106885166645631.png\" alt=\"H� N?i Tour\" title=\"H� N?i Tour\" width=\"550\" style=\"display: block;\"></a></td>\n"
+                    + "                                                                                    <td class=\"esd-block-banner\" style=\"position: relative;\" align=\"center\" esdev-config=\"h40\"><a target=\"_blank\" href=\"http://localhost:9999/VNTravel/home\"><img class=\"adapt-img esdev-stretch-width esdev-banner-rendered\" src=\"https://demo.stripocdn.email/content/guids/bannerImgGuid/images/image17106885166645631.png\" alt=\"Hà Nội Tour\" title=\"Hà Nội Tour\" width=\"550\" style=\"display: block;\"></a></td>\n"
                     + "                                                                                </tr>\n"
                     + "                                                                            </tbody>\n"
                     + "                                                                        </table>\n"
@@ -849,32 +849,29 @@ public class sendEmailConfirm {
                     + "                                                                                            <tr>\n"
                     + "                                                                                                <td class=\"esd-container-frame\" width=\"540\" align=\"left\">\n"
                     + "                                                                                                    <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n"
-                    + "                                                                                                        <tbody>\n"+
-                                                                                                                      
-                   "    <td class=\\\"esd-block-text es-p20t es-p20b es-m-txt-c\\\" align=\\\"center\\\">" +
-"        <p>Th? C?m ?n v� Chu?n B? cho Chuy?n ?i T?i<br><br>" +
-"        K�nh g?i Qu� Kh�ch h�ng y�u qu�,<br><br>" +
-"        Ch�ng t�i xin g?i l?i c?m ?n ch�n th�nh nh?t t?i Qu� v? ?� l?a ch?n v� ??t h�ng t?i HaNoiTour! Ch�ng t�i r?t vui m?ng th�ng b�o r?ng ??n ??t h�ng c?a Qu� v? ?� ???c x�c nh?n th�nh c�ng v� ch�ng t�i ?� b?t ??u chu?n b? m?i th? ?? ??m b?o chuy?n ?i c?a Qu� v? tr? th�nh m?t tr?i nghi?m kh�ng th? qu�n.<br><br>" +
-"        D??i ?�y l� m?t s? th�ng tin quan tr?ng v� l?ch tr�nh chu?n b? cho chuy?n ?i c?a Qu� v?:<br><br>" +
-"        ??a ?i?m t?p trung: ??i h?c FPT<br>" +
-"        Ng�y B?t ??u Chuy?n ?i: " + ngaydi + "<br>" +
-"        Ng�y K?t Th�c Chuy?n ?i:" + ngaydi + "<br><br>" +
-"        L?ch Tr�nh Chu?n B?:<br><br>" +
-"        1. Ki?m tra v� x�c nh?n l?i th�ng tin v? chuy?n ?i.<br>" +
-"        2. L?p danh s�ch c�c ho?t ??ng v� ??a ?i?m m� b?n mu?n tr?i nghi?m trong chuy?n ?i c?a m�nh.<br>" +
-"        3. Li�n h? v� x�c nh?n v?i h??ng d?n vi�n du l?ch ho?c nh�n vi�n c?a ch�ng t�i ?? bi?t th�m th�ng tin chi ti?t v? chuy?n ?i.<br><br>" +
-"        Ch�ng t�i mu?n ??m b?o r?ng m?i ?i?u ki?n ?� ???c chu?n b? ho�n h?o ?? mang l?i tr?i nghi?m du l?ch t?t nh?t cho Qu� v?. N?u Qu� v? c� b?t k? c�u h?i ho?c y�u c?u ??c bi?t n�o, ??ng ng?n ng?i li�n h? v?i ch�ng t�i b?t c? l�c n�o. Ch�ng t�i lu�n s?n l�ng h? tr? v� ??m b?o chuy?n ?i c?a Qu� v? tr? n�n ho�n h?o nh?t.<br><br>" +
-                    
-"<strong>Ngo�i ra, ch�ng t�i mu?n chia s? m?t s? l?u � quan tr?ng v? c�c ng�y l? T?t v� t�c ??ng c?a ch�ng ??i v?i gi� tour:</strong><br>" +
-"Trong th?i gian c�c ng�y l? T?t, nh? T?t Nguy�n ?�n, Gi? T? H�ng V??ng v� nhi?u ng�y l? kh�c, gi� tour c� th? t?ng cao do s? t?ng c??ng trong nhu c?u du l?ch v� chi ph� ho?t ??ng.<br>" +
-"??i v?i c�c ng�y n�y, vi?c ??t tour tr??c s? gi�p b?n ??m b?o ???c v? tr� v� d?ch v? t?t nh?t c?ng nh? tr�nh ???c c�c bi?n ??ng gi� kh�ng mong mu?n.<br>" +
-"Ch�ng t�i khuy?n kh�ch Qu� v? l�n k? ho?ch s?m v� ??t tour tr??c �t nh?t 1 th�ng tr??c ng�y kh?i h�nh ?? c� ???c m?c gi� t?t nh?t v� s? ??m b?o v? d?ch v?.<br><br><br>"+
-"        M?t l?n n?a, ch�ng t�i xin b�y t? l�ng bi?t ?n s�u s?c v? s? tin t??ng v� l?a ch?n c?a Qu� v?. Ch�ng t�i r?t mong ??i ???c ph?c v? v� ch�c Qu� v? c� m?t chuy?n ?i tuy?t v?i v� ?�ng nh?!<br><br>" +
-"        Tr�n tr?ng,<br>" +
-"        [HaNoiTour]</p>" +
-"    </td>" +
-"</tr>\n"
-                                                                                                                         
+                    + "                                                                                                        <tbody>\n"
+                    + "    <td class=\\\"esd-block-text es-p20t es-p20b es-m-txt-c\\\" align=\\\"center\\\">"
+                    + "        <p>Thư Cảm Ơn và Chuẩn Bị cho Chuyến Đi Tới<br><br>"
+                    + "        Kính gửi Quý Khách hàng yêu quý,<br><br>"
+                    + "        Chúng tôi xin gửi lời cảm ơn chân thành nhất tới Quý vị đã lựa chọn và đặt hàng tại HaNoiTour! Chúng tôi rất vui mừng thông báo rằng đơn đặt hàng của Quý vị đã được xác nhận thành công và chúng tôi đã bắt đầu chuẩn bị mọi thứ để đảm bảo chuyến đi của Quý vị trở thành một trải nghiệm không thể quên.<br><br>"
+                    + "        Dưới đây là một số thông tin quan trọng và lịch trình chuẩn bị cho chuyến đi của Quý vị:<br><br>"
+                    + "        Địa điểm tập trung: Đại học FPT<br>"
+                    + "        Ngày Bắt Đầu Chuyến Đi: " + ngaydi + "<br>"
+                    + "        Ngày Kết Thúc Chuyến Đi:" + ngaydi + "<br><br>"
+                    + "        Lịch Trình Chuẩn Bị:<br><br>"
+                    + "        1. Kiểm tra và xác nhận lại thông tin về chuyến đi.<br>"
+                    + "        2. Lập danh sách các hoạt động và địa điểm mà bạn muốn trải nghiệm trong chuyến đi của mình.<br>"
+                    + "        3. Liên hệ và xác nhận với hướng dẫn viên du lịch hoặc nhân viên của chúng tôi để biết thêm thông tin chi tiết về chuyến đi.<br><br>"
+                    + "        Chúng tôi muốn đảm bảo rằng mọi điều kiện đã được chuẩn bị hoàn hảo để mang lại trải nghiệm du lịch tốt nhất cho Quý vị. Nếu Quý vị có bất kỳ câu hỏi hoặc yêu cầu đặc biệt nào, đừng ngần ngại liên hệ với chúng tôi bất cứ lúc nào. Chúng tôi luôn sẵn lòng hỗ trợ và đảm bảo chuyến đi của Quý vị trở nên hoàn hảo nhất.<br><br>"
+                    + "<strong>Ngoài ra, chúng tôi muốn chia sẻ một số lưu ý quan trọng về các ngày lễ Tết và tác động của chúng đối với giá tour:</strong><br>"
+                    + "Trong thời gian các ngày lễ Tết, như Tết Nguyên Đán, Giỗ Tổ Hùng Vương và nhiều ngày lễ khác, giá tour có thể tăng cao do sự tăng cường trong nhu cầu du lịch và chi phí hoạt động.<br>"
+                    + "Đối với các ngày này, việc đặt tour trước sẽ giúp bạn đảm bảo được vị trí và dịch vụ tốt nhất cũng như tránh được các biến động giá không mong muốn.<br>"
+                    + "Chúng tôi khuyến khích Quý vị lên kế hoạch sớm và đặt tour trước ít nhất 1 tháng trước ngày khởi hành để có được mức giá tốt nhất và sự đảm bảo về dịch vụ.<br><br><br>"
+                    + "        Một lần nữa, chúng tôi xin bày tỏ lòng biết ơn sâu sắc về sự tin tưởng và lựa chọn của Quý vị. Chúng tôi rất mong đợi được phục vụ và chúc Quý vị có một chuyến đi tuyệt vời và đáng nhớ!<br><br>"
+                    + "        Trân trọng,<br>"
+                    + "        [HaNoiTour]</p>"
+                    + "    </td>"
+                    + "</tr>\n"
                     + "                                                                                                                    <td style=\"padding: 15px;width: 150px; background-color: #ebebeb;\" class=\"esd-block-text es-p20t es-p20b es-m-txt-c\" align=\"center\">\n"
                     + "                                                                                                                    </td>\n"
                     + "                                                                                                            </tr>\n"
@@ -908,10 +905,10 @@ public class sendEmailConfirm {
                     + "                                                                                                        <tbody>\n"
                     + "                                                                                                            <tr>\n"
                     + "                                                                                                                <td esdev-links-color=\"#666666\" align=\"left\" class=\"esd-block-text\" esd-links-color=\"#ffffff\" esd-links-underline=\"none\">\n"
-                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">Li�n h?:</p>\n"
+                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">Liên hệ:</p>\n"
                     + "                                                                                                                    <p style=\"color: #ffffff;\">Email: vntraveltouring@gmail.com</p>\n"
                     + "                                                                                                                    <p style=\"color: #ffffff;\">Phone: <a target=\"_blank\" href=\"tel:123456789\" style=\"color: #ffffff; text-decoration: none;\">0</a>928008008</p>\n"
-                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">??a ch?: Khu C�ng Ngh? Cao H�a L?c, Km29 ??i l? Th?ng Long, Th?ch Ho�, Th?ch Th?t, H� N?i</p>\n"
+                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">Địa chỉ: Khu Công Nghệ Cao Hòa Lạc, Km29 Đại lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội</p>\n"
                     + "                                                                                                                </td>\n"
                     + "                                                                                                            </tr>\n"
                     + "                                                                                                        </tbody>\n"
@@ -971,7 +968,7 @@ public class sendEmailConfirm {
             message.setFrom(new InternetAddress(username));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
-            message.setSubject(MimeUtility.encodeText("H� N?i Tour", "UTF-8", "B"));
+            message.setSubject(MimeUtility.encodeText("Hà Nội Tour", "UTF-8", "B"));
 
             message.setContent(multipart);
 
@@ -1010,14 +1007,14 @@ public class sendEmailConfirm {
         });
 
         try {
-            String emailContent = "H� N?i Tour\n"
+            String emailContent = "Hà Nội Tour\n"
                     + "\n"
-                    + "K�nh g?i: Qu� kh�ch\n"
+                    + "Kính gửi: Quý khách\n"
                     + messageEmail + "\n"
-                    + "Qu� kh�ch ?� ??t mua th�nh c�ng chuy?n tour :\n"
+                    + "Quý khách đã đặt mua thành công chuyến tour :\n"
                     + "\t\t\t\t\t\t" + randomNumber + "\n"
-                    + "H� N?i Tour h�n h?nh ???c ph?c v? Qu� kh�ch.\n"
-                    + "Tr�n tr?ng!";
+                    + "Hà Nội Tour hân hạnh được phục vụ Quý khách.\n"
+                    + "Trân trọng!";
 
             Multipart multipart = new MimeMultipart();
             MimeBodyPart textPart = new MimeBodyPart();
@@ -1031,7 +1028,7 @@ public class sendEmailConfirm {
                     new InternetAddress(email));
 
             // Set the subject with proper encoding using MimeUtility.encodeText
-            message.setSubject(MimeUtility.encodeText("H� N?i Tour", "UTF-8", "B"));
+            message.setSubject(MimeUtility.encodeText("Hà Nội Tour", "UTF-8", "B"));
 
             message.setContent(multipart);
 

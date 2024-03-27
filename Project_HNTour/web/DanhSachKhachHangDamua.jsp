@@ -34,6 +34,7 @@
     </head>
     <body class="sb-nav-fixed">
 
+
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">HaNoiTour</a>
@@ -63,28 +64,41 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="home">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <a class="nav-link" href="statistic?supplierId=${sessionScope.account.id}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
                                 Trang Chủ
                             </a>
 
+                            <a class="nav-link" href="listcustomerdamua">
+
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
+                                Danh Sách Khách Hàng
+                            </a>
+
+
                             <a class="nav-link" href="managertourlist">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-table" style="color: #ffffff;"></i></div>
                                 Quản lý Tour
+                            </a>
+                            <a class="nav-link" href="managerblogs">
+                                <div class="sb-nav-link-icon"><i class="fa-brands fa-blogger" style="color: #ffffff;"></i></div>
+                                Quản lý Blog
                             </a>
 
                             <a class="nav-link" href="managervoucher">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-ticket" style="color: #ffffff;"></i></div>
                                 Voucher
                             </a>
 
                             <a class="nav-link" href="chart">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
                                 Biểu đồ thống kê
                             </a>
 
                             <a class="nav-link" href="confirmorder">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
+
                                 Xử lý đơn hàng
                             </a>
                         </div>
@@ -92,7 +106,8 @@
                 </nav>
             </div>
 
-            <c:set value="${sessionScope.account}" var="a"/>
+
+            <c:set value="${requestScope.account}" var="a"/>
 
             <div id="layoutSidenav_content">
                 <main>
@@ -152,20 +167,22 @@
 
                         </div>
                     </div>
-                </main>
             </div>
+        </main>
 
 
 
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
-    </body>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/chart-area-demo.js"></script>
+<script src="assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script src="js/datatables-simple-demo.js"></script>
+</body>
 </html>
 
 

@@ -310,7 +310,7 @@ public class AdminDAO extends DBContext {
         return false;
     }
 
-    public boolean updateInforCustomer(int id, String name, 
+    public boolean updateInforCustomer(int id, String name,
             String email, String phoneNumber, String address
     ) {
         String sql = "UPDATE [dbo].[Account]\n"
@@ -322,9 +322,11 @@ public class AdminDAO extends DBContext {
         try ( PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, email);
             stm.setString(2, name);
+
             stm.setString(3, address);
             stm.setString(4, phoneNumber);
             stm.setInt(5, id);
+
             int result = stm.executeUpdate();
             return result > 0;
         } catch (SQLException ex) {

@@ -43,8 +43,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
                         <li><a class="dropdown-item" href="home">Home</a></li>
                         <li><hr class="dropdown-divider" /></li>
+
                         <li><a class="dropdown-item" href="logout">Logout</a></li>
                     </ul>
                 </li>
@@ -62,9 +64,11 @@
                             </a>
 
                             <a class="nav-link" href="listcustomerdamua">
+
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
                                 Danh Sách Khách Hàng
                             </a>
+
 
                             <a class="nav-link" href="managertourlist">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table" style="color: #ffffff;"></i></div>
@@ -88,6 +92,7 @@
 
                             <a class="nav-link" href="confirmorder">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
+
                                 Xử lý đơn hàng
                             </a>
                         </div>
@@ -203,8 +208,10 @@
                                                     <tr>
                                                         <td>
                                                             <script>
+
                                                                 var email = "${listTA.account.email}";
                                                                 document.write(email.length <= 15 ? email : email.substr(0, 15) + '...');
+
                                                             </script>
                                                         </td>
                                                         <td>${listTA.account.username}</td>
@@ -224,14 +231,19 @@
 
 
 
-                        <div class="clearfix">
-                            <div>
-                                <form action="inexcel" method="get">
-                                    <button type="submit" class="btn btn-success">
-                                        Xuất excel
-                                    </button>
-                                </form>
 
+                    </div>
+                </main>
+
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">HaNoiTour</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
 
                             </div>
                             <ul style="display: flex;" class="pagination">
@@ -251,22 +263,21 @@
                     </div>
             </div>
         </div>
-    </main>
 
 
-    <footer class="py-4 bg-light mt-auto">
-        <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                <div>
-                    <a href="#">HaNoiTour</a>
-                    &middot;
-                    <a href="#">Terms &amp; Conditions</a>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                    <div>
+                        <a href="#">HaNoiTour</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
-</div>
+        </footer>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="js/scripts.js"></script>

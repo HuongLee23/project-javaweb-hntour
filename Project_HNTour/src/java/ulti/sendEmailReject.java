@@ -1,9 +1,9 @@
-package ulti;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
+package ulti;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
@@ -798,7 +798,7 @@ public class sendEmailReject {
                     + "                                                                        <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n"
                     + "                                                                            <tbody>\n"
                     + "                                                                                <tr>\n"
-                    + "                                                                                    <td class=\"esd-block-banner\" style=\"position: relative;\" align=\"center\" esdev-config=\"h40\"><a target=\"_blank\" href=\"http://localhost:9999/VNTravel/home\"><img class=\"adapt-img esdev-stretch-width esdev-banner-rendered\" src=\"https://demo.stripocdn.email/content/guids/bannerImgGuid/images/image17106885166645631.png\" alt=\"H� N?i Tour\" title=\"H� N?i Tour\" width=\"550\" style=\"display: block;\"></a></td>\n"
+                    + "                                                                                    <td class=\"esd-block-banner\" style=\"position: relative;\" align=\"center\" esdev-config=\"h40\"><a target=\"_blank\" href=\"http://localhost:9999/VNTravel/home\"><img class=\"adapt-img esdev-stretch-width esdev-banner-rendered\" src=\"https://demo.stripocdn.email/content/guids/bannerImgGuid/images/image17106885166645631.png\" alt=\"Hà Nội Tour\" title=\"Hà Nội Tour\" width=\"550\" style=\"display: block;\"></a></td>\n"
                     + "                                                                                </tr>\n"
                     + "                                                                            </tbody>\n"
                     + "                                                                        </table>\n"
@@ -851,15 +851,15 @@ public class sendEmailReject {
                     + "                                                                                                        <tbody>\n"+
                                                                                                                       
                    "    <td class=\\\"esd-block-text es-p20t es-p20b es-m-txt-c\\\" align=\\\"center\\\">" +
-"        <p>L?i Xin L?i v? Tour kh�ng ???c Ch?p Nh?n<br><br>" +
-"        K�nh g?i Qu� Kh�ch h�ng y�u qu�,<br><br>" +
-"        Ch�ng t�i xin g?i l?i ch�o v� l?i xin l?i ch�n th�nh nh?t ??n qu� kh�ch h�ng.<br><br>" +
-"        Ch�ng t�i ?� nh?n ???c ??n ??t tour c?a qu� kh�ch h�ng v� xin ch�n th�nh th�ng b�o r?ng tour n�y ?� kh�ng ???c ch?p nh?n do m?t s? l� do n?m ngo�i t?m ki?m so�t c?a ch�ng t�i.<br><br>" +
-"        Ch�ng t�i hi?u r?ng s? kh�ng ch?p nh?n c?a tour n�y c� th? g�y ra s? phi?n to�i v� th?t v?ng cho qu� kh�ch h�ng, v� ch�ng t�i xin ???c g?i l?i xin l?i s�u s?c t? ?�y l�ng c?a ch�ng t�i.<br>" +
-"        ?? b� ??p cho s? b?t ti?n n�y, ch�ng t�i s? ho�n tr? l?i to�n b? s? ti?n ?� thanh to�n cho tour n�y v�o t�i kho?n c?a qu� kh�ch h�ng ngay l?p t?c. N?u c� b?t k? th?c m?c ho?c y�u c?u ??c bi?t n�o, xin vui l�ng li�n h? v?i b? ph?n ch?m s�c kh�ch h�ng c?a ch�ng t�i qua s? ?i?n tho?i [0928008008] ho?c email [vntraveltouring@gmail.com].<br>" +
-"        Ch�ng t�i hi v?ng r?ng qu� kh�ch h�ng s? th�ng c?m v� ti?p t?c tin t??ng HaNoiTour trong nh?ng d?ch v? du l?ch s?p t?i. Ch�ng t�i cam k?t s? c?i thi?n d?ch v? c?a m�nh v� t?o ra nh?ng tr?i nghi?m du l?ch t?t nh?t cho qu� kh�ch h�ng.<br><br>" +
-"        M?t l?n n?a, xin l?i v? s? b?t ti?n n�y v� c?m ?n qu� kh�ch h�ng ?� lu�n ?ng h? HaNoiTour.<br><br>" +
-"        Tr�n tr?ng,<br>" +
+"        <p>Lời Xin Lỗi về Tour không được Chấp Nhận<br><br>" +
+"        Kính gửi Quý Khách hàng yêu quý,<br><br>" +
+"        Chúng tôi xin gửi lời chào và lời xin lỗi chân thành nhất đến quý khách hàng.<br><br>" +
+"        Chúng tôi đã nhận được đơn đặt tour của quý khách hàng và xin chân thành thông báo rằng tour này đã không được chấp nhận do một số lý do nằm ngoài tầm kiểm soát của chúng tôi.<br><br>" +
+"        Chúng tôi hiểu rằng sự không chấp nhận của tour này có thể gây ra sự phiền toái và thất vọng cho quý khách hàng, và chúng tôi xin được gửi lời xin lỗi sâu sắc từ đáy lòng của chúng tôi.<br>" +
+"        Để bù đắp cho sự bất tiện này, chúng tôi sẽ hoàn trả lại toàn bộ số tiền đã thanh toán cho tour này vào tài khoản của quý khách hàng ngay lập tức. Nếu có bất kỳ thắc mắc hoặc yêu cầu đặc biệt nào, xin vui lòng liên hệ với bộ phận chăm sóc khách hàng của chúng tôi qua số điện thoại [0928008008] hoặc email [vntraveltouring@gmail.com].<br>" +
+"        Chúng tôi hi vọng rằng quý khách hàng sẽ thông cảm và tiếp tục tin tưởng HaNoiTour trong những dịch vụ du lịch sắp tới. Chúng tôi cam kết sẽ cải thiện dịch vụ của mình và tạo ra những trải nghiệm du lịch tốt nhất cho quý khách hàng.<br><br>" +
+"        Một lần nữa, xin lỗi về sự bất tiện này và cảm ơn quý khách hàng đã luôn ủng hộ HaNoiTour.<br><br>" +
+"        Trân trọng,<br>" +
 "        [HaNoiTour]</p>" +
 "    </td>" +
 "</tr>\n"
@@ -897,10 +897,10 @@ public class sendEmailReject {
                     + "                                                                                                        <tbody>\n"
                     + "                                                                                                            <tr>\n"
                     + "                                                                                                                <td esdev-links-color=\"#666666\" align=\"left\" class=\"esd-block-text\" esd-links-color=\"#ffffff\" esd-links-underline=\"none\">\n"
-                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">Li�n h?:</p>\n"
+                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">Liên hệ:</p>\n"
                     + "                                                                                                                    <p style=\"color: #ffffff;\">Email: vntraveltouring@gmail.com</p>\n"
                     + "                                                                                                                    <p style=\"color: #ffffff;\">Phone: <a target=\"_blank\" href=\"tel:123456789\" style=\"color: #ffffff; text-decoration: none;\">0</a>928008008</p>\n"
-                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">??a ch?: Khu C�ng Ngh? Cao H�a L?c, Km29 ??i l? Th?ng Long, Th?ch Ho�, Th?ch Th?t, H� N?i</p>\n"
+                    + "                                                                                                                    <p style=\"line-height: 200%; color: #ffffff;\">Địa chỉ: Khu Công Nghệ Cao Hòa Lạc, Km29 Đại lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội</p>\n"
                     + "                                                                                                                </td>\n"
                     + "                                                                                                            </tr>\n"
                     + "                                                                                                        </tbody>\n"
@@ -960,7 +960,7 @@ public class sendEmailReject {
             message.setFrom(new InternetAddress(username));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
-            message.setSubject(MimeUtility.encodeText("H� N?i Tour", "UTF-8", "B"));
+            message.setSubject(MimeUtility.encodeText("Hà Nội Tour", "UTF-8", "B"));
 
             message.setContent(multipart);
 
@@ -999,14 +999,14 @@ public class sendEmailReject {
         });
 
         try {
-            String emailContent = "H� N?i Tour\n"
+            String emailContent = "Hà Nội Tour\n"
                     + "\n"
-                    + "K�nh g?i: Qu� kh�ch\n"
+                    + "Kính gửi: Quý khách\n"
                     + messageEmail + "\n"
-                    + "Qu� kh�ch ?� ??t mua th�nh c�ng chuy?n tour :\n"
+                    + "Quý khách đã đặt mua thành công chuyến tour :\n"
                     + "\t\t\t\t\t\t" + randomNumber + "\n"
-                    + "H� N?i Tour h�n h?nh ???c ph?c v? Qu� kh�ch.\n"
-                    + "Tr�n tr?ng!";
+                    + "Hà Nội Tour hân hạnh được phục vụ Quý khách.\n"
+                    + "Trân trọng!";
 
             Multipart multipart = new MimeMultipart();
             MimeBodyPart textPart = new MimeBodyPart();
@@ -1020,7 +1020,7 @@ public class sendEmailReject {
                     new InternetAddress(email));
 
             // Set the subject with proper encoding using MimeUtility.encodeText
-            message.setSubject(MimeUtility.encodeText("H� N?i Tour", "UTF-8", "B"));
+            message.setSubject(MimeUtility.encodeText("Hà Nội Tour", "UTF-8", "B"));
 
             message.setContent(multipart);
 
