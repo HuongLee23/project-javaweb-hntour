@@ -16,6 +16,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import model.Account;
 import model.TopProduct;
@@ -58,15 +62,17 @@ public class ConfirmOrder extends HttpServlet {
 
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-         DAOConfirmOrder dc = new DAOConfirmOrder();
-        List<TopProduct> listOd = dc.getListOrderPending(account.getId());
-        request.setAttribute("confirmod", listOd);
-        request.getRequestDispatcher("confirmOrder.jsp").forward(request, response);
-    } 
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    Account account = (Account) session.getAttribute("account");
+    List<TopProduct> orders = new ArrayList<>();
+    DAOConfirmOrder od = new DAOConfirmOrder();
+    orders = od.getListOrderPending(account.getId());
+    request.setAttribute("confirmod", orders);
+    request.getRequestDispatcher("confirmOrder.jsp").forward(request, response);
+}
+
+
 
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -78,39 +84,46 @@ public class ConfirmOrder extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession();
     Account account = (Account) session.getAttribute("account");
-    String action = request.getParameter("action"); // Lấy giá trị của trường ẩn "action"
-    String idtour_raw = request.getParameter("tourId");
-    String orderId_raw = request.getParameter("orderId");
+    
+    // Lấy các tham số startDate, endDate, startDateDi và endDateDi từ request
+    String startDateMua_raw = request.getParameter("startDateMua");
+    String endDateMua_raw = request.getParameter("endDateMua");
+    String startDateDi_raw = request.getParameter("startDateDi");
+    String endDateDi_raw = request.getParameter("endDateDi");
+    
     DAOConfirmOrder od = new DAOConfirmOrder();
     
     try {
-        int idtour = Integer.parseInt(idtour_raw);
-        int idorder = Integer.parseInt(orderId_raw);
-        if ("accept".equals(action)) { // Nếu hành động là chấp nhận
-            boolean result = od.confirmSupplier(idorder, idtour);
-            if (result) {
-                session.setAttribute("msRegisterSupplier", "Xác nhận đơn hàng thành công");
-            } else {
-                session.setAttribute("msRegisterSupplier", "Xác nhận đơn hàng thất bại");
-            }
-        } else if ("reject".equals(action)) { // Nếu hành động là từ chối
-            boolean result = od.cancelSupplier(idorder, idtour);
-            if (result) {
-                session.setAttribute("msRegisterSupplier", "Từ chối đơn hàng");
-            } else {
-                session.setAttribute("msRegisterSupplier", "Từ chối đơn hàng thất bại");
-            }
-        } 
+        List<TopProduct> orders = new ArrayList<>();
         
-       
-    } catch (NumberFormatException e) {
+        // Xử lý tìm kiếm ngày mua
+        if (startDateMua_raw != null && endDateMua_raw != null) {
+            LocalDate startDateMua = LocalDate.parse(startDateMua_raw);
+            LocalDate endDateMua = LocalDate.parse(endDateMua_raw);
+            List<TopProduct> ordersMua = od.searchOrdersByDateRange(account.getId(), startDateMua, endDateMua);
+            orders.addAll(ordersMua);
+        }
+        
+        // Xử lý tìm kiếm ngày đi
+        if (startDateDi_raw != null && endDateDi_raw != null) {
+            LocalDate startDateDi = LocalDate.parse(startDateDi_raw);
+            LocalDate endDateDi = LocalDate.parse(endDateDi_raw);
+            List<TopProduct> ordersDi = od.searchOrdersByDateDi(account.getId(), startDateDi, endDateDi);
+            orders.addAll(ordersDi);
+        }
+        
+        // Đặt danh sách đơn hàng vào thuộc tính của request để sử dụng trong JSP
+        request.setAttribute("confirmod", orders);
+    } catch (DateTimeParseException | SQLException e) {
+        // Xử lý lỗi khi chuyển đổi ngày thất bại hoặc lỗi SQL (nếu cần)
         System.out.println(e);
     }
-   response.sendRedirect("confirmorder");
+    
+    // Chuyển hướng người dùng đến trang confirmOrder.jsp
+    request.getRequestDispatcher("confirmOrder.jsp").forward(request, response);
 }
 
 

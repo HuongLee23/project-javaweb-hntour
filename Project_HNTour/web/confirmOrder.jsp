@@ -61,6 +61,36 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
+                         <div class="row">
+    <div class="col-md-6">
+        <form action="confirmorder" method="POST">
+            <div class="mb-3">
+                <label for="startDateMua" class="form-label">Từ ngày:</label>
+                <input type="date" class="form-control" id="startDateMua" name="startDateMua">
+            </div>
+            <div class="mb-3">
+                <label for="endDateMua" class="form-label">Đến ngày:</label>
+                <input type="date" class="form-control" id="endDateMua" name="endDateMua">
+            </div>
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            <span>Tìm kiếm ngày mua</span>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form action="confirmorder" method="POST">
+            <div class="mb-3">
+                <label for="startDateDi" class="form-label">Từ ngày:</label>
+                <input type="date" class="form-control" id="startDateDi" name="startDateDi">
+            </div>
+            <div class="mb-3">
+                <label for="endDateDi" class="form-label">Đến ngày:</label>
+                <input type="date" class="form-control" id="endDateDi" name="endDateDi">
+            </div>
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            <span>Tìm kiếm ngày đi</span>
+        </form>
+    </div>
+</div>
                         Danh sách khách hàng mua
                        
     </div>
