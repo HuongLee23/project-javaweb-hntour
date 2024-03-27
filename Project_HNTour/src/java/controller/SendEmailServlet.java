@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.AccountDAO;
 import dal.DAO;
 import ulti.SendEmail;
 import java.io.IOException;
@@ -71,9 +72,9 @@ public class SendEmailServlet extends HttpServlet {
         SendEmail send = new SendEmail();
         Random random = new Random();
         HttpSession session = request.getSession();
-        DAO d = new DAO();
+        AccountDAO accountDAO = new AccountDAO();
 
-        boolean checkExistAccount = d.checkAccountExistByEmail(sendEmail);
+        boolean checkExistAccount = accountDAO.checkAccountExistByEmail(sendEmail);
 
         try {
             int role = Integer.parseInt(role_raw);
@@ -91,7 +92,7 @@ public class SendEmailServlet extends HttpServlet {
                 //Check xem tài khoản đã đăng ký hay chưa để cho phép thay đổi password
                 if (checkExistAccount) {
                     messageEmail = "Hà Nội Tour đã nhận được yêu cầu của Quý khách về việc xác minh mã để đặt lại mật khẩu.";
-                    send.sendMailForCusBuy(sendEmail, randomNumber, messageEmail);
+                    send.sendMailForAuthen(sendEmail, randomNumber, messageEmail);
                     message = "Quý khách vui lòng nhập mã xác thực để yêu cầu đặt lại mật khẩu. Hà Nội Tour sẽ xác nhận mã đã gửi tới email.";
                     session.setAttribute("sendEmail", sendEmail);
                     request.setAttribute("message", message);
@@ -109,7 +110,7 @@ public class SendEmailServlet extends HttpServlet {
                         request.getRequestDispatcher("register.jsp").forward(request, response);
                     } else {
                         messageEmail = "Hà Nội Tour đã nhận được yêu cầu của Quý khách về việc xác minh mã để mở tài khoản.";
-                        send.sendMailForCusBuy(sendEmail, randomNumber, messageEmail);
+                        send.sendMailForAuthen(sendEmail, randomNumber, messageEmail);
                         message = "Quý khách vui lòng nhập mã xác thực để yêu cầu mở tài khoản. Hà Nội Tour sẽ xác nhận mã đã gửi tới email.";
 
                         session.setAttribute("sendEmail", sendEmail);
@@ -148,7 +149,7 @@ public class SendEmailServlet extends HttpServlet {
         String sendEmail = (String) session.getAttribute("sendEmail");
         int role = (int) session.getAttribute("role");
 
-        DAO d = new DAO();
+        AccountDAO accountDAO = new AccountDAO();
 
         try {
             int toCode = Integer.parseInt(toCode_raw);
@@ -157,7 +158,7 @@ public class SendEmailServlet extends HttpServlet {
                 if (role == 1) {
 
                     // Xác nhận mã thành công để chuyển sang trang thay đổi mật khẩu
-                    String oldPassword = d.retrieveOldPasswordByEmail(sendEmail);
+                    String oldPassword = accountDAO.retrieveOldPasswordByEmail(sendEmail);
 
                     request.setAttribute("oldPassword", oldPassword);
                     request.setAttribute("sendEmail", sendEmail);

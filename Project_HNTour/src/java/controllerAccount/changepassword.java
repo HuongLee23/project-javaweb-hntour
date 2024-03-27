@@ -5,6 +5,7 @@
 package controllerAccount;
 
 import controller.*;
+import dal.AccountDAO;
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,15 +16,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
+import ulti.PasswordEncryption;
 
 /**
  *
  * @author hello
  */
-
 @WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
-public class ChangePassword extends HttpServlet {
-
+public class changepassword extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -82,10 +82,11 @@ public class ChangePassword extends HttpServlet {
         String newPass = request.getParameter("newpass");
         String newPass2 = request.getParameter("newpass2");
 
-        DAO d = new DAO();
-        Account a = d.loginAccount(email, oldPass);
+        AccountDAO accountDAO = new AccountDAO();
 
-        if (a == null || !a.getPassword().equals(oldPass)) {
+        Account a = accountDAO.loginAccount(email, oldPass);
+
+        if (a == null) {
             String errorMessage = "Mật khẩu cũ không đúng!";
             request.setAttribute("error", errorMessage);
             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
@@ -95,11 +96,11 @@ public class ChangePassword extends HttpServlet {
             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
         } else {
             // Update the password in the database
-            d.changePassword(email, oldPass, newPass);
+            accountDAO.changePassword(email, oldPass, newPass);
 
             // Update the password in the account object
-            a.setPassword(newPass);
-
+//            a.setPassword(newPass);
+            
             // Update the session with the modified account
             HttpSession session = request.getSession();
             session.setAttribute("account", a);

@@ -25,10 +25,12 @@ import model.Account;
 
 import ulti.sendEmailConfirm;
 import ulti.sendEmailReject;
+
 /**
  *
  * @author Admin
  */
+
 @WebServlet(name="sendEmailConfirmOd", urlPatterns={"/sendconfirmod"})
 public class sendEmailConfirmOd extends HttpServlet {
    
@@ -43,10 +45,12 @@ public class sendEmailConfirmOd extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+
             out.println("<title>Servlet sendEmailConfirmOd</title>");  
             out.println("</head>");
             out.println("<body>");
@@ -69,6 +73,7 @@ public class sendEmailConfirmOd extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
+
     Account account = (Account) session.getAttribute("account");
     String action = request.getParameter("action"); // Lấy giá trị của trường ẩn "action"
     String idtour_raw = request.getParameter("tourId");
@@ -145,6 +150,7 @@ String message, messageEmail;
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
+
     throws ServletException, IOException {
         processRequest(request, response);
     }

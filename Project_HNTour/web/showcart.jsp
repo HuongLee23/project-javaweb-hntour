@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : showcart
     Created on : Feb 2, 2024, 9:36:41 AM
@@ -16,6 +17,7 @@
         <meta name="description" content="Ha Noi Tour">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
+        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
         <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="plugins/colorbox/colorbox.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="styles/blog_styles.css">
@@ -41,6 +43,9 @@
                 </div>
 
 
+
+
+            <c:if test="${sessionScope.sizeCart != 0}">
                 <!-- Slider-top-step-bar -->
                 <div class="top-step-bar desktop" id="top-step-bar">
                     <div class="klk-steps klk-steps-horizontal">
@@ -87,7 +92,8 @@
                 </div>
 
 
-            <c:if test="${sessionScope.sizeCart != 0}">
+
+                <!--Show sản phẩm trong giỏ hàng-->
                 <div class="checkout blog">
                     <div class="container">
                         <div style="display: block;" class="row">
@@ -97,7 +103,6 @@
                                 <div class="container h-100 py-5">
                                     <div class="row d-flex justify-content-center align-items-center h-100">
                                         <div class="col">
-
                                             <div class="table-responsive">
                                                 <table class="table">
                                                     <thead>
@@ -165,7 +170,6 @@
                                                                     </form>
                                                                 </td>
                                                             </tr>
-
                                                         </c:forEach>
                                                     </tbody>
                                                 </table>
@@ -211,29 +215,20 @@
                                 </div>
                             </section>
 
-
-
-
-
-
-
-
-
-
                         </div>
                     </div>
                 </div>
             </c:if>
 
             <c:if test="${sessionScope.sizeCart == 0}">
-                <div style="text-align: center;" class="checkout blog">
+                <div style="margin: 50px 0 100px 0;text-align: center;" class="checkout blog">
                     <button class="tour-button-book">
                         <a href="tourlist">
                             <span class="">Khám phá ngay</span>
                         </a>
                     </button>
                     <i class="fa-solid fa-arrow-down fa-bounce" style="font-size: xx-large;position: absolute;top: 135px;right: 619px;color: #ee4d2d;"></i>
-                    <img style="height: 300px;width: 400px;" src="./assets/img/emptyCart.png" alt="Empty cart"/>
+                    <img style="margin-top: 100px;height: 300px;width: 400px;" src="./assets/img/emptyCart.png" alt="Empty cart"/>
                     <div class="R1_cart">Giỏ hàng của bạn còn trống</div>
                 </div>
             </c:if>
@@ -282,3 +277,4 @@
 
     </body>
 </html>
+

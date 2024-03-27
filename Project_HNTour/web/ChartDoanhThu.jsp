@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : ChartDoanhThu
     Created on : Mar 14, 2024, 3:30:58 AM
@@ -26,7 +27,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">HaNoiTour</a>
+            <a class="navbar-brand ps-3" href="home">HaNoiTour</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -41,7 +42,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                      
+
                         <li><a class="dropdown-item" href="logout">Logout</a></li>
                     </ul>
                 </li>
@@ -53,176 +54,195 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="home">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <a class="nav-link" href="statistic?supplierId=${sessionScope.account.id}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
                                 Trang Chủ
                             </a>
 
+                            <a class="nav-link" href="listcustomerdamua">
+
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
+                                Danh Sách Khách Hàng
+                            </a>
+
+
                             <a class="nav-link" href="managertourlist">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-table" style="color: #ffffff;"></i></div>
                                 Quản lý Tour
+                            </a>
+                            <a class="nav-link" href="managerblogs">
+                                <div class="sb-nav-link-icon"><i class="fa-brands fa-blogger" style="color: #ffffff;"></i></div>
+                                Quản lý Blog
                             </a>
 
                             <a class="nav-link" href="managervoucher">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-ticket" style="color: #ffffff;"></i></div>
                                 Voucher
                             </a>
-                            
-                             <a class="nav-link" href="chart">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area "></i></div>
+
+                            <a class="nav-link" href="chart">
+
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
                                 Biểu đồ thống kê
+                            </a>
+
+                            <a class="nav-link" href="confirmorder">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
+
+                                Xử lý đơn hàng
                             </a>
                         </div>
                     </div>
                 </nav>
             </div>
-            
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid px-4">
-                    <h1 class="mt-4">Biểu đồ</h1>
-                   <section class="mb-4" id="doanhThuThang">
-                        <div class="card">
-                            <div class="card-header py-3">
-                                <h5 class="mb-0 text-center"><strong>Doanh thu theo tháng</strong></h5>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="horizontalBar"></canvas>
-                            </div>
-                        </div>
-                    </section>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-bar me-1"></i>
-                                    Biểu đồ doanh thu thanh
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Biểu đồ</h1>
+                        <section class="mb-4" id="doanhThuThang">
+                            <div class="card">
+                                <div class="card-header py-3">
+                                    <h5 class="mb-0 text-center"><strong>Doanh thu theo tháng</strong></h5>
                                 </div>
-                                <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
-                                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-pie me-1"></i>
-                                    Biểu đồ doanh thu tròn
+                                <div class="card-body">
+                                    <canvas id="horizontalBar"></canvas>
                                 </div>
-                                <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
-                                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                            </div>
+                        </section>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        Biểu đồ doanh thu thanh
+                                    </div>
+                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+                                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-pie me-1"></i>
+                                        Biểu đồ doanh thu tròn
+                                    </div>
+                                    <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
+                                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </main>
-            
+                </main>
+
+            </div>
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script >
-        //Charts-area-demo
-       new Chart(document.getElementById("horizontalBar"), {
-    type: "bar",
-    data: {
-        labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
-        datasets: [{
-            label: "Doanh thu VNÐ",
-            data: [${totalMonth.month1}, ${totalMonth.month2}, ${totalMonth.month3}, ${totalMonth.month4}, ${totalMonth.month5}, ${totalMonth.month6}, ${totalMonth.month7}, ${totalMonth.month8}, ${totalMonth.month9}, ${totalMonth.month10}, ${totalMonth.month11}, ${totalMonth.month12}],
-            backgroundColor: [
-                // Đổi các màu ở đây, ví dụ:
-                 "rgba(255, 0, 0, 0.6)", // Đỏ
-                "rgba(0, 255, 0, 0.6)", // Xanh lá cây
-                "rgba(0, 0, 255, 0.6)", // Xanh dương
-                "rgba(255, 255, 0, 0.6)", // Vàng
-                "rgba(255, 165, 0, 0.6)", // Cam
-                "rgba(128, 0, 128, 0.6)" // Tím
-            ],
-            borderColor: [
-                // Đổi các màu đường biên ở đây, tương tự như backgroundColor
-            ],
-            borderWidth: 5
-        }]
-    },
-    options: {
-        scales: {
-            xAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
-
-        //Charts-bar-demo
-var ctx = document.getElementById("myBarChart");
-var myBarChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ["Quý I", "Quý II", "Quý III", "Quý IV"],
-        datasets: [{
-            label: "Revenue",
-            backgroundColor: "rgba(2,117,216,1)",
-            borderColor: "rgba(2,117,216,1)",
-            data: [
-                ${totalQuater.quater1},
-                ${totalQuater.quater2},
-                ${totalQuater.quater3},
-                ${totalQuater.quater4}
-            ]
-        }]
-    },
-    options: {
-        scales: {
-            xAxes: [{
-                time: {
-                    unit: 'quarter'
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script >
+            //Charts-area-demo
+            new Chart(document.getElementById("horizontalBar"), {
+                type: "bar",
+                data: {
+                    labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+                    datasets: [{
+                            label: "Doanh thu VNÐ",
+                            data: [${totalMonth.month1}, ${totalMonth.month2}, ${totalMonth.month3}, ${totalMonth.month4}, ${totalMonth.month5}, ${totalMonth.month6}, ${totalMonth.month7}, ${totalMonth.month8}, ${totalMonth.month9}, ${totalMonth.month10}, ${totalMonth.month11}, ${totalMonth.month12}],
+                            backgroundColor: [
+                                // Đổi các màu ở đây, ví dụ:
+                                "rgba(255, 0, 0, 0.6)", // Đỏ
+                                "rgba(0, 255, 0, 0.6)", // Xanh lá cây
+                                "rgba(0, 0, 255, 0.6)", // Xanh dương
+                                "rgba(255, 255, 0, 0.6)", // Vàng
+                                "rgba(255, 165, 0, 0.6)", // Cam
+                                "rgba(128, 0, 128, 0.6)" // Tím
+                            ],
+                            borderColor: [
+                                // Đổi các màu đường biên ở đây, tương tự như backgroundColor
+                            ],
+                            borderWidth: 1
+                        }]
                 },
-                gridLines: {
-                    display: false
-                },
-                ticks: {
-                    maxTicksLimit: 4
+                options: {
+                    scales: {
+                        xAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                    }
                 }
-            }],
-            yAxes: [{
-                ticks: {
-                    min: 0,
-                    max: 500,
-                    maxTicksLimit: 10
+            });
+
+            //Charts-bar-demo
+            var ctx = document.getElementById("myBarChart");
+            var myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Quý I", "Quý II", "Quý III", "Quý IV"],
+                    datasets: [{
+                            label: "Revenue",
+                            backgroundColor: "rgba(2,117,216,1)",
+                            borderColor: "rgba(2,117,216,1)",
+                            data: [
+            ${totalQuater.quater1},
+            ${totalQuater.quater2},
+            ${totalQuater.quater3},
+            ${totalQuater.quater4}
+                            ]
+                        }]
                 },
-                gridLines: {
-                    display: true
+                options: {
+                    scales: {
+                        xAxes: [{
+                                time: {
+                                    unit: 'quarter'
+                                },
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: {
+                                    maxTicksLimit: 4
+                                }
+                            }],
+                        yAxes: [{
+                                ticks: {
+                                    min: 0,
+                                    max: 5000000000,
+                                    maxTicksLimit: 10
+                                },
+                                gridLines: {
+                                    display: true
+                                }
+                            }]
+                    },
+                    legend: {
+                        display: false
+                    }
                 }
-            }]
-        },
-        legend: {
-            display: false
-        }
-    }
-});
+            });
 
 
-        // Pie Chart Example
+            // Pie Chart Example
 
-        var ctx = document.getElementById("myPieChart");
-        var myPieChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ["Tour lịch sử", "Tour văn hóa", "Tour ẩm thực", "Tour nghỉ dưỡng"],
-                datasets: [{
-                        data: [
-        ${requestScope.totalCate1},
-        ${requestScope.totalCate2},
-        ${requestScope.totalCate3},
-                    ${requestScope.totalCate4}],
-                        backgroundColor: ['#007bff', '#ffc107', '#28a745'],
-                    }],
-            },
-        });
+            var ctx = document.getElementById("myPieChart");
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ["Tour lịch sử", "Tour văn hóa", "Tour ẩm thực", "Tour nghỉ dưỡng"],
+                    datasets: [{
+                            data: [
+            ${requestScope.totalCate1},
+            ${requestScope.totalCate2},
+            ${requestScope.totalCate3},
+            ${requestScope.totalCate4}],
+                            backgroundColor: ['#007bff', '#ffc107', '#28a745'],
+                        }],
+                },
+            });
 
-    </script>
-</body>
+        </script>
+    </body>
 </html>
+

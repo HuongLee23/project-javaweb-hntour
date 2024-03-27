@@ -119,7 +119,9 @@ public class ManagerVoucher extends HttpServlet {
 
                 String sendEmail = email;
 
+
                 send.sendMailVoucher(sendEmail, code,discountPercentage, messageEmail);
+
                 message = "Quý khách vui lòng nhập mã xác thực để yêu cầu đặt lại mật khẩu. Hà Nội Tour sẽ xác nhận mã đã gửi tới email.";
                 session.setAttribute("sendEmail", sendEmail);
                 request.setAttribute("message", message);

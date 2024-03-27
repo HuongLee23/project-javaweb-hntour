@@ -130,46 +130,46 @@
     </head>
     <body>
         <h2>Tặng voucher mới</h2>
-       <form action="tangvoucher" method="post">
-    <c:set value="${requestScope.account}" var="a" />
-    <label for="code">Mã Code:</label>
-    <div style="top: -20px;">
-        <select id="proccessSelect" class="select form-control-lg" name="code" required onchange="loadVoucherInfo(this)">
-            <option value="0" disabled selected hidden>Chọn mã Code</option>
-            <c:forEach items="${requestScope.voucher}" var="user">
-                <option value="${user.voucher.id}" data-discount="${user.voucher.discount}">${user.voucher.code}</option>
-            </c:forEach>
-        </select>
-    </div>
+        <form action="tangvoucher" method="post">
+            <c:set value="${requestScope.account}" var="a" />
+            <label for="code">Mã Code:</label>
+            <div style="top: -20px;">
+                <select id="proccessSelect" class="select form-control-lg" name="code" required onchange="loadVoucherInfo(this)">
+                    <option value="0" disabled selected hidden>Chọn mã Code</option>
+                    <c:forEach items="${requestScope.voucher}" var="user">
+                        <option value="${user.voucher.id}" data-discount="${user.voucher.discount}">${user.voucher.code}</option>
+                    </c:forEach>
+                </select>
+            </div>
 
-    <label for="discountPercentage">Phần trăm giảm giá:</label>
-    <input type="number" name="discountPercentage" id="discountPercentage" readonly>
+            <label for="discountPercentage">Phần trăm giảm giá:</label>
+            <input type="number" name="discountPercentage" id="discountPercentage" readonly>
 
-    
 
-    <label for="nguoinhan">Người nhận voucher:</label>
-    <select name="nguoinhan">
-        <c:forEach items="${requestScope.users}" var="user">
-            <option value="${user.account.id}">${user.account.email}</option>
-        </c:forEach>
-    </select>
 
-    <input type="hidden" name="supplierId" value="${a.id}">
-    <input type="submit" value="Add Voucher">
-    <h3 style="color: red">${sessionScope.tangvoucher}</h3>
-    <hr>
-    <a href="statistic?supplierId=${a.id}" class="back-btn">
-        <i class="material-icons"></i> Trở về
-    </a>
-</form>
+            <label for="nguoinhan">Người nhận voucher:</label>
+            <select name="nguoinhan">
+                <c:forEach items="${requestScope.users}" var="user">
+                    <option value="${user.account.id}">${user.account.email}</option>
+                </c:forEach>
+            </select>
 
-<script>
-    function loadVoucherInfo(select) {
-        var selectedIndex = select.selectedIndex;
-        var discountPercentage = select.options[selectedIndex].getAttribute('data-discount');
-        document.getElementById('discountPercentage').value = discountPercentage;
-    }
-</script>
+            <input type="hidden" name="supplierId" value="${a.id}">
+            <input type="submit" value="Add Voucher">
+            <h3 style="color: red">${sessionScope.tangvoucher}</h3>
+            <hr>
+            <a href="statistic?supplierId=${a.id}" class="back-btn">
+                <i class="material-icons"></i> Trở về
+            </a>
+        </form>
+
+        <script>
+            function loadVoucherInfo(select) {
+                var selectedIndex = select.selectedIndex;
+                var discountPercentage = select.options[selectedIndex].getAttribute('data-discount');
+                document.getElementById('discountPercentage').value = discountPercentage;
+            }
+        </script>
 
     </body>
 </html>

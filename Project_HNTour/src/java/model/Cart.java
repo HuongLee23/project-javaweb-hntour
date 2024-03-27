@@ -1,4 +1,5 @@
 
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -64,6 +65,18 @@ public class Cart {
         return total;
     }
 
+    public double getTotalMoneyUseVoucher() {
+        double total = 0;
+        for (Item item : items) {
+            if (item.getPriceSale() != 0) {
+                total += item.getPriceSale(); // Thay vì item.getQuantity() * item.getPrice()
+            } else {
+                total += item.getPrice();
+            }
+        }
+        return total;
+    }
+
     private Tour getTourById(int id, List<Tour> list) {
         for (Tour p : list) {
             if (p.getId() == id) {
@@ -92,39 +105,5 @@ public class Cart {
             System.out.println(e);
         }
     }
-
-//    public Cart(String txt, List<Tour> list) {
-//        items = new ArrayList<>();
-//        int id, quantity;
-//        // Sử dụng HashMap để lưu trữ số lượng cho mỗi id
-//        Map<Integer, Integer> idQuantityMap = new HashMap<>();
-//
-//        try {
-//            if (txt != null && txt.length() != 0) {
-//                String[] s = txt.split("/");
-//                for (String i : s) {
-//                    String[] n = i.split(":");
-//                    id = Integer.parseInt(n[0]);
-//                    quantity = Integer.parseInt(n[1]);
-//
-//                    // Kiểm tra xem id đã tồn tại trong idQuantityMap chưa
-//                    if (idQuantityMap.containsKey(id)) {
-//                        // Nếu đã tồn tại, cộng thêm một vào số lượng
-//                        idQuantityMap.put(id, idQuantityMap.get(id) + 1);
-//                    } else {
-//                        // Nếu chưa tồn tại, đặt số lượng là 1
-//                        idQuantityMap.put(id, 1);
-//                    }
-//
-//                    Tour t = getTourById(id, list);
-//                    // Lấy số lượng từ idQuantityMap thay vì sử dụng quantity
-//                    quantity = idQuantityMap.get(id);
-//                    Item it = new Item(t, quantity, t.getPrice() * quantity);
-//                    addItem(it);
-//                }
-//            }
-//        } catch (NumberFormatException e) {
-//            System.out.println(e);
-//        }
-//    }
 }
+

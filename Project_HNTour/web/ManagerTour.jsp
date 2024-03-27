@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : ManagerTour
     Created on : Jan 30, 2024, 11:27:43 PM
@@ -56,13 +57,13 @@
                             <a href="addtour?supplierID=${a.id}" class="btn btn-success">
                                 Tạo Tour Mới
                             </a>
-<!--                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProductModal" onclick="prepareDeleteForm()">
-                                <i class="material-icons">&#xE15C;</i> <span>Xóa</span>
-                            </a>-->
+                            <!--                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteProductModal" onclick="prepareDeleteForm()">
+                                                            <i class="material-icons">&#xE15C;</i> <span>Xóa</span>
+                                                        </a>-->
                             <script>
-                                function submitForm() {
-                                    document.getElementById("deleteForm").submit();
-                                }
+            function submitForm() {
+                document.getElementById("deleteForm").submit();
+            }
                             </script>
 
 
@@ -102,66 +103,66 @@
             <tbody>
                 <c:forEach items="${requestScope.tour}" var="c">
                     <tr>
-               
-                    <td>
 
-                        <span class="custom-checkbox">
-                            <input type="checkbox">
-                           
-                        </span>
-                    </td>
-                <td>${c.name}</td>
-                <td>
-                    <img src="${c.imageMain}" alt="${c.name}" width="200"/>
-                </td>
-                <td>${c.intendedTime}</td>
-                <td>${c.price}</td>
-                <td>${c.description}</td>
+                        <td>
 
-                <td>${c.version}</td>
-                <td>
-                    <c:choose>
-                        <c:when test="${c.status}">
-                            <div class="button-edit">
-                                <i class="fa-solid fa-lock-open"></i> 
-                                <a id="button-edit-customer" href="statustour?id=${c.id}" style="text-decoration: none; color: greenyellow">Hoạt động</a>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="button-edit">
-                                <i class="fa-solid fa-lock-open"></i>
-                                <a id="button-edit-customer" href="statustour?id=${c.id}" style="text-decoration: none; color: red">Không hoạt động</a>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                </td>           
-                <td>
-                    <a href="loadtour?tid=${c.id}" class="edit" data-toggle="modal">
-                        <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                    </a>
-<!--                    <a href="delete?tid=${c.id}" class="delete" data-toggle="modal">
-                        <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                    </a>-->
-                </td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
-<!--                <div class="clearfix">
-                    <div class="hint-text">Showing Product</div>
-                    <ul class="pagination">
-<c:if test="${page>1}">
-<li class="page-item"><a href="managerproduct?index=${page-1}">Previous</a></li>
-</c:if>
-<c:forEach begin="1" end="${endP}" var="i">
-<li class="page-item ${page == i?"active":""}"><a href="managerproduct?index=${i}" class="page-link">${i}</a></li>
-</c:forEach>  
-<c:if test="${page<endP}">
-<li class="page-item"><a href="managerproduct?index=${page+1}" class="page-link">Next</a></li>
-</c:if>
-    </ul>
-</div>-->
-</div>
+                            <span class="custom-checkbox">
+                                <input type="checkbox">
+
+                            </span>
+                        </td>
+                        <td>${c.name}</td>
+                        <td>
+                            <img src="${c.imageMain}" alt="${c.name}" width="200"/>
+                        </td>
+                        <td>${c.intendedTime}</td>
+                        <td>${c.price}</td>
+                        <td>${c.description}</td>
+
+                        <td>${c.version}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${c.status}">
+                                    <div class="button-edit">
+                                        <i class="fa-solid fa-lock-open"></i> 
+                                        <a id="button-edit-customer" href="statustour?id=${c.id}" style="text-decoration: none; color: greenyellow">Hoạt động</a>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="button-edit">
+                                        <i class="fa-solid fa-lock-open"></i>
+                                        <a id="button-edit-customer" href="statustour?id=${c.id}" style="text-decoration: none; color: red">Không hoạt động</a>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>           
+                        <td>
+                            <a href="loadtour?tid=${c.id}" class="edit" data-toggle="modal">
+                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                            </a>
+        <!--                    <a href="delete?tid=${c.id}" class="delete" data-toggle="modal">
+                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                            </a>-->
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <!--                <div class="clearfix">
+                            <div class="hint-text">Showing Product</div>
+                            <ul class="pagination">
+        <c:if test="${page>1}">
+        <li class="page-item"><a href="managerproduct?index=${page-1}">Previous</a></li>
+        </c:if>
+        <c:forEach begin="1" end="${endP}" var="i">
+        <li class="page-item ${page == i?"active":""}"><a href="managerproduct?index=${i}" class="page-link">${i}</a></li>
+        </c:forEach>  
+        <c:if test="${page<endP}">
+        <li class="page-item"><a href="managerproduct?index=${page+1}" class="page-link">Next</a></li>
+        </c:if>
+            </ul>
+        </div>-->
+    </div>
 </div>
 <!-- Edit Modal HTML -->
 <div id="addEmployeeModal" class="modal fade">

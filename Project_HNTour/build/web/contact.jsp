@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : contact
     Created on : Jan 15, 2024, 12:08:20 AM
@@ -40,13 +41,11 @@
                             <div class="col">
 
                                 <div class="contact_form_container">
-                                    <div class="contact_title text-center">get in touch</div>
-                                    <form action="#" id="contact_form" class="contact_form text-center">
-                                        <input type="text" id="contact_form_name" class="contact_form_name input_field" placeholder="Name" required="required" data-error="Name is required.">
-                                        <input type="text" id="contact_form_email" class="contact_form_email input_field" placeholder="E-mail" required="required" data-error="Email is required.">
-                                        <input type="text" id="contact_form_subject" class="contact_form_subject input_field" placeholder="Subject" required="required" data-error="Subject is required.">
-                                        <textarea id="contact_form_message" class="text_field contact_form_message" name="message" rows="4" placeholder="Message" required="required" data-error="Please, write us a message."></textarea>
-                                        <button type="submit" id="form_submit_button" class="form_submit_button button trans_200">send message<span></span><span></span><span></span></button>
+                                    <div class="contact_title">Nhận xét về Hà Nội Tour</div>
+                                    <form action="sendfeedbackweb" method="post" id="contact_form" class="contact_form">
+                                        <input type="text" id="contact_form_subject" class="contact_form_subject input_field" name="subject" placeholder="Chủ đề" required="required" data-error="Subject is required." maxlength="50">
+                                        <textarea id="contact_form_message" class="text_field contact_form_message" name="message" rows="4" placeholder="Nội dung" required="required" data-error="Please, write us a message." maxlength="150"></textarea>
+                                        <button type="submit" id="form_submit_button" class="form_submit_button button">Gửi ngay<span></span><span></span><span></span></button>
                                     </form>
                                 </div>
                             </div>
@@ -67,9 +66,14 @@
 
                                 <div class="about_content">
                                     <div class="logo_container about_logo">
-                                        <div class="logo"><a href="#"><img src="images/logo.png" alt>travelix</a></div>
+                                        <div class="logo"><a href="#"><img style="
+                                                                           position: absolute;
+                                                                           width: 300px;
+                                                                           top: -225px;
+                                                                           left: -65px;" src="./assets/img/logo.png"></a>
+                                        </div>
                                     </div>
-                                    <p class="about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis vu lputate eros, iaculis consequat nisl. Nunc et suscipit urna. Integer eleme ntum orci eu vehicula iaculis consequat nisl. Nunc et suscipit urna pretium.</p>
+                                    <p class="about_text">Khám phá vẻ đẹp lịch sử và văn hóa của Thủ đô Hà Nội với chúng tôi - HaNoi Tour. Chuyên tổ chức các hành trình du lịch độc đáo, chúng tôi mang đến trải nghiệm tuyệt vời với những điểm đến độc đáo, ẩm thực đặc sắc và hành trình đầy ý nghĩa. Hãy đồng hành cùng chúng tôi để khám phá những góc cảnh tuyệt vời nhất của Hà Nội - nơi mà câu chuyện lịch sử và văn hóa được tái hiện mỗi bước chân của bạn. Đặt ngay để bắt đầu hành trình khám phá!</p>
                                     <ul class="about_social_list">
                                         <li class="about_social_item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
                                         <li class="about_social_item"><a href="#"><i class="fa fa-facebook-f"></i></a></li>
@@ -84,20 +88,20 @@
                                 <div class="about_info">
                                     <ul class="contact_info_list">
                                         <li class="contact_info_item d-flex flex-row">
-                                            <div><div class="contact_info_icon"><img src="images/placeholder.svg" alt></div></div>
-                                            <div class="contact_info_text">4127 Raoul Wallenber 45b-c Gibraltar</div>
+                                            <div><div class="contact_info_icon"><img src="images/placeholder.svg" alt=""></div></div>
+                                            <div class="contact_info_text">Khu Công Nghệ Cao Hòa Lạc, Km29 Đại lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội</div>
                                         </li>
                                         <li class="contact_info_item d-flex flex-row">
-                                            <div><div class="contact_info_icon"><img src="images/phone-call.svg" alt></div></div>
-                                            <div class="contact_info_text">2556-808-8613</div>
+                                            <div><div class="contact_info_icon"><img src="images/phone-call.svg" alt=""></div></div>
+                                            <div class="contact_info_text">0928 008 008</div>
                                         </li>
                                         <li class="contact_info_item d-flex flex-row">
-                                            <div><div class="contact_info_icon"><img src="images/message.svg" alt></div></div>
-                                            <div class="contact_info_text"><a href="/cdn-cgi/l/email-protection#e98a86879d888a9d848ca98e84888085c78a8684d6ba9c8b838c8a9dd4a18c858586" target="_top"><span class="__cf_email__" data-cfemail="e98a86879d888a9d848ca98e84888085c78a8684">[email&#160;protected]</span></a></div>
+                                            <div><div class="contact_info_icon"><img src="images/message.svg" alt=""></div></div>
+                                            <div class="contact_info_text"><a href="mailto:contactme@gmail.com?Subject=Hello" target="_top">vntraveltouring@gmail.com</a></div>
                                         </li>
                                         <li class="contact_info_item d-flex flex-row">
-                                            <div><div class="contact_info_icon"><img src="images/planet-earth.svg" alt></div></div>
-                                            <div class="contact_info_text"><a href="https://colorlib.com">www.colorlib.com</a></div>
+                                            <div><div class="contact_info_icon"><img src="images/planet-earth.svg" alt=""></div></div>
+                                            <div class="contact_info_text"><a href="https://gitlab.com/projectfirst2/projectteam3.git">https://gitlab.com/projectfirst2/projectteam3</a></div>
                                         </li>
                                     </ul>
                                 </div>
@@ -120,7 +124,20 @@
             <jsp:include page="footer.jsp"></jsp:include>
 
         </div>
+        <script>
+            // Phần kiểm tra đầu vào phản hồi về web
+            document.getElementById('contact_form_subject').addEventListener('input', function () {
+                if (this.value.length > 50) {
+                    this.value = this.value.slice(0, 50);
+                }
+            });
 
+            document.getElementById('contact_form_message').addEventListener('input', function () {
+                if (this.value.length > 150) {
+                    this.value = this.value.slice(0, 150);
+                }
+            });
+        </script>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="styles/bootstrap4/popper.js"></script>
         <script src="styles/bootstrap4/bootstrap.min.js"></script>
@@ -129,4 +146,5 @@
         <script src="js/contact_custom.js"></script>
         <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8457770dcdd35ff9","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
     </body>
+
 </html>

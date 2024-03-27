@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : Edit
     Created on : Oct 20, 2023, 2:43:22 AM
@@ -195,7 +196,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                          
+
                                         </tbody>
                                     </table>
 
@@ -253,7 +254,8 @@
         <script src="js/manager.js" type="text/javascript"></script>
         <script>
                                     CKEDITOR.replace('describe');
-                                     CKEDITOR.replace('describe1');
+                                    CKEDITOR.replace('describe1');
         </script>
     </body>
+
 </html>

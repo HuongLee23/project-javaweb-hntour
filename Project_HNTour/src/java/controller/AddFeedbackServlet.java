@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -12,8 +13,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.Account;
 
 /**
  *
@@ -80,9 +79,12 @@ public class AddFeedbackServlet extends HttpServlet {
         int rating = Integer.parseInt(request.getParameter("rating"));
 
         DAO dao = new DAO();
-        dao.addFeedback(accId, tourId, versionId, comment, rating);
 
+        // Kiểm tra số lượng comment của người dùng
+        // Nếu người dùng chưa thực hiện 2 comment, thêm comment mới và chuyển hướng đến trang chi tiết tour
+        dao.addFeedback(accId, tourId, versionId, comment, rating);
         response.sendRedirect("detail?tid=" + tourId);
+
     }
 
     /**

@@ -1,3 +1,4 @@
+
 /*
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
@@ -26,6 +27,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .room_title a:hover{
     color:#007bff;
 }
+
+
+
 
 /* Header notification */
 .header__notify {
@@ -169,7 +173,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .header__navbar-item-link i{
-    font-size: 150%;
+    font-size: 23px;
 }
 .header__navbar-item-link:hover{
     color: #fa9e1b;
@@ -532,5 +536,586 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 /*---------------------------------*/
 
+
+
+
+
+/*----------- phần select voucher -----------*/
+/* Style cho phần select */
+.selectVoucher {
+    width: 100%; /* Chiều rộng tùy chỉnh */
+    padding: 10px; /* Khoảng cách giữa nội dung và viền */
+    border: 1px solid #ced4da; /* Viền xung quanh select */
+    border-radius: 5px; /* Độ cong của góc */
+    background-color: #fff; /* Màu nền của select */
+    color: #495057; /* Màu chữ */
+    font-size: 16px; /* Cỡ chữ */
+}
+
+/* Style cho phần option */
+.selectVoucher option {
+    padding: 10px; /* Khoảng cách giữa nội dung và viền */
+}
+
+/* Style cho phần select khi được focus */
+.selectVoucher:focus {
+    outline: none; /* Loại bỏ đường viền khi focus */
+    border-color: #80bdff; /* Màu viền khi focus */
+}
+
+/* Style cho phần select khi được hover */
+.selectVoucher:hover {
+    border-color: #6c757d; /* Màu viền khi hover */
+}
+
+/* Style cho phần select khi được active */
+.selectVoucher:active {
+    border-color: #007bff; /* Màu viền khi active */
+}
+/*---------------------------------*/
+
+
+
+
+
 /*--------------------------------------------------------*/
+
+/*=======
+
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+
+ 
+    Created on : Jan 15, 2024, 9:36:28 AM
+    Author     : hello
+
+
+.fa-user:before{
+    left: -18px;
+    top: 5px;
+    font-size: x-large;
+    position: absolute;
+}
+
+.search_tab:hover{
+    background-color: #FFFFFF;
+    color: #fa9e1b;
+}
+
+.room_title a{
+    color:#fa9e1b;
+}
+
+.room_title a:hover{
+    color:#007bff;
+}
+
+ Header notification 
+.header__notify {
+    position: absolute;
+    top: 80%;
+    width: 404px;
+    right: -26px;
+    background-color: #fff;
+    border: 1px solid #D3D3D3;
+    transform-origin: calc(100% - 20px) top;
+    will-change: opacity, transform;
+    animation: headerNotifyGrow ease-in 0.2s;
+    max-height: 350px;
+    display: none;
+}
+
+.header__notify::before {
+    content: "";
+    top: -25px;
+    right: 10px;
+    border-width: 18px 24px;
+    border-style: solid;
+    max-height: 300px;
+    border-color: transparent transparent white transparent;
+    position: absolute;
+}
+
+.header__notify-wrapper {
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.header__notify::after {
+    content: "";
+    top: -15px;
+    right: 0px;
+    width: 140px;
+    height: 16px;
+    max-height: 300px;
+    display: block;
+    position: absolute;
+}
+
+@keyframes headerNotifyGrow {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.header__notify-header {
+    height: 40px;
+    background: linear-gradient(to right, #fa9e1b, #8d4fff);
+}
+
+.header__notify-header h3 {
+    color: white;
+    line-height: 40px;
+    margin: 0 0 0 12px;
+    font-weight: 400;
+    font-size: 1rem;
+    cursor: default;
+}
+
+.header__notify-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header__notify-item:hover {
+    margin-bottom: 10px;
+    background-color: #f7f7f7;
+}
+
+
+.header__notify-item--viewed {
+    background-color: rgba(238, 75, 43, 0.08);
+}
+
+.header__notify-link {
+    display: flex;
+    padding: 12px;
+    width: 100%;
+    text-decoration: none;
+}
+
+.header__notify-img {
+    width: 82px;
+    height: 70px;
+}
+
+.content_search img {
+    width: 82px;
+    height: 70px;
+}
+
+.header__notify-info {
+    margin-right: 12px;
+    padding-left: 12px;
+}
+
+.header__notify-name {
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000;
+}
+
+.header__notify-description {
+    display: block;
+    font-size: 0.8rem;
+    line-height: 1.3rem;
+    color: #756F6E;
+}
+
+.header__notify-footer {
+    text-align: center;
+    margin: 8px;
+}
+
+.header__notify-footer-btn {
+    text-decoration: none;
+    font-weight: 400;
+    padding: 8px 64px;
+    font-size: 14px;
+    color: #333;
+}
+
+.header__navbar-item{
+    list-style: none;
+}
+
+.header__navbar-item-link{
+    color: #ffffff;
+}
+
+.header__navbar-item-link i{
+    font-size: 150%;
+}
+.header__navbar-item-link:hover{
+    color: #fa9e1b;
+}
+
+.header__navbar-item--show-notify:hover
+.header__notify {
+    display: block;
+}
+
+.shopee-cart-number-badge{
+    position: relative;
+    border-radius: 2.75rem;
+    min-width: 0.6875rem;
+    line-height: 1.1em;
+    padding: 0 0.3125rem;
+    text-align: center;
+    height: 1.2rem;
+    border: 0.125rem solid var(--brand-primary-color,#ee4d2d);
+    color: var(--brand-primary-color,#ee4d2d);
+    background-color: #fff;
+    left: 0.875rem;
+    top: -2.2rem;
+    margin-right: 0.125rem;
+}
+
+---------- Show cart ----------
+@media (min-width: 1025px) {
+    .h-custom {
+        height: 100vh;
+    }
+}
+
+.checkout{
+    padding:0px;
+    top: 25px;
+}
+
+.home_image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.tour-button-book{
+    position: absolute;
+    top: 15px;
+    left: 530px;
+    background: #31124b;
+    margin-top: 39px;
+    margin-bottom: -5px;
+    transition: all 200ms ease;
+    border-radius: 27px;
+}
+
+.tour-button-book:hover{
+    background: #ee4d2d;
+}
+
+.tour-button-book a{
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 53px;
+    padding-left: 46px;
+    padding-right: 46px;
+    white-space: nowrap;
+}
+
+.R1_cart{
+    color: rgba(0,0,0,.4);
+    font-size: .875rem;
+    line-height: 1rem;
+}
+-----------------------------
+
+
+ ----------- Show Detail -------------
+.book_button_buy{
+    background: #ee4d2d;
+}
+
+.book_button_add_cart{
+    background-color: #ffeee8;
+    border: 2px solid #ee4d2d;
+}
+
+.book_button_add_cart a{
+    line-height: 49px;
+    color: #ee4d2d;
+}
+
+.room_button{
+    justify-content: space-evenly;
+    display: flex;
+}
+
+.book_button_book_another{
+    background: #ee4d2d;
+}
+
+.book_button_detail_another{
+
+}
+
+-----------------------------
+
+ ----------- Show slider top step bar -------------
+.top-step-bar{
+    top: 50px;
+    left: 15%;
+}
+.klk-steps {
+    display: flex;
+}
+
+.klk-step {
+    flex: 1;
+    text-align: center;
+}
+
+.klk-step-icon {
+    background-color: #e0e0e0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.klk-step-title {
+    margin-top: 5px;
+}
+
+.klk-step-main{
+    left: -47%;
+}
+.klk-step.klk-step-status-finish .klk-step-icon {
+    background-color: #08b371; Màu xanh 
+}
+
+
+.klk-step.klk-step-status-process .klk-step-icon {
+    background-color: #2196f3;   Màu xanh dương 
+}
+
+.klk-step.klk-step-status-wait .klk-step-icon {
+    background-color: #e0e0e0;  Màu mặc định 
+}
+
+
+.klk-step-line-track {
+    top: 25%;
+    position: relative;
+}
+
+.klk-step-line {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 2px;  Độ dày của đường nối 
+    background-color: #e0e0e0;  Màu mặc định 
+    width: 100%;  Chiều dài mặc định 
+    z-index: -1;  Đảm bảo đường nối nằm phía sau các bước 
+    transition: background-color 0.3s ease;  Hiệu ứng chuyển màu 
+}
+
+.klk-step.klk-step-status-process .klk-step-line {
+    background-color: #2196f3;  Màu xanh dương khi ở trạng thái đang thực hiện 
+}
+
+.klk-step.klk-step-status-finish .klk-step-line {
+    background-color: #08b371;  Màu xanh khi đã hoàn thành 
+}
+.klk-step-title{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.klk-step.klk-step-status-process .klk-step-title {
+    color: #212121;  Màu đen đậm khi ở trạng thái đang thực hiện 
+}
+
+.klk-step.klk-step-status-finish .klk-step-title {
+    color: #212121;  Màu đen đậm khi đã hoàn thành 
+}
+
+
+
+
+
+-----------------------------
+
+
+ ----------- Fill buyer information(.jsp) -------------
+.fby-show-product{
+    top: 60px;
+    background-color: #eee;
+}
+
+
+.fby-section-title{
+    position: relative;
+    left: 100px;
+    line-height: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #212121;
+}
+
+.fby-section-title:before{
+    position: absolute;
+    content: "";
+    left: -4px;
+    width: 6px;
+    height: 30px;
+    background-color: #ff5b00;
+}
+
+.fby-section-title span{
+    margin-left: 15px;
+}
+
+.fby-show-product-information h5{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    color: #333333;
+}
+
+
+.fby-show-product-information-price{
+    color:  #f0552d;
+}
+
+
+.fib-add{
+    padding: 12px 20px 0px 20px;
+    top: -20px;
+    left: 15px;
+    border-radius: 8px;
+    border: 1px solid #ff5b00;
+    cursor: pointer;
+}
+
+
+
+----------- phần tạo thêm thông tin -----------
+ CSS cho form 
+.fib-add-form {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;  Chiếm một nửa màn hình 
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 9999;
+    transition: transform 0.5s ease;
+    padding: 20px;  Thêm padding để nội dung không sát mép 
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);  Thêm bóng để tạo chiều sâu 
+    border-left: 1px solid #e0e0e0;  Thêm viền trái 
+}
+
+.fib-add-form.active {
+    display: block;
+    transform: translateX(0);  Hiển thị form từ phải sang 
+}
+
+.fib-add-form label {
+    top: 15px;
+    left: 15px;
+    color: #888888;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    width: calc(100% - 30px);  Thêm chiều rộng cho label 
+}
+
+ CSS cho input 
+.fib-add-form input {
+    width: calc(100% - 30px);
+    padding: 15px;
+    margin: 0 0 10px;  Điều chỉnh khoảng cách giữa các input 
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+ CSS cho input khi được focus 
+.fib-add-form input:focus {
+    border-bottom: 1px solid #ff5b00;  Thay đổi màu viền dưới khi focus 
+}
+
+ CSS cho label khi input có focus hoặc đã được điền dữ liệu 
+.fib-add-form input:focus + label,
+.fib-add-form input:valid + label {
+    top: -10px;
+    font-size: 12px;
+    color: #ff5b00;  Thay đổi màu và kích thước của label 
+}
+
+ CSS cho button 
+.fib-add-form button {
+    background-color: transparent;
+    border: none;
+    color: #ff5b00;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    position: absolute;
+    bottom: 30px;
+    right: 22px;
+}
+
+.fib-add-form button:hover {
+    color: #e04113;  Thay đổi màu khi di chuột vào 
+}
+
+ CSS cho button submit 
+.fib-add-form .btn-submit {
+    background-color: #ff5b00;
+    color: #ffffff;
+    padding: 15px 30px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.fib-add-form .btn-submit:hover {
+    background-color: #e04113;  Thay đổi màu khi di chuột vào 
+}
+
+ CSS cho mask 
+.fib-drawer-mask {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;  Chiếm một nửa màn hình 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);  Màu nền mờ 
+    z-index: 9998;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.fib-drawer-mask.active {
+    display: block;
+    opacity: 1;  Hiển thị mask 
+}
+
+---------------------------------
+
+--------------------------------------------------------
+
+>>>>>>> soncthe171406*/
 

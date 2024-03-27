@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -103,16 +104,13 @@ public class ProcessCartServlet extends HttpServlet {
             }
 
         } catch (NumberFormatException e) {
+            System.out.println(e);
         }
 
         List<Item> items = cart.getItems();
-        int size;
-        if (items != null) {
-            size = items.size();
-        } else {
-            size = 0;
-        }
+        int size = (items != null) ? items.size() : 0;
         txt = "";
+        
         if (!items.isEmpty()) {
             txt = items.get(0).getTour().getId() + ":" + items.get(0).getQuantity();
             for (int i = 1; i < items.size(); i++) {
@@ -183,12 +181,7 @@ public class ProcessCartServlet extends HttpServlet {
 
         Cart cart = new Cart(out, list);
         List<Item> items = cart.getItems();
-        int size;
-        if (items != null) {
-            size = items.size();
-        } else {
-            size = 0;
-        }
+        int size = (items != null) ? items.size() : 0;
         request.setAttribute("cart", cart);
         session.setAttribute("sizeCart", size);
         session.setAttribute("listItem", items);
@@ -206,3 +199,4 @@ public class ProcessCartServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+

@@ -1,9 +1,10 @@
+
 <%-- 
     Document   : footer
     Created on : Jan 14, 2024, 8:27:38 PM
     Author     : hello
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <footer class="footer">
     <div class="container">
@@ -14,7 +15,7 @@
                 <div class="footer_col">
                     <div style="padding-top: 52px;" class="footer_content footer_about">
                         <div class="logo_container footer_logo">
-                            <div class="logo"><a style="font-family: serif;" href="home.jsp"><img style="margin: -150px 0px 0px -60px;width: 200px;" src="./assets/img/logo.png" alt=""></a></div>
+                            <div class="logo"><a style="font-family: serif;" href="home"><img style="margin: -150px 0px 0px -60px;width: 200px;" src="./assets/img/logo.png" alt=""></a></div>
                         </div>
                         <p class="footer_about_text">Khám phá vẻ đẹp lịch sử và văn hóa của Thủ đô Hà Nội với chúng tôi - HaNoi Tour. Chuyên tổ chức các hành trình du lịch độc đáo, chúng tôi mang đến trải nghiệm tuyệt vời với những điểm đến độc đáo, ẩm thực đặc sắc và hành trình đầy ý nghĩa. Hãy đồng hành cùng chúng tôi để khám phá những góc cảnh tuyệt vời nhất của Hà Nội - nơi mà câu chuyện lịch sử và văn hóa được tái hiện mỗi bước chân của bạn. Đặt ngay để bắt đầu hành trình khám phá!</p>
                     </div>
@@ -24,37 +25,20 @@
             <!-- Footer Column -->
             <div class="col-lg-3 footer_column">
                 <div class="footer_col">
-                    <div class="footer_title">blog posts</div>
-                    <div class="footer_content footer_blog">
+                    <div class="footer_title">Bài viết</div>
+                    <c:forEach items="${lastedBlog}" var="l">
+                        <div class="footer_content footer_blog">
 
-                        <!-- Footer blog item -->
-                        <div class="footer_blog_item clearfix">
-                            <div class="footer_blog_image"><img src="images/footer_blog_1.jpg" alt="https://unsplash.com/@avidenov"></div>
-                            <div class="footer_blog_content">
-                                <div class="footer_blog_title"><a href="blog.html">Travel with us this year</a></div>
-                                <div class="footer_blog_date">Nov 29, 2017</div>
+                            <!-- Footer blog item -->
+                            <div class="footer_blog_item clearfix">
+                                <div class="footer_blog_image"><a href="blogdetail?id=${l.bid}"><img src="${l.image}" alt="blog"></a></div>
+                                <div class="footer_blog_content">
+                                    <div class="footer_blog_title"><a href="blogdetail?id=${l.bid}"></a>${l.title}</div>
+                                    <div class="footer_blog_date">${l.publishDate}</div>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Footer blog item -->
-                        <div class="footer_blog_item clearfix">
-                            <div class="footer_blog_image"><img src="images/footer_blog_2.jpg" alt="https://unsplash.com/@deannaritchie"></div>
-                            <div class="footer_blog_content">
-                                <div class="footer_blog_title"><a href="blog.html">New destinations for you</a></div>
-                                <div class="footer_blog_date">Nov 29, 2017</div>
-                            </div>
-                        </div>
-
-                        <!-- Footer blog item -->
-                        <div class="footer_blog_item clearfix">
-                            <div class="footer_blog_image"><img src="images/footer_blog_3.jpg" alt="https://unsplash.com/@bergeryap87"></div>
-                            <div class="footer_blog_content">
-                                <div class="footer_blog_title"><a href="blog.html">Travel with us this year</a></div>
-                                <div class="footer_blog_date">Nov 29, 2017</div>
-                            </div>
-                        </div>
-
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
 
@@ -135,4 +119,5 @@
             </div>
         </div>
     </div>
+
 </div>
