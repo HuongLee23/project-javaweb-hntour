@@ -149,7 +149,15 @@
                                                 <td>${o.orderdetail.quantity}</td>
                                                 <td>${o.order.date}</td>
                                                 <td>${o.orderdetail.dateDeparture}</td>
-                                                <td>${o.orderdetail.status}</td>
+                                                <c:if test="${o.orderdetail.status == 'Đang xử lý'}">
+                                                    <td style="color: #0d6efd">${o.orderdetail.status}</td>
+                                                </c:if>
+                                                <c:if test="${o.orderdetail.status == 'Hủy đơn hàng'}">
+                                                    <td style="color: red">${o.orderdetail.status}</td>
+                                                </c:if>
+                                                <c:if test="${o.orderdetail.status == 'Xác nhận đơn hàng'}">
+                                                    <td style="color: #198754">${o.orderdetail.status}</td>
+                                                </c:if>
                                                 <td>
                                                     <c:if test="${o.orderdetail.status == 'Đang xử lý'}">
                                                         <form id="acceptForm" action="sendconfirmod">

@@ -127,7 +127,7 @@ public class DAOConfirmOrder extends DBContext {
 
     public boolean confirmSupplier(int orderId, int tourId) {
         String sql = "UPDATE [dbo].[OrderDetail] "
-                + "SET [status] = 'Accept' "
+                + "SET [status] = N'Xác nhận đơn hàng' "
                 + "WHERE orderId = ? AND tourId = ?";
         try ( PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, orderId);
@@ -143,7 +143,7 @@ public class DAOConfirmOrder extends DBContext {
 
     public boolean cancelSupplier(int orderId, int tourId) {
         String sql = "UPDATE [dbo].[OrderDetail] "
-                + "SET [status] = 'Reject' "
+                + "SET [status] = N'Hủy đơn hàng' "
                 + "WHERE orderId = ? AND tourId = ?";
         try ( PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, orderId);
