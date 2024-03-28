@@ -857,7 +857,7 @@ public class sendEmailConfirm {
                     + "        Dưới đây là một số thông tin quan trọng và lịch trình chuẩn bị cho chuyến đi của Quý vị:<br><br>"
                     + "        Địa điểm tập trung: Đại học FPT<br>"
                     + "        Ngày Bắt Đầu Chuyến Đi: " + ngaydi + "<br>"
-                    + "        Ngày Kết Thúc Chuyến Đi:" + ngaydi + "<br><br>"
+//                    + "        Ngày Kết Thúc Chuyến Đi:" + ngaydi + "<br><br>"
                     + "        Lịch Trình Chuẩn Bị:<br><br>"
                     + "        1. Kiểm tra và xác nhận lại thông tin về chuyến đi.<br>"
                     + "        2. Lập danh sách các hoạt động và địa điểm mà bạn muốn trải nghiệm trong chuyến đi của mình.<br>"
