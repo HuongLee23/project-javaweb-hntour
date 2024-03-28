@@ -2385,7 +2385,7 @@ public class DAO extends DBContext {
                 + "JOIN \n"
                 + "    [HaNoiTour].[dbo].[Account] AS Account ON [Order].accId = Account.id \n"
                 + "WHERE \n"
-                + "    supplierId = ?;";
+                + "    supplierId = ? AND OrderDetail.status=N'Xác nhận đơn hàng';";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -2407,6 +2407,53 @@ public class DAO extends DBContext {
         }
         return list;
     }
+
+    public List<TopProduct> listInvoiceByDate(int supplierId, LocalDate startDate, LocalDate endDate) {
+    List<TopProduct> list = new ArrayList<>();
+    String sql = "SELECT \n"
+            + "    [Order].id AS InvoiceNumber,\n"
+            + "    Tour.id AS TourId,\n"
+            + "    Tour.name AS TourName,\n"
+            + "    Tour.price AS TourPrice,\n"
+            + "    Account.id AS AccountId,\n"
+            + "    Account.username AS CustomerName,\n"
+            + "    Account.phoneNumber AS CustomerPhone,\n"
+            + "    Account.address AS CustomerAddress,\n"
+            + "    [Order].date AS PurchaseDate\n"
+            + "FROM \n"
+            + "    [HaNoiTour].[dbo].[Tour] AS Tour\n"
+            + "JOIN \n"
+            + "    [HaNoiTour].[dbo].[OrderDetail] AS OrderDetail ON Tour.id = OrderDetail.tourId\n"
+            + "JOIN \n"
+            + "    [HaNoiTour].[dbo].[Order] AS [Order] ON OrderDetail.orderId = [Order].id\n"
+            + "JOIN \n"
+            + "    [HaNoiTour].[dbo].[Account] AS Account ON [Order].accId = Account.id \n"
+            + "WHERE \n"
+            + "    supplierId = ? AND OrderDetail.status=N'Xác nhận đơn hàng'\n"
+            + "    AND [Order].date BETWEEN ? AND ?;";
+
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, supplierId);
+        st.setDate(2, java.sql.Date.valueOf(startDate));
+        st.setDate(3, java.sql.Date.valueOf(endDate));
+        ResultSet rs = st.executeQuery();
+        DAO d = new DAO();
+        while (rs.next()) {
+            TopProduct tp = new TopProduct();
+            Order order = d.getOrderByID(rs.getInt("InvoiceNumber"));
+            Tour tour = d.getTourByID(rs.getInt("TourId"));
+            Account account = d.getAccountByID(rs.getInt("AccountId"));
+            tp.setOrder(order);
+            tp.setTour(tour);
+            tp.setAccount(account);
+            list.add(tp);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // Handle the exception appropriately
+    }
+    return list;
+}
 
 //list ra các account de nhan voucher
     public List<TopProduct> listAccountsVoucher(int supplierId) {

@@ -71,6 +71,7 @@
 
                             <a class="nav-link" href="listcustomerdamua">
 
+
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
                                 Danh Sách Khách Hàng
                             </a>
@@ -79,6 +80,7 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice" style="color: #ffffff;"></i></div>
                                 Xử lý đơn hàng
                             </a>
+
 
                             <a class="nav-link" href="managertourlist">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table" style="color: #ffffff;"></i></div>
@@ -111,6 +113,24 @@
             <div id="layoutSidenav_content">
                 <main>
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="listcustomerdamua" method="POST">
+                                <div class="mb-3">
+                                    <label for="startDateMua" class="form-label">Từ ngày:</label>
+                                    <input type="date" class="form-control" id="startDateMua" name="startDate">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="endDateMua" class="form-label">Đến ngày:</label>
+                                    <input type="date" class="form-control" id="endDateMua" name="endDate">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                <span>Tìm kiếm ngày mua</span>
+                            </form>
+                        </div>
+                    </div><br>
+
+
                     <div class="card mb-12">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
@@ -133,6 +153,7 @@
                                 </thead>
                                 <tbody>
                                     <c:forEach items="${requestScope.listInvoice}" var="o">
+
                                         <tr>
 
                                             <td>${o.tour.name}</td>

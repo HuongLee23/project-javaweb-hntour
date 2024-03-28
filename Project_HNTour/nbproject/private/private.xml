@@ -3,19 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/historyorderdetail.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/nbproject/private/private.xml</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/ulti/PasswordEncryption.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/home.jsp</file>
-            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerAdmin/AddAccountServlet.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/EditTour.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/ChartDoanhThu.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/tourdetail.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/WEB-INF/web.xml</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/DashboardSupplier.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/login.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerSupplier/ListCustomerDamua.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/view/admin/manageraccount.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/ManagerTour.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/ManagerBlogs.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/build.xml</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/confirmOrder.jsp</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/register.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/DAOConfirmOrder.java</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/controllerSupplier/ConfirmOrder.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/src/java/dal/DAO.java</file>
+            <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/aboutUs.jsp</file>
             <file>file:/C:/Kỳ%205/SWP391/projectteam3/Project_HNTour/web/DanhSachKhachHangDamua.jsp</file>
         </group>
     </open-files>

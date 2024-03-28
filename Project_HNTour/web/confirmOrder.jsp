@@ -85,7 +85,6 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-ticket" style="color: #ffffff;"></i></div>
                                 Voucher
                             </a>
-
                             <a class="nav-link" href="chart">
 
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
@@ -96,135 +95,171 @@
                     </div>
                 </nav>
             </div>
+
+
             <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Danh sách khách hàng mua
-
-                            </div>
-                            <div class="card-body" style="text-align: center">
-                                <h3 style="color: red">${sessionScope.msRegisterSupplier}</h3>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                    </div>
+                <main>           
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form action="confirmorder" method="POST">
+                                        <div class="mb-3">
+                                            <label for="startDateMua" class="form-label">Từ ngày:</label>
+                                            <input type="date" class="form-control" id="startDateMua" name="startDateMua">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="endDateMua" class="form-label">Đến ngày:</label>
+                                            <input type="date" class="form-control" id="endDateMua" name="endDateMua">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                        <span>Tìm kiếm ngày mua</span>
+                                    </form>
                                 </div>
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Tên khách hàng</th>
-                                            <th>Số điện thoại</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Tên Tour</th>
-                                            <th>Giá</th>
-                                            <th>Số lượng</th>
-                                            <th>Ngày mua</th>
-                                            <th>Ngày đi</th>
-                                            <th>Trạng thái</th>
-                                            <th>Xác nhận</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${requestScope.confirmod}" var="o">
-                                            <tr>
-                                                <td>${o.account.username}</td>
-                                                <td>${o.account.phoneNumber}</td>
-                                                <td>${o.account.address}</td>
-                                                <td>${o.tour.name}</td>
-                                                <td><fmt:formatNumber value="${o.orderdetail.price}" pattern="###,###"/> VND</td>
-                                                <td>${o.orderdetail.quantity}</td>
-                                                <td>${o.order.date}</td>
-                                                <td>${o.orderdetail.dateDeparture}</td>
-                                                <c:if test="${o.orderdetail.status == 'Đang xử lý'}">
-                                                    <td style="color: #0d6efd">${o.orderdetail.status}</td>
-                                                </c:if>
-                                                <c:if test="${o.orderdetail.status == 'Hủy đơn hàng'}">
-                                                    <td style="color: red">${o.orderdetail.status}</td>
-                                                </c:if>
-                                                <c:if test="${o.orderdetail.status == 'Xác nhận đơn hàng'}">
-                                                    <td style="color: #198754">${o.orderdetail.status}</td>
-                                                </c:if>
-                                                <td>
-                                                    <c:if test="${o.orderdetail.status == 'Đang xử lý'}">
-                                                        <form id="acceptForm" action="sendconfirmod">
-                                                            <input type="hidden" name="action" value="accept"> <!-- Trường ẩn để xác định hành động là chấp nhận -->
-                                                            <input type="hidden" name="tourId" value="${o.tour.id}"/>
-                                                            <input type="hidden" name="orderId" value="${o.order.id}"/>
-                                                            <input type="hidden" name="ngaydi" value="${o.orderdetail.dateDeparture}"/>
-                                                            <input type="hidden" name="nametour" value="${o.tour.name}"/>
-                                                            <input type="hidden" name="email" value="${o.account.email}"/>
-                                                            <input class="confirm-btn" type="button" value="Chấp nhận" onclick="confirmAction('accept', this)"/>
-                                                        </form>
-                                                        <br/>
-                                                        <form id="rejectForm" action="sendconfirmod">
-                                                            <input type="hidden" name="action" value="reject"> <!-- Trường ẩn để xác định hành động là chấp nhận -->
-                                                            <input type="hidden" name="tourId" value="${o.tour.id}"/>
-                                                            <input type="hidden" name="orderId" value="${o.order.id}"/>
-                                                            <input type="hidden" name="ngaydi" value="${o.orderdetail.dateDeparture}"/>
-                                                            <input type="hidden" name="nametour" value="${o.tour.name}"/>
-                                                            <input type="hidden" name="email" value="${o.account.email}"/>
-                                                            <input class="confirm-btn" type="button" value="Từ chối" onclick="confirmAction('reject', this)"/>
-                                                        </form>
-
-                                                        <script>
-                                                            function confirmAction(action, button) {
-                                                                var message;
-                                                                var form = button.closest('form'); // Tìm form gần nhất chứa nút được nhấp vào
-
-                                                                if (action === 'accept') {
-                                                                    message = "Bạn có chắc chắn muốn chấp nhận đơn hàng này?";
-                                                                } else if (action === 'reject') {
-                                                                    message = "Bạn có chắc chắn muốn từ chối đơn hàng này?";
-                                                                }
-
-                                                                if (confirm(message)) {
-                                                                    if (form) {
-                                                                        form.submit(); // Nếu form tồn tại, gửi nó đi
-                                                                    }
-                                                                }
-                                                            }
-                                                        </script>
-                                                    </c:if>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
-
-
-
-
-
+                                <div class="col-md-6">
+                                    <form action="confirmorder" method="POST">
+                                        <div class="mb-3">
+                                            <label for="startDateDi" class="form-label">Từ ngày:</label>
+                                            <input type="date" class="form-control" id="startDateDi" name="startDateDi">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="endDateDi" class="form-label">Đến ngày:</label>
+                                            <input type="date" class="form-control" id="endDateDi" name="endDateDi">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                        <span>Tìm kiếm ngày đi</span>
+                                    </form>
+                                </div>
                             </div>
+                            Danh sách khách hàng mua
 
                         </div>
-                    </div>
+                        <div class="card-body" style="text-align: center">
+                            <h3 style="color: red">${sessionScope.msRegisterSupplier}</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!--        <form action="confirmorder" method="post">
+                                                <div class="mb-3">
+                                                    <label for="startDate" class="form-label">Từ ngày:</label>
+                                                    <input type="date" class="form-control" id="startDate" name="startDate">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="endDate" class="form-label">Đến ngày:</label>
+                                                    <input type="date" class="form-control" id="endDate" name="endDate">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Lọc</button>
+                                            </form>-->
+                                </div>
+                            </div>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Tên Tour</th>
+                                        <th>Giá</th>
+                                        <th>Tên khách hàng</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Số lượng</th>
+                                        <th>Ngày mua</th>
+                                        <th>Ngày đi</th>
+                                        <th>Trạng thái</th>
+                                        <th>Xác nhận</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.confirmod}" var="o">
+                                        <tr>
+                                            <td>${o.tour.name}</td>
+                                            <td><fmt:formatNumber value="${o.tour.price}" pattern="###,###"/> VND</td>
+                                            <td>${o.account.username}</td>
+                                            <td>${o.account.phoneNumber}</td>
+                                            <td>${o.account.address}</td>
+                                            <td>${o.orderdetail.quantity}</td>
+                                            <td>${o.order.date}</td>
+                                            <td>${o.orderdetail.dateDeparture}</td>
+                                            <td>${o.orderdetail.status}</td>
+                                            <td>
+                                                <c:if test="${o.orderdetail.status == 'Đang xử lý'}">
+                                                    <form id="acceptForm" action="sendconfirmod">
+                                                        <input type="hidden" name="action" value="accept"> <!-- Trường ẩn để xác định hành động là chấp nhận -->
+                                                        <input type="hidden" name="tourId" value="${o.tour.id}"/>
+                                                        <input type="hidden" name="orderId" value="${o.order.id}"/>
+                                                        <input type="hidden" name="ngaydi" value="${o.orderdetail.dateDeparture}"/>
+                                                        <input type="hidden" name="nametour" value="${o.tour.name}"/>
+                                                        <input type="hidden" name="email" value="${o.account.email}"/>
+                                                        <input class="confirm-btn" type="button" value="Chấp nhận" onclick="confirmAction('accept', this)"/>
+                                                    </form>
+                                                    <br/>
+                                                    <form id="rejectForm" action="sendconfirmod">
+                                                        <input type="hidden" name="action" value="reject"> <!-- Trường ẩn để xác định hành động là chấp nhận -->
+                                                        <input type="hidden" name="tourId" value="${o.tour.id}"/>
+                                                        <input type="hidden" name="orderId" value="${o.order.id}"/>
+                                                        <input type="hidden" name="ngaydi" value="${o.orderdetail.dateDeparture}"/>
+                                                        <input type="hidden" name="nametour" value="${o.tour.name}"/>
+                                                        <input type="hidden" name="email" value="${o.account.email}"/>
+                                                        <input class="confirm-btn" type="button" value="Từ chối" onclick="confirmAction('reject', this)"/>
+                                                    </form>
 
-                </main>
+
+
+                                                    <script>
+                                                        function confirmAction(action, button) {
+                                                            var message;
+                                                            var form = button.closest('form'); // Tìm form gần nhất chứa nút được nhấp vào
+
+                                                            if (action === 'accept') {
+                                                                message = "Bạn có chắc chắn muốn chấp nhận đơn hàng này?";
+                                                            } else if (action === 'reject') {
+                                                                message = "Bạn có chắc chắn muốn từ chối đơn hàng này?";
+                                                            }
+
+                                                            if (confirm(message)) {
+                                                                if (form) {
+                                                                    form.submit(); // Nếu form tồn tại, gửi nó đi
+                                                                }
+                                                            }
+                                                        }
+                                                    </script>
+                                                </c:if>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+
+
+
+
+
+                        </div>
+
+                    </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+<footer class="py-4 bg-light mt-auto">
+    <div class="container-fluid px-4">
+        <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+            <div>
+                <a href="#">HaNoiTour</a>
+                &middot;
+                <a href="#">Terms &amp; Conditions</a>
             </div>
         </div>
-        <footer class="py-4 bg-light mt-auto">
-            <div class="container-fluid px-4">
-                <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                    <div>
-                        <a href="#">HaNoiTour</a>
-                        &middot;
-                        <a href="#">Terms &amp; Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
+</footer>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/chart-area-demo.js"></script>
+<script src="assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script src="js/datatables-simple-demo.js"></script>
 </body>
 </html>
