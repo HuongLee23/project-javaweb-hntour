@@ -92,31 +92,6 @@
                                                     <option>03</option>
                                                 </select>
                                             </div>
-                                            <div class="more_options">
-                                                <div class="more_options_trigger">
-                                                    <a href="#">load more options</a>
-                                                </div>
-                                                <ul class="more_options_list clearfix">
-                                                    <li class="more_options_item">
-                                                        <div class="clearfix">
-                                                            <input type="checkbox" id="more_options_1" class="search_extras_cb">
-                                                            <label for="more_options_1">Price Under 500</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="more_options_item">
-                                                        <div class="clearfix">
-                                                            <input type="checkbox" id="more_options_2" class="search_extras_cb">
-                                                            <label for="more_options_2">Price Between 500 and 1000</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="more_options_item">
-                                                        <div class="clearfix">
-                                                            <input type="checkbox" id="more_options_3" class="search_extras_cb">
-                                                            <label for="more_options_3">Price Above 1000</label>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                             <button class="button search_button">tìm kiếm<span></span><span></span><span></span></button>
                                         </form>
                                     </div>

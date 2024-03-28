@@ -6,6 +6,8 @@
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +55,7 @@
                         </div>
 
                         <div class="col-sm-6">
-                            <a href="home" class="btn btn-primary">Trở lại trang Home</a>
+                            <a href="statistic?supplierId=${sessionScope.account.id}" class="btn btn-primary">Trở lại</a>
                             <a href="addtour?supplierID=${a.id}" class="btn btn-success">
                                 Tạo Tour Mới
                             </a>
@@ -84,40 +86,26 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>
-                        <span class="custom-checkbox">
-                            <input type="checkbox" id="selectAll">
-                            <label for="selectAll"></label>
-                        </span>
-                    </th>
-                    <th>Tên</th>
                     <th>Hình ảnh</th>
+                    <th>Tên</th>
                     <th>Thời gian dự kiến</th> 
                     <th>Giá</th>
-                    <th>Miêu tả</th>
+                    <!--<th>Miêu tả</th>-->
 
-                    <th>Version</th>
+                    <th>Phiên bản</th>
                     <th>Trạng thái</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach items="${requestScope.tour}" var="c">
                     <tr>
-
-                        <td>
-
-                            <span class="custom-checkbox">
-                                <input type="checkbox">
-
-                            </span>
-                        </td>
-                        <td>${c.name}</td>
                         <td>
                             <img src="${c.imageMain}" alt="${c.name}" width="200"/>
                         </td>
+                        <td>${c.name}</td>
                         <td>${c.intendedTime}</td>
-                        <td>${c.price}</td>
-                        <td>${c.description}</td>
+                        <td><fmt:formatNumber value="${c.price}" pattern="###,###"/> VNÐ</td>
+                        <!--<td>${c.description}</td>-->
 
                         <td>${c.version}</td>
                         <td>
@@ -140,9 +128,6 @@
                             <a href="loadtour?tid=${c.id}" class="edit" data-toggle="modal">
                                 <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                             </a>
-        <!--                    <a href="delete?tid=${c.id}" class="delete" data-toggle="modal">
-                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                            </a>-->
                         </td>
                     </tr>
                 </c:forEach>

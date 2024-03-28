@@ -236,7 +236,7 @@
 
                                     <!-- CTA Slider Item -->
                                     <div class="owl-item cta_item text-center">
-                                        <div class="cta_title">The proposal</div>
+                                        <div class="cta_title">Chào mừng bạn đến với Hà Nội Tour</div>
                                         <!--                                            <div class="rating_r rating_r_4">
                                                                                         <i></i>
                                                                                         <i></i>

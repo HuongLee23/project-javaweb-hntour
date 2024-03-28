@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="fontawesome/css/all.min.css"> <!-- https://fontawesome.com/ -->
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> 
         <link href="blog/bootstrap.min.css" rel="stylesheet">
-        <link href="blog/templatemo-xtra-blog.css" rel="stylesheet">
+        <!--<link href="blog/templatemo-xtra-blog.css" rel="stylesheet">-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -144,12 +144,10 @@
                         </div>
                         <aside class=" tm-aside-col">
                             <div class="tm-post-sidebar">
-
-
                                 <div class="sidebar_latest_posts">
-                                    <div class="sidebar_title">Latest Posts</div>
+                                    <div class="sidebar_title">Bài viết mới nhất</div>
                                     <div class="latest_posts_container">
-                                        <c:forEach items="${lasted}" var="l">
+                                        <c:forEach items="${requestScope.lasted}" var="l">
                                             <ul>
                                                 <!-- Latest Post -->
                                                 <li class="latest_post clearfix">
@@ -168,6 +166,8 @@
                                         </c:forEach>
                                     </div>
                                 </div>
+
+
                             </div>                    
                         </aside>
                     </div>

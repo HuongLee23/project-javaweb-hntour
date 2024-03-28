@@ -1842,12 +1842,12 @@ public class DAO extends DBContext {
                 order = new OrderDetail();
                 order.setOrderId(rs.getInt("orderId"));
                 order.setTourId(rs.getInt("tourId"));
-
+                order.setDateDeparture(rs.getString("dateDeparture"));
                 order.setQuantity(rs.getInt("quantity"));
                 order.setPrice(rs.getDouble("price"));
                 order.setVersionId(rs.getInt("versionId"));
                 order.setVoucherId(rs.getInt("voucherId"));
-
+                order.setStatus(rs.getString("status"));
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Handle the exception appropriately
@@ -2385,7 +2385,7 @@ public class DAO extends DBContext {
                 + "JOIN \n"
                 + "    [HaNoiTour].[dbo].[Account] AS Account ON [Order].accId = Account.id \n"
                 + "WHERE \n"
-                + "    supplierId = ?;";
+                + "    supplierId = ? AND OrderDetail.status=N'Xác nhận đơn hàng';";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -2407,6 +2407,53 @@ public class DAO extends DBContext {
         }
         return list;
     }
+
+    public List<TopProduct> listInvoiceByDate(int supplierId, LocalDate startDate, LocalDate endDate) {
+    List<TopProduct> list = new ArrayList<>();
+    String sql = "SELECT \n"
+            + "    [Order].id AS InvoiceNumber,\n"
+            + "    Tour.id AS TourId,\n"
+            + "    Tour.name AS TourName,\n"
+            + "    Tour.price AS TourPrice,\n"
+            + "    Account.id AS AccountId,\n"
+            + "    Account.username AS CustomerName,\n"
+            + "    Account.phoneNumber AS CustomerPhone,\n"
+            + "    Account.address AS CustomerAddress,\n"
+            + "    [Order].date AS PurchaseDate\n"
+            + "FROM \n"
+            + "    [HaNoiTour].[dbo].[Tour] AS Tour\n"
+            + "JOIN \n"
+            + "    [HaNoiTour].[dbo].[OrderDetail] AS OrderDetail ON Tour.id = OrderDetail.tourId\n"
+            + "JOIN \n"
+            + "    [HaNoiTour].[dbo].[Order] AS [Order] ON OrderDetail.orderId = [Order].id\n"
+            + "JOIN \n"
+            + "    [HaNoiTour].[dbo].[Account] AS Account ON [Order].accId = Account.id \n"
+            + "WHERE \n"
+            + "    supplierId = ? AND OrderDetail.status=N'Xác nhận đơn hàng'\n"
+            + "    AND [Order].date BETWEEN ? AND ?;";
+
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, supplierId);
+        st.setDate(2, java.sql.Date.valueOf(startDate));
+        st.setDate(3, java.sql.Date.valueOf(endDate));
+        ResultSet rs = st.executeQuery();
+        DAO d = new DAO();
+        while (rs.next()) {
+            TopProduct tp = new TopProduct();
+            Order order = d.getOrderByID(rs.getInt("InvoiceNumber"));
+            Tour tour = d.getTourByID(rs.getInt("TourId"));
+            Account account = d.getAccountByID(rs.getInt("AccountId"));
+            tp.setOrder(order);
+            tp.setTour(tour);
+            tp.setAccount(account);
+            list.add(tp);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // Handle the exception appropriately
+    }
+    return list;
+}
 
 //list ra các account de nhan voucher
     public List<TopProduct> listAccountsVoucher(int supplierId) {
@@ -2579,23 +2626,24 @@ public class DAO extends DBContext {
     public List<HistoryOrder> getHistoryOrder(int idAcc) {
         List<HistoryOrder> list = new ArrayList<>();
         String sql = "SELECT \n"
-                + "    T.supplierId as [orderId], \n"
-                + "	O.[id] AS InvoiceNumber, \n"
-                + "	T.[id] AS TourId,\n"
-                + "    S.[accId] as SupplierId ,\n"
-                + "	C.[id] as CategoryId,\n"
-                + "\n"
-                + "    COUNT(*) AS TotalOrders,\n"
-                + "    STRING_AGG(T.name, ', ') AS OrderedTours\n"
-                + "FROM\n"
-                + "    OrderDetail OD  JOIN  Tour T ON OD.tourId = T.id\n"
-                + "           JOIN [Order] O ON OD.orderId = O.id JOIN  Supplier S ON T.supplierId = S.accId  JOIN Category C ON C.[id]=T.[categoryId]\n"
-                + "WHERE\n"
-                + "    O.accId = ?\n"
-                + "GROUP BY\n"
-                + "    T.supplierId, S.[accId], O.[id],T.[id],C.[id]\n"
-                + "ORDER BY\n"
-                + "    T.supplierId;";
+                + "   T.supplierId,\n"
+                + "        OD.[orderId] as [orderId], \n"
+                + "     O.[id] AS InvoiceNumber, \n"
+                + "             T.[id] AS TourId,\n"
+                + "                S.[accId] as SupplierId ,\n"
+                + "            	C.[id] as CategoryId, \n"
+                + "             \n"
+                + "                 COUNT(*) AS TotalOrders,\n"
+                + "              STRING_AGG(T.name, ', ') AS OrderedTours\n"
+                + "              FROM\n"
+                + "                 OrderDetail OD  JOIN  Tour T ON OD.tourId = T.id\n"
+                + "                        JOIN [Order] O ON OD.orderId = O.id JOIN  Supplier S ON T.supplierId = S.accId  JOIN Category C ON C.[id]=T.[categoryId]\n"
+                + "                WHERE\n"
+                + "                   O.accId = ?\n"
+                + "                GROUP BY\n"
+                + "                  T.supplierId, OD.[orderId], S.[accId], O.[id],T.[id],C.[id]\n"
+                + "                ORDER BY\n"
+                + "                  T.supplierId;";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, idAcc);
@@ -2796,7 +2844,9 @@ public class DAO extends DBContext {
 
     public static void main(String[] args) {
         // Assuming you have a DAO instance
-
+        DAO dao = new DAO();
+        List< HistoryOrder> his = dao.getHistoryOrder(5);
+        System.out.println(his);
     }
 
 }
