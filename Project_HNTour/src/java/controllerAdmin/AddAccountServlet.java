@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -72,24 +73,29 @@ public class AddAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
         String role_raw = request.getParameter("role");
         String email = request.getParameter("email");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         AccountDAO accountDao = new AccountDAO();
         try {
-            int role = Integer.parseInt(role_raw);
-            boolean result = accountDao.registerAccount(email, username, password, role);
-            if (result) {
-                request.setAttribute("messAdd", "Thêm tài khoản thành công");
+            boolean checkEmail = accountDao.checkAccountExistByEmail(email);
+            if (checkEmail) {
+                session.setAttribute("messAddAccount", "Tài khoản này đã tồn tại!");
             } else {
-                request.setAttribute("messAdd", "Thêm tài khoản thất bại!");
+                int role = Integer.parseInt(role_raw);
+                boolean result = accountDao.registerAccount(email, username, password, role);
+                if (result) {
+                    session.setAttribute("messAddAccount", "Thêm tài khoản thành công");
+                } else {
+                    session.setAttribute("messAddAccount", "Thêm tài khoản thất bại!");
+                }
             }
-            response.sendRedirect("manageraccount");
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
+        response.sendRedirect("manageraccount");
     }
 
     /**

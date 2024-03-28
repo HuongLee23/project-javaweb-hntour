@@ -26,17 +26,19 @@
             <div class="col-lg-3 footer_column">
                 <div class="footer_col">
                     <div class="footer_title">Bài viết</div>
-                    <c:forEach items="${lastedBlog}" var="l">
+                    <c:forEach items="${sessionScope.lasted}" var="l">
                         <div class="footer_content footer_blog">
 
                             <!-- Footer blog item -->
-                            <div class="footer_blog_item clearfix">
-                                <div class="footer_blog_image"><a href="blogdetail?id=${l.bid}"><img src="${l.image}" alt="blog"></a></div>
-                                <div class="footer_blog_content">
-                                    <div class="footer_blog_title"><a href="blogdetail?id=${l.bid}"></a>${l.title}</div>
-                                    <div class="footer_blog_date">${l.publishDate}</div>
+                            <a href="blogdetail?id=${l.bid}">
+                                <div class="footer_blog_item clearfix">
+                                    <div class="footer_blog_image"><a href="blogdetail?id=${l.bid}"><img src="${l.image}" alt="blog"></a></div>
+                                    <div class="footer_blog_content">
+                                        <div class="footer_blog_title">${l.title}</div>
+                                        <div class="footer_blog_date">${l.publishDate}</div>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </c:forEach>
                 </div>
@@ -108,11 +110,11 @@
                 <div class="footer_nav_container d-flex flex-row align-items-center justify-content-lg-end">
                     <div class="footer_nav">
                         <ul class="footer_nav_list">
-                            <li class="footer_nav_item"><a href="home">home</a></li>
-                            <li class="footer_nav_item"><a href="tourlist">Tour</a></li>
-                            <li class="footer_nav_item"><a href="aboutUs.jsp">about us</a></li>
-                            <li class="footer_nav_item"><a href="blogs.jsp">news</a></li>
-                            <li class="footer_nav_item"><a href="contact.jsp">contact</a></li>
+                            <li class="footer_nav_item"><a href="home">Trang chủ</a></li>
+                            <li class="footer_nav_item"><a href="tourlist">Khám phá</a></li>
+                            <li class="footer_nav_item"><a href="aboutUs.jsp">Về Hà Nội Tour</a></li>
+                            <li class="footer_nav_item"><a href="blog">Diễn đàn</a></li>
+                            <li class="footer_nav_item"><a href="contact.jsp">Liên hệ</a></li>
                         </ul>
                     </div>
                 </div>

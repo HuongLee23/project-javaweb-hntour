@@ -61,7 +61,7 @@
             <div class="home">
                 <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/about_background.jpg"></div>
                 <div class="home_content">
-                    <div class="home_title">Tour detail</div>
+                    <div class="home_title" style="color: black">Lịch sử mua hàng</div>
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
                         <!-- Page header -->
                         <div class="border-bottom pb-3 mb-3 ">
                             <div class="mb-2 mb-lg-0">
-                                <h1 class="mb-0 h2 fw-bold">Lịch sử mua hàng </h1>
+                                <!--<h1 class="mb-0 h2 fw-bold">Lịch sử mua hàng</h1>-->
 
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between">
                                             <!-- link -->
-                                            <a href="#">Xem trạng thái</a>
+
                                         </div>
                                     </div>
 
@@ -117,26 +117,43 @@
                                 </c:if>
 
 
-                                    <div class="row justify-content-between align-items-center" style="margin-bottom: 10px;">
+                                <div class="row justify-content-between align-items-center" style="margin-bottom: 10px;">
                                     <div class="col-lg-8 col-12">
                                         <div class="d-md-flex">
                                             <div>
                                                 <!-- img -->
-                                                <img style="width: 16rem; height: 10rem;" src="${ho.tour.imageMain}" alt="hiii" class="img-4by3-xl rounded">
+                                                <img style="width: 16rem; height: 12rem;" src="${ho.tour.imageMain}" alt="hiii" class="img-4by3-xl rounded">
                                             </div>
                                             <div class="ms-md-4 mt-2 mt-lg-0">
                                                 <!-- heading -->
                                                 <h5 class="mb-1">${ho.tour.name}</h5>
                                                 <!-- text -->
-                                                <span>Giá gốc: <span class="text-dark"><fmt:formatNumber value="${ho.tour.price}" pattern="###,###"/>VNÐ</span><br>
+                                                <c:if test="${ho.orderdetail.voucherId != 0}">
+                                                    <span>Giá bán: <span style="color: #757582 !important; text-decoration: line-through !important; " class="text-dark"><fmt:formatNumber value="${ho.tour.price}" pattern="###,###"/>VNÐ</span><br>
+                                                        <span style="color: #f0552d !important;">Áp mã giảm giá: <span style="color: #f0552d !important;" class="text-dark"><fmt:formatNumber value="${ho.orderdetail.price}" pattern="###,###"/>VNÐ</span></span><br>
+                                                    </c:if>
+                                                    <c:if test="${ho.orderdetail.voucherId == 0}">
+                                                        <span>Giá mua: <span class="text-dark"><fmt:formatNumber value="${ho.orderdetail.price}" pattern="###,###"/>VNÐ</span></span> <br>
+                                                    </c:if>
+
+
                                                     Số lượng: <span class="text-dark">${ho.orderdetail.quantity}</span></span><br>
-                                                <span>Phân loại: <span class="text-dark">${ho.category.name}</span><br>
-                                                    Ngày mua: <span class="text-dark">${ho.order.date}</span></span><br>
+                                                Ngày mua: <span class="text-dark">${ho.order.date}</span></span><br>
+                                                Ngày đi: <span class="text-dark">${ho.orderdetail.dateDeparture}</span></span><br>
                                                 <!-- text -->
                                                 <%--<c:if test="${ho.orderdetail.voucherId != 0}">--%>
-                                                    <div class="mt-3">
-                                                        <h5><fmt:formatNumber value="${ho.orderdetail.price}" pattern="###,###"/>VNÐ</h5>
-                                                    </div>
+                                                <div class="mt-3">
+                                                    <c:if test="${ho.orderdetail.status == 'Đang xử lý'}">
+                                                        <h5> Trạng thái: <span class="text-dark" style="color: #0d6efd !important">${ho.orderdetail.status}</span></h5>
+                                                        </c:if>
+                                                        <c:if test="${ho.orderdetail.status == 'Hủy đơn hàng'}">
+                                                        <h5> Trạng thái: <span class="text-dark" style="color: red !important">${ho.orderdetail.status}</span></h5>
+                                                        </c:if>
+                                                        <c:if test="${ho.orderdetail.status == 'Xác nhận đơn hàng'}">
+                                                        <h5> Trạng thái: <span class="text-dark" style="color: #198754 !important">${ho.orderdetail.status}</span></h5>
+                                                        </c:if>
+
+                                                </div>
                                                 <%--</c:if>--%>
                                             </div>
                                         </div>

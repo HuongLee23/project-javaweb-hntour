@@ -151,7 +151,7 @@
 
 
                                 <div class="form-group">
-                                    <label>Tổng thời gian Tour</label>
+                                    <label>Thời gian khởi hành</label>
                                     <input value="${tour.intendedTime}" name="time" type="time" class="form-control" required >
                                 </div>
                                 <div>

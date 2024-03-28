@@ -72,14 +72,17 @@
                                                 <option value="1">Công Khai</option>
                                                 <option value="0">Ẩn</option>
                                             </c:when>
-                                          
+                                          <c:when test="${blog.status == 0}">
+                                                <option value="0">Ẩn</option>
+                                                <option value="1">Công Khai</option>
+                                            </c:when>
                                            
                                         </c:choose>
                                     </select>
                                 </div>
 
                                 <div class="modal-footer">
-                                    <a href="managerblogs" class="btn btn-primary">Chuyển về Mânger Blogs</a>
+                                    <a href="managerblogs" class="btn btn-primary">Trở lại</a>
                                     <input type="submit" class="btn btn-success" value="Chỉnh sửa">
                                 </div>
                             </div>

@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Blog;
 import model.Cart;
 import model.Category;
 import model.FeedbackWeb;
@@ -69,6 +70,7 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         DAO dao = new DAO();
         HttpSession session = request.getSession();
+        List<Blog> list_lasted = dao.getBlogLasted(1);
 
         List<Tour> list = dao.getAllTour();
         Cookie[] arr = request.getCookies();
@@ -97,6 +99,7 @@ public class HomeServlet extends HttpServlet {
             List<FeedbackWeb> listFeedbacks = dao.getListFeedbackWeb();
             session.setAttribute("sizeCart", size);
             session.setAttribute("listItem", listItem);
+            session.setAttribute("lasted", list_lasted);
 
             request.setAttribute("listFeedbacks", listFeedbacks);
             request.setAttribute("listCategory", listCategory);
@@ -137,4 +140,3 @@ public class HomeServlet extends HttpServlet {
     }// </editor-fold>
 
 }
-

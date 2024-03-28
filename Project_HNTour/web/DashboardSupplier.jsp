@@ -31,7 +31,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="manageraccount">Quản lý</a>
+            <a class="navbar-brand ps-3" href="statistic?supplierId=${sessionScope.account.id}">Quản lý</a>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
                     <input class="form-control" type="text" oninput="searchAccountByAll(this)" data-role="0" name="txt" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
@@ -69,6 +69,10 @@
                                 Danh Sách Khách Hàng
                             </a>
 
+                            <a class="nav-link" href="confirmorder">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice" style="color: #ffffff;"></i></div>
+                                Xử lý đơn hàng
+                            </a>
 
                             <a class="nav-link" href="managertourlist">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table" style="color: #ffffff;"></i></div>
@@ -90,11 +94,6 @@
                                 Biểu đồ thống kê
                             </a>
 
-                            <a class="nav-link" href="confirmorder">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
-
-                                Xử lý đơn hàng
-                            </a>
                         </div>
                     </div>
                 </nav>
@@ -153,7 +152,7 @@
 
 
                         <div class="row">
-                            <div class="col-xl-4">
+                            <div class="col-xl-5">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-area me-1"></i>
@@ -185,7 +184,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-8">
+                            <div class="col-xl-7">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
@@ -198,7 +197,6 @@
                                                     <th>Email khách hàng</th>
                                                     <th>Tên khách hàng</th>
                                                     <th>Số điện thoại</th>
-                                                    <th>Địa chỉ</th>
                                                     <th>Voucher</th> 
                                                 </tr>
                                             </thead>
@@ -216,7 +214,6 @@
                                                         </td>
                                                         <td>${listTA.account.username}</td>
                                                         <td>${listTA.account.phoneNumber}</td>
-                                                        <td>${listTA.account.address}</td>
                                                         <td>
                                                             <i onclick="window.location.href = 'tangvoucher?aid=${listTA.account.id}'" class="fa-solid fa-gift fa-shake" style="color: #00ad4b;"></i>
                                                         </td>

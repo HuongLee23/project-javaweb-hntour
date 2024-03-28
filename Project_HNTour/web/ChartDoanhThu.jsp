@@ -27,7 +27,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="manageraccount">Quản lý</a>
+            <a class="navbar-brand ps-3" href="statistic?supplierId=${sessionScope.account.id}">Quản lý</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -54,15 +54,23 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
+
                             <a class="nav-link" href="statistic?supplierId=${sessionScope.account.id}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
+
                                 Trang Chủ
                             </a>
 
                             <a class="nav-link" href="listcustomerdamua">
 
+
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
                                 Danh Sách Khách Hàng
+                            </a>
+
+                            <a class="nav-link" href="confirmorder">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice" style="color: #ffffff;"></i></div>
+                                Xử lý đơn hàng
                             </a>
 
 
@@ -86,11 +94,7 @@
                                 Biểu đồ thống kê
                             </a>
 
-                            <a class="nav-link" href="confirmorder">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
 
-                                Xử lý đơn hàng
-                            </a>
                         </div>
                     </div>
                 </nav>
