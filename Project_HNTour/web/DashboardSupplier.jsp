@@ -152,7 +152,7 @@
 
 
                         <div class="row">
-                            <div class="col-xl-4">
+                            <div class="col-xl-5">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-area me-1"></i>
@@ -184,7 +184,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-8">
+                            <div class="col-xl-7">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
@@ -197,7 +197,6 @@
                                                     <th>Email khách hàng</th>
                                                     <th>Tên khách hàng</th>
                                                     <th>Số điện thoại</th>
-                                                    <th>Địa chỉ</th>
                                                     <th>Voucher</th> 
                                                 </tr>
                                             </thead>
@@ -215,7 +214,6 @@
                                                         </td>
                                                         <td>${listTA.account.username}</td>
                                                         <td>${listTA.account.phoneNumber}</td>
-                                                        <td>${listTA.account.address}</td>
                                                         <td>
                                                             <i onclick="window.location.href = 'tangvoucher?aid=${listTA.account.id}'" class="fa-solid fa-gift fa-shake" style="color: #00ad4b;"></i>
                                                         </td>

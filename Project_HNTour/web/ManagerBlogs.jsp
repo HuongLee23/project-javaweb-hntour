@@ -51,7 +51,7 @@
                             <h2>Manage <b>Blogs</b></h2>
                         </div>
                         <div class="col-sm-6"> 
-                            <a href="home" class="btn btn-primary">Trở lại trang Home</a>	
+                            <a href="statistic?supplierId=${sessionScope.account.id}" class="btn btn-primary">Trở lại trang Home</a>	
                             <a href="addblog?id=${a.id}" class="btn btn-success" data-toggle="modal">
                                 <i class="material-icons">&#xE147;</i> <span>Add New Blogs</span>
                             </a>

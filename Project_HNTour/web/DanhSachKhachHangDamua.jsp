@@ -142,11 +142,11 @@
                                 <thead>
                                     <tr>
 
-                                        <th>Tên sản phẩm</th>
-                                        <th>Giá</th>
                                         <th>Tên khách hàng</th>
                                         <th>Số điện thoại</th>
                                         <th>Địa chỉ</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Giá</th>
                                         <th>Ngày mua</th>
                                         <th>Voucher</th> 
                                     </tr>
@@ -156,11 +156,11 @@
 
                                         <tr>
 
-                                            <td>${o.tour.name}</td>
-                                            <td><fmt:formatNumber value="${o.tour.price}" pattern="###,###"/> VND</td>
                                             <td>${o.account.username}</td>
                                             <td>${o.account.phoneNumber}</td>
                                             <td>${o.account.address}</td>
+                                            <td>${o.tour.name}</td>
+                                            <td><fmt:formatNumber value="${o.tour.price}" pattern="###,###"/> VND</td>
                                             <td>${o.order.date}</td>
                                             <td>
                                                 <i onclick="window.location.href = 'tangvoucher?aid=${o.account.id}'" class="fa-solid fa-gift fa-shake" style="color: #00ad4b;"></i>
@@ -172,7 +172,7 @@
 
 
                             <div class="clearfix">
-                                <div class="hint-text">Showing Product</div>
+                                <!--<div class="hint-text">Showing Product</div>-->
                                 <div>
                                     <form action="inexcel" method="get">
                                         <button type="submit" class="btn btn-success">

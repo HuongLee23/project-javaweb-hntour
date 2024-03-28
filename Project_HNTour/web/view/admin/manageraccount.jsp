@@ -96,13 +96,24 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="card mb-4">
                         <div class="card-header" onclick="openForm(this)">
                             <span style="cursor: pointer">
                                 <i class="fas fa-table me-1"></i>
                                 Accounts (<i class="fa-solid fa-plus" style="color: greenyellow;"></i>)
                             </span>
+                            <c:if test="${sessionScope.messAddAccount == 'Thêm tài khoản thành công'}">
+                                <span style="margin-left: 400px; color:greenyellow;">
+                                    ${sessionScope.messAddAccount}
+                                </span>
+                            </c:if>
+                            <c:if test="${sessionScope.messAddAccount != 'Thêm tài khoản thành công'}">
+                                <span style="margin-left: 400px; color:red;">
+                                    ${sessionScope.messAddAccount}
+                                </span>
+                            </c:if>
+
                         </div>
 
                         <div  class="card-body">
