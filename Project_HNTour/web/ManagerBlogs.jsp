@@ -68,9 +68,9 @@
                                     <label for="selectAll"></label>
                                 </span>
                             </th>
-                            <th>Tên</th>
                             <th>Hình ảnh</th>
-                            <th>Nội dung</th> 
+                            <th>Tên</th>
+                            <!--<th>Nội dung</th>--> 
                             <th>Ngày đăng</th>
                             <th>Trạng Thái</th>
                             <th>Chỉnh sửa</th>
@@ -85,21 +85,21 @@
                                         <label for="checkbox${b.bid}"></label>
                                     </span>
                                 </td>
-                                <td>${b.title}</td>
                                 <td>
                                     <img src="${b.image}" alt="${b.title}" width="200"/>
                                 </td>
-                                <td>
+                                <td>${b.title}</td>
+<!--                                <td>
                                     <c:choose>
-                                        <c:when test="${fn:length(b.content) > 200}">
-                                            ${fn:substring(b.content, 0, 200)}...
+                                        <c:when test="${fn:length(b.content) > 80}">
+                                            ${fn:substring(b.content, 0, 80)}...
                                         </c:when>
                                         <c:otherwise>
                                             ${b.content}
                                         </c:otherwise>
                                     </c:choose>
 
-                                </td>
+                                </td>-->
                                 <td>${b.publishDate}</td>
                                 <td>
                                     <c:choose>
