@@ -310,9 +310,7 @@ public class AdminDAO extends DBContext {
         return false;
     }
 
-
-    public boolean updateInforCustomer(int id, String name, 
-
+    public boolean updateInforCustomer(int id, String name,
             String email, String phoneNumber, String address
     ) {
         String sql = "UPDATE [dbo].[Account]\n"

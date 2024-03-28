@@ -1,17 +1,15 @@
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
 
-
 /**
  *
  * @author hello
  */
 public class OrderDetail {
+
     private int orderId, tourId;
     private int quantity;
     private double price;
@@ -97,6 +95,5 @@ public class OrderDetail {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-}
 
+}

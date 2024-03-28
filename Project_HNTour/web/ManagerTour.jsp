@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="col-sm-6">
-                            <a href="home" class="btn btn-primary">Trở lại trang Home</a>
+                            <a href="statistic?supplierId=${sessionScope.account.id}" class="btn btn-primary">Trở lại</a>
                             <a href="addtour?supplierID=${a.id}" class="btn btn-success">
                                 Tạo Tour Mới
                             </a>

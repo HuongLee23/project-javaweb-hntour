@@ -8,6 +8,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -61,45 +62,73 @@ public class DAOConfirmOrder extends DBContext {
         return null;
     }
 
-    public List<TopProduct> sortDateConfirm(int supplierId, String startDate, String endDate) {
-        List<TopProduct> list = new ArrayList<>();
-        try {
-            String sql = "SELECT TOP (1000) od.[orderId] as InvoiceNumber, od.[tourId], od.[quantity], od.[price], od.[dateDeparture], od.[status], od.[versionId], od.[voucherId], \\n\" +\n"
-                    + "    \"                   t.id as TourId, t.[name], t.[imageMain] , \\n\" +\n"
-                    + "    \"                   a.id as AccountId, a.[email], a.[username] , a.[address] , a.[avatar] , a.[phoneNumber]\\n\" +\n"
-                    + "    \"FROM [HaNoiTour].[dbo].[OrderDetail] od\\n\" +\n"
-                    + "    \"INNER JOIN [HaNoiTour].[dbo].[Order] o ON od.[orderId] = o.[id]\\n\" +\n"
-                    + "    \"INNER JOIN [HaNoiTour].[dbo].[Tour] t ON od.[tourId] = t.[id]\\n\" +\n"
-                    + "    \"INNER JOIN [HaNoiTour].[dbo].[Account] a ON o.[accId] = a.[id]\\n\" +\n"
-                    + "    \"WHERE t.[supplierId] = ?\\n\" +\n"
-                    + "    \"AND FORMAT(o.[date], 'MM-dd-yyyy') >= ?\n"
-                    + "    \"AND FORMAT(o.[date], 'MM-dd-yyyy') <= ?";
-
-            try ( PreparedStatement stm = connection.prepareStatement(sql)) {
-                stm.setInt(1, supplierId);
-                stm.setString(2, startDate);
-                stm.setString(3, endDate);
-                ResultSet rs = stm.executeQuery();
-                DAO d = new DAO();
-                while (rs.next()) {
-                    TopProduct tp = new TopProduct();
-                    Order order1 = d.getOrderByID(rs.getInt("InvoiceNumber"));
-                    OrderDetail order = d.getOrderDetailByID(rs.getInt("InvoiceNumber"), rs.getInt("TourId"));
-                    Tour tour = d.getTourByID(rs.getInt("TourId"));
-                    Account account = d.getAccountByID(rs.getInt("AccountId"));
-                    tp.setOrder(order1);
-                    tp.setOrderdetail(order);
-                    tp.setTour(tour);
-                    tp.setAccount(account);
-                    list.add(tp);
-
-                }
-                return list;
+    
+    
+    public List<TopProduct> searchOrdersByDateRange(int supplierId, LocalDate startDate, LocalDate endDate) throws SQLException {
+        List<TopProduct> orders = new ArrayList<>();
+        String sql = "SELECT od.[orderId] as InvoiceNumber, od.[tourId], od.[quantity], od.[price], od.[dateDeparture], od.[status], od.[versionId], od.[voucherId], " +
+                     "t.id as TourId, t.[name], t.[imageMain], " +
+                     "a.id as AccountId, a.[email], a.[username], a.[address], a.[avatar], a.[phoneNumber] " +
+                     "FROM [HaNoiTour].[dbo].[OrderDetail] od " +
+                     "INNER JOIN [HaNoiTour].[dbo].[Order] o ON od.[orderId] = o.[id] " +
+                     "INNER JOIN [HaNoiTour].[dbo].[Tour] t ON od.[tourId] = t.[id] " +
+                     "INNER JOIN [HaNoiTour].[dbo].[Account] a ON o.[accId] = a.[id] " +
+                     "WHERE t.[supplierId] = ? " +
+                     "AND o.[date] BETWEEN ? AND ?";
+        
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, supplierId);
+            stm.setDate(2, java.sql.Date.valueOf(startDate));
+            stm.setDate(3, java.sql.Date.valueOf(endDate));
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                TopProduct tp = new TopProduct();
+                Order order1 = new DAO().getOrderByID(rs.getInt("InvoiceNumber"));
+                OrderDetail order = new DAO().getOrderDetailByID(rs.getInt("InvoiceNumber"), rs.getInt("TourId"));
+                Tour tour = new DAO().getTourByID(rs.getInt("TourId"));
+                Account account = new DAO().getAccountByID(rs.getInt("AccountId"));
+                tp.setOrder(order1);
+                tp.setOrderdetail(order);
+                tp.setTour(tour);
+                tp.setAccount(account);
+                orders.add(tp);
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         }
-        return null;
+        return orders;
+    }
+
+    
+    public List<TopProduct> searchOrdersByDateDi(int supplierId, LocalDate startDate, LocalDate endDate) throws SQLException {
+        List<TopProduct> orders = new ArrayList<>();
+        String sql = "SELECT od.[orderId] as InvoiceNumber, od.[tourId], od.[quantity], od.[price], od.[dateDeparture], od.[status], od.[versionId], od.[voucherId], " +
+                     "t.id as TourId, t.[name], t.[imageMain], " +
+                     "a.id as AccountId, a.[email], a.[username], a.[address], a.[avatar], a.[phoneNumber] " +
+                     "FROM [HaNoiTour].[dbo].[OrderDetail] od " +
+                     "INNER JOIN [HaNoiTour].[dbo].[Order] o ON od.[orderId] = o.[id] " +
+                     "INNER JOIN [HaNoiTour].[dbo].[Tour] t ON od.[tourId] = t.[id] " +
+                     "INNER JOIN [HaNoiTour].[dbo].[Account] a ON o.[accId] = a.[id] " +
+                     "WHERE t.[supplierId] = ? " +
+                     "AND od.[dateDeparture] BETWEEN ? AND ?";
+        
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, supplierId);
+            stm.setDate(2, java.sql.Date.valueOf(startDate));
+            stm.setDate(3, java.sql.Date.valueOf(endDate));
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                TopProduct tp = new TopProduct();
+                Order order1 = new DAO().getOrderByID(rs.getInt("InvoiceNumber"));
+                OrderDetail order = new DAO().getOrderDetailByID(rs.getInt("InvoiceNumber"), rs.getInt("TourId"));
+                Tour tour = new DAO().getTourByID(rs.getInt("TourId"));
+                Account account = new DAO().getAccountByID(rs.getInt("AccountId"));
+                tp.setOrder(order1);
+                tp.setOrderdetail(order);
+                tp.setTour(tour);
+                tp.setAccount(account);
+                orders.add(tp);
+            }
+        }
+        return orders;
     }
 
     public static void main(String[] args) {
@@ -125,9 +154,12 @@ public class DAOConfirmOrder extends DBContext {
         }
     }
 
+
+
+
     public boolean confirmSupplier(int orderId, int tourId) {
         String sql = "UPDATE [dbo].[OrderDetail] "
-                + "SET [status] = 'Accept' "
+                + "SET [status] = N'Xác nhận đơn hàng' "
                 + "WHERE orderId = ? AND tourId = ?";
         try ( PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, orderId);
@@ -139,11 +171,13 @@ public class DAOConfirmOrder extends DBContext {
             // Xử lý ngoại lệ nếu cần thiết
             return false;
         }
+
     }
+
 
     public boolean cancelSupplier(int orderId, int tourId) {
         String sql = "UPDATE [dbo].[OrderDetail] "
-                + "SET [status] = 'Reject' "
+                + "SET [status] = N'Hủy đơn hàng' "
                 + "WHERE orderId = ? AND tourId = ?";
         try ( PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, orderId);
@@ -155,6 +189,7 @@ public class DAOConfirmOrder extends DBContext {
             // Xử lý ngoại lệ nếu cần thiết
             return false;
         }
+
     }
 
 }

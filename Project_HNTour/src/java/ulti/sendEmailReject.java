@@ -26,6 +26,7 @@ import javax.mail.internet.MimeUtility;
  * @author Admin
  */
 public class sendEmailReject {
+
     public boolean sendMailReject(String email, String nametour, Date ngaydi, String messageEmail) throws UnsupportedEncodingException {
         final String username = "vntraveltouring@gmail.com";
         final String password = "tsbe wzlc rold wikt";
@@ -848,22 +849,20 @@ public class sendEmailReject {
                     + "                                                                                            <tr>\n"
                     + "                                                                                                <td class=\"esd-container-frame\" width=\"540\" align=\"left\">\n"
                     + "                                                                                                    <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n"
-                    + "                                                                                                        <tbody>\n"+
-                                                                                                                      
-                   "    <td class=\\\"esd-block-text es-p20t es-p20b es-m-txt-c\\\" align=\\\"center\\\">" +
-"        <p>Lời Xin Lỗi về Tour không được Chấp Nhận<br><br>" +
-"        Kính gửi Quý Khách hàng yêu quý,<br><br>" +
-"        Chúng tôi xin gửi lời chào và lời xin lỗi chân thành nhất đến quý khách hàng.<br><br>" +
-"        Chúng tôi đã nhận được đơn đặt tour của quý khách hàng và xin chân thành thông báo rằng tour này đã không được chấp nhận do một số lý do nằm ngoài tầm kiểm soát của chúng tôi.<br><br>" +
-"        Chúng tôi hiểu rằng sự không chấp nhận của tour này có thể gây ra sự phiền toái và thất vọng cho quý khách hàng, và chúng tôi xin được gửi lời xin lỗi sâu sắc từ đáy lòng của chúng tôi.<br>" +
-"        Để bù đắp cho sự bất tiện này, chúng tôi sẽ hoàn trả lại toàn bộ số tiền đã thanh toán cho tour này vào tài khoản của quý khách hàng ngay lập tức. Nếu có bất kỳ thắc mắc hoặc yêu cầu đặc biệt nào, xin vui lòng liên hệ với bộ phận chăm sóc khách hàng của chúng tôi qua số điện thoại [0928008008] hoặc email [vntraveltouring@gmail.com].<br>" +
-"        Chúng tôi hi vọng rằng quý khách hàng sẽ thông cảm và tiếp tục tin tưởng HaNoiTour trong những dịch vụ du lịch sắp tới. Chúng tôi cam kết sẽ cải thiện dịch vụ của mình và tạo ra những trải nghiệm du lịch tốt nhất cho quý khách hàng.<br><br>" +
-"        Một lần nữa, xin lỗi về sự bất tiện này và cảm ơn quý khách hàng đã luôn ủng hộ HaNoiTour.<br><br>" +
-"        Trân trọng,<br>" +
-"        [HaNoiTour]</p>" +
-"    </td>" +
-"</tr>\n"
-                                                                                                                         
+                    + "                                                                                                        <tbody>\n"
+                    + "    <td class=\\\"esd-block-text es-p20t es-p20b es-m-txt-c\\\" align=\\\"center\\\">"
+                    + "       <br>"
+                    + "        Kính gửi: Quý Khách hàng yêu quý<br><br>"
+                    + "        Chúng tôi xin gửi lời chào và lời xin lỗi chân thành nhất đến quý khách hàng.<br><br>"
+                    + "        Chúng tôi đã nhận được đơn đặt tour của quý khách hàng và xin chân thành thông báo rằng tour này đã không được chấp nhận do một số lý do nằm ngoài tầm kiểm soát của chúng tôi.<br><br>"
+                    + "        Chúng tôi hiểu rằng sự không chấp nhận của tour này có thể gây ra sự phiền toái và thất vọng cho quý khách hàng, và chúng tôi xin được gửi lời xin lỗi sâu sắc từ đáy lòng của chúng tôi.<br>"
+                    + "        Để bù đắp cho sự bất tiện này, chúng tôi sẽ hoàn trả lại toàn bộ số tiền đã thanh toán cho tour này vào tài khoản của quý khách hàng ngay lập tức. Nếu có bất kỳ thắc mắc hoặc yêu cầu đặc biệt nào, xin vui lòng liên hệ với bộ phận chăm sóc khách hàng của chúng tôi qua số điện thoại [0928008008] hoặc email [vntraveltouring@gmail.com].<br>"
+                    + "        Chúng tôi hi vọng rằng quý khách hàng sẽ thông cảm và tiếp tục tin tưởng HaNoiTour trong những dịch vụ du lịch sắp tới. Chúng tôi cam kết sẽ cải thiện dịch vụ của mình và tạo ra những trải nghiệm du lịch tốt nhất cho quý khách hàng.<br><br>"
+                    + "        Một lần nữa, xin lỗi về sự bất tiện này và cảm ơn quý khách hàng đã luôn ủng hộ HaNoiTour.<br><br>"
+                    + "        Trân trọng,<br>"
+                    + "        [HaNoiTour]</p>"
+                    + "    </td>"
+                    + "</tr>\n"
                     + "                                                                                                                    <td style=\"padding: 15px;width: 150px; background-color: #ebebeb;\" class=\"esd-block-text es-p20t es-p20b es-m-txt-c\" align=\"center\">\n"
                     + "                                                                                                                    </td>\n"
                     + "                                                                                                            </tr>\n"

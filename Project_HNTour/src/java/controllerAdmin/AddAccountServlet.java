@@ -72,7 +72,6 @@ public class AddAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String role_raw = request.getParameter("role");
         String email = request.getParameter("email");
         String username = request.getParameter("username");
@@ -86,10 +85,10 @@ public class AddAccountServlet extends HttpServlet {
             } else {
                 request.setAttribute("messAdd", "Thêm tài khoản thất bại!");
             }
-            response.sendRedirect("manageraccount");
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
+        response.sendRedirect("manageraccount");
     }
 
     /**

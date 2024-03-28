@@ -14,9 +14,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>HaNoiTour</title>
+        <title>Hà Nội Tour</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/2ab805f98d.js" crossorigin="anonymous"></script>
     </head>
@@ -27,7 +28,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">HaNoiTour</a>
+            <a class="navbar-brand ps-3" href="statistic?supplierId=${sessionScope.account.id}">Quản lý</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -66,6 +67,10 @@
                                 Danh Sách Khách Hàng
                             </a>
 
+                            <a class="nav-link" href="confirmorder">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-file-invoice" style="color: #ffffff;"></i></div>
+                                Xử lý đơn hàng
+                            </a>
 
                             <a class="nav-link" href="managertourlist">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table" style="color: #ffffff;"></i></div>
@@ -80,96 +85,123 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-ticket" style="color: #ffffff;"></i></div>
                                 Voucher
                             </a>
-
-                            <a class="nav-link" href="chart">
+ <a class="nav-link" href="chart">
 
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area " style="color: #ffffff;"></i></div>
                                 Biểu đồ thống kê
                             </a>
 
-                            <a class="nav-link" href="confirmorder">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt" style="color: #ffffff;"></i></div>
-
-                                Xử lý đơn hàng
-                            </a>
                         </div>
                     </div>
                 </nav>
             </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Danh sách khách hàng mua
 
-                            </div>
-                            <div class="card-body" style="text-align: center">
-                                <h3 style="color: red">${sessionScope.msRegisterSupplier}</h3>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <!--        <form action="confirmorder" method="post">
-                                                    <div class="mb-3">
-                                                        <label for="startDate" class="form-label">Từ ngày:</label>
-                                                        <input type="date" class="form-control" id="startDate" name="startDate">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="endDate" class="form-label">Đến ngày:</label>
-                                                        <input type="date" class="form-control" id="endDate" name="endDate">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Lọc</button>
-                                                </form>-->
-                                    </div>
-                                </div>
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Tên Tour</th>
-                                            <th>Giá</th>
-                                            <th>Tên khách hàng</th>
-                                            <th>Số điện thoại</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Số lượng</th>
-                                            <th>Ngày mua</th>
-                                            <th>Ngày đi</th>
-                                            <th>Trạng thái</th>
-                                            <th>Xác nhận</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${requestScope.confirmod}" var="o">
-                                            <tr>
-                                                <td>${o.tour.name}</td>
-                                                <td><fmt:formatNumber value="${o.tour.price}" pattern="###,###"/> VND</td>
-                                                <td>${o.account.username}</td>
-                                                <td>${o.account.phoneNumber}</td>
-                                                <td>${o.account.address}</td>
-                                                <td>${o.orderdetail.quantity}</td>
-                                                <td>${o.order.date}</td>
-                                                <td>${o.orderdetail.dateDeparture}</td>
-                                                <td>${o.orderdetail.status}</td>
-                                                <td>
-                                                    <c:if test="${o.orderdetail.status == 'Processing'}">
-                                                        <form id="acceptForm" action="sendconfirmod">
-                                                            <input type="hidden" name="action" value="accept"> <!-- Trường ẩn để xác định hành động là chấp nhận -->
-                                                            <input type="hidden" name="tourId" value="${o.tour.id}"/>
-                                                            <input type="hidden" name="orderId" value="${o.order.id}"/>
-                                                            <input type="hidden" name="ngaydi" value="${o.orderdetail.dateDeparture}"/>
-                                                            <input type="hidden" name="nametour" value="${o.tour.name}"/>
-                                                            <input type="hidden" name="email" value="${o.account.email}"/>
-                                                            <input class="confirm-btn" type="button" value="Chấp nhận" onclick="confirmAction('accept', this)"/>
-                                                        </form>
-                                                        <br/>
-                                                        <form id="rejectForm" action="sendconfirmod">
-                                                            <input type="hidden" name="action" value="reject"> <!-- Trường ẩn để xác định hành động là chấp nhận -->
-                                                            <input type="hidden" name="tourId" value="${o.tour.id}"/>
-                                                            <input type="hidden" name="orderId" value="${o.order.id}"/>
-                                                            <input type="hidden" name="ngaydi" value="${o.orderdetail.dateDeparture}"/>
-                                                            <input type="hidden" name="nametour" value="${o.tour.name}"/>
-                                                            <input type="hidden" name="email" value="${o.account.email}"/>
-                                                            <input class="confirm-btn" type="button" value="Từ chối" onclick="confirmAction('reject', this)"/>
-                                                        </form>
+                                
+                     <div id="layoutSidenav_content">
+                <main>           
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                         <div class="row">
+    <div class="col-md-6">
+        <form action="confirmorder" method="POST">
+            <div class="mb-3">
+                <label for="startDateMua" class="form-label">Từ ngày:</label>
+                <input type="date" class="form-control" id="startDateMua" name="startDateMua">
+            </div>
+            <div class="mb-3">
+                <label for="endDateMua" class="form-label">Đến ngày:</label>
+                <input type="date" class="form-control" id="endDateMua" name="endDateMua">
+            </div>
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            <span>Tìm kiếm ngày mua</span>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form action="confirmorder" method="POST">
+            <div class="mb-3">
+                <label for="startDateDi" class="form-label">Từ ngày:</label>
+                <input type="date" class="form-control" id="startDateDi" name="startDateDi">
+            </div>
+            <div class="mb-3">
+                <label for="endDateDi" class="form-label">Đến ngày:</label>
+                <input type="date" class="form-control" id="endDateDi" name="endDateDi">
+            </div>
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            <span>Tìm kiếm ngày đi</span>
+        </form>
+    </div>
+</div>
+                        Danh sách khách hàng mua
+                       
+    </div>
+                    <div class="card-body" style="text-align: center">
+                         <h3 style="color: red">${sessionScope.msRegisterSupplier}</h3>
+                         <div class="row">
+    <div class="col-md-6">
+<!--        <form action="confirmorder" method="post">
+            <div class="mb-3">
+                <label for="startDate" class="form-label">Từ ngày:</label>
+                <input type="date" class="form-control" id="startDate" name="startDate">
+            </div>
+            <div class="mb-3">
+                <label for="endDate" class="form-label">Đến ngày:</label>
+                <input type="date" class="form-control" id="endDate" name="endDate">
+            </div>
+            <button type="submit" class="btn btn-primary">Lọc</button>
+        </form>-->
+    </div>
+</div>
+                        <table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Tên Tour</th>
+            <th>Giá</th>
+            <th>Tên khách hàng</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+            <th>Số lượng</th>
+            <th>Ngày mua</th>
+            <th>Ngày đi</th>
+            <th>Trạng thái</th>
+            <th>Xác nhận</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach items="${requestScope.confirmod}" var="o">
+            <tr>
+                <td>${o.tour.name}</td>
+                <td><fmt:formatNumber value="${o.tour.price}" pattern="###,###"/> VND</td>
+                <td>${o.account.username}</td>
+                <td>${o.account.phoneNumber}</td>
+                <td>${o.account.address}</td>
+                <td>${o.orderdetail.quantity}</td>
+                <td>${o.order.date}</td>
+                <td>${o.orderdetail.dateDeparture}</td>
+                <td>${o.orderdetail.status}</td>
+                <td>
+                    <c:if test="${o.orderdetail.status == 'Đang xử lý'}">
+                        <form id="acceptForm" action="sendconfirmod">
+                            <input type="hidden" name="action" value="accept"> <!-- Trường ẩn để xác định hành động là chấp nhận -->
+                            <input type="hidden" name="tourId" value="${o.tour.id}"/>
+                            <input type="hidden" name="orderId" value="${o.order.id}"/>
+                            <input type="hidden" name="ngaydi" value="${o.orderdetail.dateDeparture}"/>
+                            <input type="hidden" name="nametour" value="${o.tour.name}"/>
+                            <input type="hidden" name="email" value="${o.account.email}"/>
+                            <input class="confirm-btn" type="button" value="Chấp nhận" onclick="confirmAction('accept', this)"/>
+                        </form>
+                        <br/>
+                        <form id="rejectForm" action="sendconfirmod">
+                            <input type="hidden" name="action" value="reject"> <!-- Trường ẩn để xác định hành động là chấp nhận -->
+                            <input type="hidden" name="tourId" value="${o.tour.id}"/>
+                            <input type="hidden" name="orderId" value="${o.order.id}"/>
+                            <input type="hidden" name="ngaydi" value="${o.orderdetail.dateDeparture}"/>
+                            <input type="hidden" name="nametour" value="${o.tour.name}"/>
+                            <input type="hidden" name="email" value="${o.account.email}"/>
+                            <input class="confirm-btn" type="button" value="Từ chối" onclick="confirmAction('reject', this)"/>
+                        </form>
+                            
+                         
 
                                                         <script>
                                                             function confirmAction(action, button) {
