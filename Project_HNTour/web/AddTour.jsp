@@ -19,7 +19,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>HaNoiTour</title>
+        <title>Hà Nội Tour</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -56,7 +56,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
 
-                        <form action="addtour" method="post">
+                        <form action="addtour" method="post" onsubmit="return validateScheduleTime();">
 
                             <div class="modal-header">						
                                 <h4 class="modal-title">Tạo tour mới</h4>
@@ -141,14 +141,8 @@
                                         }
                                     }
                                 </script>
-
-
-
-
-
-
                                 <div class="form-group">
-                                    <label>Tổng thời gian Tour</label>
+                                    <label>Thời gian khởi hành</label>
                                     <input name="time" type="time" class="form-control" required>
                                 </div>
                                 <div class="form-group">
@@ -240,7 +234,7 @@
 
 
                                 <div class="modal-footer">
-                                    <a href="managertourlist" class="btn btn-primary">Trở lại trang quản lý</a>
+                                    <a href="managertourlist" class="btn btn-primary">Trở lại</a>
                                     <input type="submit" class="btn btn-success" value="Tạo Tour">
                                 </div>
                         </form>
@@ -253,8 +247,28 @@
 
         <script src="js/manager.js" type="text/javascript"></script>
         <script>
-                                    CKEDITOR.replace('describe');
-                                    CKEDITOR.replace('describe1');
+                                    function validateScheduleTime() {
+                                        var schedulesTable = document.getElementById("schedulesTable");
+                                        var rows = schedulesTable.getElementsByTagName("tr");
+
+                                        var newTimeInput = rows[rows.length - 1].querySelector("input[name^='datenew']");
+
+                                        for (var i = 0; i < rows.length - 1; i++) {
+                                            var timeInput = rows[i].querySelector("input[name^='datenew']");
+                                            if (timeInput && newTimeInput) {
+                                                if (timeInput.value < newTimeInput.value) {
+                                                    return true; // Thời gian hợp lệ, có thể thêm lịch trình mới
+                                                }
+                                            }
+                                        }
+
+                                        alert("Thời gian mới phải lớn hơn thời gian của các lịch trình trước đó.");
+                                        return false; // Thời gian không hợp lệ, không thêm lịch trình mới
+                                    }
+        </script>
+        <script>
+            CKEDITOR.replace('describe');
+            CKEDITOR.replace('describe1');
         </script>
     </body>
 

@@ -18,11 +18,11 @@
         <link rel="stylesheet" href="fontawesome/css/all.min.css"> <!-- https://fontawesome.com/ -->
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> 
         <link href="blog/bootstrap.min.css" rel="stylesheet">
-        <!--<link href="blog/templatemo-xtra-blog.css" rel="stylesheet">-->
+        <link href="blog/templatemo-xtra-blog.css" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="shortcut icon" type="image/png" href="./assets/img/test.png">
@@ -58,13 +58,13 @@
                             <div class="col-12">
                                 <hr class="tm-hr-primary tm-mb-55">
                                 <!-- Video player 1422x800 -->
-                                <img width="954" height="535" src="${detailblog.image}" controls class="tm-mb-40">
+                                <img style="margin-left: -128px;" width="954" height="535" src="${detailblog.image}" controls class="tm-mb-40">
 
 
                             </img>
                         </div>
                     </div>
-                    <div class="row tm-row">
+                    <div class="row tm-row" style="justify-content: space-between;display: flex; margin-left: -150px;">
                         <div class="col-lg-8 tm-post-col">
                             <div class="tm-post-full">                    
                                 <div class="mb-4">
@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                         </div>
-                        <aside class=" tm-aside-col">
+                        <aside class=" tm-aside-col" style="margin: -66px 0 0 12px;">
                             <div class="tm-post-sidebar">
                                 <div class="sidebar_latest_posts">
                                     <div class="sidebar_title">Bài viết mới nhất</div>
@@ -179,6 +179,26 @@
             <jsp:include page="footer.jsp"></jsp:include>
 
         </div>
+        <style>
+            .from-edit-delete{
+                color: #383b43;
+            }
+            .shopee-cart-number-badge{
+                position: relative;
+                border-radius: 2.75rem;
+                min-width: 0.6875rem;
+                line-height: -0.9em;
+                padding: 0 0.3125rem;
+                text-align: center;
+                height: 2rem;
+                border: 0.2rem solid var(--brand-primary-color, #ee4d2d);
+                color: var(--brand-primary-color, #ee4d2d);
+                background-color: #fff;
+                left: 1.4rem;
+                top: -3.3rem;
+                margin-right: 0.125rem;
+            }
+        </style>
 
 
         <script src="js/jquery-3.2.1.min.js"></script>

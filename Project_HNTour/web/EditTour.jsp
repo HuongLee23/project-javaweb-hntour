@@ -4,7 +4,7 @@
     Created on : Oct 20, 2023, 2:43:22 AM
     Author     : Admin
 --%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>HaNoiTour</title>
+        <title>Hà Nội Tour</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -47,7 +47,7 @@
             <div id="editEmployeeModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form action="edittour" method="post">
+                        <form action="edittour" method="post" onsubmit="return validateScheduleTime();">
                             <div class="modal-header">						
                                 <h4 class="modal-title">Sửa Tour</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -145,18 +145,27 @@
                                     }
                                 </script>
 
-
-
-
-
-
                                 <div class="form-group">
                                     <label>Thời gian khởi hành</label>
                                     <input value="${tour.intendedTime}" name="time" type="time" class="form-control" required >
                                 </div>
                                 <div>
                                     <label>Giá</label>
-                                    <input value="${tour.price}" name="price" type="number" class="form-control" required min="0">
+                                    <input id="priceInput" value="${tour.price}" name="price" type="number" class="form-control" required min="0">
+                                    <script>
+//                                        var priceInput = document.getElementById("priceInput");
+//
+//                                        // Sử dụng sự kiện blur để kiểm tra giá trị sau khi nhập
+//                                        priceInput.addEventListener("blur", function () {
+//                                            // Chuyển đổi giá trị nhập vào thành số nguyên
+//                                            var inputValue = parseInt(this.value);
+//
+//                                            if (inputValue > 1000000000) {
+//                                                alert("Giá tiền tour không vượt quá chục triệu.");
+//                                                this.value = ""; // Xóa giá trị nhập vào nếu vượt quá 1 tỷ
+//                                            }
+//                                        });
+                                    </script>
                                 </div>
 
                                 <div class="form-group">
@@ -262,7 +271,7 @@
 
 
                                 <div class="modal-footer">
-                                    <a href="managertourlist" class="btn btn-primary">Trở lại trang quản lý</a>
+                                    <a href="managertourlist" class="btn btn-primary">Trở lại</a>
                                     <input type="submit" class="btn btn-success" value="Sửa">
 
                                 </div>
@@ -277,8 +286,28 @@
 
         <script src="js/manager.js" type="text/javascript"></script>
         <script>
-                                    CKEDITOR.replace('describe');
-                                    CKEDITOR.replace('describe1');
+                                    function validateScheduleTime() {
+                                        var schedulesTable = document.getElementById("schedulesTable");
+                                        var rows = schedulesTable.getElementsByTagName("tr");
+
+                                        var newTimeInput = rows[rows.length - 1].querySelector("input[name^='datenew']");
+
+                                        for (var i = 0; i < rows.length - 1; i++) {
+                                            var timeInput = rows[i].querySelector("input[name^='date']");
+                                            if (timeInput && newTimeInput) {
+                                                if (timeInput.value >= newTimeInput.value) {
+                                                    alert("Thời gian mới phải lớn hơn thời gian của các lịch trình trước đó.");
+                                                    return false; // Thời gian không hợp lệ, không thêm lịch trình mới
+                                                }
+                                            }
+                                        }
+                                        return true; // Thời gian hợp lệ, có thể thêm lịch trình mới
+                                    }
+        </script>
+        <script>
+
+            CKEDITOR.replace('describe');
+            CKEDITOR.replace('describe1');
         </script>
     </body>
 </html>
