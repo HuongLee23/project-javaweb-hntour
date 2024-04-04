@@ -94,8 +94,8 @@
                                         </select>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="managerblogs" class="btn btn-primary">Trở lại trang quản lý</a>
-                                        <input type="submit" class="btn btn-success" value="Tạo Tour">
+                                        <a href="managerblogs" class="btn btn-primary">Trở lại</a>
+                                        <input type="submit" class="btn btn-success" value="Tạo bài viết">
                                     </div>
                                     </form>
                                 </div>

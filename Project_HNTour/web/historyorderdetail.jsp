@@ -90,32 +90,32 @@
                                     <h4 class="mb-0">Đơn hàng của tôi</h4>
                                     <p> Hãy kiểm tra trạng thái của các đơn đặt hàng gần đây, quản lý trả lại và khám phá các sản phẩm tương tự.</p>
                                 </div>
-                                <div class="mb-8">
-                                    <!-- text -->
-                                <c:forEach items="${requestScope.listOrder}" var="ho">
+                                <!-- text -->
+                            <c:forEach items="${requestScope.listOrder}" var="ho">
+                                <div style="margin-top: 3rem;" class="mb-8">
 
                                     <c:if test="${not empty prevSupplierId && ho.supplier.idAcc ne prevSupplierId}">
 
+
+                                    </c:if>
+
+
+                                    <c:if test="${empty prevSupplierId || ho.supplier.idAcc ne prevSupplierId}">
+
+                                        <div class="border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h5 class="mb-0"><a href="supplier?sid=${ho.tour.supplierId}"> ${ho.supplier.nameCompany}</a></h5>
+                                                <span class="ms-2">ID Đơn hàng: ${ho.order.id}</span>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <!-- link -->
+
+                                            </div>
+                                        </div>
+
+                                        <c:set var="prevSupplierId" value="${ho.supplier.idAcc}" />
                                     </div>
                                 </c:if>
-
-
-                                <c:if test="${empty prevSupplierId || ho.supplier.idAcc ne prevSupplierId}">
-
-                                    <div class="border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="mb-0"><a href="supplier?sid=${ho.tour.supplierId}"> ${ho.supplier.nameCompany}</a></h5>
-                                            <span class="ms-2">ID Đơn hàng: ${ho.order.id}</span>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <!-- link -->
-
-                                        </div>
-                                    </div>
-
-                                    <c:set var="prevSupplierId" value="${ho.supplier.idAcc}" />
-                                </c:if>
-
 
                                 <div class="row justify-content-between align-items-center" style="margin-bottom: 10px;">
                                     <div class="col-lg-8 col-12">
@@ -132,7 +132,7 @@
                                                     <span>Giá bán: <span style="color: #757582 !important; text-decoration: line-through !important; " class="text-dark"><fmt:formatNumber value="${ho.tour.price}" pattern="###,###"/>VNÐ</span><br>
                                                         <span style="color: #f0552d !important;">Áp mã giảm giá: <span style="color: #f0552d !important;" class="text-dark"><fmt:formatNumber value="${ho.orderdetail.price}" pattern="###,###"/>VNÐ</span></span><br>
                                                     </c:if>
-                                                    <c:if test="${ho.orderdetail.voucherId == 0}">
+                                                    <c:if test="${ho.orderdetail.voucherId == 0 || ho.orderdetail.voucherId == null}">
                                                         <span>Giá mua: <span class="text-dark"><fmt:formatNumber value="${ho.orderdetail.price}" pattern="###,###"/>VNÐ</span></span> <br>
                                                     </c:if>
 
