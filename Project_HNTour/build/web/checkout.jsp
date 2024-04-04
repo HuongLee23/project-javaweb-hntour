@@ -417,13 +417,23 @@
                                                             <h3 style="color: red;font-size: 23px;">${requestScope.messBuy}</h3>
                                                             <div class="d-flex justify-content-between" style="font-weight: 500;">
                                                                 <p class="mb-2">Tổng tiền</p>
-                                                                <p class="mb-2"><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</p>
+                                                                <c:if test="${i.idVoucher != null && i.idVoucher != 0}">
+                                                                    <p class="mb-0"><fmt:formatNumber value="${i.priceSale}" pattern="###,###"/> VNÐ</p>
+                                                                </c:if>
+                                                                <c:if test="${i.idVoucher == null || i.idVoucher == 0}">
+                                                                    <p class="mb-0"><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</p>
+                                                                </c:if>
                                                             </div>
 
                                                             <div class="d-flex justify-content-between" style="font-weight: 500;">
                                                                 <p class="mb-0">Tiết kiệm</p>
+                                                                <c:if test="${i.idVoucher != null && i.idVoucher != 0}">
+                                                                    <p class="mb-0"><fmt:formatNumber value="${i.price - i.priceSale}" pattern="###,###"/> VNÐ</p>
+                                                                </c:if>
+                                                                <c:if test="${i.idVoucher == null || i.idVoucher == 0}">
+                                                                    <p class="mb-0"><fmt:formatNumber value="0" pattern="###,###"/> VNÐ</p>
+                                                                </c:if>
 
-                                                                <p class="mb-0"><fmt:formatNumber value="${i.priceSale != 0 ? i.price - i.priceSale : 0}" pattern="###,###"/> VNÐ</p>
                                                             </div>
 
                                                             <hr class="my-4">
@@ -431,7 +441,12 @@
                                                             <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
                                                                 <p class="mb-2">Tổng thanh toán</p>
 
-                                                                <p class="mb-2"><fmt:formatNumber value="${i.priceSale != 0 ? i.priceSale : i.price}" pattern="###,###"/> VNÐ</p>
+                                                                <c:if test="${i.idVoucher != null && i.idVoucher != 0}">
+                                                                    <p class="mb-2"><fmt:formatNumber value="${i.priceSale}" pattern="###,###"/> VNÐ</p>
+                                                                </c:if>
+                                                                <c:if test="${i.idVoucher == null || i.idVoucher == 0}">
+                                                                    <p class="mb-2"><fmt:formatNumber value="${i.price}" pattern="###,###"/> VNÐ</p>
+                                                                </c:if>
                                                             </div>
 
                                                             <form id="checkoutForm" action="checkout" method="post" onsubmit="return validateForm()">
